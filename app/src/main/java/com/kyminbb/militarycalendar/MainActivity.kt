@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val firstStart = prefs.getBoolean("firstStart", true)
 
-        // Opens the sign-up page if the application is first-time executed.
+        // Open the sign-up page if the application is first-time executed.
         if (firstStart) {
             startActivity<SettingActivity>()
         }
