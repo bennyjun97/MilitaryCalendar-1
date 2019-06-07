@@ -24,7 +24,7 @@ class SettingActivity : AppCompatActivity() {
         // Initialize the timezone information.
         AndroidThreeTen.init(this)
         setContentView(R.layout.activity_setting)
-
+        //
         // Load the user info if there exists.
         loadData()
 
