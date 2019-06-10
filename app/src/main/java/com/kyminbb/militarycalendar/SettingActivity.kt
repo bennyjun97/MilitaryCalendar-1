@@ -7,6 +7,7 @@ import com.commit451.addendum.threetenabp.toLocalDate
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.jetbrains.anko.startActivity
 import java.util.*
+import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : AppCompatActivity() {
 
