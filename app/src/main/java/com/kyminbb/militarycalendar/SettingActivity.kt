@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,6 +20,8 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 import java.io.IOException
 import java.util.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 
 class SettingActivity : AppCompatActivity() {
 
@@ -44,11 +47,21 @@ class SettingActivity : AppCompatActivity() {
 
         // initialize button texts to today's date
 
-        inputAffiliation.text = "육군"
         inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
         inputEndDate.text = "전역일"
         inputPromotionDate.text = "진급일"
-        //
+
+        //setting the spinner for affiliation
+        var affiliations = arrayOf("육군/의경","해군/해양의무경찰","공군","해병","사회복무요원","의무소방")
+        inputAffiliation.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, affiliations)
+        inputAffiliation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                //affiliations.get(position) is the string of user's affiliation
+                setAffiliation()
+            }
+        }
+
         // Load the user info if there exists.
         loadData()
 
@@ -57,10 +70,6 @@ class SettingActivity : AppCompatActivity() {
             setProfileImage()
         }
 
-        // Update the enlist date.
-        inputAffiliation.setOnClickListener {
-            setAffiliation()
-        }
 
         // Change the ETS date only when automatically added date is inaccurate
         inputEnlistDate.setOnClickListener {
