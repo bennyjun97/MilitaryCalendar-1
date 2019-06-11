@@ -41,6 +41,13 @@ class SettingActivity : AppCompatActivity() {
         // Initialize the timezone information.
         AndroidThreeTen.init(this)
         setContentView(R.layout.activity_setting)
+
+        // initialize button texts to today's date
+
+        inputAffiliation.text = "육군"
+        inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
+        inputEndDate.text = "전역일"
+        inputPromotionDate.text = "진급일"
         //
         // Load the user info if there exists.
         loadData()
@@ -51,17 +58,23 @@ class SettingActivity : AppCompatActivity() {
         }
 
         // Update the enlist date.
-        inputEnlistDate.setOnClickListener {
-            setEnlistDate()
-        }
-
-        // Update the affiliation.
         inputAffiliation.setOnClickListener {
             setAffiliation()
         }
 
+        // Change the ETS date only when automatically added date is inaccurate
+        inputEnlistDate.setOnClickListener {
+            setEnlistDate()
+            setEndDate()
+        }
+
+        // Update the affiliation.
+        inputEndDate.setOnClickListener {
+            setEndDate()
+        }
+
         // Update the promotion dates.
-        inputPromotionDates.setOnClickListener {
+        inputPromotionDate.setOnClickListener {
             setPromotionDates()
         }
 
@@ -162,6 +175,10 @@ class SettingActivity : AppCompatActivity() {
     private fun setEnlistDate() {
         // Use SpinnerDatePicker to select the enlist date.
         // 여기 참고 -> https://github.com/drawers/SpinnerDatePicker
+
+    }
+
+    private fun setEndDate() {
 
     }
 
