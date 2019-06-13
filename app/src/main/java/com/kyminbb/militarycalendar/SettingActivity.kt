@@ -39,7 +39,7 @@ class SettingActivity : AppCompatActivity() {
     // Initialize the user info.
     var userInfo = User()
 
-    val prefs by lazy {getSharedPreferences("prefs", Context.MODE_PRIVATE)} //shared preference 객체, Activity 초기화 이후에 사용
+    val prefs by lazy {getSharedPreferences("prefs", Context.MODE_PRIVATE)} //shared preference 객체, Activity 초기화한 이후에 사용
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
