@@ -33,11 +33,13 @@ class SettingActivity : AppCompatActivity() {
     // Initialize today's date.
     private val today = Calendar.getInstance().toLocalDate()
     private val todayYear = today.year
-    private val todayMonth = today.monthValue - 1
+    private val todayMonth = today.monthValue
     private val todayDay = today.dayOfMonth
 
     // Initialize the user info.
     var userInfo = User()
+
+    val prefs by lazy {getSharedPreferences("prefs", Context.MODE_PRIVATE)} //shared preference 객체, Activity 초기화 이후에 사용
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +60,10 @@ class SettingActivity : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 //affiliations.get(position) is the string of user's affiliation
-                setAffiliation()
+                userInfo.affiliation = affiliations.get(position) //setAffiliation() deleted
             }
         }
+
 
         // Update profile image.
         buttonProfileImage.setOnClickListener {
@@ -132,7 +135,7 @@ class SettingActivity : AppCompatActivity() {
 
     // Load the user info from SharedPreferences.
     private fun loadData() {
-        val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        //val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE) //필드에 선언함
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
@@ -141,9 +144,9 @@ class SettingActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE)
-        val editor = prefs.edit()
-        editor.putBoolean("firstStart", false).apply()
+        //val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE) //필드에 선언함
+        prefs.edit().putBoolean("firstStart", false).apply()
+        prefs.edit().putString("affiliation", userInfo.affiliation).apply()
     }
 
     private fun setProfileImage() {
@@ -216,11 +219,6 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun setEndDate() {
-
-    }
-
-    private fun setAffiliation() {
-        // Use PopupMenu to show the list of affiliations to choose from.
     }
 
     private fun setPromotionDates() {}
