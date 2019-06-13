@@ -45,13 +45,13 @@ class SettingActivity : AppCompatActivity() {
         AndroidThreeTen.init(this)
         setContentView(R.layout.activity_setting)
 
-        // initialize button texts to today's date
+        // Initialize the view.
+        init()
 
-        inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
-        inputEndDate.text = "전역일"
-        inputPromotionDate.text = "진급일"
+        // Load the user info if there exists.
+        loadData()
 
-        //setting the spinner for affiliation
+        // Set the spinner for affiliation.
         var affiliations = arrayOf("육군/의경","해군/해양의무경찰","공군","해병","사회복무요원","의무소방")
         inputAffiliation.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, affiliations)
         inputAffiliation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -62,16 +62,12 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        // Load the user info if there exists.
-        loadData()
-
         // Update profile image.
         buttonProfileImage.setOnClickListener {
             setProfileImage()
         }
 
-
-        // Change the ETS date only when automatically added date is inaccurate
+        // Change the ETS date only when automatically added date is inaccurate.
         inputEnlistDate.setOnClickListener {
             setEnlistDate()
             setEndDate()
@@ -95,7 +91,9 @@ class SettingActivity : AppCompatActivity() {
         }
 
         // Initialize the user info and the activity.
-        buttonInit.setOnClickListener { }
+        buttonInit.setOnClickListener {
+            init()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -123,6 +121,13 @@ class SettingActivity : AppCompatActivity() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
+
+    private fun init() {
+        // Initialize button texts to today's date.
+        inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
+        inputEndDate.text = "전역일"
+        inputPromotionDate.text = "진급일"
     }
 
     // Load the user info from SharedPreferences.
@@ -184,6 +189,7 @@ class SettingActivity : AppCompatActivity() {
     private fun setEnlistDate() {
         // Use SpinnerDatePicker to select the enlist date.
         // 여기 참고 -> https://github.com/drawers/SpinnerDatePicker
+
 
     }
 
