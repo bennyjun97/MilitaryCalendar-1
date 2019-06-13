@@ -52,9 +52,9 @@ class SettingActivity : AppCompatActivity() {
         loadData()
 
         // Set the spinner for affiliation.
-        var affiliations = arrayOf("육군/의경","해군/해양의무경찰","공군","해병","사회복무요원","의무소방")
-        inputAffiliation.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, affiliations)
-        inputAffiliation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        var affiliations = arrayOf("육군/의경", "해군/해양의무경찰", "공군", "해병", "사회복무요원", "의무소방")
+        inputAffiliation.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, affiliations)
+        inputAffiliation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 //affiliations.get(position) is the string of user's affiliation
@@ -188,9 +188,31 @@ class SettingActivity : AppCompatActivity() {
 
     private fun setEnlistDate() {
         // Use SpinnerDatePicker to select the enlist date.
-        // 여기 참고 -> https://github.com/drawers/SpinnerDatePicker
+        // https://github.com/drawers/SpinnerDatePicker
+        val inputDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
+            inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+            setEndDate()
+        }
 
-
+        val dialog = SpinnerDatePickerDialogBuilder()
+            .context(this)
+            .callback(inputDateSetListener)
+            .spinnerTheme(R.style.NumberPickerStyle)
+            .showTitle(true)
+            .showDaySpinner(true)
+        if (userInfo.promotionDates.isEmpty()) {
+            dialog.defaultDate(todayYear, todayMonth, todayDay)
+        } else {
+            dialog.defaultDate(
+                userInfo.promotionDates[Dates.ENLIST.ordinal].year,
+                userInfo.promotionDates[Dates.ENLIST.ordinal].monthValue - 1,
+                userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth
+            )
+        }
+        dialog.maxDate(todayYear + 4, 11, 31)
+            .minDate(todayYear - 5, 0, 1)
+            .build().show()
     }
 
     private fun setEndDate() {
@@ -203,5 +225,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun setPromotionDates() {}
 
-
+    private fun formatDate(date: LocalDate): String {
+        return date.format(DateTimeFormatter.ofPattern("YYYY/MM/dd"))
+    }
 }
