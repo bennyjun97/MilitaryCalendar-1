@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Initialize the timezone information.
         AndroidThreeTen.init(this)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_setting)
 
         val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val firstStart = prefs.getBoolean("firstStart", true)

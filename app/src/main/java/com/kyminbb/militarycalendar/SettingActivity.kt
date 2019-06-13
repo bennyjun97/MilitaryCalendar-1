@@ -69,13 +69,13 @@ class SettingActivity : AppCompatActivity() {
         buttonProfileImage.setOnClickListener {
             setProfileImage()
         }
-
+/*
         // Change the ETS date only when automatically added date is inaccurate.
         inputEnlistDate.setOnClickListener {
             setEnlistDate()
             setEndDate()
         }
-
+*/
         // Update the affiliation.
         inputEndDate.setOnClickListener {
             setEndDate()
@@ -129,6 +129,8 @@ class SettingActivity : AppCompatActivity() {
     private fun init() {
         // Initialize button texts to today's date.
         inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
+
+        // Calculate inputEndDate and inputPromoteDate by given input(inputEndlistDate, affilitaion)
         inputEndDate.text = "전역일"
         inputPromotionDate.text = "진급일"
     }
@@ -139,6 +141,7 @@ class SettingActivity : AppCompatActivity() {
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
+            inputEnlistDate.text = prefs.getString(userInfo.affiliation, "")
         }
     }
 
@@ -188,7 +191,7 @@ class SettingActivity : AppCompatActivity() {
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Select image"), SELECT_PICTURE)
     }
-
+/*
     private fun setEnlistDate() {
         // Use SpinnerDatePicker to select the enlist date.
         // https://github.com/drawers/SpinnerDatePicker
@@ -217,13 +220,13 @@ class SettingActivity : AppCompatActivity() {
             .minDate(todayYear - 5, 0, 1)
             .build().show()
     }
-
+*/
     private fun setEndDate() {
     }
 
     private fun setPromotionDates() {}
-
+/*
     private fun formatDate(date: LocalDate): String {
         return date.format(DateTimeFormatter.ofPattern("YYYY/MM/dd"))
-    }
+    }*/
 }
