@@ -22,6 +22,12 @@ import java.io.IOException
 import java.util.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.google.gson.Gson
+import com.tsongkha.spinnerdatepicker.DatePickerDialog
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
+import kotlinx.android.synthetic.main.activity_setting.view.*
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 
 class SettingActivity : AppCompatActivity() {
 
@@ -39,7 +45,8 @@ class SettingActivity : AppCompatActivity() {
     // Initialize the user info.
     var userInfo = User()
 
-    val prefs by lazy {getSharedPreferences("prefs", Context.MODE_PRIVATE)} //shared preference 객체, Activity 초기화한 이후에 사용
+    // Initialize SharedPreference after the activity is initialized.
+    private val prefs by lazy {getSharedPreferences("prefs", Context.MODE_PRIVATE)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,30 +60,21 @@ class SettingActivity : AppCompatActivity() {
         // Load the user info if there exists.
         loadData()
 
-        // Set the spinner for affiliation.
-        var affiliations = arrayOf("육군/의경", "해군/해양의무경찰", "공군", "해병", "사회복무요원", "의무소방")
-        inputAffiliation.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, affiliations)
-        inputAffiliation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                //affiliations.get(position) is the string of user's affiliation
-                userInfo.affiliation = affiliations.get(position) //setAffiliation() deleted
-            }
-        }
-
-
         // Update profile image.
         buttonProfileImage.setOnClickListener {
             setProfileImage()
         }
-/*
+
+        // Update the affiliation.
+        setAffiliation()
+
         // Change the ETS date only when automatically added date is inaccurate.
         inputEnlistDate.setOnClickListener {
             setEnlistDate()
             setEndDate()
         }
-*/
-        // Update the affiliation.
+
+        // Update the end date.
         inputEndDate.setOnClickListener {
             setEndDate()
         }
@@ -127,17 +125,15 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        // Initialize button texts to today's date.
+        buttonProfileImage.setImageResource(R.drawable.profile)
+        inputName.text.clear()
         inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
-
-        // Calculate inputEndDate and inputPromoteDate by given input(inputEndlistDate, affilitaion)
         inputEndDate.text = "전역일"
         inputPromotionDate.text = "진급일"
     }
 
     // Load the user info from SharedPreferences.
     private fun loadData() {
-        //val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE) //필드에 선언함
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
@@ -147,9 +143,12 @@ class SettingActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        //val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE) //필드에 선언함
-        prefs.edit().putBoolean("firstStart", false).apply()
-        prefs.edit().putString("affiliation", userInfo.affiliation).apply()
+        userInfo.name = inputName.text.toString()
+
+        val editor = prefs.edit()
+        val jsonString = Gson().toJson(userInfo)
+        editor.putString("userInfo", jsonString)
+            .putBoolean("firstStart", false).apply()
     }
 
     private fun setProfileImage() {
@@ -191,13 +190,26 @@ class SettingActivity : AppCompatActivity() {
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Select image"), SELECT_PICTURE)
     }
-/*
+
+    private fun setAffiliation() {
+        // Use spinner to select the affiliation.
+        var affiliations = arrayOf("육군/의경", "해군/해양의무경찰", "공군", "해병", "사회복무요원", "의무소방")
+        inputAffiliation.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, affiliations)
+        inputAffiliation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Affiliations[position] is the string of user's affiliation
+                userInfo.affiliation = affiliations[position]
+            }
+        }
+    }
+
     private fun setEnlistDate() {
         // Use SpinnerDatePicker to select the enlist date.
         // https://github.com/drawers/SpinnerDatePicker
         val inputDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
-            inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+            inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
             setEndDate()
         }
 
@@ -220,13 +232,13 @@ class SettingActivity : AppCompatActivity() {
             .minDate(todayYear - 5, 0, 1)
             .build().show()
     }
-*/
+
     private fun setEndDate() {
     }
 
     private fun setPromotionDates() {}
-/*
+
     private fun formatDate(date: LocalDate): String {
         return date.format(DateTimeFormatter.ofPattern("YYYY/MM/dd"))
-    }*/
+    }
 }
