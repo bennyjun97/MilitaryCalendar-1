@@ -137,18 +137,39 @@ class SettingActivity : AppCompatActivity() {
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
-            inputEnlistDate.text = prefs.getString(userInfo.affiliation, "")
+
+            // load datas including name, affiliation, enlistdate, enddate, promotion date
+            // load from the User.kt (data class)
+            // data would be saved as JSon String
+            inputName.text = prefs.getString(userInfo.name, "")
+            inputAffiliation.whatever = prefs.getString(userInfo.affiliation, "")
+            inputEnlistDate.text = prefs.getString(userInfo.promotionDates[Dates.ENLIST.ordinal].toString(), "")
+            inputEndDate.text = prefs.getString(userInfo.promotionDates[Dates.END.ordinal].toString(), "")
+            inputPromotionDate.text = prefs.getString(userInfo.promotionDates[Dates.needfunction].toString(), "")
         }
     }
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        userInfo.name = inputName.text.toString()
 
+        // save the data into UserData Class
+        userInfo.name = inputName.text.toString()
+        // convert the value of recylerView to string
+        userInfo.affiliation = inputAffiliation.text.toString()
+        userInfo.profileImage = buttonProfileImage.toString()
+        // calcuate rank based on dateCalc class
+        userInfo.rank = 1
+        // calcuate promotion date based on dateCalc class
+        // userInfo.promotionDates =
         val editor = prefs.edit()
+
+        // create a jsonString to save data as string
+        // jsonString would look like {"name" : "", "affiliation" : "", profileImage : "", rank : int, promotionDate : MutableList }
         val jsonString = Gson().toJson(userInfo)
+
+
         editor.putString("userInfo", jsonString)
-            .putBoolean("firstStart", false).apply()
+              .putBoolean("firstStart", false).apply()
     }
 
     private fun setProfileImage() {
