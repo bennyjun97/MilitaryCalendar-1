@@ -255,6 +255,7 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun setEndDate() {
+        //call calcETS method of dateCalc to calculate ETS date
         userInfo.promotionDates[Dates.END.ordinal] = dateCalc.calcETS(userInfo.promotionDates[Dates.ENLIST.ordinal], userInfo.affiliation)
         inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
     }
