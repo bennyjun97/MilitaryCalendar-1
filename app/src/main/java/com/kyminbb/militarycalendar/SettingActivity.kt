@@ -5,29 +5,29 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.commit451.addendum.threetenabp.toLocalDate
+import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.tsongkha.spinnerdatepicker.DatePickerDialog
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
-import java.io.IOException
-import java.util.*
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import com.google.gson.Gson
-import com.tsongkha.spinnerdatepicker.DatePickerDialog
-import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
-import kotlinx.android.synthetic.main.activity_setting.view.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
+import java.io.IOException
+import java.util.*
 
 class SettingActivity : AppCompatActivity() {
 
@@ -46,7 +46,7 @@ class SettingActivity : AppCompatActivity() {
     var userInfo = User()
 
     // Initialize SharedPreference after the activity is initialized.
-    private val prefs by lazy {getSharedPreferences("prefs", Context.MODE_PRIVATE)}
+    private val prefs by lazy { getSharedPreferences("prefs", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,15 +137,14 @@ class SettingActivity : AppCompatActivity() {
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
+            val jsonString = prefs.getString("userInfo", "")
+            userInfo = Gson().fromJson(jsonString, User::class.java)
 
-            // load datas including name, affiliation, enlistdate, enddate, promotion date
-            // load from the User.kt (data class)
-            // data would be saved as JSon String
-            inputName.text = prefs.getString(userInfo.name, "")
-            inputAffiliation.whatever = prefs.getString(userInfo.affiliation, "")
-            inputEnlistDate.text = prefs.getString(userInfo.promotionDates[Dates.ENLIST.ordinal].toString(), "")
-            inputEndDate.text = prefs.getString(userInfo.promotionDates[Dates.END.ordinal].toString(), "")
-            inputPromotionDate.text = prefs.getString(userInfo.promotionDates[Dates.needfunction].toString(), "")
+            buttonProfileImage.setImageURI(Uri.parse(userInfo.profileImage))
+            inputName.setText(userInfo.name)
+            inputAffiliation.text = userInfo.affiliation
+            inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+            inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
         }
     }
 
@@ -156,20 +155,16 @@ class SettingActivity : AppCompatActivity() {
         userInfo.name = inputName.text.toString()
         // convert the value of recylerView to string
         userInfo.affiliation = inputAffiliation.text.toString()
-        userInfo.profileImage = buttonProfileImage.toString()
-        // calcuate rank based on dateCalc class
-        userInfo.rank = 1
         // calcuate promotion date based on dateCalc class
         // userInfo.promotionDates =
         val editor = prefs.edit()
-
         // create a jsonString to save data as string
         // jsonString would look like {"name" : "", "affiliation" : "", profileImage : "", rank : int, promotionDate : MutableList }
         val jsonString = Gson().toJson(userInfo)
 
 
         editor.putString("userInfo", jsonString)
-              .putBoolean("firstStart", false).apply()
+            .putBoolean("firstStart", false).apply()
     }
 
     private fun setProfileImage() {
@@ -214,7 +209,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun setAffiliation() {
         // Use spinner to select the affiliation.
-        var affiliations = arrayOf("육군/의경", "해군/해양의무경찰", "공군", "해병", "사회복무요원", "의무소방")
+        val affiliations = arrayOf("육군/의경", "해군/해양의무경찰", "공군", "해병", "사회복무요원", "의무소방")
         inputAffiliation.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, affiliations)
         inputAffiliation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -231,7 +226,7 @@ class SettingActivity : AppCompatActivity() {
         val inputDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
             inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
-            setEndDate()
+            calcEndDate()
         }
 
         val dialog = SpinnerDatePickerDialogBuilder()
@@ -254,11 +249,14 @@ class SettingActivity : AppCompatActivity() {
             .build().show()
     }
 
-    private fun setEndDate() {
+    private fun calcEndDate() {
         //call calcETS method of dateCalc to calculate ETS date
-        userInfo.promotionDates[Dates.END.ordinal] = dateCalc.calcETS(userInfo.promotionDates[Dates.ENLIST.ordinal], userInfo.affiliation)
+        userInfo.promotionDates[Dates.END.ordinal] =
+            DateCalc.calcETS(userInfo.promotionDates[Dates.ENLIST.ordinal], userInfo.affiliation)
         inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
     }
+
+    private fun setEndDate() {}
 
     private fun setPromotionDates() {}
 
