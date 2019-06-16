@@ -149,19 +149,14 @@ class SettingActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-
-        // save the data into UserData Class
         userInfo.name = inputName.text.toString()
         // convert the value of recylerView to string
         userInfo.affiliation = inputAffiliation.text.toString()
-        // calcuate promotion date based on dateCalc class
-        // userInfo.promotionDates =
+
         val editor = prefs.edit()
         // create a jsonString to save data as string
         // jsonString would look like {"name" : "", "affiliation" : "", profileImage : "", rank : int, promotionDate : MutableList }
         val jsonString = Gson().toJson(userInfo)
-
-
         editor.putString("userInfo", jsonString)
             .putBoolean("firstStart", false).apply()
     }
