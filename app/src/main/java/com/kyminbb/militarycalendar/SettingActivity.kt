@@ -70,13 +70,12 @@ class SettingActivity : AppCompatActivity() {
 
         // Change the ETS date only when automatically added date is inaccurate.
         inputEnlistDate.setOnClickListener {
-            setEnlistDate()
-            setEndDate()
+            setDate("Enlist")
         }
 
         // Update the end date.
         inputEndDate.setOnClickListener {
-            setEndDate()
+            setDate("End")
         }
 
         // Update the promotion dates.
@@ -220,33 +219,55 @@ class SettingActivity : AppCompatActivity() {
         }
     }
 
-    private fun setEnlistDate() {
-        // Use SpinnerDatePicker to select the enlist date.
+    private fun setDate(type: String) {
+        // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
-        val inputDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
-            inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
-            calcEndDate()
+        var dateSetListener = DatePickerDialog.OnDateSetListener { _, _, _, _ -> }
+        when (type) {
+            "Enlist" -> {
+                dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
+                    inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+                    calcEndDate()
+                }
+            }
+            "End" -> {
+                dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    userInfo.promotionDates[Dates.END.ordinal] = LocalDate.of(year, month + 1, day)
+                    inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
+                }
+            }
         }
 
         val dialog = SpinnerDatePickerDialogBuilder()
             .context(this)
-            .callback(inputDateSetListener)
+            .callback(dateSetListener)
             .spinnerTheme(R.style.NumberPickerStyle)
             .showTitle(true)
             .showDaySpinner(true)
-        if (userInfo.promotionDates.isEmpty()) {
-            dialog.defaultDate(todayYear, todayMonth, todayDay)
-        } else {
-            dialog.defaultDate(
-                userInfo.promotionDates[Dates.ENLIST.ordinal].year,
-                userInfo.promotionDates[Dates.ENLIST.ordinal].monthValue - 1,
-                userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth
-            )
-        }
-        dialog.maxDate(todayYear + 4, 11, 31)
+            .maxDate(todayYear + 4, 11, 31)
             .minDate(todayYear - 5, 0, 1)
-            .build().show()
+        when (type) {
+            "Enlist" -> {
+                if (userInfo.promotionDates.isEmpty()) {
+                    dialog.defaultDate(todayYear, todayMonth, todayDay)
+                } else {
+                    dialog.defaultDate(
+                        userInfo.promotionDates[Dates.ENLIST.ordinal].year,
+                        userInfo.promotionDates[Dates.ENLIST.ordinal].monthValue - 1,
+                        userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth
+                    )
+                }
+            }
+            "End" -> {
+                if (userInfo.promotionDates.isNotEmpty()) {
+                    dialog.defaultDate(userInfo.promotionDates[Dates.END.ordinal].year,
+                        userInfo.promotionDates[Dates.END.ordinal].monthValue - 1,
+                        userInfo.promotionDates[Dates.END.ordinal].dayOfMonth)
+                }
+            }
+        }
+        dialog.build().show()
     }
 
     private fun calcEndDate() {
@@ -255,8 +276,6 @@ class SettingActivity : AppCompatActivity() {
             DateCalc.calcETS(userInfo.promotionDates[Dates.ENLIST.ordinal], userInfo.affiliation)
         inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
     }
-
-    private fun setEndDate() {}
 
     private fun setPromotionDates() {}
 

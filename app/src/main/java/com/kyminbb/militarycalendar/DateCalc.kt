@@ -12,8 +12,9 @@ object DateCalc {
             "공군" -> return airETS(date)
             "해병" -> return marineETS(date)
             "사회복무요원" -> return agentETS(date)
-            "의무소방" -> return fireETS(date)
         }
+        // affiliation == "의무소방"
+        return fireETS(date)
     }
 
     //육군 전역날짜 계산.
