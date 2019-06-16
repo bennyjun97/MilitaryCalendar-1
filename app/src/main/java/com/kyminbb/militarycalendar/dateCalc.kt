@@ -18,35 +18,41 @@ object dateCalc {
 
     //육군 전역날짜 계산.
     fun armyETS(date: LocalDate) : LocalDate {
+        //원래 21개월
         if(date.isBefore(LocalDate.parse("2017-01-03"))) {
             return plus21MonthsMinusOne(date)
         }
+        //최종적으로 18개월
         else if(date.isAfter(LocalDate.parse("2020-06-02"))) {
             return plus18MonthsMinusOne(date)
         }
         else {
             val compDay = LocalDate.parse("2017-01-03")
-            //2주에 하루씩 더 준다.
+            //1월 3일 입대자부터 2주에 하루씩 더 준다.
             return plus21MonthsMinusOne(date).minusDays((ChronoUnit.DAYS.between(compDay, date) / 14) + 1)
         }
     }
 
     //해군 전역일 계산
     fun navyETS(date: LocalDate) : LocalDate {
+        //원래 23개월
         if(date.isBefore(LocalDate.parse("2016-11-03"))) {
             return plus23MonthsMinusOne(date)
         }
+        //최종적으로 20개월
         else if(date.isAfter(LocalDate.parse("2020-04-02"))) {
             return plus20MonthsMinusOne(date)
         }
         else {
             val compDay = LocalDate.parse("2016-11-03")
+            //11월 3일 입대자부터 2주에 하루씩 준다.
             return plus23MonthsMinusOne(date).minusDays((ChronoUnit.DAYS.between(compDay, date) / 14) + 1)
         }
     }
 
     //공군 전역일 계산
     fun airETS(date: LocalDate) : LocalDate {
+        //원래 24개월
         if(date.isBefore(LocalDate.parse("2016-10-03"))) {
             return plus2YearsMinusOne(date)
         }
@@ -56,6 +62,7 @@ object dateCalc {
         }
         else {
             val compDay = LocalDate.parse("2016-10-03")
+            //10월 3일 입대자부터 2주에 하루씩 준다.
             return plus2YearsMinusOne(date).minusDays((ChronoUnit.DAYS.between(compDay, date) / 14) + 1)
         }
 
@@ -68,6 +75,7 @@ object dateCalc {
 
     //공익 계산
     fun agentETS(date: LocalDate) : LocalDate {
+        //원래 24개월
         if(date.isBefore(LocalDate.parse("2016-10-03"))) {
             return plus2YearsMinusOne(date)
         }
@@ -76,13 +84,15 @@ object dateCalc {
             return plus21MonthsMinusOne(date)
         }
         else {
-            val compDay = LocalDate.parse("2016-11-03")
+            val compDay = LocalDate.parse("2016-10-03")
+            //10월 3일부터 2주에 하루씩 준다.
             return plus2YearsMinusOne(date).minusDays((ChronoUnit.DAYS.between(compDay, date) / 14) + 1)
         }
     }
 
     //의무소방 계산
     fun fireETS(date: LocalDate) : LocalDate {
+        //찾아보니 해군이랑 동일
         return navyETS(date)
     }
 
