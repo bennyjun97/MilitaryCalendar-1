@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MilitaryCalendar</string>
+    <string name="title_activity_clock">ClockActivity</string>
 </resources>

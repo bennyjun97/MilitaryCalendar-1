@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         // Open the sign-up page if the application is first-time executed.
         if (firstStart) {
-            startActivity<SettingActivity>()
+            startActivity<ClockActivity>()
         }
     }
 }

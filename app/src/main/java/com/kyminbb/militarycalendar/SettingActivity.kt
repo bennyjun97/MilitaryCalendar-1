@@ -125,7 +125,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun init() {
         buttonProfileImage.setImageResource(R.drawable.profile)
-        inputName.text.clear()
+        //inputName.text.clear()
         inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
         inputEndDate.text = "전역일"
         inputPromotionDate.text = "진급일"
@@ -140,8 +140,8 @@ class SettingActivity : AppCompatActivity() {
             userInfo = Gson().fromJson(jsonString, User::class.java)
 
             buttonProfileImage.setImageURI(Uri.parse(userInfo.profileImage))
-            inputName.setText(userInfo.name)
-            inputAffiliation.text = userInfo.affiliation
+            //inputName.setText(userInfo.name)
+            //inputAffiliation.text = userInfo.affiliation
             inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
             inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
         }
@@ -149,9 +149,9 @@ class SettingActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        userInfo.name = inputName.text.toString()
+        //userInfo.name = inputName.text.toString()
         // convert the value of recylerView to string
-        userInfo.affiliation = inputAffiliation.text.toString()
+        //userInfo.affiliation = inputAffiliation.text.toString()
 
         val editor = prefs.edit()
         // create a jsonString to save data as string
