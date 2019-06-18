@@ -17,6 +17,28 @@ object DateCalc {
         return fireETS(date)
     }
 
+    //일병 진급일
+    fun calcRank2(date: LocalDate, affiliation: String?): LocalDate {
+        when (affiliation) {
+            "육군/의경", "해군/해양의무경찰", "해병", "사회복무요원" -> when {
+                date.dayOfMonth == 1 -> return plus3Months(date)
+                else -> return date.plusMonths(4).withDayOfMonth(1)
+            }
+            "공군" -> return plus3Months(date)
+            else -> return date.plusMonths(4).withDayOfMonth(1)
+        }
+    }
+
+    //상병 진급일
+    fun calcRank3(date: LocalDate, affiliation: String?): LocalDate {
+        return plus7Months(calcRank2(date, affiliation))
+    }
+
+    //병장 진급일
+    fun calcRank4(date: LocalDate, affiliation: String?): LocalDate {
+        return plus7Months(calcRank3(date, affiliation))
+    }
+
     //육군 전역날짜 계산.
     private fun armyETS(date: LocalDate): LocalDate {
         //원래 21개월
@@ -89,6 +111,40 @@ object DateCalc {
     private fun fireETS(date: LocalDate): LocalDate {
         //찾아보니 해군이랑 동일
         return navyETS(date)
+    }
+
+    private fun plus3Months(date: LocalDate): LocalDate {
+        when (date.monthValue) {
+            1 -> when {
+                date.year % 4 == 0 -> return date.plusDays(91)
+                else -> return date.plusDays(90)
+            }
+            2 -> when {
+                date.year % 4 == 0 -> return date.plusDays(90)
+                else -> return date.plusDays(89)
+            }
+            3, 5, 6, 7, 8, 10, 11 -> return date.plusDays(92)
+            4, 9 -> return date.plusDays(91)
+            else -> when {
+                date.year % 4 == 3 -> return date.plusDays(91)
+                else -> return date.plusDays(90)
+            }
+        }
+    }
+
+    private fun plus7Months(date: LocalDate): LocalDate {
+        when (date.monthValue) {
+            1, 2 -> when {
+                date.year % 4 == 0 -> return date.plusDays(213)
+                else -> return date.plusDays(212)
+            }
+            3, 4, 5, 6 -> return date.plusDays(214)
+            7 -> return date.plusDays(215)
+            else -> when {
+                date.year % 4 == 3 -> return date.plusDays(213)
+                else -> return date.plusDays(212)
+            }
+        }
     }
 
     private fun plus18MonthsMinusOne(date: LocalDate): LocalDate {
