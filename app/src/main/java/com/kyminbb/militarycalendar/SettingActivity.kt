@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -125,7 +124,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun init() {
         buttonProfileImage.setImageResource(R.drawable.profile)
-        //inputName.text.clear()
+        inputName.text.clear()
         inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
         inputEndDate.text = "전역일"
         inputPromotionDate.text = "진급일"
@@ -136,27 +135,37 @@ class SettingActivity : AppCompatActivity() {
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
-            val jsonString = prefs.getString("userInfo", "")
-            userInfo = Gson().fromJson(jsonString, User::class.java)
 
-            buttonProfileImage.setImageURI(Uri.parse(userInfo.profileImage))
-            //inputName.setText(userInfo.name)
-            //inputAffiliation.text = userInfo.affiliation
-            inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
-            inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
+            // load datas including name, affiliation, enlistdate, enddate, promotion date
+            // load from the User.kt (data class)
+            // data would be saved as JSon String
+            inputName.text = prefs.getString(userInfo.name, "")
+            inputAffiliation.whatever = prefs.getString(userInfo.affiliation, "")
+            inputEnlistDate.text = prefs.getString(userInfo.promotionDates[Dates.ENLIST.ordinal].toString(), "")
+            inputEndDate.text = prefs.getString(userInfo.promotionDates[Dates.END.ordinal].toString(), "")
+            inputPromotionDate.text = prefs.getString(userInfo.promotionDates[Dates.needfunction].toString(), "")
         }
     }
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        //userInfo.name = inputName.text.toString()
-        // convert the value of recylerView to string
-        //userInfo.affiliation = inputAffiliation.text.toString()
 
+        // save the data into UserData Class
+        userInfo.name = inputName.text.toString()
+        // convert the value of recylerView to string
+        userInfo.affiliation = inputAffiliation.text.toString()
+        userInfo.profileImage = buttonProfileImage.toString()
+        // calcuate rank based on dateCalc class
+        userInfo.rank = 1
+        // calcuate promotion date based on dateCalc class
+        // userInfo.promotionDates =
         val editor = prefs.edit()
+
         // create a jsonString to save data as string
         // jsonString would look like {"name" : "", "affiliation" : "", profileImage : "", rank : int, promotionDate : MutableList }
         val jsonString = Gson().toJson(userInfo)
+
+
         editor.putString("userInfo", jsonString)
             .putBoolean("firstStart", false).apply()
     }
@@ -224,6 +233,7 @@ class SettingActivity : AppCompatActivity() {
                     userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
                     inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
                     calcEndDate()
+                    calcPromotionDates()
                 }
             }
             "End" -> {
@@ -272,7 +282,36 @@ class SettingActivity : AppCompatActivity() {
         inputEndDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
     }
 
-    private fun setPromotionDates() {}
+    //일병, 상병, 병장 진급일 계산
+    //현재 계급 값 설정 및 다음 진급일 표시 기능
+    private fun calcPromotionDates() {
+        var enlist = userInfo.promotionDates[Dates.ENLIST.ordinal]
+        //각각 일병, 상병, 병장 진급일 계산
+        userInfo.promotionDates[Dates.RANK2.ordinal] = DateCalc.calcRank2(enlist, userInfo.affiliation)
+        userInfo.promotionDates[Dates.RANK3.ordinal] = DateCalc.calcRank3(enlist, userInfo.affiliation)
+        userInfo.promotionDates[Dates.RANK4.ordinal] = DateCalc.calcRank4(enlist, userInfo.affiliation)
+
+        //현재 날짜와 비교해서 현재 계급 값 설정, 다음 진급일 표시
+        if(today.isBefore(userInfo.promotionDates[Dates.RANK2.ordinal])) {
+            userInfo.rank = 0
+            inputPromotionDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
+        }
+        else if(today.isBefore(userInfo.promotionDates[Dates.RANK3.ordinal])) {
+            userInfo.rank = 1
+            inputPromotionDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
+        }
+        else if(today.isBefore(userInfo.promotionDates[Dates.RANK4.ordinal])) {
+            userInfo.rank = 2
+            inputPromotionDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
+        }
+        else {
+            userInfo.rank = 3
+        }
+    }
+
+    private fun setPromotionDates() {
+
+    }
 
     private fun formatDate(date: LocalDate): String {
         return date.format(DateTimeFormatter.ofPattern("YYYY/MM/dd"))
