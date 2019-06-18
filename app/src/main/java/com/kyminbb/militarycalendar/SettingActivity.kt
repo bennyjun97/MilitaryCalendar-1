@@ -18,6 +18,7 @@ import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
+import kotlinx.android.synthetic.main.activity_set_name.*
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -124,7 +125,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun init() {
         buttonProfileImage.setImageResource(R.drawable.profile)
-        inputName.text.clear()
+        //inputName.text.clear()
         inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
         inputEndDate.text = "전역일"
         inputPromotionDate.text = "진급일"
@@ -135,15 +136,12 @@ class SettingActivity : AppCompatActivity() {
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
-
             // load datas including name, affiliation, enlistdate, enddate, promotion date
             // load from the User.kt (data class)
             // data would be saved as JSon String
-            inputName.text = prefs.getString(userInfo.name, "")
-            inputAffiliation.whatever = prefs.getString(userInfo.affiliation, "")
-            inputEnlistDate.text = prefs.getString(userInfo.promotionDates[Dates.ENLIST.ordinal].toString(), "")
-            inputEndDate.text = prefs.getString(userInfo.promotionDates[Dates.END.ordinal].toString(), "")
-            inputPromotionDate.text = prefs.getString(userInfo.promotionDates[Dates.needfunction].toString(), "")
+            var userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+            inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+            inputEndDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
         }
     }
 
@@ -151,23 +149,8 @@ class SettingActivity : AppCompatActivity() {
     private fun saveData() {
 
         // save the data into UserData Class
-        userInfo.name = inputName.text.toString()
-        // convert the value of recylerView to string
-        userInfo.affiliation = inputAffiliation.text.toString()
-        userInfo.profileImage = buttonProfileImage.toString()
-        // calcuate rank based on dateCalc class
-        userInfo.rank = 1
-        // calcuate promotion date based on dateCalc class
-        // userInfo.promotionDates =
-        val editor = prefs.edit()
-
-        // create a jsonString to save data as string
-        // jsonString would look like {"name" : "", "affiliation" : "", profileImage : "", rank : int, promotionDate : MutableList }
         val jsonString = Gson().toJson(userInfo)
-
-
-        editor.putString("userInfo", jsonString)
-            .putBoolean("firstStart", false).apply()
+        prefs.edit().putString("userInfo", jsonString).putBoolean("firstStart", true).apply()
     }
 
     private fun setProfileImage() {
