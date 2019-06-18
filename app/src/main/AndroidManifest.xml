@@ -9,6 +9,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".SetEnlistActivity">
+        </activity>
+        <activity android:name=".SetAffActivity">
+        </activity>
+        <activity android:name=".SetNameActivity">
+        </activity>
         <activity
                 android:name=".ClockActivity"
                 android:label="@string/title_activity_clock"

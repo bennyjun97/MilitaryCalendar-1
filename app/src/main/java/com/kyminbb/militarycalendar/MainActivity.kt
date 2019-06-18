@@ -12,14 +12,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Initialize the timezone information.
         AndroidThreeTen.init(this)
-        setContentView(R.layout.activity_setting)
+        setContentView(R.layout.activity_main)
 
         val prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val firstStart = prefs.getBoolean("firstStart", true)
 
         // Open the sign-up page if the application is first-time executed.
         if (firstStart) {
-            startActivity<ClockActivity>()
+            startActivity<SetNameActivity>()
+            //startActivity<SettingNameActivity>()
         }
     }
 }

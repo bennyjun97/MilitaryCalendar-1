@@ -12,3 +12,4 @@ data class User(
     var rank: Int = 0,
     var promotionDates: MutableList<LocalDate> = MutableList(5, { Calendar.getInstance().toLocalDate() })
 )
+
