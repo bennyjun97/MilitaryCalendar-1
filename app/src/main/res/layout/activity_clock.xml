@@ -12,19 +12,58 @@
     <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp" app:srcCompat="@color/skyblue"
-            android:id="@+id/imageView" app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/sky" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/guideline"/>
     <ImageView
             android:layout_width="0dp"
-            android:layout_height="0dp" app:srcCompat="@color/grass"
-            android:id="@+id/imageView2" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="0dp" app:srcCompat="#0CE388"
+            android:id="@+id/grass" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/sky"
             app:layout_constraintTop_toTopOf="@+id/guideline2"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline2"
                                                 android:orientation="horizontal"
                                                 app:layout_constraintGuide_percent="0.30"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@drawable/pseudoclock"
+            android:id="@+id/clock"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guideline3"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.18"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guideline4"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.42"/>
+    <TextView
+            android:text="15:00"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/digitaltime"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2" android:layout_marginTop="8dp"
+            android:textColor="#808080"/>
+    <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp" app:srcCompat="@drawable/cloud"
+            android:id="@+id/cloud"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.16"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp" app:srcCompat="@drawable/sun"
+            android:id="@+id/imageView7"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.84"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
