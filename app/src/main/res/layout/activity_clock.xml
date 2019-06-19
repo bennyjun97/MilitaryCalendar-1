@@ -5,17 +5,13 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                                android:id="@+id/guideline"
-                                                android:orientation="horizontal"
-                                                app:layout_constraintGuide_percent="0.40"/>
     <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp" app:srcCompat="@color/skyblue"
             android:id="@+id/sky" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"/>
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"/>
     <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -28,14 +24,6 @@
                                                 android:id="@+id/guideline2"
                                                 android:orientation="horizontal"
                                                 app:layout_constraintGuide_percent="0.35"/>
-    <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp" app:srcCompat="@drawable/pseudoclock"
-            android:id="@+id/clock"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline3"
                                                 android:orientation="horizontal"
@@ -57,4 +45,22 @@
             android:id="@+id/imageView7"
             app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.88"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.31" android:id="@+id/guideline6"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@color/darkergrass"
+            android:id="@+id/mountains"
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@drawable/pseudoclock"
+            android:id="@+id/clock"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
