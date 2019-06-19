@@ -50,7 +50,7 @@ class SetAffActivity : AppCompatActivity() {
         }
 
         buttonPolice.setOnClickListener {
-            userInfo.affiliation = "의경"
+            userInfo.affiliation = "의무경찰"
             val jsonString = Gson().toJson(userInfo)
             prefs.edit().putString("userInfo", jsonString).apply()
             startActivity<SetEnlistActivity>()
@@ -71,7 +71,7 @@ class SetAffActivity : AppCompatActivity() {
         }
 
         buttonFire.setOnClickListener {
-            userInfo.affiliation = "의방"
+            userInfo.affiliation = "의무소방대"
             val jsonString = Gson().toJson(userInfo)
             prefs.edit().putString("userInfo", jsonString).apply()
             startActivity<SetEnlistActivity>()

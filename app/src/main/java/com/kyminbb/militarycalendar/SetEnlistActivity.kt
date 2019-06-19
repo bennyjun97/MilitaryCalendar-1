@@ -17,6 +17,6 @@ class SetEnlistActivity : AppCompatActivity() {
         var userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
 
         // Show ToastMessage
-        Toast.makeText(applicationContext, "${userInfo.affiliation} ${userInfo.name}님! 언제 입대하셨나요?", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "${userInfo.affiliation} 이시군요!\n언제 입대하셨나요?", Toast.LENGTH_SHORT).show()
     }
 }
