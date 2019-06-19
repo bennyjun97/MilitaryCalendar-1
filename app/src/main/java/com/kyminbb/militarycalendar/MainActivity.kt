@@ -18,7 +18,8 @@ class MainActivity : AppCompatActivity() {
         val firstStart = prefs.getBoolean("firstStart", true)
 
         // Open the sign-up page if the application is first-time executed.
-        if (firstStart) {
+        // if (firststart)이어야 하나 테스트를 위해 if(true)로 임시 설정함
+        if (true) {
             startActivity<SetNameActivity>()
             //startActivity<SettingNameActivity>()
         }
