@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.*
+package com.kyminbb.militarycalendar
 
 import android.content.Context
 import android.content.Intent

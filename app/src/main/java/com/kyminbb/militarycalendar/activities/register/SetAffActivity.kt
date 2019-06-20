@@ -11,21 +11,12 @@ import kotlinx.android.synthetic.main.activity_set_aff.*
 import kotlinx.android.synthetic.main.activity_set_name.*
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class SetAffActivity : AppCompatActivity() {
 
     companion object {
-        const val affils = arrayOf("육군", "해군", "공군", "의무경찰", "사회복무요원", "해병대", "의무소방대", "해양의무경찰")
-        const val buttons = arrayOf(
-            buttonArmy,
-            buttonNavy,
-            buttonAir,
-            buttonPolice,
-            bottnPublic,
-            buttonMarine,
-            buttonFire,
-            buttonSeapolice
-        )
+        val affils = arrayOf("육군", "해군", "공군", "의무경찰", "사회복무요원", "해병대", "의무소방대", "해양의무경찰")
     }
 
     private val prefs by lazy { getSharedPreferences("prefs", Context.MODE_PRIVATE) }
@@ -37,6 +28,17 @@ class SetAffActivity : AppCompatActivity() {
         var userInfo = Gson().fromJson(prefs.getString("userInfo", ""), utils.User::class.java)
 
         toast("${userInfo.name}님! 소속이 어떻게 되세요?")
+
+        val buttons = arrayOf(
+            buttonArmy,
+            buttonNavy,
+            buttonAir,
+            buttonPolice,
+            buttonPublic,
+            buttonMarine,
+            buttonFire,
+            buttonSeapolice
+        )
 
         // Save the affiliation for each selection.
         for ((index, value) in buttons.withIndex()) {
