@@ -1,10 +1,12 @@
-package com.kyminbb.militarycalendar.*
+package com.kyminbb.militarycalendar
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.gson.Gson
+import com.jakewharton.threetenabp.AndroidThreeTen
+import org.jetbrains.anko.toast
 
 class SetEnlistActivity : AppCompatActivity() {
 

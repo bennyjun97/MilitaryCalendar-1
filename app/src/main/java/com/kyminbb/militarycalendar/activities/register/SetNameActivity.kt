@@ -45,6 +45,7 @@ class SetNameActivity : AppCompatActivity() {
                 val jsonString = Gson().toJson(userInfo)
                 prefs.edit().putString("userInfo", jsonString).apply()
                 startActivity<SetAffActivity>()
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.*
+package com.kyminbb.militarycalendar
 
 import android.content.Context
 import android.net.Uri
@@ -45,12 +45,14 @@ class SetAffActivity : AppCompatActivity() {
                 val jsonString = Gson().toJson(userInfo)
                 prefs.edit().putString("userInfo", jsonString).apply()
                 startActivity<SetEnlistActivity>()
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
         }
 
         // Back to SetNameActivity if necessary.
         backAffButton.setOnClickListener {
             startActivity<SetNameActivity>()
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }
 }
