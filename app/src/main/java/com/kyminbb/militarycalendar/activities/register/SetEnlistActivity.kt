@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar
+package com.kyminbb.militarycalendar.*
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +12,13 @@ class SetEnlistActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Initialize the timezone information.
+        AndroidThreeTen.init(this)
         setContentView(R.layout.activity_set_enlist)
 
-        var userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+        var userInfo = Gson().fromJson(prefs.getString("userInfo", ""), utils.User::class.java)
 
         // Show ToastMessage
-        Toast.makeText(applicationContext, "${userInfo.affiliation} 이시군요!\n언제 입대하셨나요?", Toast.LENGTH_SHORT).show()
+        toast("${userInfo.affiliation} 이시군요!\n언제 입대하셨나요?")
     }
 }
