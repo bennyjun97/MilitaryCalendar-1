@@ -41,7 +41,10 @@ class SetAffActivity : AppCompatActivity() {
         // Save the affiliation for each selection.
         for ((index, value) in buttons.withIndex()) {
             value.setOnClickListener {
-                saveData(affils[index])
+                userInfo.affiliation = affils[index]
+                val jsonString = Gson().toJson(userInfo)
+                prefs.edit().putString("userInfo", jsonString).apply()
+                startActivity<SetEnlistActivity>()
             }
         }
 
@@ -49,13 +52,5 @@ class SetAffActivity : AppCompatActivity() {
         backAffButton.setOnClickListener {
             startActivity<SetNameActivity>()
         }
-    }
-
-    private fun saveData(affiliation: String!!)
-    {
-        userInfo.affiliation = affiliation
-        val jsonString = Gson().toJson(userInfo)
-        prefs.edit().putString("userInfo", jsonString).apply()
-        startActivity<SetEnlistActivity>()
     }
 }
