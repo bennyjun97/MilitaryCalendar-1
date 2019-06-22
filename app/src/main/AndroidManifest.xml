@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.kyminbb.militarycalendar">
-
     <application
-            android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
@@ -18,11 +16,11 @@
         </activity>
         <activity android:name=".activities.CalendarActivity">
         </activity>
-        <activity android:name=".activities.register.SetEnlistActivity">
+        <activity android:name=".activities.SetEnlistActivity">
         </activity>
-        <activity android:name=".activities.register.SetAffActivity">
+        <activity android:name=".activities.SetAffActivity">
         </activity>
-        <activity android:name=".activities.register.SetNameActivity">
+        <activity android:name=".activities.SetNameActivity">
         </activity>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
@@ -32,8 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".activities.register.SettingActivity"
+                android:name=".activities.SettingActivity"
                 android:theme="@style/AppTheme.Setting"/>
     </application>
-
 </manifest>

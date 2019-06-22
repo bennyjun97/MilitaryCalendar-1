@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.activities.register
+package com.kyminbb.militarycalendar.activities
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,6 @@ import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.User
 import kotlinx.android.synthetic.main.activity_set_aff.*
-import net.grandcentrix.tray.AppPreferences
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -18,7 +17,7 @@ class SetAffActivity : AppCompatActivity() {
     }
 
     // https://github.com/grandcentrix/tray
-    private val prefs by lazy { AppPreferences(applicationContext) }
+    private val prefs by lazy { getSharedPreferences("prefs", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,7 @@ class SetAffActivity : AppCompatActivity() {
             value.setOnClickListener {
                 userInfo.affiliation = affiliations[index]
                 val jsonString = Gson().toJson(userInfo)
-                prefs.put("userInfo", jsonString)
+                prefs.edit().putString("userInfo", jsonString).apply()
                 startActivity<SetEnlistActivity>()
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }

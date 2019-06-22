@@ -1,19 +1,16 @@
-package com.kyminbb.militarycalendar.activities.register
+package com.kyminbb.militarycalendar.activities
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.User
-import net.grandcentrix.tray.AppPreferences
 import org.jetbrains.anko.toast
 
 class SetEnlistActivity : AppCompatActivity() {
 
-    private val prefs by lazy { AppPreferences(applicationContext) }
+    private val prefs by lazy { getSharedPreferences("prefs", MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

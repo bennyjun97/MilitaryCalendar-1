@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.activities.register
+package com.kyminbb.militarycalendar.activities
 
 import android.content.Context
 import android.os.Bundle
@@ -8,11 +8,12 @@ import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.User
 import kotlinx.android.synthetic.main.activity_set_name.*
-import net.grandcentrix.tray.AppPreferences
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class SetNameActivity : AppCompatActivity() {
+
+    private val prefs by lazy { getSharedPreferences("prefs", Context.MODE_PRIVATE) }
 
     // Initialize the user info.
     private var userInfo = loadData()
@@ -43,7 +44,6 @@ class SetNameActivity : AppCompatActivity() {
     }
 
     private fun loadData(): User {
-        val prefs = AppPreferences(applicationContext)
         if (prefs.contains("userInfo")) {
             return Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
         }
@@ -53,8 +53,7 @@ class SetNameActivity : AppCompatActivity() {
     private fun saveData() {
         userInfo.name = nameText.text.toString()
         val jsonString = Gson().toJson(userInfo)
-        val prefs = AppPreferences(applicationContext)
-        prefs.put("userInfo", jsonString)
+        prefs.edit().putString("userInfo", jsonString).apply()
         startActivity<SetAffActivity>()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }

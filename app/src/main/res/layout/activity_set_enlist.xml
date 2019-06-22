@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.register.SetEnlistActivity">
+        tools:context=".activities.SetEnlistActivity">
 
     <TextView
             android:text="스피너데이트 기능이랑 상단에 이미지 이미지 표시!"

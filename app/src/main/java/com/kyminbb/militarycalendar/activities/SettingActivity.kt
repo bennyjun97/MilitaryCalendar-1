@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.activities.register
+package com.kyminbb.militarycalendar.activities
 
 import android.Manifest
 import android.app.Activity
@@ -20,7 +20,6 @@ import com.kyminbb.militarycalendar.DateCalc
 import com.kyminbb.militarycalendar.Dates
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.User
-import com.kyminbb.militarycalendar.activities.MainActivity
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -173,7 +172,8 @@ class SettingActivity : AppCompatActivity() {
                     yesButton {
                         ActivityCompat.requestPermissions(
                             this@SettingActivity,
-                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            REQUEST_READ_EXTERNAL_STORAGE
                         )
                     }
                     noButton { }
@@ -194,7 +194,9 @@ class SettingActivity : AppCompatActivity() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select image"), SELECT_PICTURE)
+        startActivityForResult(Intent.createChooser(intent, "Select image"),
+            SELECT_PICTURE
+        )
     }
 
     private fun setAffiliation() {
