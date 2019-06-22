@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.activities.register.SetNameActivity
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -17,9 +18,8 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         val firstStart = prefs.getBoolean("firstStart", true)
 
-        //startActivity<TabActivity>()
-
         // Open the sign-up page if the application is first-time executed.
+        // if (firstStart) { }
         startActivity<SetNameActivity>()
     }
 }

@@ -1,6 +1,5 @@
-package com.kyminbb.militarycalendar.activities
+package com.kyminbb.militarycalendar.activities.register
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -13,14 +12,14 @@ import org.jetbrains.anko.toast
 
 class SetNameActivity : AppCompatActivity() {
 
-    private val prefs by lazy { getSharedPreferences("prefs", Context.MODE_PRIVATE) }
-
     // Initialize the user info.
-    private var userInfo = loadData()
+    private var userInfo = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_name)
+
+        loadData()
 
         // Toast 메세지로 환영인사를 한다
         // 이름값을 입력 받는다
@@ -43,18 +42,22 @@ class SetNameActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadData(): User {
+    private fun loadData() {
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         if (prefs.contains("userInfo")) {
-            return Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+            userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
         }
-        return User()
     }
 
     private fun saveData() {
         userInfo.name = nameText.text.toString()
         val jsonString = Gson().toJson(userInfo)
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         prefs.edit().putString("userInfo", jsonString).apply()
         startActivity<SetAffActivity>()
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(
+            R.anim.fade_in,
+            R.anim.fade_out
+        )
     }
 }

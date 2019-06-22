@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.activities
+package com.kyminbb.militarycalendar.activities.register
 
 import android.Manifest
 import android.app.Activity
@@ -20,6 +20,7 @@ import com.kyminbb.militarycalendar.DateCalc
 import com.kyminbb.militarycalendar.Dates
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.User
+import com.kyminbb.militarycalendar.activities.MainActivity
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -47,9 +48,6 @@ class SettingActivity : AppCompatActivity() {
 
     // Initialize the user info.
     var userInfo = User()
-
-    // Initialize SharedPreference after the activity is initialized.
-    private val prefs by lazy { getSharedPreferences("prefs", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,6 +134,7 @@ class SettingActivity : AppCompatActivity() {
 
     // Load the user info from SharedPreferences.
     private fun loadData() {
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         val firstStart = prefs.getBoolean("firstStart", true)
         // Load if the application is not first-time executed.
         if (!firstStart) {
@@ -150,7 +149,7 @@ class SettingActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         // save the data into UserData Class
         val jsonString = Gson().toJson(userInfo)
         prefs.edit().putString("userInfo", jsonString).putBoolean("firstStart", true).apply()

@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.activities
+package com.kyminbb.militarycalendar.activities.register
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
