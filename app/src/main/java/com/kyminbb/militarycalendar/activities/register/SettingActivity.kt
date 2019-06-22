@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar
+package com.kyminbb.militarycalendar.activities.register
 
 import android.Manifest
 import android.app.Activity
@@ -16,9 +16,13 @@ import com.bumptech.glide.Glide
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.kyminbb.militarycalendar.DateCalc
+import com.kyminbb.militarycalendar.Dates
+import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.User
+import com.kyminbb.militarycalendar.activities.MainActivity
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
-import kotlinx.android.synthetic.main.activity_set_name.*
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -249,9 +253,11 @@ class SettingActivity : AppCompatActivity() {
             }
             "End" -> {
                 if (userInfo.promotionDates.isNotEmpty()) {
-                    dialog.defaultDate(userInfo.promotionDates[Dates.END.ordinal].year,
+                    dialog.defaultDate(
+                        userInfo.promotionDates[Dates.END.ordinal].year,
                         userInfo.promotionDates[Dates.END.ordinal].monthValue - 1,
-                        userInfo.promotionDates[Dates.END.ordinal].dayOfMonth)
+                        userInfo.promotionDates[Dates.END.ordinal].dayOfMonth
+                    )
                 }
             }
         }
@@ -275,19 +281,16 @@ class SettingActivity : AppCompatActivity() {
         userInfo.promotionDates[Dates.RANK4.ordinal] = DateCalc.calcRank4(enlist, userInfo.affiliation)
 
         //현재 날짜와 비교해서 현재 계급 값 설정, 다음 진급일 표시
-        if(today.isBefore(userInfo.promotionDates[Dates.RANK2.ordinal])) {
+        if (today.isBefore(userInfo.promotionDates[Dates.RANK2.ordinal])) {
             userInfo.rank = 0
             inputPromotionDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
-        }
-        else if(today.isBefore(userInfo.promotionDates[Dates.RANK3.ordinal])) {
+        } else if (today.isBefore(userInfo.promotionDates[Dates.RANK3.ordinal])) {
             userInfo.rank = 1
             inputPromotionDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
-        }
-        else if(today.isBefore(userInfo.promotionDates[Dates.RANK4.ordinal])) {
+        } else if (today.isBefore(userInfo.promotionDates[Dates.RANK4.ordinal])) {
             userInfo.rank = 2
             inputPromotionDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
-        }
-        else {
+        } else {
             userInfo.rank = 3
         }
     }

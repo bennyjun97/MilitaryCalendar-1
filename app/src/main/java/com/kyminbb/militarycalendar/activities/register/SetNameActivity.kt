@@ -1,25 +1,21 @@
-package com.kyminbb.militarycalendar.*
+package com.kyminbb.militarycalendar.activities.register
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.User
 import kotlinx.android.synthetic.main.activity_set_name.*
+import net.grandcentrix.tray.AppPreferences
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class SetNameActivity : AppCompatActivity() {
 
-    // Create a shared preference 객체, settingName 하고나서 사용되기에 lazy 위임
-    private val prefs by lazy { getSharedPreferences("prefs", Context.MODE_PRIVATE) }
-
     // Initialize the user info.
-    var userInfo = utils.User()
-    if prefs.contains("userInfo") {
-        userInfo = Gson().fromJson(prefs.getString("userInfo", ""), utils.User::class.java)
-    }
+    private var userInfo = loadData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +37,25 @@ class SetNameActivity : AppCompatActivity() {
                 toast("이름을 입력해주세요!")
                 return@setOnClickListener
             } else {
-                userInfo.name = nameText.text.toString()
-                val jsonString = Gson().toJson(userInfo)
-                prefs.edit().putString("userInfo", jsonString).apply()
-                startActivity<SetAffActivity>()
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                saveData()
             }
         }
+    }
+
+    private fun loadData(): User {
+        val prefs = AppPreferences(applicationContext)
+        if (prefs.contains("userInfo")) {
+            return Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+        }
+        return User()
+    }
+
+    private fun saveData() {
+        userInfo.name = nameText.text.toString()
+        val jsonString = Gson().toJson(userInfo)
+        val prefs = AppPreferences(applicationContext)
+        prefs.put("userInfo", jsonString)
+        startActivity<SetAffActivity>()
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }
