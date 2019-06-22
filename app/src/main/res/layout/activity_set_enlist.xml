@@ -8,6 +8,7 @@
         tools:context=".activities.register.SetEnlistActivity">
 
     <TextView
+            android:fontFamily="@font/jalnan"
             android:text="스피너데이트 기능이랑 상단에 이미지 이미지 표시!"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
