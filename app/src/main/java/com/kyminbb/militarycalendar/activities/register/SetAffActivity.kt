@@ -27,11 +27,11 @@ class SetAffActivity : AppCompatActivity() {
             buttonArmy,
             buttonNavy,
             buttonAir,
+            buttonMarine,
             buttonPolice,
             buttonPublic,
-            buttonMarine,
-            buttonFire,
-            buttonSeapolice
+            buttonSeapolice,
+            buttonFire
         )
 
         // Save the affiliation for each selection.
