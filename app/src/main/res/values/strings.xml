@@ -5,4 +5,7 @@
     <string name="title_activity_tab">TabActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="next">다음</string>
+    <string name="input_name">이름을 입력하세요.</string>
+    <string name="back">이전</string>
 </resources>
