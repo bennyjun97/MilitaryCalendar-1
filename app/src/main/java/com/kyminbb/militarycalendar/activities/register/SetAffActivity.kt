@@ -4,18 +4,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.User
+import com.kyminbb.militarycalendar.utils.User
 import kotlinx.android.synthetic.main.activity_set_aff.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class SetAffActivity : AppCompatActivity() {
 
-    companion object {
-        val affiliations = arrayOf("육군", "해군", "공군", "의무경찰", "사회복무요원", "해병대", "의무소방대", "해양의무경찰")
-    }
+    private val affiliations = arrayOf("육군", "해군", "공군", "의무경찰", "사회복무요원", "해병대", "의무소방대", "해양의무경찰")
 
-    var userInfo = User()
+    private var userInfo = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +39,7 @@ class SetAffActivity : AppCompatActivity() {
             value.setOnClickListener {
                 saveData(index)
 
+                // Transition to the next activity.
                 startActivity<SetEnlistActivity>()
                 overridePendingTransition(
                     R.anim.fade_in,

@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar
+package com.kyminbb.militarycalendar.utils
 
 import com.commit451.addendum.threetenabp.toLocalDate
 import org.threeten.bp.LocalDate

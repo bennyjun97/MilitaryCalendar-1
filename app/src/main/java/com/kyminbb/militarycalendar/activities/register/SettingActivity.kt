@@ -2,7 +2,6 @@ package com.kyminbb.militarycalendar.activities.register
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -16,11 +15,11 @@ import com.bumptech.glide.Glide
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.kyminbb.militarycalendar.DateCalc
-import com.kyminbb.militarycalendar.Dates
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.User
 import com.kyminbb.militarycalendar.activities.MainActivity
+import com.kyminbb.militarycalendar.utils.DateCalc
+import com.kyminbb.militarycalendar.utils.Dates
+import com.kyminbb.militarycalendar.utils.User
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -193,7 +192,8 @@ class SettingActivity : AppCompatActivity() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select image"),
+        startActivityForResult(
+            Intent.createChooser(intent, "Select image"),
             SELECT_PICTURE
         )
     }

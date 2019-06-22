@@ -5,7 +5,7 @@ import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.User
+import com.kyminbb.militarycalendar.utils.User
 import kotlinx.android.synthetic.main.activity_set_name.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -38,6 +38,12 @@ class SetNameActivity : AppCompatActivity() {
                 return@setOnClickListener
             } else {
                 saveData()
+                // Transition to the next activity.
+                startActivity<SetAffActivity>()
+                overridePendingTransition(
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
             }
         }
     }
@@ -54,10 +60,5 @@ class SetNameActivity : AppCompatActivity() {
         val jsonString = Gson().toJson(userInfo)
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         prefs.edit().putString("userInfo", jsonString).apply()
-        startActivity<SetAffActivity>()
-        overridePendingTransition(
-            R.anim.fade_in,
-            R.anim.fade_out
-        )
     }
 }

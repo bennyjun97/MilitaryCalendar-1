@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar
+package com.kyminbb.militarycalendar.utils
 
 /**
  * declared top-level function

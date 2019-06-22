@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar
+package com.kyminbb.militarycalendar.utils
 
 import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.ChronoUnit
