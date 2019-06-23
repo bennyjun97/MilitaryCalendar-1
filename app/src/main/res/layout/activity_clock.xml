@@ -56,14 +56,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline6"
             app:layout_constraintBottom_toTopOf="@+id/guideline2" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-    <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp" app:srcCompat="@drawable/pseudoclock"
-            android:id="@+id/clock"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"/>
     <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="0dp"
@@ -74,4 +66,12 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.0"
             android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp" android:max="100" android:progress="50"/>
+    <com.kyminbb.militarycalendar.utils.ClockView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/clockView"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
