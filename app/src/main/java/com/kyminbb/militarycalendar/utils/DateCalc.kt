@@ -7,8 +7,8 @@ object DateCalc {
     //입대날짜, 보직에 따라 전역날짜 계산해준다.
     fun calcETS(date: LocalDate, affiliation: String?): LocalDate {
         when (affiliation) {
-            "육군/의경" -> return armyETS(date)
-            "해군/해양의무경찰" -> return navyETS(date)
+            "육군", "의경" -> return armyETS(date)
+            "해군", "해양의무경찰" -> return navyETS(date)
             "공군" -> return airETS(date)
             "해병" -> return marineETS(date)
             "사회복무요원" -> return agentETS(date)
