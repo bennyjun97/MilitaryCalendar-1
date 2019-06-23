@@ -1,5 +1,6 @@
 package com.kyminbb.militarycalendar.activities.register
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -18,6 +19,7 @@ class SetNameActivity : AppCompatActivity() {
     // Initialize the user info.
     private var userInfo = User()
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_name)
@@ -35,7 +37,7 @@ class SetNameActivity : AppCompatActivity() {
             if there is input, save name in the User() data class
             when the name is saved, create an intent so that the activity moves onto the next class (SettingAffiliationActivity)
               */
-
+            DynamicToast.Config.getInstance().setSuccessBackgroundColor(Color.parseColor("#6B8E23")).apply()
             if (TextUtils.isEmpty(nameText.text.toString())) {
                 // https://github.com/pranavpandey/dynamic-toasts
                 DynamicToast.makeError(this, "이름을 입력해주세요!").show()
