@@ -16,6 +16,7 @@ import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.activities.ClockActivity
 import com.kyminbb.militarycalendar.activities.MainActivity
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
@@ -58,11 +59,19 @@ class SettingActivity : AppCompatActivity() {
 
         buttonComplete.setOnClickListener {
             saveData()
-            startActivity<MainActivity>()
+            startActivity<ClockActivity>()
+            overridePendingTransition(
+                R.anim.fade_in,
+                R.anim.fade_out
+            )
         }
 
         buttonInit.setOnClickListener {
             startActivity<SetNameActivity>()
+            overridePendingTransition(
+                R.anim.fade_in,
+                R.anim.fade_out
+            )
         }
     }
 /*

@@ -1,6 +1,7 @@
 package com.kyminbb.militarycalendar.utils
 
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.temporal.ChronoUnit
 
 object DateCalc {
@@ -37,6 +38,36 @@ object DateCalc {
     //병장 진급일
     fun calcRank4(date: LocalDate, affiliation: String?): LocalDate {
         return plus7Months(calcRank3(date, affiliation))
+    }
+
+    fun entirePercent(enlistDateTime: LocalDateTime, etsDateTime: LocalDateTime): Double {
+        var now = LocalDateTime.now()
+        if(now.isAfter(etsDateTime)) {
+            return 100.0
+        }
+        else if(now.isBefore(enlistDateTime)) {
+            return 0.0
+        }
+        var timeDif1 = ChronoUnit.MILLIS.between(enlistDateTime, etsDateTime).toDouble()
+        var timeDif2 = ChronoUnit.MILLIS.between(enlistDateTime, now).toDouble()
+
+        return (timeDif2 / timeDif1) * 100.0
+    }
+
+    fun rankPercent(startTime: LocalDateTime, endTime: LocalDateTime): Double {
+        var now = LocalDateTime.now()
+        var timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
+        var timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
+
+        return (timeDif1 / timeDif2) * 100.0
+    }
+
+    fun monthPercent(startTime: LocalDateTime, endTime: LocalDateTime) : Double {
+        var now = LocalDateTime.now()
+        var timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
+        var timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
+
+        return (timeDif1 / timeDif2) * 100.0
     }
 
     //육군 전역날짜 계산.
