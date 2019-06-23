@@ -12,18 +12,20 @@ import org.threeten.bp.LocalDateTime
 
 class ClockActivity : AppCompatActivity() {
     private var userInfo = User()
-    private var enlistDateTime = LocalDateTime.of(userInfo.promotionDates[Dates.ENLIST.ordinal].year,
-        userInfo.promotionDates[Dates.ENLIST.ordinal].month,
-        userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth,
-        0, 0, 0, 0)
-    private var etsDateTime = LocalDateTime.of(userInfo.promotionDates[Dates.END.ordinal].year,
-        userInfo.promotionDates[Dates.END.ordinal].month,
-        userInfo.promotionDates[Dates.END.ordinal].dayOfMonth,
-        0, 0, 0, 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clock)
+
+        loadData()
+        var enlistDateTime = LocalDateTime.of(userInfo.promotionDates[Dates.ENLIST.ordinal].year,
+            userInfo.promotionDates[Dates.ENLIST.ordinal].month,
+            userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth,
+            0, 0, 0, 0)
+        var etsDateTime = LocalDateTime.of(userInfo.promotionDates[Dates.END.ordinal].year,
+            userInfo.promotionDates[Dates.END.ordinal].month,
+            userInfo.promotionDates[Dates.END.ordinal].dayOfMonth,
+            0, 0, 0, 0)
 
         progressBar.max = 100
         progressBar.progress = DateCalc.entirePercent(enlistDateTime, etsDateTime).toInt()

@@ -48,8 +48,8 @@ object DateCalc {
         else if(now.isBefore(enlistDateTime)) {
             return 0.0
         }
-        var timeDif1 = ChronoUnit.MILLIS.between(enlistDateTime, etsDateTime).toDouble()
-        var timeDif2 = ChronoUnit.MILLIS.between(enlistDateTime, now).toDouble()
+        var timeDif1 = ChronoUnit.SECONDS.between(enlistDateTime, etsDateTime).toDouble()
+        var timeDif2 = ChronoUnit.SECONDS.between(enlistDateTime, now).toDouble()
 
         return (timeDif2 / timeDif1) * 100.0
     }
