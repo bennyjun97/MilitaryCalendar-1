@@ -13,6 +13,7 @@ import org.threeten.bp.LocalDateTime
 class ClockActivity : AppCompatActivity() {
     private var userInfo = User()
 
+    // 복무율에 따라 강을 설정해주고, 돗단배가 강을 흘러 간다. 이때, 선착장이 있는데, 일병, 이병, 상병, 병장이 될때마다 선착하고, 깃발의 색깔이 바뀐다.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clock)

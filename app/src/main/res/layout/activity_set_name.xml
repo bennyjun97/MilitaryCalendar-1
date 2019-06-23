@@ -6,17 +6,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/JalnanTextViewStyle"
-        tools:context=".activities.register.SetNameActivity" android:background="@drawable/gray_gradient">
+        tools:context=".activities.register.SetNameActivity" android:background="@drawable/cool_brown_gradient">
 
     <Button
             android:text="@string/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/nextNameButton" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.498" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/nameText"/>
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintBottom_toTopOf="@+id/guideline16"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +26,16 @@
             android:hint="@string/input_name" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@+id/guideline17"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/guideline16"
+            app:layout_constraintGuide_percent=".85"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/guideline17"
+            app:layout_constraintGuide_percent=".5"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

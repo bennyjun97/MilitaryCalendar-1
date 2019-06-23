@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/JalnanTextViewStyle"
-        tools:context=".activities.register.SetAffActivity" android:background="@drawable/gray_gradient">
+        tools:context=".activities.register.SetAffActivity" android:background="@drawable/cool_brown_gradient">
     <TableLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -14,12 +14,13 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.25"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
             android:id="@+id/tableLayout"
-            app:layout_constraintBottom_toTopOf="@+id/guideline9" android:weightSum="4">
+            app:layout_constraintBottom_toTopOf="@+id/backAffButton" android:weightSum="4"
+            android:layout_marginBottom="8dp">
 
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
                   android:layout_weight="1" android:gravity="center">
             <ImageButton
-                    android:layout_width="100dp"
+                    android:layout_width="69dp"
                     android:layout_height="100dp" app:srcCompat="@drawable/profile"
                     android:id="@+id/buttonArmy" android:scaleType="fitCenter" android:layout_weight="1"/>
             <ImageButton
@@ -64,38 +65,40 @@
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline7"
                                                 android:orientation="vertical"
-                                                app:layout_constraintGuide_percent="0.15"
                                                 app:layout_constraintStart_toStartOf="parent"
                                                 app:layout_constraintHorizontal_bias="0.5"
-                                                app:layout_constraintEnd_toStartOf="@+id/backAffButton"/>
+                                                app:layout_constraintEnd_toStartOf="@+id/backAffButton"
+                                                app:layout_constraintGuide_percent="0.15085158"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline8"
                                                 android:orientation="vertical"
-                                                app:layout_constraintGuide_percent="0.85"
                                                 app:layout_constraintStart_toEndOf="@+id/nextButton"
                                                 app:layout_constraintHorizontal_bias="0.5"
-                                                app:layout_constraintEnd_toEndOf="parent"/>
+                                                app:layout_constraintEnd_toEndOf="parent"
+                                                app:layout_constraintGuide_percent="0.8515815"/>
     <Button
             android:text="이전"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/backAffButton" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="@+id/guideline7"
-            android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/guideline7"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/nextButton"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-            android:fontFamily="@font/jalnan"/>
+            app:layout_constraintEnd_toStartOf="@+id/guideline18"
+            android:fontFamily="@font/jalnan" app:layout_constraintBottom_toTopOf="@+id/guideline9"
+            android:layout_marginEnd="8dp"/>
     <Button
             android:text="다음"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/nextButton" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toEndOf="@+id/backAffButton"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.5" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/tableLayout" android:fontFamily="@font/jalnan"/>
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/jalnan" app:layout_constraintBottom_toTopOf="@+id/guideline9"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline9"
                                                 android:orientation="horizontal"
-                                                app:layout_constraintGuide_percent="0.80"/>
+                                                app:layout_constraintGuide_percent=".85"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/guideline18"
+            app:layout_constraintGuide_percent="0.50121653"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

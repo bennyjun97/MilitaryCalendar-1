@@ -12,4 +12,8 @@
     <!-- gradient 1 -->
     <color name="GrayLight">#F2F3F6</color>
     <color name="GrayDark">#C9CEE5</color>
+
+    <!-- gradient 2 -->
+    <color name="CoolBrownLight">#c79081</color>
+    <color name="CoolBrownDark">#dfa579</color>
 </resources>
