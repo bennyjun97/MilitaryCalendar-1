@@ -96,7 +96,7 @@ class SettingActivity : AppCompatActivity() {
     // Load the user info from SharedPreferences.
     private fun loadData() {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
-        val userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+        userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
         setFinalName.text = userInfo.name
         setFinalAff.text = userInfo.affiliation
         setFinalEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
