@@ -10,11 +10,6 @@
             android:theme="@style/AppTheme">
         <activity android:name=".activities.ClockActivity">
         </activity>
-        <activity
-                android:name=".activities.TabActivity"
-                android:label="@string/title_activity_tab"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
         <activity android:name=".activities.GraphActivity">
         </activity>
         <activity android:name=".activities.CalendarActivity">
