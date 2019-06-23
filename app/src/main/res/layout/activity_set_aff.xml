@@ -83,7 +83,7 @@
             android:id="@+id/backAffButton" android:layout_marginBottom="8dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             android:fontFamily="@font/jalnan" app:layout_constraintBottom_toTopOf="@+id/guideline9"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp" android:background="@color/buttonColor3"/>
     <Button
             android:text="다음"
             android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
             android:id="@+id/nextButton" android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/jalnan" app:layout_constraintBottom_toTopOf="@+id/guideline9"
-            app:layout_constraintStart_toStartOf="@+id/guideline18"/>
+            app:layout_constraintStart_toStartOf="@+id/guideline18" android:background="@color/buttonColor3"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline9"
                                                 android:orientation="horizontal"

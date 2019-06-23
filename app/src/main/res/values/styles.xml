@@ -31,6 +31,7 @@
     <!-- customize button settings -->
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
         <item name="android:text">@style/JalnanTextViewStyle</item>
+        <item name="android:background">@color/buttonColor3</item>
     </style>
 
 

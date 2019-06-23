@@ -16,4 +16,10 @@
     <!-- gradient 2 -->
     <color name="CoolBrownLight">#c79081</color>
     <color name="CoolBrownDark">#dfa579</color>
+
+    <!-- button color -->
+    <color name="buttonColor1">#f1d1b5</color>
+    <color name="buttonColor2">#ffa700</color>
+    <color name="buttonColor3">#fed766</color>
+
 </resources>
