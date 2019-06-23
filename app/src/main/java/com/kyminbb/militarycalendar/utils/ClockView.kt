@@ -19,7 +19,7 @@ class ClockView @JvmOverloads constructor(
     private var mRadius = 0f
     private var mHandLength = 0f
 
-    private var hour = 2
+    private var hour = 3
     private var minute = 30
 
     private val edgePaint = Paint(ANTI_ALIAS_FLAG).apply {
@@ -59,7 +59,7 @@ class ClockView @JvmOverloads constructor(
         canvas?.drawCircle(cX, cY, mRadius, edgePaint)
         canvas?.drawCircle(cX, cY, edgePaint.strokeWidth, centerPaint)
 
-        val moment = (hour + (minute / 60).toDouble()) * 5
+        val moment = (hour.toDouble() + (minute.toDouble() / 60)) * 5
         drawHand(canvas, moment, true)
         drawHand(canvas, minute.toDouble(), false)
     }
