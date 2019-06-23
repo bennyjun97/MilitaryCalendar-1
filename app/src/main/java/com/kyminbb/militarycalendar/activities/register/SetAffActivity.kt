@@ -1,10 +1,13 @@
 package com.kyminbb.militarycalendar.activities.register
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.utils.User
+import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import kotlinx.android.synthetic.main.activity_set_aff.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -20,8 +23,7 @@ class SetAffActivity : AppCompatActivity() {
         setContentView(R.layout.activity_set_aff)
 
         loadData()
-
-        toast("${userInfo.name}님! 소속이 어떻게 되세요?")
+        DynamicToast.makeSuccess(this, "${userInfo.name}님! 소속이 어떻게 되세요?").show()
 
         val buttons = arrayOf(
             buttonArmy,

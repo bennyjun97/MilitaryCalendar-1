@@ -1,11 +1,14 @@
 package com.kyminbb.militarycalendar.activities.register
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.utils.User
+import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import kotlinx.android.synthetic.main.activity_set_name.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -34,7 +37,8 @@ class SetNameActivity : AppCompatActivity() {
               */
 
             if (TextUtils.isEmpty(nameText.text.toString())) {
-                toast("이름을 입력해주세요!")
+                // https://github.com/pranavpandey/dynamic-toasts
+                DynamicToast.makeError(this, "이름을 입력해주세요!").show()
                 return@setOnClickListener
             } else {
                 saveData()

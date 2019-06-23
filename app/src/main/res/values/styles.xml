@@ -6,11 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/JalnanTextViewStyle</item>
     </style>
 
     <style name="AppTheme.Setting" parent="AppTheme">
         <item name="colorPrimary">#6C7E46</item>
         <item name="colorPrimaryDark">#5C6E36</item>
+        <item name="android:textViewStyle">@style/JalnanTextViewStyle</item>
     </style>
 
     <style name="NumberPickerStyle">
@@ -24,5 +26,19 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+
+    <!-- customize button settings -->
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
+        <item name="android:text">@style/JalnanTextViewStyle</item>
+    </style>
+
+
+    <!-- customize font for all activities -->
+    <style name = "JalnanTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/jalnan</item>
+    </style>
+
+
 
 </resources>
