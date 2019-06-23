@@ -301,6 +301,6 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun formatDate(date: LocalDate): String {
-        return date.format(DateTimeFormatter.ofPattern("YYYY/MM/dd"))
+        return date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"))
     }
 }
