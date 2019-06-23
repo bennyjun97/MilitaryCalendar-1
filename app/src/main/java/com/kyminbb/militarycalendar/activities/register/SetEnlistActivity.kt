@@ -10,7 +10,6 @@ import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.activities.ClockActivity
 import com.kyminbb.militarycalendar.activities.GraphActivity
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
@@ -65,7 +64,7 @@ class SetEnlistActivity : AppCompatActivity() {
             } else {
                 saveData()
                 // Transition to the next activity.
-                startActivity<ClockActivity>()
+                startActivity<SettingActivity>()
                 overridePendingTransition(
                     R.anim.fade_in,
                     R.anim.fade_out
