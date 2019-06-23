@@ -68,7 +68,7 @@
                                                 app:layout_constraintStart_toStartOf="parent"
                                                 app:layout_constraintHorizontal_bias="0.5"
                                                 app:layout_constraintEnd_toStartOf="@+id/backAffButton"
-                                                app:layout_constraintGuide_percent="0.15085158"/>
+                                                app:layout_constraintGuide_percent="0.15"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline8"
                                                 android:orientation="vertical"
