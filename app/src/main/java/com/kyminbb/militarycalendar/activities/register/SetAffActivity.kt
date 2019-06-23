@@ -67,7 +67,6 @@ class SetAffActivity : AppCompatActivity() {
 
     private fun saveData(index: Int) {
         userInfo.affiliation = affiliations[index]
-
         val jsonString = Gson().toJson(userInfo)
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         prefs.edit().putString("userInfo", jsonString).apply()
