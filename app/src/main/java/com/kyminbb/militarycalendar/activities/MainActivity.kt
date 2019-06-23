@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
-        // Toast.makeText(this, userInfo.name, Toast.LENGTH_SHORT).show()
         val firstStart = prefs.getBoolean("firstStart", true)
 
         // Open the sign-up page if the application is first-time executed.
