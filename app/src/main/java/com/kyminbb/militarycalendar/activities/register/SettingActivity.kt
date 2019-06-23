@@ -51,51 +51,21 @@ class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize the timezone information.
-        AndroidThreeTen.init(this)
         setContentView(R.layout.activity_setting)
-
-        // Initialize the view.
-        init()
 
         // Load the user info if there exists.
         loadData()
 
-        // Update profile image.
-        buttonProfileImage.setOnClickListener {
-            setProfileImage()
-        }
-
-        // Update the affiliation.
-        setAffiliation()
-
-        // Change the ETS date only when automatically added date is inaccurate.
-        inputEnlistDate.setOnClickListener {
-            setDate("Enlist")
-        }
-
-        // Update the end date.
-        inputEndDate.setOnClickListener {
-            setDate("End")
-        }
-
-        // Update the promotion dates.
-        inputPromotionDate.setOnClickListener {
-            setPromotionDates()
-        }
-
-        // Complete the info update and save.
         buttonComplete.setOnClickListener {
             saveData()
-            // Transition to the main page.
             startActivity<MainActivity>()
         }
 
-        // Initialize the user info and the activity.
         buttonInit.setOnClickListener {
-            init()
+            startActivity<SetNameActivity>()
         }
     }
-
+/*
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         // Start gallery intent if permission is granted.
@@ -122,28 +92,14 @@ class SettingActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
-
-    private fun init() {
-        buttonProfileImage.setImageResource(R.drawable.profile)
-        //inputName.text.clear()
-        inputEnlistDate.text = "${todayYear}/${todayMonth}/${todayDay}"
-        inputEndDate.text = "전역일"
-        inputPromotionDate.text = "진급일"
-    }
-
+*/
     // Load the user info from SharedPreferences.
     private fun loadData() {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
-        val firstStart = prefs.getBoolean("firstStart", true)
-        // Load if the application is not first-time executed.
-        if (!firstStart) {
-            // load datas including name, affiliation, enlistdate, enddate, promotion date
-            // load from the User.kt (data class)
-            // data would be saved as JSon String
-            var userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
-            inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
-            inputEndDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
-        }
+        val userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+        setFinalName.text = userInfo.name
+        setFinalAff.text = userInfo.affiliation
+        setFinalEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
     }
 
     // Save the user info to SharedPreferences.
@@ -151,9 +107,9 @@ class SettingActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         // save the data into UserData Class
         val jsonString = Gson().toJson(userInfo)
-        prefs.edit().putString("userInfo", jsonString).putBoolean("firstStart", true).apply()
+        prefs.edit().putString("userInfo", jsonString).putBoolean("firstStart", false).apply()
     }
-
+/*
     private fun setProfileImage() {
         // First check whether permission to read gallery is granted.
         if (ContextCompat.checkSelfPermission(
@@ -190,7 +146,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun startGalleryIntent() {
         val intent = Intent()
-        intent.type = "image/*"
+        intent.type = "image"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(
             Intent.createChooser(intent, "Select image"),
@@ -219,7 +175,7 @@ class SettingActivity : AppCompatActivity() {
             "Enlist" -> {
                 dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
                     userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
-                    inputEnlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+                    setFinalEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
                     calcEndDate()
                     calcPromotionDates()
                 }
@@ -299,7 +255,7 @@ class SettingActivity : AppCompatActivity() {
     private fun setPromotionDates() {
 
     }
-
+*/
     private fun formatDate(date: LocalDate): String {
         return date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"))
     }
