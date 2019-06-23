@@ -6,12 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/JalnanTextViewStyle"
-        tools:context=".activities.register.SetEnlistActivity">
+        tools:context=".activities.register.SetEnlistActivity" android:background="@drawable/cool_brown_gradient">
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline5" app:layout_constraintGuide_percent=".5"
-            android:background="@drawable/cool_brown_gradient"/>
+    />
     <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
