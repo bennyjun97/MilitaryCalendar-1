@@ -29,7 +29,15 @@ class ClockActivity : AppCompatActivity() {
             0, 0, 0, 0)
 
         progressBar.max = 100
-        progressBar.progress = DateCalc.entirePercent(enlistDateTime, etsDateTime).toInt()
+        var percent = DateCalc.entirePercent(enlistDateTime, etsDateTime)
+        progressBar.progress = percent.toInt()
+
+        var hour = percent*0.24
+        var min = (percent*14.4)%60
+
+        digitalTime.text = "${hour.toInt()}:${min.toInt()}"
+
+        clockView.onTimeChanged(hour.toLong(), min.toLong())
     }
 
     private fun loadData() {

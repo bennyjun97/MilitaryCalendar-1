@@ -9,6 +9,8 @@
     <color name="grass">#00B35D</color>
     <color name="darkergrass">#006032</color>
 
+    <color name="timeRed">#FC4343</color>
+
     <!-- gradient 1 -->
     <color name="GrayLight">#F2F3F6</color>
     <color name="GrayDark">#C9CEE5</color>
