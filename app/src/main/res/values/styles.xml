@@ -36,10 +36,9 @@
 
 
     <!-- customize font for all activities -->
-    <style name = "JalnanTextViewStyle" parent="android:Widget.TextView">
+    <style name="JalnanTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/jalnan</item>
     </style>
-
 
 
 </resources>

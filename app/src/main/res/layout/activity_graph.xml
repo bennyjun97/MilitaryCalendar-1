@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/JalnanTextViewStyle"
-        tools:context=".activities.GraphActivity">
+        tools:context=".activities.main.GraphActivity">
 
     <TextView
             android:text="그래프 만들어야 됨"

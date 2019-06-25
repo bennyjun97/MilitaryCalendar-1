@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.activities.main.HomeActivity
 import com.kyminbb.militarycalendar.activities.register.SetNameActivity
 import com.kyminbb.militarycalendar.utils.ClockView
 import com.kyminbb.militarycalendar.utils.User
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         if (!firstStart) {
             startActivity<SetNameActivity>()
         } else {
-            startActivity<ClockActivity>()
+            startActivity<HomeActivity>()
         }
     }
 }

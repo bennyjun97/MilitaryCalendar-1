@@ -1,37 +1,17 @@
 package com.kyminbb.militarycalendar.activities.register
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.activities.ClockActivity
-import com.kyminbb.militarycalendar.activities.MainActivity
-import com.kyminbb.militarycalendar.utils.DateCalc
+import com.kyminbb.militarycalendar.activities.main.HomeActivity
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
-import com.tsongkha.spinnerdatepicker.DatePickerDialog
-import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_setting.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.yesButton
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
-import java.io.IOException
 import java.util.*
 
 class SettingActivity : AppCompatActivity() {
@@ -60,7 +40,7 @@ class SettingActivity : AppCompatActivity() {
 
         buttonComplete.setOnClickListener {
             saveData()
-            startActivity<ClockActivity>()
+            startActivity<HomeActivity>()
             overridePendingTransition(
                 R.anim.fade_in,
                 R.anim.fade_out
