@@ -13,8 +13,6 @@ import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private val userInfo = User()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize the timezone information.
