@@ -3,11 +3,14 @@
     <string name="title_activity_clock">ClockActivity</string>
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="title_activity_tab">TabActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="next">다음</string>
-    <string name="input_name">이름을 입력하세요.</string>
     <string name="back">이전</string>
+    <string name="complete">완료</string>
+    <string name="init">초기화</string>
+    <string name="input_name">이름을 입력하세요.</string>
+    <string name="input_enlist">입대 날짜를 선택해주세요.</string>
+    <string name="verify">정보가 맞나요?</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

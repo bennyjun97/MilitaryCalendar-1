@@ -5,6 +5,8 @@
     <!--<color name="colorPrimaryDark">#00574B</color> -->
     <color name="colorPrimaryDark">#496B00</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="black">#000000</color>
     <color name="skyblue">#96C5FD</color>
     <color name="grass">#00B35D</color>
     <color name="darkergrass">#006032</color>

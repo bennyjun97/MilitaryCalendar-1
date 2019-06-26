@@ -22,9 +22,9 @@
             app:layout_constraintStart_toStartOf="@+id/guideline19" app:layout_constraintHorizontal_bias="1.0"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
-            app:layout_constraintEnd_toStartOf="@+id/guideline20"/>
+            app:layout_constraintEnd_toStartOf="@+id/guideline20" android:textColor="@color/black"/>
     <TextView
-            android:text="입대날짜를 선택해주세요!"
+            android:text="@string/input_enlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/enlistText"
@@ -33,21 +33,23 @@
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:textSize="24sp"
             app:layout_constraintVertical_bias="0.9"/>
     <Button
-            android:text="다음"
+            android:text="@string/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/nextEnlistButton" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintStart_toStartOf="@+id/guideline10" android:layout_marginStart="8dp"
-            android:background="@color/buttonColor3"/>
+            android:background="@drawable/rounded_button" android:textColor="@color/black"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/guideline20"/>
     <Button
-            android:text="뒤로"
+            android:text="@string/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/backEnlistButton" app:layout_constraintEnd_toStartOf="@+id/guideline10"
             android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
-            android:background="@color/buttonColor3"/>
+            android:background="@drawable/rounded_button" android:textColor="@color/black"
+            android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline19"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
