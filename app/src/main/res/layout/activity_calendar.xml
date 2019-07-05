@@ -8,12 +8,72 @@
         android:theme="@style/JalnanTextViewStyle"
         tools:context=".activities.main.CalendarActivity">
 
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guideline21"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.85"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="@+id/guideline21"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/linearLayout2">
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" app:srcCompat="@color/colorPrimary" android:id="@+id/imageButton"
+                android:layout_weight="1" android:scaleType="center" android:background="@null"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" app:srcCompat="@color/CoolBrownLight"
+                android:id="@+id/imageButton2" android:layout_weight="1" android:background="@null"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" app:srcCompat="@color/colorAccent" android:id="@+id/imageButton3"
+                android:layout_weight="1" android:background="@null"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" app:srcCompat="@color/skyblue" android:id="@+id/imageButton4"
+                android:layout_weight="1" android:background="@null"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="@+id/guideline21"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+                android:text="휴가"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView7" android:layout_weight="1"
+                android:layout_gravity="bottom" android:textAlignment="center" android:textSize="22sp"
+                android:textColor="@color/black" android:paddingBottom="10dp"/>
+        <TextView
+                android:text="당직"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView8" android:layout_weight="1"
+                android:layout_gravity="bottom" android:textAlignment="center" android:textSize="22sp"
+                android:textColor="@color/black" android:paddingBottom="10dp"/>
+        <TextView
+                android:text="훈련"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView9" android:layout_weight="1"
+                android:layout_gravity="bottom" android:textAlignment="center" android:textSize="22sp"
+                android:textColor="@color/black" android:paddingBottom="10dp"/>
+        <TextView
+                android:text="개인"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView10" android:layout_weight="1"
+                android:layout_gravity="bottom" android:textAlignment="center" android:textSize="22sp"
+                android:textColor="@color/black" android:paddingBottom="10dp"/>
+    </LinearLayout>
     <TextView
-            android:text="달력 만들어야 됨"
+            android:text="군인맞춤 플래너"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textview" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:id="@+id/textView11"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:textColor="@color/darkergrass" android:textSize="28sp" android:layout_marginTop="32dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
