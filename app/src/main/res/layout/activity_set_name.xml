@@ -31,7 +31,7 @@
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/nameText"
-                android:hint="@string/input_name" android:gravity="start"/>
+                android:hint="@string/input_name" android:gravity="start" android:textColor="@android:color/black"/>
     </com.github.florent37.materialtextfield.MaterialTextField>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"

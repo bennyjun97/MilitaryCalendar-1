@@ -1,7 +1,6 @@
 package com.kyminbb.militarycalendar.activities.main
 
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -71,7 +70,7 @@ class ClockFragment : Fragment() {
         userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
     }
 
-    private fun formatTime(hour: Int, min: Int) : String {
+    private fun formatTime(hour: Int, min: Int): String {
         return "%02d".format(hour) + " : " + "%02d".format(min)
     }
 }
