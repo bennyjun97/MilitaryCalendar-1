@@ -70,6 +70,14 @@ object DateCalc {
         return (timeDif1 / timeDif2) * 100.0
     }
 
+    // D-day 계산
+
+    fun countDDay(endTime: LocalDateTime) : String {
+        val now = LocalDateTime.now()
+        val Ddays = now.until(endTime, ChronoUnit.DAYS).toInt() + 1
+        return "D-${Ddays}"
+    }
+
     //육군 전역날짜 계산.
     private fun armyETS(date: LocalDate): LocalDate {
         //원래 21개월

@@ -10,6 +10,8 @@
     <string name="input_name">이름을 입력하세요.</string>
     <string name="input_enlist">입대 날짜를 선택해주세요.</string>
     <string name="verify">정보가 맞나요?</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
