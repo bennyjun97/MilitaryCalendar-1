@@ -48,4 +48,7 @@ dependencies {
     implementation 'com.github.florent37:materialtextfield:1.0.7'
     // https://github.com/prolificinteractive/material-calendarview
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+    // Circluar Progres Bar
+    // https://github.com/antonKozyriatskyi/CircularProgressIndicator
+    implementation 'com.github.antonKozyriatskyi:CircularProgressIndicator:1.3.0'
 }

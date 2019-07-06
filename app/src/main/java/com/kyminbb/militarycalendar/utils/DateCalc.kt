@@ -41,31 +41,31 @@ object DateCalc {
     }
 
     fun entirePercent(enlistDateTime: LocalDateTime, etsDateTime: LocalDateTime): Double {
-        var now = LocalDateTime.now()
+        val now = LocalDateTime.now()
         if(now.isAfter(etsDateTime)) {
             return 100.0
         }
         else if(now.isBefore(enlistDateTime)) {
             return 0.0
         }
-        var timeDif1 = ChronoUnit.SECONDS.between(enlistDateTime, etsDateTime).toDouble()
-        var timeDif2 = ChronoUnit.SECONDS.between(enlistDateTime, now).toDouble()
+        val timeDif1 = ChronoUnit.SECONDS.between(enlistDateTime, etsDateTime).toDouble()
+        val timeDif2 = ChronoUnit.SECONDS.between(enlistDateTime, now).toDouble()
 
         return (timeDif2 / timeDif1) * 100.0
     }
 
     fun rankPercent(startTime: LocalDateTime, endTime: LocalDateTime): Double {
-        var now = LocalDateTime.now()
-        var timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
-        var timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
+        val now = LocalDateTime.now()
+        val timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
+        val timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
 
         return (timeDif1 / timeDif2) * 100.0
     }
 
     fun monthPercent(startTime: LocalDateTime, endTime: LocalDateTime) : Double {
-        var now = LocalDateTime.now()
-        var timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
-        var timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
+        val now = LocalDateTime.now()
+        val timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
+        val timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
 
         return (timeDif1 / timeDif2) * 100.0
     }
