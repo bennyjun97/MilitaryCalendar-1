@@ -67,4 +67,17 @@ class SetNameActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         prefs.edit().putString("userInfo", jsonString).apply()
     }
+
+    override fun onBackPressed() {
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        val firstStart = prefs.getBoolean("firstStart", true)
+        //앱을 처음 시작해서 이 창에 있을 경우 누르면 걍 앱이 종료
+        if(firstStart) {
+            finish()
+        }
+        //수정을 위해 이 창에 있을 경우 누르면 전 화면으로
+        else {
+            super.onBackPressed()
+        }
+    }
 }
