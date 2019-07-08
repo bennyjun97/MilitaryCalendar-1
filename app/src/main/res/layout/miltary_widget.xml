@@ -1,42 +1,85 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="@dimen/widget_margin"
+              android:background="#565B61"
+              android:theme="@style/JalnanTextViewStyle" android:weightSum="100">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="45" android:weightSum="100"
+            android:layout_marginStart="@dimen/widget_margin" android:layout_marginTop="@dimen/widget_margin"
+            android:layout_marginBottom="@dimen/widget_margin">
+        <ImageButton
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/widget_margin"
-                android:background="#09C"
-                android:theme="@style/JalnanTextViewStyle">
+                android:layout_height="0dp" app:srcCompat="@drawable/army4" android:id="@+id/imageButton7"
+                android:layout_weight="60"/>
+        <TextView
+                android:id="@+id/name_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="#ffffff"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:background="#565B61" android:layout_weight="40" android:text="@string/name_text"
+                android:gravity="center"/>
+    </LinearLayout>
 
-    <TextView
-            android:id="@+id/name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textColor="#ffffff"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_margin="8dp"
-            android:background="#09C"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="45" android:weightSum="100"
+            android:layout_marginTop="@dimen/widget_margin" android:layout_marginBottom="@dimen/widget_margin">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="60" android:weightSum="10" android:gravity="center">
+            <TextView
+                    android:id="@+id/dDay_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:background="#565B61" android:text="@string/dday_text" android:layout_weight="5"
+                    android:gravity="center"/>
+            <TextView
+                    android:id="@+id/percent_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:background="#565B61" android:text="@string/percent_text"
+                    android:layout_weight="5"
+                    android:gravity="center"/>
+        </LinearLayout>
+        <TextView
+                android:text="@string/nextVaction_text"
+                android:layout_width="match_parent"
+                android:textColor="#ffffff"
+                android:layout_height="0dp" android:id="@+id/vacation_text" android:layout_weight="40"
+                android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" android:layout_weight="10"
+            android:layout_marginEnd="@dimen/widget_margin" android:layout_marginTop="@dimen/widget_margin"
+            android:layout_marginBottom="@dimen/widget_margin">
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="59dp" app:srcCompat="@drawable/test_setting"
+                android:id="@+id/imageButton6"/>
+    </LinearLayout>
 
-    <TextView
-            android:id="@+id/percent_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textColor="#ffffff"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:background="#09C"/>
 
-    <TextView
-            android:id="@+id/dDay_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textColor="#ffffff"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:background="#09C"/>
-
-</RelativeLayout>
+</LinearLayout>

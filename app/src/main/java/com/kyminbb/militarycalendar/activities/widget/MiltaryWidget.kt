@@ -71,9 +71,11 @@ class MiltaryWidget : AppWidgetProvider() {
             //val widgetText = context.getString(R.string.appwidget_text)
             // Construct the RemoteViews object
             val views = RemoteViews(context.packageName, R.layout.miltary_widget)
-            //views.setTextViewText(R.id.name_text, nameText)
-            //views.setTextViewText(R.id.percent_text, percentText)
+            views.setTextViewText(R.id.name_text, nameText)
+            views.setTextViewText(R.id.percent_text, percentText)
             views.setTextViewText(R.id.dDay_text, dDayText)
+            views.setImageViewResource(R.id.imageView7, R.drawable.army4)
+            views.setTextViewText(R.id.vacation_text, R.string.nextVaction_text.toString())
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)
