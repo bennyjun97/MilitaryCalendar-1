@@ -11,7 +11,7 @@ object DateCalc {
             "육군", "의경" -> return armyETS(date)
             "해군", "해양의무경찰" -> return navyETS(date)
             "공군" -> return airETS(date)
-            "해병" -> return marineETS(date)
+            "해병대" -> return marineETS(date)
             "사회복무요원" -> return agentETS(date)
         }
         // affiliation == "의무소방"
@@ -21,7 +21,7 @@ object DateCalc {
     //일병 진급일
     fun calcRank2(date: LocalDate, affiliation: String?): LocalDate {
         when (affiliation) {
-            "육군", "의경", "해군", "해양의무경찰", "해병", "사회복무요원", "의무소방" -> when {
+            "육군", "의경", "해군", "해양의무경찰", "해병대", "사회복무요원", "의무소방대" -> when {
                 date.dayOfMonth == 1 -> return plus3Months(date)
                 else -> return date.plusMonths(4).withDayOfMonth(1)
             }

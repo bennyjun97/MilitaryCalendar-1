@@ -28,10 +28,12 @@ class SetTestActivity : AppCompatActivity() {
     private val todayMonth = today.monthValue
     private val todayDay = today.dayOfMonth
 
+    private val affiliations = arrayOf("육군", "해군", "공군", "해병대", "의무경찰", "해양의무경찰", "사회복무요원", "의무소방대", "해양의무경찰")
+
     // Initialize the user info.
     var userInfo = User()
 
-    var affilChosen = false
+    var affilChosen = false //나중에 false로 바꿀 것
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,46 @@ class SetTestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_set_test)
 
         loadData()
+
+        val buttons = arrayOf(
+            buttonArmy,
+            buttonNavy,
+            buttonAir,
+            buttonMarine,
+            buttonPolice,
+            buttonSeapolice,
+            buttonPublic,
+            buttonFire
+        )
+
+        // Save the affiliation for each selection.
+        for ((index, value) in buttons.withIndex()) {
+            value.setOnClickListener {
+                userInfo.affiliation = affiliations[index]
+
+                affilChosen = true
+            }
+        }
+
+        startDate.setOnClickListener {
+            setDate(0)
+        }
+
+        privateDate.setOnClickListener {
+            setDate(1)
+        }
+
+        corporalDate.setOnClickListener {
+            setDate(2)
+        }
+
+        sergeantDate.setOnClickListener {
+            setDate(3)
+        }
+
+        endDate.setOnClickListener {
+            setDate(4)
+        }
 
         //이름 입력
         set.setOnClickListener {
@@ -76,14 +118,36 @@ class SetTestActivity : AppCompatActivity() {
         }
     }
 
-    private fun setDate() {
+    private fun setDate(dateIndex : Int) {
         // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
-            startDate.setText(formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal]))
-            calcEndDate()
-            calcPromotionDates()
+            //startDate 눌렀을 때
+            if(dateIndex == 0) {
+                userInfo.promotionDates[Dates.ENLIST.ordinal] = LocalDate.of(year, month + 1, day)
+                startDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+                calcEndDate()
+                calcPromotionDates()
+            }
+            // 전역일 조정 시
+            else if(dateIndex == 4) {
+                userInfo.promotionDates[Dates.END.ordinal] = LocalDate.of(year, month + 1, day)
+                endDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+            }
+
+            //진급일 조정 시
+            else {
+                if(dateIndex == 1) {
+                    userInfo.promotionDates[Dates.RANK2.ordinal] = LocalDate.of(year, month + 1, day)
+                    privateDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
+                }
+                else if(dateIndex == 2) {
+                    corporalDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
+                }
+                else {
+                    sergeantDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
+                }
+            }
         }
 
         val dialog = SpinnerDatePickerDialogBuilder()
@@ -100,9 +164,9 @@ class SetTestActivity : AppCompatActivity() {
             dialog.defaultDate(todayYear, todayMonth, todayDay)
         } else {
             dialog.defaultDate(
-                userInfo.promotionDates[Dates.ENLIST.ordinal].year,
-                userInfo.promotionDates[Dates.ENLIST.ordinal].monthValue - 1,
-                userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth
+                userInfo.promotionDates[dateIndex].year,
+                userInfo.promotionDates[dateIndex].monthValue - 1,
+                userInfo.promotionDates[dateIndex].dayOfMonth
             )
         }
         dialog.build().show()
@@ -112,6 +176,7 @@ class SetTestActivity : AppCompatActivity() {
         //call calcETS method of dateCalc to calculate ETS date
         userInfo.promotionDates[Dates.END.ordinal] =
             DateCalc.calcETS(userInfo.promotionDates[Dates.ENLIST.ordinal], userInfo.affiliation)
+        endDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
     }
 
     //일병, 상병, 병장 진급일 계산
@@ -122,6 +187,10 @@ class SetTestActivity : AppCompatActivity() {
         userInfo.promotionDates[Dates.RANK2.ordinal] = DateCalc.calcRank2(enlist, userInfo.affiliation)
         userInfo.promotionDates[Dates.RANK3.ordinal] = DateCalc.calcRank3(enlist, userInfo.affiliation)
         userInfo.promotionDates[Dates.RANK4.ordinal] = DateCalc.calcRank4(enlist, userInfo.affiliation)
+
+        privateDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
+        corporalDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
+        sergeantDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
 
         //현재 날짜와 비교해서 현재 계급 값 설정, 다음 진급일 표시
         if (today.isBefore(userInfo.promotionDates[Dates.RANK2.ordinal])) {

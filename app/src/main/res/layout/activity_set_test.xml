@@ -69,14 +69,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" android:id="@+id/date" android:layout_weight="1"
                         android:textColor="@color/black" android:layout_gravity="center_vertical"/>
-                <EditText
+                <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:ems="10"
                         android:id="@+id/startDate" android:layout_weight="2" android:textColor="@color/black"
                         android:textSize="14sp" android:gravity="right|center_vertical" android:hint="입대일을 입력하세요"
-                        android:textColorHint="@color/GrayDark" android:fontFamily="sans-serif"/>
+                        android:textColorHint="@color/GrayDark" android:fontFamily="sans-serif"
+                        android:background="@drawable/adt_hint_background"/>
             </LinearLayout>
             <TextView
                     android:text="군별"
@@ -188,30 +189,28 @@
                         android:orientation="vertical"
                         android:layout_width="0dp"
                         android:layout_height="match_parent" android:layout_weight="1">
-                    <EditText
+                    <Button
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:inputType="date"
                             android:ems="10"
                             android:id="@+id/privateDate" android:layout_weight="1" android:hint="진급일"
                             android:textColorHint="@color/GrayDark" android:gravity="center_vertical|end"
-                            android:fontFamily="sans-serif" android:textSize="14sp"/>
-                    <EditText
+                            android:fontFamily="sans-serif" android:textSize="14sp"
+                            android:background="@drawable/adt_hint_background" android:textColor="@color/black"/>
+                    <Button
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:inputType="date"
                             android:ems="10"
                             android:id="@+id/corporalDate" android:layout_weight="1" android:fontFamily="sans-serif"
-                            android:textSize="14sp" android:text="진급일" android:textColor="@color/GrayDark"
-                            android:gravity="end"/>
-                    <EditText
+                            android:textSize="14sp" android:text="진급일" android:textColorHint="@color/GrayDark"
+                            android:gravity="center_vertical|end" android:background="@drawable/adt_hint_background" android:textColor="@color/black"/>
+                    <Button
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:inputType="date"
                             android:ems="10"
                             android:id="@+id/sergeantDate" android:layout_weight="1" android:fontFamily="sans-serif"
-                            android:textSize="14sp" android:text="진급일" android:textColor="@color/GrayDark"
-                            android:gravity="end"/>
+                            android:textSize="14sp" android:text="진급일" android:textColorHint="@color/GrayDark"
+                            android:gravity="center_vertical|end" android:background="@drawable/adt_hint_background" android:textColor="@color/black"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -223,14 +222,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" android:id="@+id/end" android:layout_weight="1"
                         android:textColor="@color/black" android:layout_gravity="center_vertical"/>
-                <EditText
+                <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:ems="10"
                         android:id="@+id/endDate" android:layout_weight="2" android:textColor="@color/black"
-                        android:gravity="bottom|right" android:hint="전역일을 입력하세요"
-                        android:textColorHint="@color/GrayDark" android:textSize="14sp"/>
+                        android:gravity="center_vertical|end" android:hint="전역일을 입력하세요"
+                        android:textColorHint="@color/GrayDark" android:textSize="14sp" android:background="@drawable/adt_hint_background"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
