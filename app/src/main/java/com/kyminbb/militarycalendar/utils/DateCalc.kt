@@ -21,7 +21,7 @@ object DateCalc {
     //일병 진급일
     fun calcRank2(date: LocalDate, affiliation: String?): LocalDate {
         when (affiliation) {
-            "육군/의경", "해군/해양의무경찰", "해병", "사회복무요원" -> when {
+            "육군", "의경", "해군", "해양의무경찰", "해병", "사회복무요원", "의무소방" -> when {
                 date.dayOfMonth == 1 -> return plus3Months(date)
                 else -> return date.plusMonths(4).withDayOfMonth(1)
             }
@@ -76,6 +76,32 @@ object DateCalc {
         val now = LocalDateTime.now()
         val Ddays = now.until(endTime, ChronoUnit.DAYS).toInt() + 1
         return "D-${Ddays}"
+    }
+
+    // 계급 문자열로 리턴
+    fun rankString(rank: Int, affiliation: String?): String {
+        when (rank) {
+            0 -> when(affiliation) {
+                "사회복무요원" -> return "요원"
+                "의경", "해양의무경찰" -> return "이경"
+                else -> return "이병"
+            }
+            1 -> when(affiliation) {
+                "사회복무요원" -> return "요투"
+                "의경", "해양의무경찰" -> return "일경"
+                else -> return "일병"
+            }
+            2 -> when(affiliation) {
+                "사회복무요원" -> return "요쓰리"
+                "의경", "해양의무경찰" -> return "상경"
+                else -> return "상병"
+            }
+            else -> when(affiliation) {
+                "사회복무요원" -> return "요포"
+                "의경", "해양의무경찰" -> return "수경"
+                else -> return "병장"
+            }
+        }
     }
 
     //육군 전역날짜 계산.
