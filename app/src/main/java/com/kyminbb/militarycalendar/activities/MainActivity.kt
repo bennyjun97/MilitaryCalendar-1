@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
                 R.anim.fade_out
             )
         } else {
-            startActivity<HomeActivity>()
+            //startActivity<HomeActivity>()
+            startActivity<SetNameActivity>()
             overridePendingTransition(
                 R.anim.fade_in,
                 R.anim.fade_out
