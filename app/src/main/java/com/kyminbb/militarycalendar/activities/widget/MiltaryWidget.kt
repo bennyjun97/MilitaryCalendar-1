@@ -62,20 +62,29 @@ class MiltaryWidget : AppWidgetProvider() {
                 0, 0, 0, 0
             )
 
-            // show name, percent, d-day이름, 전역일, 퍼센트
+            // show promotion, name, percent, d-day이름, 전역일, 퍼센트
+            val promotionText =
+                when(userInfo.rank) {
+                    0 -> "이등병"
+                    1 -> "일병"
+                    2 -> "상병"
+                    3 -> "병장"
+                    else -> ""
+                }
             val nameText = userInfo.name
             val percentText =
-                (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()
+                (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()+"%"
             val dDayText = DateCalc.countDDay(etsDateTime)
-
+            val numVacationText = "77일"
             //val widgetText = context.getString(R.string.appwidget_text)
             // Construct the RemoteViews object
             val views = RemoteViews(context.packageName, R.layout.miltary_widget)
-            views.setTextViewText(R.id.name_text, nameText)
-            views.setTextViewText(R.id.percent_text, percentText)
-            views.setTextViewText(R.id.dDay_text, dDayText)
-            views.setImageViewResource(R.id.imageView7, R.drawable.army4)
-            views.setTextViewText(R.id.vacation_text, R.string.nextVaction_text.toString())
+            views.setTextViewText(R.id.promotion, promotionText)
+            views.setTextViewText(R.id.name, nameText)
+            views.setTextViewText(R.id.percent, percentText)
+            views.setTextViewText(R.id.dDay, dDayText)
+            views.setImageViewResource(R.id.promotionImage, R.drawable.army4)
+            views.setTextViewText(R.id.numVacationDays, numVacationText)
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)

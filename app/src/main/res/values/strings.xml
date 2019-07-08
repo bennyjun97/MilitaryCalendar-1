@@ -12,10 +12,12 @@
     <string name="verify">정보가 맞나요?</string>
 
     <!-- widget-->
+    <string name="promotion">직급</string>
     <string name="name_text">name</string>
     <string name="dday_text">D-1</string>
     <string name="percent_text">100%</string>
-    <string name="nextVaction_text">다음 휴가 00일</string>
+    <string name="numVacationDay_text">77일</string>
+    <string name="Vacation_text">남은 휴가</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
