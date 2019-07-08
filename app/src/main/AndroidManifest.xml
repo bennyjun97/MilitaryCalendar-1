@@ -8,6 +8,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.register.SetTestActivity">
+        </activity>
+
         <receiver android:name=".activities.widget.MiltaryWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -30,7 +33,9 @@
         </activity>
         <activity android:name=".activities.register.SetNameActivity">
         </activity>
-        <activity android:name=".activities.MainActivity" android:theme="@style/SplashTheme" >
+        <activity
+                android:name=".activities.MainActivity"
+                android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
