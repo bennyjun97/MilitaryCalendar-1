@@ -54,7 +54,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="@+id/guideline21"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/linear">
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/recycle">
         <TextView
                 android:text="휴가"
                 android:layout_width="wrap_content"

@@ -32,185 +32,224 @@
             android:layout_marginEnd="100dp" android:layout_marginBottom="16dp"
             android:textColor="@android:color/white" android:textSize="18sp" android:background="@color/colorPrimary"
             android:gravity="center" android:padding="8dp"/>
-    <LinearLayout
-            android:orientation="vertical"
+    <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="22dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="22dp" app:layout_constraintHorizontal_bias="0.498"
-            android:layout_marginTop="22dp"
-            app:layout_constraintTop_toTopOf="@+id/guideline23" android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/set" android:id="@+id/linear">
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_weight="1">
-            <TextView
-                    android:text="이름"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/name" android:layout_weight="1"
-                    android:textColor="@color/black" android:layout_gravity="center_vertical"/>
-            <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/nameInput" android:layout_weight="1" android:hint="이름을 입력하세요"
-                    android:textColorHint="@color/GrayDark" android:textColor="@color/black" android:textSize="14sp"
-                    android:gravity="right|center_vertical"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_weight="1">
-            <TextView
-                    android:text="입대일"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/date" android:layout_weight="1"
-                    android:textColor="@color/black" android:layout_gravity="center_vertical"/>
-            <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/startDate" android:layout_weight="1" android:textColor="@color/black"
-                    android:textSize="14sp" android:gravity="right|center_vertical"/>
-        </LinearLayout>
-        <TextView
-                android:text="군별"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/affiliation" android:textColor="@color/black"
-                android:layout_weight="0.5" android:gravity="center_vertical"/>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_weight="8">
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="22dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="22dp"
+            android:layout_marginBottom="16dp" app:layout_constraintBottom_toTopOf="@+id/set"
+            android:layout_marginTop="22dp" app:layout_constraintTop_toTopOf="@+id/guideline23">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
             <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <Button
-                        android:text="육군"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonArmy" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
-                <Button
-                        android:text="공군"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonAir" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
-                <Button
-                        android:text="의경"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonPolice" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
-                <Button
-                        android:text="의무소방"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonFire" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
+                    android:layout_weight="1" android:layout_height="match_parent">
+                <TextView
+                        android:text="이름"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/name" android:layout_weight="1"
+                        android:textColor="@color/black" android:layout_gravity="center_vertical"/>
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/nameInput" android:layout_weight="2"
+                        android:textColorHint="@color/GrayDark" android:textColor="@color/black" android:textSize="14sp"
+                        android:gravity="right|center_vertical" android:hint="이름을 입력하세요"
+                        android:fontFamily="sans-serif"/>
             </LinearLayout>
             <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <Button
-                        android:text="해군"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonNavy" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
-                <Button
-                        android:text="해병대"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonMarine" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
-                <Button
-                        android:text="해경"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonSeapolice" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
-                <Button
-                        android:text="사회복무요원"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/buttonPublic" android:layout_weight="1"
-                        android:background="@color/colorPrimary" android:textColor="@android:color/white"
-                        android:fontFamily="@font/jalnan"/>
+                    android:layout_weight="1" android:layout_height="match_parent">
+                <TextView
+                        android:text="입대일"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/date" android:layout_weight="1"
+                        android:textColor="@color/black" android:layout_gravity="center_vertical"/>
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/startDate" android:layout_weight="2" android:textColor="@color/black"
+                        android:textSize="14sp" android:gravity="right|center_vertical" android:hint="입대일을 입력하세요"
+                        android:textColorHint="@color/GrayDark" android:fontFamily="sans-serif"/>
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_weight="3">
             <TextView
-                    android:text="진급일 조정"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/promotion" android:layout_weight="1"
-                    android:textColor="@color/black" android:maxLines="1"/>
+                    android:text="군별"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:id="@+id/affiliationText2" android:textColor="@color/black"
+                    android:layout_weight="1" android:gravity="center_vertical"/>
             <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
+                    android:layout_weight="1" android:layout_height="match_parent">
                 <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/privateDate"
-                        android:gravity="right|center_vertical">
+                        android:layout_height="match_parent" android:layout_weight="1">
+                    <Button
+                            android:text="육군"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonArmy" android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
+                    <Button
+                            android:text="공군"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonAir" android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
+                    <Button
+                            android:text="의경"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonPolice"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
+                    <Button
+                            android:text="의무소방"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonFire" android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
                 </LinearLayout>
                 <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/corporalDate"
-                        android:gravity="right|center_vertical">
-                </LinearLayout>
-                <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/sergeantDate"
-                        android:gravity="right|center_vertical">
+                        android:layout_height="match_parent" android:layout_weight="1">
+                    <Button
+                            android:text="해군"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonNavy" android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
+                    <Button
+                            android:text="해병대"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonMarine"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
+                    <Button
+                            android:text="해경"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonSeapolice"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
+                    <Button
+                            android:text="사회복무요원"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/buttonPublic"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/jalnan"/>
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1" android:layout_height="match_parent">
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:layout_weight="1" android:weightSum="3">
+                    <TextView
+                            android:text="진급일 조정"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" android:id="@+id/textView12" android:layout_weight="1"
+                            android:textColor="@color/black" android:gravity="start|center_vertical"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView
+                            android:text="일병 진급일"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" android:id="@+id/textView" android:layout_weight="1"
+                            android:gravity="start|center_vertical" android:textColor="@android:color/darker_gray"/>
+                    <TextView
+                            android:text="상병 진급일"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" android:id="@+id/textView2" android:layout_weight="1"
+                            android:gravity="start|center_vertical" android:textColor="@android:color/darker_gray"/>
+                    <TextView
+                            android:text="병장 진급일"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" android:id="@+id/textView6" android:layout_weight="1"
+                            android:gravity="start|center_vertical" android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:layout_weight="1">
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:inputType="date"
+                            android:ems="10"
+                            android:id="@+id/privateDate" android:layout_weight="1" android:hint="진급일"
+                            android:textColorHint="@color/GrayDark" android:gravity="center_vertical|end"
+                            android:fontFamily="sans-serif" android:textSize="14sp"/>
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:inputType="date"
+                            android:ems="10"
+                            android:id="@+id/corporalDate" android:layout_weight="1" android:fontFamily="sans-serif"
+                            android:textSize="14sp" android:text="진급일" android:textColor="@color/GrayDark"
+                            android:gravity="end"/>
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:inputType="date"
+                            android:ems="10"
+                            android:id="@+id/sergeantDate" android:layout_weight="1" android:fontFamily="sans-serif"
+                            android:textSize="14sp" android:text="진급일" android:textColor="@color/GrayDark"
+                            android:gravity="end"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1" android:layout_height="match_parent">
+                <TextView
+                        android:text="전역일 조정"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/end" android:layout_weight="1"
+                        android:textColor="@color/black" android:layout_gravity="center_vertical"/>
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/endDate" android:layout_weight="2" android:textColor="@color/black"
+                        android:gravity="bottom|right" android:hint="전역일을 입력하세요"
+                        android:textColorHint="@color/GrayDark" android:textSize="14sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1" android:layout_height="match_parent">
+                <TextView
+                        android:text="휴가일 조정"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/leave" android:layout_weight="1"
+                        android:textColor="@color/black" android:layout_gravity="center_vertical"/>
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/leaveDays" android:layout_weight="2" android:textColor="@color/black"
+                        android:gravity="bottom|right" android:hint="남은 휴가일을 입력하세요"
+                        android:textColorHint="@color/GrayDark" android:textSize="14sp"/>
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_weight="1">
-            <TextView
-                    android:text="전역일 조정"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/end" android:layout_weight="1"
-                    android:textColor="@color/black" android:layout_gravity="center_vertical"/>
-            <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/endDate" android:layout_weight="1" android:textColor="@color/black"
-                    android:gravity="right|center_vertical"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_weight="1">
-            <TextView
-                    android:text="휴가일 조정"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/leave" android:layout_weight="1"
-                    android:textColor="@color/black" android:layout_gravity="center_vertical"/>
-            <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/leaveDays" android:layout_weight="1" android:textColor="@color/black"
-                    android:gravity="right|center_vertical"/>
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
