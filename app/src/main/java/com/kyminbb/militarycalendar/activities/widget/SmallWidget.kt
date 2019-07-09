@@ -31,7 +31,7 @@ class SmallWidget : AppWidgetProvider() {
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {
         // When the user deletes the widget, delete the preference associated with it.
         for (appWidgetId in appWidgetIds) {
-            SmallWidgetConfigureActivity.deleteTitlePref(context, appWidgetId)
+            SmallWidgetConfigureActivity.deleteOpacityPref(context, appWidgetId)
         }
     }
 
