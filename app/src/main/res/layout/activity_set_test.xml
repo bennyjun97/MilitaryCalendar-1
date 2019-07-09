@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="22dp" android:layout_marginBottom="16dp"
             android:textColor="@android:color/white" android:textSize="18sp" android:background="@color/colorPrimary"
-            android:gravity="center" android:padding="8dp" android:fontFamily="@font/jalnan"
+            android:gravity="center" android:padding="8dp"
     />
     <ScrollView
             android:layout_width="0dp"
@@ -55,12 +55,13 @@
                 <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/content_padding_between"
                         android:inputType="textPersonName"
                         android:ems="10"
                         android:id="@+id/nameInput" android:layout_weight="2"
+                        android:theme="@style/JalnanTextViewStyle"
                         android:textColorHint="@color/GrayDark" android:textColor="@color/black" android:textSize="14sp"
-                        android:gravity="right|center_vertical" android:hint="이름을 입력하세요"
-                        android:fontFamily="sans-serif"/>
+                        android:gravity="right|center_vertical" android:hint="이름을 입력하세요"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
@@ -75,10 +76,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:inputType="date"
+                        android:paddingEnd="@dimen/content_padding_between"
                         android:ems="10"
                         android:id="@+id/startDate" android:layout_weight="2" android:textColor="@color/black"
                         android:textSize="14sp" android:gravity="right|center_vertical" android:hint="입대일을 입력하세요"
-                        android:textColorHint="@color/GrayDark" android:fontFamily="sans-serif"
+                        android:textColorHint="@color/GrayDark"
                         android:background="@drawable/adt_hint_background"/>
             </LinearLayout>
             <TextView
@@ -98,27 +100,23 @@
                             android:text="육군"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonArmy" android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                     <Button
                             android:text="공군"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonAir" android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                     <Button
                             android:text="의경"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonPolice"
                             android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                     <Button
                             android:text="의무소방"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonFire" android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                 </LinearLayout>
                 <LinearLayout
                         android:orientation="vertical"
@@ -128,29 +126,25 @@
                             android:text="해군"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonNavy" android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                     <Button
                             android:text="해병대"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonMarine"
                             android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                     <Button
                             android:text="해경"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonSeapolice"
                             android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                     <Button
                             android:text="사회복무요원"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonPublic"
                             android:layout_weight="1"
-                            android:textColor="@android:color/white"
-                            android:fontFamily="@font/jalnan"/>
+                            android:textColor="@android:color/white"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -195,15 +189,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:ems="10"
+                            android:paddingEnd="@dimen/content_padding_between"
                             android:id="@+id/privateDate" android:layout_weight="1" android:hint="진급일"
                             android:textColorHint="@color/GrayDark" android:gravity="center_vertical|end"
-                            android:fontFamily="sans-serif" android:textSize="14sp"
+                            android:textSize="14sp"
                             android:background="@drawable/adt_hint_background" android:textColor="@color/black"/>
                     <Button
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:ems="10"
-                            android:id="@+id/corporalDate" android:layout_weight="1" android:fontFamily="sans-serif"
+                            android:paddingEnd="@dimen/content_padding_between"
+                            android:id="@+id/corporalDate" android:layout_weight="1"
                             android:textSize="14sp" android:textColorHint="@color/GrayDark"
                             android:gravity="center_vertical|end" android:background="@drawable/adt_hint_background"
                             android:textColor="@color/black" android:hint="진급일"/>
@@ -211,7 +207,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:ems="10"
-                            android:id="@+id/sergeantDate" android:layout_weight="1" android:fontFamily="sans-serif"
+                            android:paddingEnd="@dimen/content_padding_between"
+                            android:id="@+id/sergeantDate" android:layout_weight="1"
                             android:textSize="14sp" android:textColorHint="@color/GrayDark"
                             android:gravity="center_vertical|end" android:background="@drawable/adt_hint_background"
                             android:textColor="@color/black" android:hint="진급일"/>
@@ -231,6 +228,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:ems="10"
+                        android:paddingEnd="@dimen/content_padding_between"
                         android:id="@+id/endDate" android:layout_weight="2" android:textColor="@color/black"
                         android:gravity="center_vertical|end" android:hint="전역일을 입력하세요"
                         android:textColorHint="@color/GrayDark" android:textSize="14sp"
@@ -250,6 +248,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:ems="10"
+                        android:paddingEnd="@dimen/content_padding_between"
                         android:id="@+id/leaveDays" android:layout_weight="2" android:textColor="@color/black"
                         android:gravity="bottom|right" android:hint="남은 휴가일을 입력하세요"
                         android:textColorHint="@color/GrayDark" android:textSize="14sp"/>
@@ -263,6 +262,6 @@
             android:id="@+id/reset" app:layout_constraintEnd_toStartOf="@+id/set"
             app:layout_constraintStart_toStartOf="@+id/scrollView2"
             app:layout_constraintBottom_toBottomOf="@+id/set"
-            android:fontFamily="@font/jalnan" android:textColor="@android:color/white" android:layout_marginEnd="8dp"
+            android:textColor="@android:color/white" android:layout_marginEnd="8dp"
             app:layout_constraintTop_toTopOf="@+id/set"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
