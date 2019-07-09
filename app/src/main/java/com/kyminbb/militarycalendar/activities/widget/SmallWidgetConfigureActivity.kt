@@ -17,7 +17,6 @@ import com.kyminbb.militarycalendar.R
  */
 class SmallWidgetConfigureActivity : Activity() {
     internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-
     internal lateinit var mAppSeekBar: SeekBar
     internal lateinit var mAppTextView: TextView
 
@@ -26,7 +25,8 @@ class SmallWidgetConfigureActivity : Activity() {
 
         // When the button is clicked, store the string locally
         val opacityText = mAppTextView.text.toString()
-        saveTitlePref(context, mAppWidgetId, opacityText)
+        //val widgetText = mAppWidgetText.text.toString()
+        saveOpacityPref(context, mAppWidgetId, opacityText)
 
         // It is the responsibility of the configuration activity to update the app widget
         val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -47,7 +47,6 @@ class SmallWidgetConfigureActivity : Activity() {
         setResult(Activity.RESULT_CANCELED)
 
         setContentView(R.layout.small_widget_configure)
-
         mAppTextView = findViewById<View>(R.id.opacityText) as TextView
         mAppSeekBar = findViewById<View>(R.id.seekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
@@ -75,7 +74,8 @@ class SmallWidgetConfigureActivity : Activity() {
             return
         }
 
-        mAppTextView.text = loadTitlePref(this@SmallWidgetConfigureActivity, mAppWidgetId)
+        //mAppWidgetText.setText(loadTitlePref(this@SmallWidgetConfigureActivity, mAppWidgetId))
+        mAppTextView.text = loadOpacityPref(this@SmallWidgetConfigureActivity, mAppWidgetId)
         mAppSeekBar.progress = mAppTextView.text.toString().toInt()
     }
 
@@ -85,7 +85,7 @@ class SmallWidgetConfigureActivity : Activity() {
         private val PREF_PREFIX_KEY = "Opacitywidget_"
 
         // Write the prefix to the SharedPreferences object for this widget
-        internal fun saveTitlePref(context: Context, appWidgetId: Int, text: String) {
+        internal fun saveOpacityPref(context: Context, appWidgetId: Int, text: String) {
             val prefs = context.getSharedPreferences(PREFS_NAME, 0).edit()
             prefs.putString(PREF_PREFIX_KEY + appWidgetId, text)
             prefs.apply()
@@ -93,13 +93,13 @@ class SmallWidgetConfigureActivity : Activity() {
 
         // Read the prefix from the SharedPreferences object for this widget.
         // If there is no preference saved, get the default from a resource
-        internal fun loadTitlePref(context: Context, appWidgetId: Int): String {
+        internal fun loadOpacityPref(context: Context, appWidgetId: Int): String {
             val prefs = context.getSharedPreferences(PREFS_NAME, 0)
             val titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null)
-            return titleValue ?: context.getString(R.string.opacity)
+            return titleValue ?: "0"
         }
 
-        internal fun deleteTitlePref(context: Context, appWidgetId: Int) {
+        internal fun deleteOpacityPref(context: Context, appWidgetId: Int) {
             val prefs = context.getSharedPreferences(PREFS_NAME, 0).edit()
             prefs.remove(PREF_PREFIX_KEY + appWidgetId)
             prefs.apply()
