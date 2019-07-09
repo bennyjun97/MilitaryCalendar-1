@@ -28,12 +28,13 @@ class SetTestActivity : AppCompatActivity() {
     private val todayMonth = today.monthValue
     private val todayDay = today.dayOfMonth
 
-    private val affiliations = arrayOf("육군", "해군", "공군", "해병대", "의무경찰", "해양의무경찰", "사회복무요원", "의무소방대", "해양의무경찰")
+    private val affiliations = arrayOf("육군", "해군", "공군", "해병대", "의경", "해양의무경찰", "사회복무요원", "의무소방대", "해양의무경찰")
 
     // Initialize the user info.
     var userInfo = User()
 
-    var affilChosen = false //나중에 false로 바꿀 것
+    var affilChosen = false
+    var buttonNum = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +55,35 @@ class SetTestActivity : AppCompatActivity() {
             buttonFire
         )
 
+        //If userInfo empty, fill the enlist date with today's date
+        if (userInfo.promotionDates.isEmpty()) {
+            userInfo.promotionDates[Dates.ENLIST.ordinal] = today
+            startDate.text = formatDate(today)
+        }
+        //If userInfo has data, fill the enlist, promotion, ets dates with loaded data
+        else {
+            userInfo.promotionDates[Dates.ENLIST.ordinal] = today // 나중에 지우기
+            startDate.text = formatDate(today) // 나중에 지우기
+            /*startDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+            privateDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
+            corporalDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
+            sergeantDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
+            endDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])  나중에 풀기 */
+        }
+
         // Save the affiliation for each selection.
         for ((index, value) in buttons.withIndex()) {
             value.setOnClickListener {
                 userInfo.affiliation = affiliations[index]
+
+                if(buttonNum != 10)
+                    buttons.get(buttonNum).setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
+
+                buttons.get(index).setBackgroundResource(R.drawable.gray_gradient)
+                buttonNum = index
+
+                datesByAffil(userInfo.promotionDates[Dates.ENLIST.ordinal], affiliations[index])
+                ranksByAffil(affiliations[index])
 
                 affilChosen = true
             }
@@ -68,18 +94,34 @@ class SetTestActivity : AppCompatActivity() {
         }
 
         privateDate.setOnClickListener {
+            if(!affilChosen) {
+                DynamicToast.makeError(this, "군별을 골라주세요!").show()
+                return@setOnClickListener
+            }
             setDate(1)
         }
 
         corporalDate.setOnClickListener {
+            if(!affilChosen) {
+                DynamicToast.makeError(this, "군별을 골라주세요!").show()
+                return@setOnClickListener
+            }
             setDate(2)
         }
 
         sergeantDate.setOnClickListener {
+            if(!affilChosen) {
+                DynamicToast.makeError(this, "군별을 골라주세요!").show()
+                return@setOnClickListener
+            }
             setDate(3)
         }
 
         endDate.setOnClickListener {
+            if(!affilChosen) {
+                DynamicToast.makeError(this, "군별을 골라주세요!").show()
+                return@setOnClickListener
+            }
             setDate(4)
         }
 
@@ -88,10 +130,6 @@ class SetTestActivity : AppCompatActivity() {
             if(TextUtils.isEmpty(nameInput.text.toString())) {
                 // https://github.com/pranavpandey/dynamic-toasts
                 DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-                return@setOnClickListener
-            }
-            else if(TextUtils.isEmpty(startDate.text.toString())) {
-                DynamicToast.makeError(this, "입대일을 입력해주세요!").show()
                 return@setOnClickListener
             }
             else if(!affilChosen) {
@@ -106,6 +144,22 @@ class SetTestActivity : AppCompatActivity() {
                     R.anim.fade_in,
                     R.anim.fade_out
                 )
+            }
+        }
+
+        reset.setOnClickListener {
+            if (TextUtils.isEmpty(nameInput.text.toString())) {
+                // https://github.com/pranavpandey/dynamic-toasts
+                DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+                return@setOnClickListener
+            } else if (!affilChosen) {
+                // https://github.com/pranavpandey/dynamic-toasts
+                DynamicToast.makeError(this, "군별을 골라주세요!").show()
+                return@setOnClickListener
+            } else {
+                DynamicToast.makeError(this, "조정 사항이 입대일을 기준으로 초기화됩니다!").show()
+
+                datesByAffil(userInfo.promotionDates[Dates.ENLIST.ordinal], userInfo.affiliation)
             }
         }
     }
@@ -132,7 +186,7 @@ class SetTestActivity : AppCompatActivity() {
             // 전역일 조정 시
             else if(dateIndex == 4) {
                 userInfo.promotionDates[Dates.END.ordinal] = LocalDate.of(year, month + 1, day)
-                endDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+                endDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
             }
 
             //진급일 조정 시
@@ -142,9 +196,11 @@ class SetTestActivity : AppCompatActivity() {
                     privateDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
                 }
                 else if(dateIndex == 2) {
+                    userInfo.promotionDates[Dates.RANK3.ordinal] = LocalDate.of(year, month + 1, day)
                     corporalDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
                 }
                 else {
+                    userInfo.promotionDates[Dates.RANK4.ordinal] = LocalDate.of(year, month + 1, day)
                     sergeantDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
                 }
             }
@@ -217,7 +273,24 @@ class SetTestActivity : AppCompatActivity() {
         return date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"))
     }
 
-    override fun onBackPressed() {
-        finish()
+    private fun datesByAffil(enlistDate: LocalDate, affiliation: String) {
+        userInfo.promotionDates[Dates.RANK2.ordinal] = DateCalc.calcRank2(enlistDate, affiliation)
+        privateDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
+        userInfo.promotionDates[Dates.RANK3.ordinal] = DateCalc.calcRank3(enlistDate, affiliation)
+        corporalDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
+        userInfo.promotionDates[Dates.RANK4.ordinal] = DateCalc.calcRank4(enlistDate, affiliation)
+        sergeantDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
+        userInfo.promotionDates[Dates.END.ordinal] = DateCalc.calcETS(enlistDate, affiliation)
+        endDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
     }
+
+    private fun ranksByAffil(affiliation: String) {
+        privateText.text = DateCalc.rankString(1, affiliation) + " 진급일"
+        corporalText.text = DateCalc.rankString(2, affiliation) + " 진급일"
+        sergeantText.text = DateCalc.rankString(3, affiliation) + " 진급일"
+    }
+
+    /*override fun onBackPressed() {
+        finish()
+    }*/
 }

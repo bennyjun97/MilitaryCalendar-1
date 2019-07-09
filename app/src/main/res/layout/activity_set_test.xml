@@ -174,17 +174,17 @@
                     <TextView
                             android:text="일병 진급일"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp" android:id="@+id/textView" android:layout_weight="1"
+                            android:layout_height="0dp" android:id="@+id/privateText" android:layout_weight="1"
                             android:gravity="start|center_vertical" android:textColor="@android:color/darker_gray"/>
                     <TextView
                             android:text="상병 진급일"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp" android:id="@+id/textView2" android:layout_weight="1"
+                            android:layout_height="0dp" android:id="@+id/corporalText" android:layout_weight="1"
                             android:gravity="start|center_vertical" android:textColor="@android:color/darker_gray"/>
                     <TextView
                             android:text="병장 진급일"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp" android:id="@+id/textView6" android:layout_weight="1"
+                            android:layout_height="0dp" android:id="@+id/sergeantText" android:layout_weight="1"
                             android:gravity="start|center_vertical" android:textColor="@android:color/darker_gray"/>
                 </LinearLayout>
                 <LinearLayout
