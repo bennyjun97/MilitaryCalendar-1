@@ -18,6 +18,10 @@
     <string name="percent_text">100%</string>
     <string name="numVacationDay_text">77일</string>
     <string name="Vacation_text">남은 휴가</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="opacity">% Opacity</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

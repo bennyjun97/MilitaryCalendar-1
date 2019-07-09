@@ -1,29 +1,37 @@
 package com.kyminbb.militarycalendar.activities.widget
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.view.Display
+import android.content.Intent
 import android.widget.RemoteViews
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.activities.main.ClockFragment
+import com.kyminbb.militarycalendar.activities.main.HomeActivity
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
 import org.threeten.bp.LocalDateTime
-import java.lang.Math.round
-import java.util.*
 
 /**
  * Implementation of App Widget functionality.
+ * App Widget Configuration implemented in [SmallWidgetConfigureActivity]
  */
-class MiltaryWidget : AppWidgetProvider() {
+class SmallWidget : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
+        }
+    }
+
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        // When the user deletes the widget, delete the preference associated with it.
+        for (appWidgetId in appWidgetIds) {
+            SmallWidgetConfigureActivity.deleteTitlePref(context, appWidgetId)
         }
     }
 
@@ -37,15 +45,14 @@ class MiltaryWidget : AppWidgetProvider() {
 
     companion object {
 
-        private var userInfo = User();
+        private var userInfo = User()
 
         internal fun updateAppWidget(
             context: Context, appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
 
-            // load data
-            val prefs = context.getSharedPreferences("prefs", MODE_PRIVATE)
+            val prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
 
             // load LocalDate data
@@ -62,7 +69,7 @@ class MiltaryWidget : AppWidgetProvider() {
                 0, 0, 0, 0
             )
 
-            // show promotion, name, percent, d-day이름, 전역일, 퍼센트
+            // calculate promotion, name, D-day, percent, "남은 휴가", numVacationDays
             val promotionText =
                 when(userInfo.rank) {
                     0 -> "이등병"
@@ -76,15 +83,38 @@ class MiltaryWidget : AppWidgetProvider() {
                 (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()+"%"
             val dDayText = DateCalc.countDDay(etsDateTime)
             val numVacationText = "77일"
-            //val widgetText = context.getString(R.string.appwidget_text)
-            // Construct the RemoteViews object
-            val views = RemoteViews(context.packageName, R.layout.miltary_widget)
+
+
+            // Construct the RemoteViews object, and instantiate the views using Remoteviews
+            val views = RemoteViews(context.packageName, R.layout.small_widget)
+            views.setImageViewResource(R.id.promotionImage, R.drawable.army4)
             views.setTextViewText(R.id.promotion, promotionText)
             views.setTextViewText(R.id.name, nameText)
-            views.setTextViewText(R.id.percent, percentText)
             views.setTextViewText(R.id.dDay, dDayText)
-            views.setImageViewResource(R.id.promotionImage, R.drawable.army4)
+            views.setTextViewText(R.id.percent, percentText)
             views.setTextViewText(R.id.numVacationDays, numVacationText)
+
+
+            /**
+             * Construct Intents so that when the widget is clicked, it moves to calendarfragment
+             * when the setting button is clicked, it moves to widget configuration
+             */
+            // mainIntent to move to ClockFragment
+            val mainIntent: PendingIntent = Intent(context, HomeActivity::class.java)
+                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+                .let { intent ->
+                    PendingIntent.getActivity(context, 0, intent, 0)
+                }
+            // configureIntent to move to Configuration
+            val configureIntent: PendingIntent = Intent(context, SmallWidgetConfigureActivity::class.java)
+                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+                .let { intent ->
+                    PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                }
+
+            // apply Intent
+            views.apply{setOnClickPendingIntent(R.id.widgetSmallLayout, mainIntent)}
+                .apply{setOnClickPendingIntent(R.id.configureButton, configureIntent)}
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)
