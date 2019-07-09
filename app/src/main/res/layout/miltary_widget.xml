@@ -1,111 +1,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="60dp"
               android:padding="@dimen/widget_margin"
               android:baselineAligned="false"
               android:theme="@style/JalnanTextViewStyle"
               android:background="@drawable/widget_background" android:weightSum="100">
 
+    <!-- promotion image, name, promotion in order -->
+
+    <!-- D-day, percent, "남은 휴가", numVacationDays in order -->
     <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="40"
+            android:layout_weight="30"
             android:gravity="center"
-            android:padding="@dimen/widget_margin">
+            android:paddingStart="@dimen/content_padding_horizontal"
+            android:paddingEnd="@dimen/content_padding_between"
+            android:paddingTop="7dp"
+            android:paddingBottom="@dimen/content_padding_vertical">
 
         <ImageView
-                android:padding="@dimen/text_margin"
                 android:foregroundGravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:id="@+id/promotionImage"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" app:srcCompat="@drawable/army1" android:layout_above="@id/name"/>
+                app:srcCompat="@drawable/army1" />
 
         <TextView
-                android:paddingStart="@dimen/text_margin"
-                android:gravity="start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/promotion"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="start|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_below="@id/promotionImage"
+                android:id="@+id/promotion"
                 android:text="@string/promotion"
                 android:textColor="#fff"
-                android:textStyle="bold" android:textSize="18sp"/>
+                android:textStyle="bold" android:textSize="12sp"/>
 
         <TextView
-                android:paddingEnd="@dimen/text_margin"
-                android:layout_marginBottom="@dimen/widget_margin"
-                android:gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/name"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="end|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_below="@id/promotionImage"
+                android:id="@+id/name"
                 android:text="@string/name_text"
                 android:textColor="#fff"
-                android:textSize="18sp"/>
+                android:textSize="12sp"/>
 
     </RelativeLayout>
-
     <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="center"
-            android:padding="@dimen/widget_margin">
+            android:layout_weight="60"
+            android:paddingTop="@dimen/content_padding_vertical"
+            android:paddingBottom="@dimen/content_padding_vertical"
+            android:paddingStart="@dimen/content_padding_between"
+            android:paddingEnd="@dimen/content_padding_between"
+            android:gravity="center">
+
+        <TextView
+                android:layout_alignParentStart="true"
+                android:gravity="start|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/dDay"
+                android:text="@string/dday_text"
+                android:textColor="#fff"
+                android:textSize="24sp"/>
+
+        <TextView
+                android:layout_alignParentEnd="true"
+                android:gravity="end|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/percent"
+                android:text="@string/percent_text"
+                android:textColor="#4CAF50"
+                android:textSize="24sp"/>
 
         <TextView
                 android:gravity="start|center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:id="@+id/Vacation"
+                android:layout_below="@id/dDay"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:text="@string/Vacation_text"
                 android:textColor="#fff"
-                android:textSize="18sp"
+                android:textSize="12sp"
         />
 
         <TextView
                 android:gravity="center_vertical|end"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:id="@+id/numVacationDays"
+                android:layout_below="@id/percent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:text="@string/numVacationDay_text"
                 android:textColor="#fff"
-                android:textStyle="bold" android:textSize="18sp"
+                android:textStyle="bold" android:textSize="12sp"
         />
-
-
-
-        <TextView
-                android:gravity="start|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dDay"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_above="@id/Vacation"
-                android:text="@string/dday_text"
-                android:textColor="#fff"
-                android:textSize="22sp"/>
-
-        <TextView
-                android:gravity="center_vertical|end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/percent"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_above="@id/numVacationDays"
-                android:text="@string/percent_text"
-                android:textColor="#4CAF50"
-                android:textSize="22sp"/>
 
 
     </RelativeLayout>
@@ -113,17 +113,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="10"
-            android:padding="@dimen/widget_margin"
+            android:paddingStart="@dimen/content_padding_between"
+            android:paddingEnd="@dimen/content_padding_vertical"
+            android:paddingTop="@dimen/content_padding_vertical"
             android:gravity="center_horizontal|top">
 
         <Button
-                android:paddingEnd="@dimen/text_margin"
-                android:paddingStart="@dimen/text_margin"
-                android:layout_marginStart="@dimen/text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="16dp" android:id="@+id/settingButton"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:background="@drawable/test_setting"/>
 
     </RelativeLayout>
