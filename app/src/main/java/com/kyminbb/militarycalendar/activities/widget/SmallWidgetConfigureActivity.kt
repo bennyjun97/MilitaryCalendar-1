@@ -8,6 +8,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.SeekBar
+import android.widget.TextView
 import com.kyminbb.militarycalendar.R
 
 /**
@@ -16,6 +18,9 @@ import com.kyminbb.militarycalendar.R
 class SmallWidgetConfigureActivity : Activity() {
     internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
     internal lateinit var mAppWidgetText: EditText
+    internal lateinit var mAppSeekBar: SeekBar
+    internal lateinit var mAppTextView: TextView
+
     internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
         val context = this@SmallWidgetConfigureActivity
 
@@ -43,6 +48,16 @@ class SmallWidgetConfigureActivity : Activity() {
 
         setContentView(R.layout.small_widget_configure)
         mAppWidgetText = findViewById<View>(R.id.appwidget_text) as EditText
+        mAppTextView = findViewById<View>(R.id.opacityText) as TextView
+        mAppSeekBar = findViewById<View>(R.id.seekBar) as SeekBar
+        mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                mAppTextView.text = p1.toString()
+            }
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+            override fun onStopTrackingTouch(p0: SeekBar?) {}
+        })
+
         findViewById<View>(R.id.add_button).setOnClickListener(mOnClickListener)
 
         // Find the widget id from the intent.
