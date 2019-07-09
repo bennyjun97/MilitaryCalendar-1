@@ -17,7 +17,7 @@ import com.kyminbb.militarycalendar.R
  */
 class SmallWidgetConfigureActivity : Activity() {
     internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-    internal lateinit var mAppWidgetText: EditText
+
     internal lateinit var mAppSeekBar: SeekBar
     internal lateinit var mAppTextView: TextView
 
@@ -25,8 +25,8 @@ class SmallWidgetConfigureActivity : Activity() {
         val context = this@SmallWidgetConfigureActivity
 
         // When the button is clicked, store the string locally
-        val widgetText = mAppWidgetText.text.toString()
-        saveTitlePref(context, mAppWidgetId, widgetText)
+        val opacityText = mAppTextView.text.toString()
+        saveTitlePref(context, mAppWidgetId, opacityText)
 
         // It is the responsibility of the configuration activity to update the app widget
         val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -47,7 +47,7 @@ class SmallWidgetConfigureActivity : Activity() {
         setResult(Activity.RESULT_CANCELED)
 
         setContentView(R.layout.small_widget_configure)
-        mAppWidgetText = findViewById<View>(R.id.appwidget_text) as EditText
+
         mAppTextView = findViewById<View>(R.id.opacityText) as TextView
         mAppSeekBar = findViewById<View>(R.id.seekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
@@ -75,13 +75,14 @@ class SmallWidgetConfigureActivity : Activity() {
             return
         }
 
-        mAppWidgetText.setText(loadTitlePref(this@SmallWidgetConfigureActivity, mAppWidgetId))
+        mAppTextView.text = loadTitlePref(this@SmallWidgetConfigureActivity, mAppWidgetId)
+        mAppSeekBar.progress = mAppTextView.text.toString().toInt()
     }
 
     companion object {
 
         private val PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.SmallWidget"
-        private val PREF_PREFIX_KEY = "appwidget_"
+        private val PREF_PREFIX_KEY = "Opacitywidget_"
 
         // Write the prefix to the SharedPreferences object for this widget
         internal fun saveTitlePref(context: Context, appWidgetId: Int, text: String) {
@@ -95,7 +96,7 @@ class SmallWidgetConfigureActivity : Activity() {
         internal fun loadTitlePref(context: Context, appWidgetId: Int): String {
             val prefs = context.getSharedPreferences(PREFS_NAME, 0)
             val titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null)
-            return titleValue ?: context.getString(R.string.appwidget_text)
+            return titleValue ?: context.getString(R.string.opacity)
         }
 
         internal fun deleteTitlePref(context: Context, appWidgetId: Int) {
