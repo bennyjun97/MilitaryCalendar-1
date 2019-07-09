@@ -70,14 +70,7 @@ class SmallWidget : AppWidgetProvider() {
             )
 
             // calculate promotion, name, D-day, percent, "남은 휴가", numVacationDays
-            val promotionText =
-                when(userInfo.rank) {
-                    0 -> "이등병"
-                    1 -> "일병"
-                    2 -> "상병"
-                    3 -> "병장"
-                    else -> ""
-                }
+            val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
             val nameText = userInfo.name
             val percentText =
                 (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()+"%"
