@@ -69,7 +69,7 @@
                 android:id="@+id/dDay"
                 android:text="@string/dday_text"
                 android:textColor="#fff"
-                android:textSize="28sp"/>
+                android:textSize="24sp"/>
 
         <TextView
                 android:layout_alignParentEnd="true"
@@ -79,7 +79,7 @@
                 android:id="@+id/percent"
                 android:text="@string/percent_text"
                 android:textColor="#4CAF50"
-                android:textSize="28sp"/>
+                android:textSize="24sp"/>
 
         <TextView
                 android:gravity="start|center_vertical"
