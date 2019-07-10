@@ -27,9 +27,9 @@ class HomeActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
 
         val tabIcons = arrayOf(
-            R.drawable.ic_access_time_black_24dp,
-            R.drawable.ic_date_range_black_24dp,
-            R.drawable.ic_trending_up_black_24dp
+            R.drawable.clock,
+            R.drawable.calendar,
+            R.drawable.graph
         )
         tabs.getTabAt(0)!!.setIcon(tabIcons[0])
         tabs.getTabAt(1)!!.setIcon(tabIcons[1])

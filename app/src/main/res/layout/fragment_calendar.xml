@@ -17,33 +17,34 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="32dp">
+                android:layout_height="0dp" android:layout_weight="1.5" android:layout_marginTop="16dp">
             <ImageButton
                     android:layout_width="0dp"
                     android:scaleType="fitCenter"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/menu" android:id="@+id/buttonMenu"
-                    android:layout_weight="2" android:background="@null"/>
+                    android:layout_weight="2" android:background="@null" android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"/>
             <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/left" android:id="@+id/buttonLeft"
                     android:layout_weight="1" android:scaleType="fitCenter" android:background="@null"
-            />
+                    android:layout_marginTop="10dp" android:layout_marginBottom="10dp"/>
             <TextView
                     android:text="7월"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" android:id="@+id/dateText" android:layout_weight="3"
+                    android:layout_height="match_parent" android:layout_weight="3"
                     app:autoSizeTextType="uniform" android:gravity="center"
-                    android:textColor="@color/leave" android:textSize="36sp"/>
+                    android:textColor="@color/leave" android:textSize="36sp" android:id="@+id/textMonth"/>
             <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/right" android:id="@+id/buttonRight"
                     android:layout_weight="1" android:scaleType="fitCenter" android:background="@null"
-            />
+                    android:layout_marginTop="10dp" android:layout_marginBottom="10dp"/>
             <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/add" android:id="@+id/buttonAdd"
                     android:layout_weight="2" android:scaleType="fitCenter" android:background="@null"
-            />
+                    android:layout_marginTop="4dp" android:layout_marginBottom="4dp"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
@@ -95,13 +96,61 @@
             <TextView
                     android:text="6월 10일"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" android:id="@+id/textView21" android:layout_weight="1"
+                    android:layout_height="match_parent" android:layout_weight="1"
                     android:layout_gravity="center" app:autoSizeTextType="uniform" android:gravity="center"
-                    android:maxLines="1" android:padding="16dp" android:textColor="@color/calendarButtons"/>
+                    android:maxLines="1" android:padding="16dp" android:textColor="@color/leave"
+                    android:fontFamily="sans-serif" android:textStyle="bold" android:id="@+id/textDate"/>
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" android:layout_weight="2">
+                    android:layout_height="match_parent" android:layout_weight="2" android:layout_marginRight="16dp"
+                    android:layout_marginTop="20dp" android:layout_marginBottom="20dp">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:layout_weight="1"
+                        android:layout_marginBottom="2dp">
+                    <TextView
+                            android:text="일정 종류"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/dayType"
+                            android:layout_weight="1" android:gravity="bottom|start" android:textColor="@color/black"
+                            app:autoSizeTextType="uniform" android:fontFamily="sans-serif" android:textStyle="bold"/>
+                    <TextView
+                            android:text="휴가"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" android:gravity="bottom|end" android:textColor="@color/black"
+                            app:autoSizeTextType="uniform" android:fontFamily="sans-serif"
+                            android:id="@+id/dayTypeText"/>
+                </LinearLayout>
+                <TextView
+                        android:id="@+id/line"
+                        style="?android:attr/listSeparatorTextViewStyle"
+                        android:paddingTop="5dip"
+                        android:gravity="center_horizontal"
+                        android:layout_below="@+id/connect_help"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#000"/>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:layout_weight="1"
+                        android:layout_marginTop="2dp">
+                    <TextView
+                            android:text="설명"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/comment"
+                            android:layout_weight="1" android:textColor="@color/black" app:autoSizeTextType="uniform"
+                            android:gravity="start|top" android:fontFamily="sans-serif" android:textStyle="bold"/>
+                    <TextView
+                            android:text="집에 간다~"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/commentText"
+                            android:layout_weight="1" app:autoSizeTextType="uniform" android:textColor="@color/black"
+                            android:gravity="top|end" android:fontFamily="sans-serif"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
