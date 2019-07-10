@@ -82,7 +82,7 @@
                 android:id="@+id/percent"
                 android:text="@string/percent_text"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"/>
 
         <TextView
