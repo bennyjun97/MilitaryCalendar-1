@@ -19,16 +19,18 @@
             android:paddingBottom="@dimen/content_padding_vertical">
 
         <ImageView
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
                 android:foregroundGravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="26dp"
                 android:id="@+id/promotionImage"
                 app:srcCompat="@drawable/army1"/>
 
         <TextView
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/content_padding_horizontal"
+                android:layout_marginStart="@dimen/content_padding_between"
                 android:gravity="start|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
@@ -41,7 +43,7 @@
         <TextView
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/content_padding_horizontal"
+                android:layout_marginEnd="@dimen/content_padding_between"
                 android:gravity="end|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="14dp"
@@ -67,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:id="@+id/dDay"
+                android:textStyle="bold"
                 android:text="@string/dday_text"
                 android:textColor="#fff"
                 android:textSize="24sp"/>
@@ -78,6 +81,7 @@
                 android:layout_height="30dp"
                 android:id="@+id/percent"
                 android:text="@string/percent_text"
+                android:textStyle="bold"
                 android:textColor="#4CAF50"
                 android:textSize="24sp"/>
 
