@@ -79,7 +79,6 @@ class SmallWidget : AppWidgetProvider() {
             val dDayText = DateCalc.countDDay(etsDateTime)
             //val numVacationText = "77일"
             val numVacationText = SmallWidgetConfigureActivity.loadOpacityPref(context, appWidgetId)
-            val opacity = 255 - numVacationText.toInt()*255/100
 
 
             val alphaNum = (100 - SmallWidgetConfigureActivity.
