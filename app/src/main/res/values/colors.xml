@@ -31,10 +31,10 @@
 
     <!-- calendar -->
     <color name="calendarBackground">#424242</color>
-    <color name="calendarButtons">#9E9C31</color>
-    <color name="leave">#7DB249</color>
+    <color name="calendarButtons">#9E9D24</color>
+    <color name="leave">#7CB342</color>
     <color name="exercise">#8C6E64</color>
     <color name="duty">#9E9C31</color>
-    <color name="personal">#E37475</color>
+    <color name="personal">#E57373</color>
 
 </resources>
