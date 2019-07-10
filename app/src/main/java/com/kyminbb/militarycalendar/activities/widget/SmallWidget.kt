@@ -98,7 +98,7 @@ class SmallWidget : AppWidgetProvider() {
             views.setTextViewText(R.id.percent, percentText)
             views.setTextViewText(R.id.numVacationDays, numVacationText)
             views.setInt(R.id.widgetSmallLayout, "setBackgroundColor",
-                Color.parseColor("#${alpha}013E6B"))
+                Color.parseColor("#${alpha}313A31"))
 
 
             /**

@@ -48,7 +48,7 @@ class SmallWidgetConfigureActivity : Activity() {
         setResult(Activity.RESULT_CANCELED)
 
         setContentView(R.layout.small_widget_configure)
-        var buttonOpacityTest = findViewById<View>(R.id.buttontemp)
+        val buttonOpacityTest = findViewById<View>(R.id.buttontemp)
         //var backgroundOpacityTest = findViewById<View>(R.drawable.widget_background)
         //backgroundOpacityTest.setBackgroundColor()
 
@@ -57,8 +57,6 @@ class SmallWidgetConfigureActivity : Activity() {
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 mAppTextView.text = p1.toString()
-                //buttonOpacityTest.setBackgroundColor(getColorWithAlpha(buttonOpacityTest.))
-                //buttonOpacityTest.background.alpha = 255 - p1 * 255/100
                 widgetBackground = buttonOpacityTest.background
                 widgetBackground.alpha = 255 - p1 * 255/100
             }
