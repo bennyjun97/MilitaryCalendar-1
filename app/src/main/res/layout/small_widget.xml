@@ -82,7 +82,7 @@
                 android:id="@+id/percent"
                 android:text="@string/percent_text"
                 android:textStyle="bold"
-                android:textColor="#4CAF50"
+                android:textColor="#FFE324"
                 android:textSize="24sp"/>
 
         <TextView
@@ -123,7 +123,7 @@
             android:gravity="center_horizontal|top">
 
         <Button
-                android:layout_width="wrap_content"
+                android:layout_width="16dp"
                 android:layout_height="16dp" android:id="@+id/configureButton"
                 android:background="@drawable/test_setting"/>
 
