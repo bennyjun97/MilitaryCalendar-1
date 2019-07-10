@@ -5,12 +5,16 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import com.kyminbb.militarycalendar.R
+import kotlinx.android.synthetic.main.activity_set.view.*
+import kotlin.text.set
 
 /**
  * The configuration screen for the [SmallWidget] AppWidget.
@@ -19,6 +23,7 @@ class SmallWidgetConfigureActivity : Activity() {
     internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
     internal lateinit var mAppSeekBar: SeekBar
     internal lateinit var mAppTextView: TextView
+    internal lateinit var widgetBackground: Drawable
 
     internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
         val context = this@SmallWidgetConfigureActivity
@@ -47,17 +52,26 @@ class SmallWidgetConfigureActivity : Activity() {
         setResult(Activity.RESULT_CANCELED)
 
         setContentView(R.layout.small_widget_configure)
+        var buttonOpacityTest = findViewById<View>(R.id.add_button)
+        //var backgroundOpacityTest = findViewById<View>(R.drawable.widget_background)
+        //backgroundOpacityTest.setBackgroundColor()
+
         mAppTextView = findViewById<View>(R.id.opacityText) as TextView
         mAppSeekBar = findViewById<View>(R.id.seekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 mAppTextView.text = p1.toString()
+                //buttonOpacityTest.setBackgroundColor(getColorWithAlpha(buttonOpacityTest.))
+                //buttonOpacityTest.background.alpha = 255 - p1 * 255/100
+                widgetBackground = buttonOpacityTest.background
+                widgetBackground.alpha = 255 - p1 * 255/100
             }
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
-
         findViewById<View>(R.id.add_button).setOnClickListener(mOnClickListener)
+
+
 
         // Find the widget id from the intent.
         val intent = intent
@@ -103,6 +117,12 @@ class SmallWidgetConfigureActivity : Activity() {
             val prefs = context.getSharedPreferences(PREFS_NAME, 0).edit()
             prefs.remove(PREF_PREFIX_KEY + appWidgetId)
             prefs.apply()
+        }
+
+        internal fun getColorWithAlpha(color:Int, ratio: Float) : Int {
+            return Color.argb(Math.round(Color.alpha(color) * ratio),
+                Color.red(color), Color.green(color), Color.blue(color)
+            )
         }
     }
 }

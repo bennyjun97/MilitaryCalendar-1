@@ -26,4 +26,7 @@
     <color name="buttonColor2">#ffa700</color>
     <color name="buttonColor3">#fed766</color>
 
+    <!-- widget -->
+    <color name="widgetBackground">#013E6B</color>
+
 </resources>

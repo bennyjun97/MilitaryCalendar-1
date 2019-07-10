@@ -5,7 +5,9 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.widget.RemoteViews
+import androidx.core.graphics.alpha
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.activities.main.ClockFragment
@@ -75,8 +77,18 @@ class SmallWidget : AppWidgetProvider() {
             val percentText =
                 (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()+"%"
             val dDayText = DateCalc.countDDay(etsDateTime)
-            val numVacationText = "77일"
+            //val numVacationText = "77일"
+            val numVacationText = SmallWidgetConfigureActivity.loadOpacityPref(context, appWidgetId)
+            val opacity = 255 - numVacationText.toInt()*255/100
 
+
+            val alphaNum = (100 - SmallWidgetConfigureActivity.
+                loadOpacityPref(context, appWidgetId).toInt())*255/100
+            val alpha =
+                when (alphaNum) {
+                    in 0..15 -> "0" + Integer.toHexString(alphaNum).toUpperCase()
+                    else -> Integer.toHexString(alphaNum).toUpperCase()
+                }
 
             // Construct the RemoteViews object, and instantiate the views using Remoteviews
             val views = RemoteViews(context.packageName, R.layout.small_widget)
@@ -86,6 +98,8 @@ class SmallWidget : AppWidgetProvider() {
             views.setTextViewText(R.id.dDay, dDayText)
             views.setTextViewText(R.id.percent, percentText)
             views.setTextViewText(R.id.numVacationDays, numVacationText)
+            views.setInt(R.id.widgetSmallLayout, "setBackgroundColor",
+                Color.parseColor("#${alpha}013E6B"))
 
 
             /**
