@@ -232,7 +232,7 @@
                         android:id="@+id/endDate" android:layout_weight="2" android:textColor="@color/black"
                         android:gravity="center_vertical|end" android:hint="전역일을 입력하세요"
                         android:textColorHint="@color/GrayDark" android:textSize="14sp"
-                        android:background="@drawable/adt_hint_background" android:fontFamily="sans-serif"/>
+                        android:background="@drawable/adt_hint_background"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
