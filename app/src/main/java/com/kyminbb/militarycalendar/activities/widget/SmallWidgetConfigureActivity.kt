@@ -4,17 +4,13 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import com.kyminbb.militarycalendar.R
-import kotlinx.android.synthetic.main.activity_set.view.*
-import kotlin.text.set
 
 /**
  * The configuration screen for the [SmallWidget] AppWidget.
@@ -52,7 +48,7 @@ class SmallWidgetConfigureActivity : Activity() {
         setResult(Activity.RESULT_CANCELED)
 
         setContentView(R.layout.small_widget_configure)
-        var buttonOpacityTest = findViewById<View>(R.id.add_button)
+        var buttonOpacityTest = findViewById<View>(R.id.buttontemp)
         //var backgroundOpacityTest = findViewById<View>(R.drawable.widget_background)
         //backgroundOpacityTest.setBackgroundColor()
 
@@ -69,7 +65,7 @@ class SmallWidgetConfigureActivity : Activity() {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
-        findViewById<View>(R.id.add_button).setOnClickListener(mOnClickListener)
+        findViewById<View>(R.id.buttontemp).setOnClickListener(mOnClickListener)
 
 
 
