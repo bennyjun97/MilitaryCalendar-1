@@ -238,7 +238,7 @@ class SetTestActivity : AppCompatActivity() {
     //일병, 상병, 병장 진급일 계산
     //현재 계급 값 설정 및 다음 진급일 표시 기능
     private fun calcPromotionDates() {
-        var enlist = userInfo.promotionDates[Dates.ENLIST.ordinal]
+        val enlist = userInfo.promotionDates[Dates.ENLIST.ordinal]
         //각각 일병, 상병, 병장 진급일 계산
         userInfo.promotionDates[Dates.RANK2.ordinal] = DateCalc.calcRank2(enlist, userInfo.affiliation)
         userInfo.promotionDates[Dates.RANK3.ordinal] = DateCalc.calcRank3(enlist, userInfo.affiliation)

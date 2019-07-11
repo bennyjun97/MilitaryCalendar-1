@@ -72,6 +72,7 @@ class SmallWidget : AppWidgetProvider() {
             )
 
             // calculate promotion, name, D-day, percent, "남은 휴가", numVacationDays
+            val promotionImageDefault = R.drawable.rank1
             val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
             val nameText = userInfo.name
             val percentText =
@@ -91,7 +92,7 @@ class SmallWidget : AppWidgetProvider() {
 
             // Construct the RemoteViews object, and instantiate the views using Remoteviews
             val views = RemoteViews(context.packageName, R.layout.small_widget)
-            views.setImageViewResource(R.id.promotionImage, R.drawable.army4)
+            views.setImageViewResource(R.id.promotionImage, promotionImageDefault + userInfo.rank)
             views.setTextViewText(R.id.promotion, promotionText)
             views.setTextViewText(R.id.name, nameText)
             views.setTextViewText(R.id.dDay, dDayText)

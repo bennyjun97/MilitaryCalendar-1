@@ -125,7 +125,7 @@
         <Button
                 android:layout_width="16dp"
                 android:layout_height="16dp" android:id="@+id/configureButton"
-                android:background="@drawable/setting_button_widget"/>
+                android:background="@drawable/setting_widget_white"/>
 
     </RelativeLayout>
 </LinearLayout>

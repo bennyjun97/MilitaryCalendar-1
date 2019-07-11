@@ -1,15 +1,17 @@
 package com.kyminbb.militarycalendar.activities.widget
 
 import android.app.Activity
+import android.app.WallpaperManager
+import android.app.WallpaperManager.FLAG_SYSTEM
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.SeekBar
-import android.widget.TextView
+import android.widget.*
 import com.kyminbb.militarycalendar.R
 
 /**
@@ -20,6 +22,8 @@ class SmallWidgetConfigureActivity : Activity() {
     internal lateinit var mAppSeekBar: SeekBar
     internal lateinit var mAppTextView: TextView
     internal lateinit var widgetBackground: Drawable
+    //internal lateinit var mAppBackgroundImageView: ImageView
+    internal lateinit var mAppTestBackground: LinearLayout
 
     internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
         val context = this@SmallWidgetConfigureActivity
@@ -48,11 +52,15 @@ class SmallWidgetConfigureActivity : Activity() {
         setResult(Activity.RESULT_CANCELED)
 
         setContentView(R.layout.small_widget_configure)
-        val buttonOpacityTest = findViewById<View>(R.id.buttontemp)
-        //var backgroundOpacityTest = findViewById<View>(R.drawable.widget_background)
-        //backgroundOpacityTest.setBackgroundColor()
+        val buttonOpacityTest = findViewById<View>(R.id.buttonTemp)
 
         mAppTextView = findViewById<View>(R.id.opacityText) as TextView
+        /*mAppTestBackground = findViewById<View>(R.id.transparentLayout) as LinearLayout
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+            //mAppTestBackground.setBackgroundResource(R.drawable.cloud)
+            //mAppTestBackground.setBackgroundResource(FLAG_SYSTEM)
+        }*/
+
         mAppSeekBar = findViewById<View>(R.id.seekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -63,7 +71,7 @@ class SmallWidgetConfigureActivity : Activity() {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
-        findViewById<View>(R.id.buttontemp).setOnClickListener(mOnClickListener)
+        findViewById<View>(R.id.buttonTemp).setOnClickListener(mOnClickListener)
 
 
 
