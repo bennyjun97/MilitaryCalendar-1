@@ -59,7 +59,7 @@ class SmallWidgetConfigureActivity : Activity() {
         mAppTextView = findViewById<View>(R.id.opacityText) as TextView
         mAppTestBackground = findViewById<View>(R.id.transparentLayout) as LinearLayout
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-            mAppTestBackground.setBackgroundResource(R.drawable.pseudoclock)
+            mAppTestBackground.setBackgroundResource(R.drawable.cloud)
             //mAppTestBackground.setBackground(ContextCompat.getDrawable(this, FLAG_SYSTEM))
             //WallpaperManager.getInstance(this@SmallWidgetConfigureActivity).drawable
         }
