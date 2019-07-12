@@ -1,0 +1,223 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="260dp" xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="@dimen/widget_margin"
+                android:background="@drawable/widget_background">
+
+   <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="74dp"
+           android:weightSum="100"
+           android:id="@+id/firstLayout">
+   <!-- promotion image, name, promotion in order -->
+      <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="30"
+           android:paddingStart="@dimen/content_padding_horizontal"
+           android:paddingEnd="@dimen/content_padding_between"
+           android:paddingTop="@dimen/large_vertical"
+           >
+
+         <ImageView
+                 android:foregroundGravity="center"
+                 android:layout_width="match_parent"
+                 android:layout_height="36dp"
+                 android:id="@+id/promotionImage"
+                 app:srcCompat="@drawable/rank4"/>
+         <TextView
+                 android:layout_alignParentStart="true"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginStart="@dimen/content_padding_between"
+                 android:gravity="start|center_vertical"
+                 android:layout_width="wrap_content"
+                 android:layout_height="24dp"
+                 android:layout_below="@id/promotionImage"
+                 android:id="@+id/promotion"
+                 android:text="@string/promotion"
+                 android:textColor="#fff"
+                 android:textStyle="bold"
+                 android:textSize="18sp"/>
+
+         <TextView
+                 android:layout_alignParentEnd="true"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginEnd="@dimen/content_padding_between"
+                 android:gravity="end|center_vertical"
+                 android:layout_width="wrap_content"
+                 android:layout_height="24dp"
+                 android:layout_below="@id/promotionImage"
+                 android:id="@+id/name"
+                 android:text="@string/name_text"
+                 android:textColor="#fff"
+                 android:textSize="18sp"/>
+      </RelativeLayout>
+
+   <!-- D-day, percent, "남은 휴가", numVacationDays in order -->
+      <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="60"
+           android:paddingTop="@dimen/large_vertical"
+           android:paddingStart="@dimen/content_padding_between"
+           android:paddingEnd="@dimen/content_padding_between">
+
+         <TextView
+                 android:layout_alignParentStart="true"
+                 android:gravity="start|center_vertical"
+                 android:layout_width="wrap_content"
+                 android:layout_height="36dp"
+                 android:id="@+id/percent_text"
+                 android:textStyle="bold"
+                 android:text="@string/large_percent_text"
+                 android:textColor="#fff"
+                 android:textSize="28sp"/>
+
+         <TextView
+                 android:layout_alignParentEnd="true"
+                 android:gravity="end|center_vertical"
+                 android:layout_width="wrap_content"
+                 android:layout_height="36dp"
+                 android:id="@+id/percent"
+                 android:text="@string/percent_text"
+                 android:textStyle="bold"
+                 android:textColor="@color/colorPrimary"
+                 android:textSize="28sp"/>
+
+         <TextView
+                 android:gravity="start|center_vertical"
+                 android:layout_width="wrap_content"
+                 android:layout_height="24dp"
+                 android:id="@+id/until_next"
+                 android:layout_below="@id/percent_text"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentStart="true"
+                 android:text="@string/large_until_text"
+                 android:textColor="#fff"
+                 android:textSize="18sp"/>
+
+         <TextView
+                 android:gravity="center_vertical|end"
+                 android:layout_width="wrap_content"
+                 android:layout_height="24dp"
+                 android:id="@+id/dDay"
+                 android:layout_below="@id/percent"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentEnd="true"
+                 android:text="@string/dday_text"
+                 android:textColor="#fff"
+                 android:textStyle="bold" android:textSize="18sp"/>
+      </RelativeLayout>
+      <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="10"
+           android:paddingStart="@dimen/content_padding_between"
+           android:paddingEnd="@dimen/content_padding_vertical"
+           android:paddingTop="@dimen/content_padding_vertical"
+           android:gravity="center_horizontal|top">
+
+         <Button
+                 android:layout_width="16dp"
+                 android:layout_height="16dp" android:id="@+id/configureButton"
+                 android:background="@drawable/setting_widget_white"/>
+      </RelativeLayout>
+   </LinearLayout>
+
+   <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="154dp"
+           android:weightSum="100"
+           android:layout_below="@id/firstLayout"
+           android:id="@+id/secondLayout">
+      <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="50" android:gravity="center">
+
+         <!-- progress bar cannot rotate counterclockwise -> code 100 - actual progress as
+         progress-->
+         <ProgressBar
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:id="@+id/progress_circular"
+                 style="?android:progressBarStyleHorizontal"
+                 android:max="100"
+                 android:indeterminate="false"
+                 android:progress="25"
+                 android:progressDrawable="@drawable/circular_progress"/>
+
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="77dp"
+                 android:gravity="center_horizontal|bottom"
+                 android:id="@+id/large_vacation"
+                 android:layout_alignTop="@id/progress_circular"
+                 android:layout_alignStart="@id/progress_circular"
+                 android:layout_alignEnd="@id/progress_circular"
+                 android:text="@string/Vacation_text" android:textSize="14sp"/>
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="77dp"
+                 android:gravity="center_horizontal|top"
+                 android:id="@+id/large_numVacation"
+                 android:layout_alignBottom="@id/progress_circular"
+                 android:layout_alignStart="@id/progress_circular"
+                 android:layout_alignEnd="@id/progress_circular"
+                 android:text="@string/numVacationDay_text"
+                 android:textSize="22sp" android:textStyle="bold"/>
+
+      </RelativeLayout>
+      <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="50" android:gravity="center">
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_alignParentTop="true"
+                 android:id="@+id/largeNextVacation"
+                 android:text="@string/nextVacation"/>
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeNextVacation"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/largeNextVacationDate"
+                 android:text="@string/nextVacation_Date"
+                 android:textSize="28sp"/>
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeNextVacationDate"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/dDayVacation"
+                 android:text="@string/dday_text"
+                 android:textSize="20sp"/>
+
+      </RelativeLayout>
+
+   </LinearLayout>
+   <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="32dp"
+           android:layout_below="@id/secondLayout"
+           android:id="@+id/thirdLayout" android:gravity="center">
+      <Button
+              android:layout_width="18dp"
+              android:layout_height="18dp"
+              android:layout_marginEnd="144dp"
+              android:gravity="center"
+              android:background="@drawable/left_white"
+              android:id="@+id/swapBackButton"/>
+      <Button
+              android:layout_width="18dp"
+              android:layout_height="18dp"
+              android:gravity="center"
+              android:background="@drawable/right_white"
+              android:id="@+id/swapNextButton"/>
+   </LinearLayout>
+</RelativeLayout>

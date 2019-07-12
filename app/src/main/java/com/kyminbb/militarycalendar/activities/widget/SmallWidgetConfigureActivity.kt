@@ -12,7 +12,9 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import com.kyminbb.militarycalendar.R
+import org.jetbrains.anko.view
 
 /**
  * The configuration screen for the [SmallWidget] AppWidget.
@@ -55,11 +57,12 @@ class SmallWidgetConfigureActivity : Activity() {
         val buttonOpacityTest = findViewById<View>(R.id.buttonTemp)
 
         mAppTextView = findViewById<View>(R.id.opacityText) as TextView
-        /*mAppTestBackground = findViewById<View>(R.id.transparentLayout) as LinearLayout
+        mAppTestBackground = findViewById<View>(R.id.transparentLayout) as LinearLayout
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-            //mAppTestBackground.setBackgroundResource(R.drawable.cloud)
-            //mAppTestBackground.setBackgroundResource(FLAG_SYSTEM)
-        }*/
+            mAppTestBackground.setBackgroundResource(R.drawable.pseudoclock)
+            //mAppTestBackground.setBackground(ContextCompat.getDrawable(this, FLAG_SYSTEM))
+            //WallpaperManager.getInstance(this@SmallWidgetConfigureActivity).drawable
+        }
 
         mAppSeekBar = findViewById<View>(R.id.seekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{

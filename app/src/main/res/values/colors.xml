@@ -29,6 +29,7 @@
     <!-- widget -->
     <color name="widgetBackground">#313A31</color>
     <color name="percentText">#FFE324</color>
+    <color name="circularProgressbar">#2699FC</color>
 
     <!-- calendar -->
     <color name="calendarBackground">#424242</color>

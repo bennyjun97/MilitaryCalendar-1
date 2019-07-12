@@ -9,4 +9,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="content_padding_horizontal">16dp</dimen>
     <dimen name="content_padding_vertical">6dp</dimen>
     <dimen name="content_padding_between">4dp</dimen>
+
+    <dimen name="large_vertical">6dp</dimen>
+    <dimen name="large_between">8dp</dimen>
 </resources>

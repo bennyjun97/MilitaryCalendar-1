@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
                     android:minWidth="250dp"
-                    android:minHeight="40dp"
+                    android:minHeight="180dp"
                     android:updatePeriodMillis="3600000"
                     android:previewImage="@drawable/example_appwidget_preview"
-                    android:initialLayout="@layout/small_widget"
-                    android:configure="com.kyminbb.militarycalendar.activities.widget.SmallWidgetConfigureActivity"
+                    android:initialLayout="@layout/large_widget"
+                    android:configure="com.kyminbb.militarycalendar.activities.widget.LargeWidgetConfigureActivity"
                     android:resizeMode="horizontal|vertical"
                     android:widgetCategory="home_screen"
-                    android:initialKeyguardLayout="@layout/small_widget">
+                    android:initialKeyguardLayout="@layout/large_widget">
 </appwidget-provider>

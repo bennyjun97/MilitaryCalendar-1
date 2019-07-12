@@ -2,14 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.kyminbb.militarycalendar">
 
-    <!--<uses-permission android:name="android.permission.SET_WALLPAPER" android:maxSdkVersion="24"></uses-permission>-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <!-- <uses-permission android:name="android.permission.SET_WALLPAPER" android:maxSdkVersion="24"></uses-permission> -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+
     <application
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <receiver android:name=".activities.widget.LargeWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/large_widget_info"/>
+        </receiver>
+
+        <activity android:name=".activities.widget.LargeWidgetConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
+
         <receiver android:name=".activities.widget.SmallWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -20,14 +38,13 @@
                     android:resource="@xml/small_widget_info"/>
         </receiver>
 
-        <activity android:name=".activities.widget.SmallWidgetConfigureActivity"
-                  android:launchMode="singleInstance">
+        <activity
+                android:name=".activities.widget.SmallWidgetConfigureActivity"
+                android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
-
-
         <activity android:name=".activities.register.SetTestActivity">
         </activity>
         <activity android:name=".activities.main.HomeActivity">
@@ -44,8 +61,8 @@
         </activity>
         <activity
                 android:name=".activities.MainActivity"
-                android:theme="@style/SplashTheme"
-                android:noHistory="true">
+                android:noHistory="true"
+                android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
