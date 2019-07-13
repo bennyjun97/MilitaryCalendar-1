@@ -4,15 +4,16 @@
               android:padding="@dimen/widget_margin"
               android:baselineAligned="false"
               android:background="@drawable/widget_background" android:weightSum="100"
-              android:id="@+id/widgetSmallLayout">
+              android:id="@+id/smallWidgetLayout">
 
     <!-- promotion image, name, promotion in order -->
     <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="30"
+            android:gravity="center_horizontal"
             android:paddingStart="@dimen/content_padding_horizontal"
-            android:paddingEnd="@dimen/content_padding_between"
+            android:paddingEnd="@dimen/content_padding_horizontal"
             android:paddingTop="@dimen/content_padding_vertical"
             android:paddingBottom="@dimen/content_padding_vertical">
 
@@ -22,18 +23,17 @@
                 android:foregroundGravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="26dp"
-                android:id="@+id/promotionImage"
+                android:id="@+id/smallPromotionImage"
                 app:srcCompat="@drawable/army1"/>
 
         <TextView
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/content_padding_between"
-                android:gravity="start|center_vertical"
+                android:gravity="center|start"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
-                android:layout_below="@id/promotionImage"
-                android:id="@+id/promotion"
+                android:layout_below="@id/smallPromotionImage"
+                android:id="@+id/smallPromotion"
                 android:text="@string/promotion"
                 android:textColor="#fff"
                 android:textStyle="bold" android:textSize="14sp"/>
@@ -41,12 +41,12 @@
         <TextView
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/content_padding_between"
-                android:gravity="end|center_vertical"
+                android:gravity="center|end"
                 android:layout_width="wrap_content"
                 android:layout_height="14dp"
-                android:layout_below="@id/promotionImage"
-                android:id="@+id/name"
+                android:layout_toEndOf="@id/smallPromotion"
+                android:layout_below="@id/smallPromotionImage"
+                android:id="@+id/smallName"
                 android:text="@string/name_text"
                 android:textColor="#fff"
                 android:textSize="14sp"/>
@@ -64,33 +64,37 @@
             android:paddingEnd="@dimen/content_padding_between">
 
         <TextView
+                android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
+                android:paddingBottom="2dp"
                 android:gravity="start|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/dDay"
+                android:id="@+id/smallDDay"
                 android:textStyle="bold"
                 android:text="@string/dday_text"
                 android:textColor="#fff"
-                android:textSize="24sp"/>
+                android:textSize="26sp"/>
 
         <TextView
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:paddingBottom="2dp"
                 android:gravity="end|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/percent"
+                android:id="@+id/smallPercent"
                 android:text="@string/percent_text"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="24sp"/>
+                android:textSize="26sp"/>
 
         <TextView
                 android:gravity="start|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
-                android:id="@+id/Vacation"
-                android:layout_below="@id/dDay"
+                android:id="@+id/smallVacation"
+                android:layout_below="@id/smallDDay"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:text="@string/Vacation_text"
@@ -102,8 +106,8 @@
                 android:gravity="center_vertical|end"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
-                android:id="@+id/numVacationDays"
-                android:layout_below="@id/percent"
+                android:id="@+id/smallNumVacationDays"
+                android:layout_below="@id/smallPercent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:text="@string/numVacationDay_text"
@@ -124,7 +128,7 @@
 
         <Button
                 android:layout_width="16dp"
-                android:layout_height="16dp" android:id="@+id/configureButton"
+                android:layout_height="16dp" android:id="@+id/smallConfigureButton"
                 android:background="@drawable/setting_widget_white"/>
 
     </RelativeLayout>

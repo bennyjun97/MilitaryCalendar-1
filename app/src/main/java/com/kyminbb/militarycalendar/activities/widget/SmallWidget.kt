@@ -7,10 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.widget.RemoteViews
-import androidx.core.graphics.alpha
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.activities.main.ClockFragment
 import com.kyminbb.militarycalendar.activities.main.HomeActivity
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
@@ -92,13 +90,13 @@ class SmallWidget : AppWidgetProvider() {
 
             // Construct the RemoteViews object, and instantiate the views using Remoteviews
             val views = RemoteViews(context.packageName, R.layout.small_widget)
-            views.setImageViewResource(R.id.promotionImage, promotionImageDefault + userInfo.rank)
-            views.setTextViewText(R.id.promotion, promotionText)
-            views.setTextViewText(R.id.name, nameText)
-            views.setTextViewText(R.id.dDay, dDayText)
-            views.setTextViewText(R.id.percent, percentText)
-            views.setTextViewText(R.id.numVacationDays, numVacationText)
-            views.setInt(R.id.widgetSmallLayout, "setBackgroundColor",
+            views.setImageViewResource(R.id.smallPromotionImage, promotionImageDefault + userInfo.rank)
+            views.setTextViewText(R.id.smallPromotion, promotionText)
+            views.setTextViewText(R.id.smallName, nameText)
+            views.setTextViewText(R.id.smallDDay, dDayText)
+            views.setTextViewText(R.id.smallPercent, percentText)
+            views.setTextViewText(R.id.smallNumVacationDays, numVacationText)
+            views.setInt(R.id.smallWidgetLayout, "setBackgroundColor",
                 Color.parseColor("#${alpha}313A31"))
 
 
@@ -107,21 +105,21 @@ class SmallWidget : AppWidgetProvider() {
              * when the setting button is clicked, it moves to widget configuration
              */
             // mainIntent to move to ClockFragment
-            val mainIntent: PendingIntent = Intent(context, HomeActivity::class.java)
+            val smallMainIntent: PendingIntent = Intent(context, HomeActivity::class.java)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 .let { intent ->
                     PendingIntent.getActivity(context, 0, intent, 0)
                 }
             // configureIntent to move to Configuration
-            val configureIntent: PendingIntent = Intent(context, SmallWidgetConfigureActivity::class.java)
+            val smallConfigureIntent: PendingIntent = Intent(context, SmallWidgetConfigureActivity::class.java)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 .let { intent ->
                     PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 }
 
             // apply Intent
-            views.apply{setOnClickPendingIntent(R.id.widgetSmallLayout, mainIntent)}
-                .apply{setOnClickPendingIntent(R.id.configureButton, configureIntent)}
+            views.apply{setOnClickPendingIntent(R.id.smallWidgetLayout, smallMainIntent)}
+                .apply{setOnClickPendingIntent(R.id.smallConfigureButton, smallConfigureIntent)}
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)

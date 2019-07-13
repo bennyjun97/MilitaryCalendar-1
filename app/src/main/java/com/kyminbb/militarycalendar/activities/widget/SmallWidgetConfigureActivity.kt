@@ -24,7 +24,6 @@ class SmallWidgetConfigureActivity : Activity() {
     internal lateinit var mAppSeekBar: SeekBar
     internal lateinit var mAppTextView: TextView
     internal lateinit var widgetBackground: Drawable
-    //internal lateinit var mAppBackgroundImageView: ImageView
     internal lateinit var mAppTestBackground: LinearLayout
 
     internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
@@ -32,7 +31,6 @@ class SmallWidgetConfigureActivity : Activity() {
 
         // When the button is clicked, store the string locally
         val opacityText = mAppTextView.text.toString()
-        //val widgetText = mAppWidgetText.text.toString()
         saveOpacityPref(context, mAppWidgetId, opacityText)
 
         // It is the responsibility of the configuration activity to update the app widget
@@ -40,9 +38,9 @@ class SmallWidgetConfigureActivity : Activity() {
         SmallWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId)
 
         // Make sure we pass back the original appWidgetId
-        val resultValue = Intent()
-        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId)
-        setResult(Activity.RESULT_OK, resultValue)
+        val smallResultValue = Intent()
+        smallResultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId)
+        setResult(Activity.RESULT_OK, smallResultValue)
         finish()
     }
 
@@ -54,17 +52,17 @@ class SmallWidgetConfigureActivity : Activity() {
         setResult(Activity.RESULT_CANCELED)
 
         setContentView(R.layout.small_widget_configure)
-        val buttonOpacityTest = findViewById<View>(R.id.buttonTemp)
+        val buttonOpacityTest = findViewById<View>(R.id.smallButtonTemp)
 
-        mAppTextView = findViewById<View>(R.id.opacityText) as TextView
-        mAppTestBackground = findViewById<View>(R.id.transparentLayout) as LinearLayout
+        mAppTextView = findViewById<View>(R.id.smallOpacityText) as TextView
+        mAppTestBackground = findViewById<View>(R.id.smallTransparentLayout) as LinearLayout
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
             mAppTestBackground.setBackgroundResource(R.drawable.cloud)
             //mAppTestBackground.setBackground(ContextCompat.getDrawable(this, FLAG_SYSTEM))
             //WallpaperManager.getInstance(this@SmallWidgetConfigureActivity).drawable
         }
 
-        mAppSeekBar = findViewById<View>(R.id.seekBar) as SeekBar
+        mAppSeekBar = findViewById<View>(R.id.smallSeekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 mAppTextView.text = p1.toString()
@@ -74,7 +72,7 @@ class SmallWidgetConfigureActivity : Activity() {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
-        findViewById<View>(R.id.buttonTemp).setOnClickListener(mOnClickListener)
+        findViewById<View>(R.id.smallButtonTemp).setOnClickListener(mOnClickListener)
 
 
 
@@ -100,34 +98,28 @@ class SmallWidgetConfigureActivity : Activity() {
 
     companion object {
 
-        private val PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.SmallWidget"
-        private val PREF_PREFIX_KEY = "Opacitywidget_"
+        private val SMALL_PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.SmallWidget"
+        private val SMALL_PREF_PREFIX_KEY = "SmallOpacity_"
 
         // Write the prefix to the SharedPreferences object for this widget
         internal fun saveOpacityPref(context: Context, appWidgetId: Int, text: String) {
-            val prefs = context.getSharedPreferences(PREFS_NAME, 0).edit()
-            prefs.putString(PREF_PREFIX_KEY + appWidgetId, text)
+            val prefs = context.getSharedPreferences(SMALL_PREFS_NAME, 0).edit()
+            prefs.putString(SMALL_PREF_PREFIX_KEY + appWidgetId, text)
             prefs.apply()
         }
 
         // Read the prefix from the SharedPreferences object for this widget.
         // If there is no preference saved, get the default from a resource
         internal fun loadOpacityPref(context: Context, appWidgetId: Int): String {
-            val prefs = context.getSharedPreferences(PREFS_NAME, 0)
-            val titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null)
+            val prefs = context.getSharedPreferences(SMALL_PREFS_NAME, 0)
+            val titleValue = prefs.getString(SMALL_PREF_PREFIX_KEY + appWidgetId, null)
             return titleValue ?: "0"
         }
 
         internal fun deleteOpacityPref(context: Context, appWidgetId: Int) {
-            val prefs = context.getSharedPreferences(PREFS_NAME, 0).edit()
-            prefs.remove(PREF_PREFIX_KEY + appWidgetId)
+            val prefs = context.getSharedPreferences(SMALL_PREFS_NAME, 0).edit()
+            prefs.remove(SMALL_PREF_PREFIX_KEY + appWidgetId)
             prefs.apply()
-        }
-
-        internal fun getColorWithAlpha(color:Int, ratio: Float) : Int {
-            return Color.argb(Math.round(Color.alpha(color) * ratio),
-                Color.red(color), Color.green(color), Color.blue(color)
-            )
         }
     }
 }

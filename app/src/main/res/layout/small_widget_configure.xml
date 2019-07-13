@@ -3,13 +3,13 @@
               xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:padding="16dp" android:visibility="visible">
+              android:padding="16dp">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/configure"
-            android:layout_marginBottom="8dp" android:visibility="visible" android:layout_marginTop="8dp"/>
+            android:layout_marginBottom="8dp" android:layout_marginTop="8dp"/>
 
     <LinearLayout
             android:orientation="horizontal"
@@ -17,29 +17,29 @@
             android:layout_height="match_parent" android:layout_marginTop="8dp" android:gravity="center_vertical">
         <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:id="@+id/textView"
+                android:layout_height="match_parent" android:id="@+id/smallTextView"
                 android:text="@string/transparencyText"/>
         <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/opacityText" android:hint="@string/opacity"
+                android:layout_height="wrap_content" android:id="@+id/smallOpacityText" android:hint="@string/opacity"
                 android:layout_marginStart="@dimen/content_padding_between"/>
     </LinearLayout>
 
     <SeekBar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/seekBar" android:max="100"
+            android:layout_height="wrap_content" android:id="@+id/smallSeekBar" android:max="100"
             android:layout_marginTop="8dp"/>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="240dp" android:gravity="center" android:id="@+id/transparentLayout"
+            android:layout_height="240dp" android:gravity="center" android:id="@+id/smallTransparentLayout"
             android:background="@drawable/army4" android:layout_marginTop="8dp">
         <Button
                 android:background="@drawable/widget_background"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="@string/preview_text"
-                android:id="@+id/buttonTemp"
+                android:id="@+id/smallButtonTemp"
                 android:layout_marginStart="8dp" android:layout_marginEnd="8dp"/>
     </LinearLayout>
 
