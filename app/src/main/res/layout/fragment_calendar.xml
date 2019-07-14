@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/JalnanTextViewStyle"
-        tools:context=".activities.main.CalendarActivity" android:background="@color/calendarBackground">
+        tools:context=".activities.main.HomeActivity" android:background="@color/calendarBackground">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
@@ -51,37 +51,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp" android:layout_weight="0.5" android:layout_marginTop="16dp">
             <TextView
-                    android:text="일"
+                    android:text="@string/sun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/sunday"
                     app:autoSizeTextType="uniform" android:gravity="center"/>
             <TextView
-                    android:text="월"
+                    android:text="@string/mon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/monday"
                     app:autoSizeTextType="uniform" android:gravity="center"/>
             <TextView
-                    android:text="화"
+                    android:text="@string/tue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/tuesday"
                     app:autoSizeTextType="uniform" android:gravity="center"/>
             <TextView
-                    android:text="수"
+                    android:text="@string/wed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/wednesday"
                     app:autoSizeTextType="uniform" android:gravity="center"/>
             <TextView
-                    android:text="목"
+                    android:text="@string/thu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/thursday"
                     app:autoSizeTextType="uniform" android:gravity="center"/>
             <TextView
-                    android:text="금"
+                    android:text="@string/fri"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/friday"
                     app:autoSizeTextType="uniform" android:gravity="center"/>
             <TextView
-                    android:text="토"
+                    android:text="@string/sat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/saturday"
                     app:autoSizeTextType="uniform" android:gravity="center"/>

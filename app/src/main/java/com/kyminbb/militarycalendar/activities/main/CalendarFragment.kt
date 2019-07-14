@@ -7,25 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.database.DBHelper
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-private var adding = true
-/**
- * A simple [Fragment] subclass.
- *
- */
 class CalendarFragment : Fragment() {
+
+    private var adding = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        loadDB()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
@@ -56,5 +50,12 @@ class CalendarFragment : Fragment() {
         addPersonal.setOnClickListener{
             testText.text = "개인일정 추가"
         }
+
+        // For testing database management
+
+    }
+
+    private fun loadDB() {
+        val db = DBHelper(this.context!!)
     }
 }
