@@ -28,6 +28,15 @@
     <string name="preview_text">미리보기 입니다. 클릭하면 위젯이 적용됩니다.</string>
     <string name="large_percent_text">복무율</string>
     <string name="large_until_text">전역까지</string>
+    <string name="largeNextShift">다음 당직</string>
+    <string name="largeNextShiftDate">7월 4일</string>
+    <string name="largeDDayShift">D-4</string>
+    <string name="largeMemo">메모</string>
+    <string name="largeShiftMemoContent">최후임 일병한테 통당서는 법 인수인계</string>
+    <string name="largeNextDrill">다음 훈련</string>
+    <string name="largeNextDrillDate">7월 29일</string>
+    <string name="largeDDayDrill">D-29</string>
+    <string name="largeDrillMemoContent">유격훈련 군장쌀때 전투화 잊지말기</string>
 
     <string name="sun">일</string>
     <string name="mon">월</string>

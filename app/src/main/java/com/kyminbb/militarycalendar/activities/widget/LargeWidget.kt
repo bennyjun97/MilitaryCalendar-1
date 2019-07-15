@@ -7,8 +7,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.view.View
 import android.widget.RemoteViews
-import android.widget.TextView
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.activities.main.HomeActivity
@@ -52,13 +52,48 @@ class LargeWidget : AppWidgetProvider() {
         if(ACTION_UPDATE_CLICK_NEXT.equals(intent!!.action)){
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val largeWidget = ComponentName(context, LargeWidget::class.java)
-            views.setTextViewText(R.id.largeName, "Next")
+
+            when (layoutNum%3){
+                0 -> {
+                    views.setViewVisibility(R.id.secondLayout0, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout1, View.VISIBLE)
+                    views.setViewVisibility(R.id.secondLayout2, View.GONE)
+                }
+                1 -> {
+                    views.setViewVisibility(R.id.secondLayout0, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout1, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout2, View.VISIBLE)
+                }
+                2 -> {
+                    views.setViewVisibility(R.id.secondLayout0, View.VISIBLE)
+                    views.setViewVisibility(R.id.secondLayout1, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout2, View.GONE)
+                }
+            }
+            layoutNum = (layoutNum + 1)%3
             appWidgetManager.updateAppWidget(largeWidget, views)
         }
         else if(ACTION_UPDATE_CLICK_BACK.equals(intent.action)){
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val largeWidget = ComponentName(context, LargeWidget::class.java)
-            views.setTextViewText(R.id.largeName, "Back")
+            when (layoutNum%3){
+                0 -> {
+                    views.setViewVisibility(R.id.secondLayout0, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout1, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout2, View.VISIBLE)
+                }
+                1 -> {
+                    views.setViewVisibility(R.id.secondLayout0, View.VISIBLE)
+                    views.setViewVisibility(R.id.secondLayout1, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout2, View.GONE)
+                }
+                2 -> {
+                    views.setViewVisibility(R.id.secondLayout0, View.GONE)
+                    views.setViewVisibility(R.id.secondLayout1, View.VISIBLE)
+                    views.setViewVisibility(R.id.secondLayout2, View.GONE)
+                }
+            }
+            layoutNum = (layoutNum + 2) % 3
             appWidgetManager.updateAppWidget(largeWidget, views)
         }
 
@@ -72,6 +107,8 @@ class LargeWidget : AppWidgetProvider() {
 
         private val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
         private val ACTION_UPDATE_CLICK_BACK = "action.UPDATE_CLICK_BACK"
+
+        private var layoutNum = 0
 
 
         private fun getPendingSelfIntent(context: Context, action: String) : PendingIntent {

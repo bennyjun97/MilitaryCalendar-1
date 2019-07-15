@@ -123,16 +123,21 @@
       </RelativeLayout>
    </LinearLayout>
 
+
+
+
+   <!-- first view of widget : 휴가-->
    <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="154dp"
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
-           android:id="@+id/secondLayout" android:visibility="visible">
+           android:baselineAligned="false"
+           android:id="@+id/secondLayout0" android:visibility="visible">
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center">
+              android:layout_weight="50" android:gravity="center" android:id="@+id/leftLargeLayout0">
 
          <!-- progress bar cannot rotate counterclockwise -> code 100 - actual progress as
       progress-->
@@ -172,7 +177,7 @@
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center">
+              android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout0">
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -206,6 +211,155 @@
       </RelativeLayout>
 
    </LinearLayout>
+
+   <!-- second view of widget : 당직-->
+   <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="154dp"
+           android:weightSum="100"
+           android:layout_below="@id/firstLayout"
+           android:baselineAligned="false"
+           android:id="@+id/secondLayout1" android:visibility="gone">
+      
+      <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="50" android:gravity="center" android:id="@+id/leftLargeLayout1">
+
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_alignParentTop="true"
+                 android:id="@+id/largeNextShift"
+                 android:textColor="#fff"
+                 android:text="@string/largeNextShift"/>
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeNextShift"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/largeNextShiftDate"
+                 android:text="@string/largeNextShiftDate"
+                 android:textColor="#fff"
+                 android:textStyle="bold"
+                 android:textSize="28sp"/>
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeNextShiftDate"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/largeDDayShift"
+                 android:text="@string/largeDDayShift"
+                 android:textColor="#fff"
+                 android:textSize="20sp"/>
+      </RelativeLayout>
+      
+      <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout1">
+
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_alignParentTop="true"
+                 android:id="@+id/largeShiftMemo"
+                 android:text="@string/largeMemo"
+                 android:textColor="#fff"/>
+
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeShiftMemo"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/largeShiftMemoContent"
+                 android:text="@string/largeShiftMemoContent"
+                 android:textColor="#fff"/>
+      </RelativeLayout>
+
+   </LinearLayout>
+
+   <!-- third view of widget : 훈련-->
+   <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="154dp"
+           android:weightSum="100"
+           android:layout_below="@id/firstLayout"
+           android:baselineAligned="false"
+           android:id="@+id/secondLayout2" android:visibility="gone">
+      <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="50" android:gravity="center" android:id="@+id/leftLargeLayout2">
+
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_alignParentTop="true"
+                 android:id="@+id/largeNextDrill"
+                 android:textColor="#fff"
+                 android:text="@string/largeNextDrill"/>
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeNextDrill"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/largeNextDrillDate"
+                 android:text="@string/largeNextDrillDate"
+                 android:textColor="#fff"
+                 android:textStyle="bold"
+                 android:textSize="28sp"/>
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeNextDrillDate"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/largeDDayDrill"
+                 android:text="@string/largeDDayDrill"
+                 android:textColor="#fff"
+                 android:textSize="20sp"/>
+
+      </RelativeLayout>
+      <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout2">
+
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_alignParentTop="true"
+                 android:id="@+id/largeDrillMemo"
+                 android:text="@string/largeMemo"
+                 android:textColor="#fff"/>
+
+         <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:layout_below="@id/largeDrillMemo"
+                 android:layout_marginTop="@dimen/large_vertical"
+                 android:id="@+id/largeDrillMemoContent"
+                 android:text="@string/largeDrillMemoContent"
+                 android:textColor="#fff"/>
+      </RelativeLayout>
+
+   </LinearLayout>
+
+
+
+
+
+
    <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="32dp"
