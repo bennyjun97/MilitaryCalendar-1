@@ -87,12 +87,91 @@
                     app:autoSizeTextType="uniform" android:gravity="center"/>
         </LinearLayout>
         <TextView
+                android:text="TextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/testText" android:textSize="20dp"
-                android:gravity="center"/>
+                android:layout_height="wrap_content" android:id="@+id/testText"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="15" android:id="@+id/calendar"
+        >
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/firstWeek"
+                    android:weightSum="7">
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/slot1" android:layout_weight="1"
+                        android:background="@null" android:gravity="top|end" android:padding="8dp"
+                        android:textSize="14sp" android:fontFamily="@font/jalnan"
+                        android:textColor="@android:color/white"/>
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/slot2" android:layout_weight="1"
+                        android:background="@null" android:gravity="top|end" android:padding="8dp"
+                        android:textSize="14sp" android:fontFamily="@font/jalnan"
+                        android:textColor="@android:color/white"/>
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/slot3" android:layout_weight="1"
+                        android:background="@null" android:gravity="top|end" android:padding="8dp"
+                        android:textSize="14sp" android:fontFamily="@font/jalnan"
+                        android:textColor="@android:color/white"/>
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/slot4" android:layout_weight="1"
+                        android:background="@null" android:gravity="top|end" android:padding="8dp"
+                        android:textSize="14sp" android:fontFamily="@font/jalnan"
+                        android:textColor="@android:color/white"/>
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/slot5" android:layout_weight="1"
+                        android:background="@null" android:gravity="top|end" android:padding="8dp"
+                        android:textSize="14sp" android:fontFamily="@font/jalnan"
+                        android:textColor="@android:color/white"/>
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/slot6" android:layout_weight="1"
+                        android:background="@null" android:gravity="top|end" android:padding="8dp"
+                        android:textSize="14sp" android:fontFamily="@font/jalnan"
+                        android:textColor="@android:color/white"/>
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/slot7" android:layout_weight="1"
+                        android:background="@null" android:gravity="top|end" android:text="1" android:padding="8dp"
+                        android:textSize="14sp" android:fontFamily="@font/jalnan"
+                        android:textColor="@android:color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/secondWeek">
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/thirdWeek">
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fourthWeek">
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fifthWeek">
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/sixthWeek">
+            </LinearLayout>
+        </LinearLayout>
         <CalendarView
                 android:layout_width="match_parent"
-                android:layout_height="0dp" android:id="@+id/calendarView" android:layout_weight="15"/>
+                android:layout_height="0dp" android:id="@+id/calendarView" android:layout_weight="0"/>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp" android:layout_weight="3">

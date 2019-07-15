@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.kyminbb.militarycalendar">
-
     <!-- <uses-permission android:name="android.permission.SET_WALLPAPER" android:maxSdkVersion="24"></uses-permission> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SET_WALLPAPER"/>
@@ -12,6 +11,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.main.CalendarTest">
+        </activity>
+
         <receiver android:name=".activities.widget.LargeWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -22,7 +24,9 @@
                     android:resource="@xml/large_widget_info"/>
         </receiver>
 
-        <activity android:name=".activities.widget.LargeWidgetConfigureActivity" android:launchMode="singleInstance">
+        <activity
+                android:name=".activities.widget.LargeWidgetConfigureActivity"
+                android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>

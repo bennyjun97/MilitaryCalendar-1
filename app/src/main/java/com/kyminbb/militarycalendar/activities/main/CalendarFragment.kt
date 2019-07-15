@@ -12,11 +12,14 @@ import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.jetbrains.anko.support.v4.toast
+import java.util.*
 
 
 class CalendarFragment : Fragment() {
 
     private var adding = true
+    var calendar = Calendar.getInstance()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +34,12 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val dbHelper = DBHelper(this.context!!)
+
+        calendar.add(Calendar.MONTH, 12)
+        var month = calendar.get(Calendar.MONTH)
+        var day = calendar.get(Calendar.DAY_OF_MONTH)
+        var year = calendar.get(Calendar.YEAR)
+        textMonth.text = "${month}${day}${year}월"
 
         buttonAdd.setOnClickListener {
             if (adding) {
