@@ -3,6 +3,7 @@ package com.kyminbb.militarycalendar.activities.widget
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -44,9 +45,40 @@ class LargeWidget : AppWidgetProvider() {
         // Enter relevant functionality for when the last widget is disabled
     }
 
+    override fun onReceive(context: Context?, intent: Intent?) {
+        super.onReceive(context, intent)
+        val views = RemoteViews(context!!.packageName, R.layout.large_widget)
+
+        if(ACTION_UPDATE_CLICK_NEXT.equals(intent!!.action)){
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val largeWidget = ComponentName(context, LargeWidget::class.java)
+            views.setTextViewText(R.id.largeName, "Next")
+            appWidgetManager.updateAppWidget(largeWidget, views)
+        }
+        else if(ACTION_UPDATE_CLICK_BACK.equals(intent.action)){
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val largeWidget = ComponentName(context, LargeWidget::class.java)
+            views.setTextViewText(R.id.largeName, "Back")
+            appWidgetManager.updateAppWidget(largeWidget, views)
+        }
+
+    }
+
+
+
     companion object {
 
         private var userInfo = User()
+
+        private val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
+        private val ACTION_UPDATE_CLICK_BACK = "action.UPDATE_CLICK_BACK"
+
+
+        private fun getPendingSelfIntent(context: Context, action: String) : PendingIntent {
+            val intent = Intent(context, LargeWidget::class.java)
+            intent.action = action
+            return PendingIntent.getBroadcast(context, 0, intent, 0)
+        }
 
         internal fun updateAppWidget(
             context: Context, appWidgetManager: AppWidgetManager,
@@ -55,6 +87,7 @@ class LargeWidget : AppWidgetProvider() {
 
             val prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+
 
             // load LocalDate data
             val enlistDateTime = LocalDateTime.of(
@@ -71,6 +104,8 @@ class LargeWidget : AppWidgetProvider() {
             )
 
             // calculate promotion, name, D-day, percent, "남은 휴가", numVacationDays
+            val views = RemoteViews(context.packageName, R.layout.large_widget)
+
             val promotionImageDefault = R.drawable.rank1
             val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
             val nameText = userInfo.name
@@ -96,7 +131,6 @@ class LargeWidget : AppWidgetProvider() {
                 }
 
             // Construct the RemoteViews object
-            val views = RemoteViews(context.packageName, R.layout.large_widget)
             views.setImageViewResource(R.id.largePromotionImage, promotionImageDefault + userInfo.rank)
             views.setTextViewText(R.id.largePromotion, promotionText)
             views.setTextViewText(R.id.largeName, nameText)
@@ -110,6 +144,12 @@ class LargeWidget : AppWidgetProvider() {
             views.setTextViewText(R.id.largeNextVacation, nextVacation)
             views.setTextViewText(R.id.largeNextVacationDate, nextVacationDate)
             views.setTextViewText(R.id.largeDDayVacation, dDayVacation)
+
+            views.setOnClickPendingIntent(R.id.swapNextButton,
+                getPendingSelfIntent(context, ACTION_UPDATE_CLICK_NEXT))
+            views.setOnClickPendingIntent(R.id.swapBackButton,
+                getPendingSelfIntent(context, ACTION_UPDATE_CLICK_BACK))
+
             views.setInt(R.id.largeWidgetLayout, "setBackgroundColor",
                 Color.parseColor("#${alpha}313A31"))
 
@@ -130,6 +170,9 @@ class LargeWidget : AppWidgetProvider() {
             // apply the intents to the widget view
             views.apply{setOnClickPendingIntent(R.id.largeWidgetLayout, largeMainIntent)}
                 .apply{setOnClickPendingIntent(R.id.largeConfigureButton, largeConfigureIntent)}
+
+            // construct buttonlistener for swapping views
+
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)
