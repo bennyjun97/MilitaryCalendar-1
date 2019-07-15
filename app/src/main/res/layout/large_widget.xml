@@ -26,6 +26,7 @@
                  android:id="@+id/largePromotionImage"
                  app:srcCompat="@drawable/rank4"/>
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_alignParentStart="true"
                  android:layout_alignParentBottom="true"
                  android:layout_marginStart="@dimen/content_padding_between"
@@ -37,9 +38,10 @@
                  android:text="@string/promotion"
                  android:textColor="#fff"
                  android:textStyle="bold"
-                 android:textSize="18sp"/>
+                 android:textSize="14sp"/>
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_alignParentEnd="true"
                  android:layout_alignParentBottom="true"
                  android:layout_marginEnd="@dimen/content_padding_between"
@@ -50,7 +52,7 @@
                  android:id="@+id/largeName"
                  android:text="@string/name_text"
                  android:textColor="#fff"
-                 android:textSize="18sp"/>
+                 android:textSize="14sp"/>
       </RelativeLayout>
 
       <!-- D-day, percent, "남은 휴가", numVacationDays in order -->
@@ -63,6 +65,7 @@
               android:paddingEnd="@dimen/content_padding_between">
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_alignParentStart="true"
                  android:gravity="start|center_vertical"
                  android:layout_width="wrap_content"
@@ -74,6 +77,7 @@
                  android:textSize="28sp"/>
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_alignParentEnd="true"
                  android:gravity="end|center_vertical"
                  android:layout_width="wrap_content"
@@ -85,6 +89,7 @@
                  android:textSize="28sp"/>
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:gravity="start|center_vertical"
                  android:layout_width="wrap_content"
                  android:layout_height="24dp"
@@ -97,6 +102,7 @@
                  android:textSize="18sp"/>
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:gravity="center_vertical|end"
                  android:layout_width="wrap_content"
                  android:layout_height="24dp"
@@ -133,7 +139,7 @@
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
-           android:id="@+id/secondLayout0" android:visibility="visible">
+           android:id="@+id/secondLayout0" android:visibility="gone">
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
@@ -152,6 +158,7 @@
                  android:progressDrawable="@drawable/circular_progress"/>
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
                  android:gravity="center_horizontal|bottom"
@@ -162,6 +169,7 @@
                  android:textColor="#fff"
                  android:text="@string/Vacation_text" android:textSize="14sp"/>
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
                  android:gravity="center_horizontal|top"
@@ -179,6 +187,7 @@
               android:layout_height="match_parent"
               android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout0">
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -187,6 +196,7 @@
                  android:textColor="#fff"
                  android:text="@string/nextVacation"/>
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -198,6 +208,7 @@
                  android:textStyle="bold"
                  android:textSize="28sp"/>
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -224,17 +235,25 @@
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center" android:id="@+id/leftLargeLayout1">
+              android:layout_weight="50"
+              android:gravity="center_horizontal"
+              android:id="@+id/leftLargeLayout1">
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
+                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeNextShift"
-                 android:textColor="#fff"
+                 android:textColor="@color/circularProgressbar"
+                 android:textSize="18sp"
+                 android:textStyle="bold"
                  android:text="@string/largeNextShift"/>
+
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -244,38 +263,47 @@
                  android:text="@string/largeNextShiftDate"
                  android:textColor="#fff"
                  android:textStyle="bold"
-                 android:textSize="28sp"/>
+                 android:textSize="32sp"/>
+
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_below="@id/largeNextShiftDate"
-                 android:layout_marginTop="@dimen/large_vertical"
+                 android:layout_marginTop="2dp"
                  android:id="@+id/largeDDayShift"
                  android:text="@string/largeDDayShift"
                  android:textColor="#fff"
-                 android:textSize="20sp"/>
+                 android:textSize="22sp"/>
       </RelativeLayout>
       
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout1">
+              android:layout_weight="50"
+              android:gravity="center_horizontal"
+              android:id="@+id/rightLargeLayout1">
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
+                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:id="@+id/largeShiftMemo"
                  android:text="@string/largeMemo"
+                 android:textSize="18sp"
                  android:textStyle="bold"
-                 android:textColor="#fff"/>
+                 android:textColor="@color/circularProgressbar"/>
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
+                 android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
                  android:layout_below="@id/largeShiftMemo"
                  android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeShiftMemoContent"
@@ -293,21 +321,28 @@
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
-           android:id="@+id/secondLayout2" android:visibility="gone">
+           android:id="@+id/secondLayout2" android:visibility="visible">
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center" android:id="@+id/leftLargeLayout2">
+              android:layout_weight="50"
+              android:gravity="center_horizontal"
+              android:id="@+id/leftLargeLayout2">
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
+                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:id="@+id/largeNextDrill"
-                 android:textColor="#fff"
+                 android:textColor="@color/circularProgressbar"
+                 android:textSize="18sp"
+                 android:textStyle="bold"
                  android:text="@string/largeNextDrill"/>
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -317,37 +352,43 @@
                  android:text="@string/largeNextDrillDate"
                  android:textColor="#fff"
                  android:textStyle="bold"
-                 android:textSize="28sp"/>
+                 android:textSize="32sp"/>
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_below="@id/largeNextDrillDate"
-                 android:layout_marginTop="@dimen/large_vertical"
+                 android:layout_marginTop="2dp"
                  android:id="@+id/largeDDayDrill"
                  android:text="@string/largeDDayDrill"
                  android:textColor="#fff"
-                 android:textSize="20sp"/>
+                 android:textSize="22sp"/>
 
       </RelativeLayout>
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout2">
+              android:layout_weight="50" android:id="@+id/rightLargeLayout2">
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
+                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:id="@+id/largeDrillMemo"
                  android:text="@string/largeMemo"
+                 android:textSize="18sp"
                  android:textStyle="bold"
-                 android:textColor="#fff"/>
+                 android:textColor="@color/circularProgressbar"/>
 
          <TextView
+                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
+                 android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
                  android:gravity="center"
                  android:layout_below="@id/largeDrillMemo"
                  android:layout_marginTop="@dimen/large_vertical"
@@ -358,8 +399,6 @@
       </RelativeLayout>
 
    </LinearLayout>
-
-
 
 
 
