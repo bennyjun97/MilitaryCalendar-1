@@ -269,6 +269,7 @@
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeShiftMemo"
                  android:text="@string/largeMemo"
+                 android:textStyle="bold"
                  android:textColor="#fff"/>
 
          <TextView
@@ -279,6 +280,7 @@
                  android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeShiftMemoContent"
                  android:text="@string/largeShiftMemoContent"
+                 android:textSize="20sp"
                  android:textColor="#fff"/>
       </RelativeLayout>
 
@@ -340,6 +342,7 @@
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeDrillMemo"
                  android:text="@string/largeMemo"
+                 android:textStyle="bold"
                  android:textColor="#fff"/>
 
          <TextView
@@ -350,6 +353,7 @@
                  android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeDrillMemoContent"
                  android:text="@string/largeDrillMemoContent"
+                 android:textSize="20sp"
                  android:textColor="#fff"/>
       </RelativeLayout>
 
