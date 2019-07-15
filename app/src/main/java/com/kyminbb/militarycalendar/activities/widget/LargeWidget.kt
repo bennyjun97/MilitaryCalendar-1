@@ -70,7 +70,7 @@ class LargeWidget : AppWidgetProvider() {
                     views.setViewVisibility(R.id.secondLayout2, View.GONE)
                 }
             }
-            layoutNum = (layoutNum + 1)%3
+            layoutNum = (layoutNum + 1) % 3
             appWidgetManager.updateAppWidget(largeWidget, views)
         }
         else if(ACTION_UPDATE_CLICK_BACK.equals(intent.action)){
