@@ -6,6 +6,7 @@ import android.provider.BaseColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.DBHelper
@@ -19,7 +20,7 @@ class CalendarFragment : Fragment() {
 
     private var adding = true
     var calendar = Calendar.getInstance()
-
+    var slots: Array<Button> = arrayOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +36,9 @@ class CalendarFragment : Fragment() {
 
         val dbHelper = DBHelper(this.context!!)
 
-        calendar.add(Calendar.MONTH, 12)
-        var month = calendar.get(Calendar.MONTH)
-        var day = calendar.get(Calendar.DAY_OF_MONTH)
-        var year = calendar.get(Calendar.YEAR)
-        textMonth.text = "${month}${day}${year}월"
+        slots = arrayOf(slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32, slot33, slot34, slot35, slot36, slot37, slot38, slot39, slot40, slot41, slot42)
+
+        updateCalendar(calendar)
 
         buttonAdd.setOnClickListener {
             if (adding) {
@@ -48,6 +47,16 @@ class CalendarFragment : Fragment() {
                 addTab.visibility = View.GONE
             }
             adding = !adding
+        }
+
+        buttonRight.setOnClickListener {
+            calendar.add(Calendar.MONTH, 1)
+            updateCalendar(calendar)
+        }
+
+        buttonLeft.setOnClickListener {
+            calendar.add(Calendar.MONTH, -1)
+            updateCalendar(calendar)
         }
 
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -122,5 +131,26 @@ class CalendarFragment : Fragment() {
 
     private fun formatDate(year: Int, month: Int, dayOfMonth: Int): String {
         return "$year-$month-$dayOfMonth"
+    }
+
+    private fun updateCalendar(calendar: Calendar) {
+        for(i in 0..41) {
+            slots[i].text = ""
+        }
+        val cal = calendar.clone() as Calendar
+        var month = cal.get(Calendar.MONTH)
+        textMonth.text = "${month+1}월"
+        cal.set(Calendar.DAY_OF_MONTH, 1)
+        val init = cal.get(Calendar.DAY_OF_WEEK)-1
+        var position = init
+        val cal2 = cal.clone() as Calendar
+        cal2.add(Calendar.MONTH, 1)
+        cal2.add(Calendar.DAY_OF_MONTH, -1)
+        val j = cal2.get(Calendar.DAY_OF_MONTH) - 1
+        for(i in 0..j) {
+            slots[position].text = cal.get(Calendar.DAY_OF_MONTH).toString()
+            position += 1
+            cal.add(Calendar.DAY_OF_MONTH, 1)
+        }
     }
 }
