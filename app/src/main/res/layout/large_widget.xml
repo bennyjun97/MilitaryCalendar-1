@@ -8,111 +8,170 @@
            android:layout_width="match_parent"
            android:layout_height="74dp"
            android:weightSum="100"
+           android:baselineAligned="false"
            android:id="@+id/firstLayout">
       <!-- promotion image, name, promotion in order -->
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="30"
-              android:paddingStart="@dimen/content_padding_horizontal"
-              android:paddingEnd="@dimen/content_padding_between"
-              android:paddingTop="@dimen/large_vertical"
-      >
+              android:layout_weight="90"
+              android:paddingTop="@dimen/large_vertical">
 
-         <ImageView
-                 android:foregroundGravity="center"
-                 android:layout_width="match_parent"
-                 android:layout_height="36dp"
-                 android:id="@+id/largePromotionImage"
-                 app:srcCompat="@drawable/rank4"/>
+
          <TextView
-                 android:fontFamily="@font/jalnan"
-                 android:layout_alignParentStart="true"
-                 android:layout_alignParentBottom="true"
-                 android:layout_marginStart="@dimen/content_padding_between"
-                 android:gravity="start|center_vertical"
-                 android:layout_width="wrap_content"
-                 android:layout_height="24dp"
-                 android:layout_below="@id/largePromotionImage"
-                 android:id="@+id/largePromotion"
-                 android:text="@string/promotion"
+                 android:layout_marginStart="16dp"
+                 android:layout_marginEnd="16dp"
+                 android:gravity="center"
+                 android:layout_width="68dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/end"
+                 android:layout_alignTop="@id/largeProgressTextFirst"
+                 android:text="@string/largeEnd"
                  android:textColor="#fff"
-                 android:textStyle="bold"
-                 android:textSize="14sp"/>
-
+                 android:textStyle="bold" android:textSize="20sp"/>
          <TextView
-                 android:fontFamily="@font/jalnan"
-                 android:layout_alignParentEnd="true"
-                 android:layout_alignParentBottom="true"
-                 android:layout_marginEnd="@dimen/content_padding_between"
-                 android:gravity="end|center_vertical"
-                 android:layout_width="wrap_content"
-                 android:layout_height="24dp"
-                 android:layout_below="@id/largePromotionImage"
-                 android:id="@+id/largeName"
-                 android:text="@string/name_text"
-                 android:textColor="#fff"
-                 android:textSize="14sp"/>
-      </RelativeLayout>
-
-      <!-- D-day, percent, "남은 휴가", numVacationDays in order -->
-      <RelativeLayout
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight="60"
-              android:paddingTop="@dimen/large_vertical"
-              android:paddingStart="@dimen/content_padding_between"
-              android:paddingEnd="@dimen/content_padding_between">
-
-         <TextView
-                 android:fontFamily="@font/jalnan"
-                 android:layout_alignParentStart="true"
-                 android:gravity="start|center_vertical"
-                 android:layout_width="wrap_content"
-                 android:layout_height="36dp"
-                 android:id="@+id/largePercent_text"
-                 android:textStyle="bold"
-                 android:text="@string/large_percent_text"
-                 android:textColor="#fff"
-                 android:textSize="28sp"/>
-
-         <TextView
-                 android:fontFamily="@font/jalnan"
-                 android:layout_alignParentEnd="true"
-                 android:gravity="end|center_vertical"
-                 android:layout_width="wrap_content"
-                 android:layout_height="36dp"
-                 android:id="@+id/largePercent"
-                 android:text="@string/percent_text"
-                 android:textStyle="bold"
-                 android:textColor="@color/colorPrimary"
-                 android:textSize="28sp"/>
-
-         <TextView
-                 android:fontFamily="@font/jalnan"
-                 android:gravity="start|center_vertical"
-                 android:layout_width="wrap_content"
-                 android:layout_height="24dp"
-                 android:id="@+id/largeUntil_next"
-                 android:layout_below="@id/largePercent_text"
-                 android:layout_alignParentBottom="true"
-                 android:layout_alignParentStart="true"
-                 android:text="@string/large_until_text"
-                 android:textColor="#fff"
-                 android:textSize="18sp"/>
-
-         <TextView
-                 android:fontFamily="@font/jalnan"
-                 android:gravity="center_vertical|end"
-                 android:layout_width="wrap_content"
-                 android:layout_height="24dp"
+                 android:layout_alignStart="@id/end"
+                 android:layout_alignEnd="@id/end"
+                 android:gravity="center_horizontal|bottom"
+                 android:layout_below="@id/end"
+                 android:layout_alignBottom="@id/largeProgressTextThird"
+                 android:layout_width="68dp"
+                 android:layout_height="wrap_content"
                  android:id="@+id/largeDDay"
-                 android:layout_below="@id/largePercent"
-                 android:layout_alignParentBottom="true"
-                 android:layout_alignParentEnd="true"
                  android:text="@string/dday_text"
                  android:textColor="#fff"
-                 android:textStyle="bold" android:textSize="18sp"/>
+                 android:textStyle="bold" android:textSize="28sp"/>
+
+
+
+         <!-- 총 복무 -->
+         <TextView
+                 android:layout_toEndOf="@id/end"
+                 android:layout_alignTop="@id/progress_horizontal_first"
+                 android:layout_alignBottom="@id/progress_horizontal_first"
+                 android:gravity="center"
+                 android:layout_width="58dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/largeProgressTextFirst"
+                 android:text="총 복무율"
+                 android:textStyle="bold"
+                 android:textColor="@color/horizontalProgressbarRed"
+                 android:textSize="12sp"/>
+
+         <ProgressBar
+                 android:layout_alignParentTop="true"
+                 android:layout_toEndOf="@id/largeProgressTextFirst"
+                 android:layout_toStartOf="@id/largePercentFirst"
+                 android:layout_marginStart="12dp"
+                 android:layout_marginTop="4dp"
+                 android:max="100"
+                 android:progress="70"
+                 android:progressDrawable="@drawable/horizontal_progress"
+                 android:gravity="start|center_vertical"
+                 android:foregroundGravity="center"
+                 android:id="@+id/progress_horizontal_first"
+                 android:layout_width="wrap_content"
+                 android:layout_height="14dp"
+                 style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+         <TextView
+                 android:layout_alignParentEnd="true"
+                 android:layout_alignTop="@+id/progress_horizontal_first"
+                 android:layout_alignBottom="@id/progress_horizontal_first"
+                 android:gravity="end"
+                 android:layout_width="40dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/largePercentFirst"
+                 android:text="@string/percent_text"
+                 android:textStyle="bold"
+                 android:textColor="@color/horizontalProgressbarRed"
+                 android:textSize="12sp"/>
+
+         <!-- 계급 -->
+
+         <TextView
+                 android:layout_alignStart="@id/largeProgressTextFirst"
+                 android:layout_alignTop="@id/progress_horizontal_second"
+                 android:layout_alignBottom="@id/progress_horizontal_second"
+                 android:gravity="center"
+                 android:layout_width="58dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/largeProgressTextSecond"
+                 android:text="현재 병장"
+                 android:textStyle="bold"
+                 android:textColor="@color/horizontalProgressbarBlue"
+                 android:textSize="12sp"/>
+
+         <ProgressBar
+                 android:layout_below="@id/progress_horizontal_first"
+                 android:layout_alignStart="@id/progress_horizontal_first"
+                 android:layout_alignEnd="@id/progress_horizontal_first"
+                 android:layout_marginTop="9dp"
+                 android:max="100"
+                 android:progress="30"
+                 android:progressDrawable="@drawable/horizontal_progress_second"
+                 android:gravity="start|center_vertical"
+                 android:foregroundGravity="center"
+                 android:id="@+id/progress_horizontal_second"
+                 android:layout_width="wrap_content"
+                 android:layout_height="14dp"
+                 style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+         <TextView
+                 android:layout_alignParentEnd="true"
+                 android:layout_alignTop="@+id/progress_horizontal_second"
+                 android:layout_alignBottom="@id/progress_horizontal_second"
+                 android:gravity="end"
+                 android:layout_width="40dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/largePercentSecond"
+                 android:text="@string/percent_text"
+                 android:textStyle="bold"
+                 android:textColor="@color/horizontalProgressbarBlue"
+                 android:textSize="12sp"/>
+
+         <!-- 호봉 -->
+         <TextView
+                 android:layout_alignStart="@id/largeProgressTextFirst"
+                 android:layout_alignTop="@id/progress_horizontal_third"
+                 android:layout_alignBottom="@id/progress_horizontal_third"
+                 android:gravity="center"
+                 android:layout_width="58dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/largeProgressTextThird"
+                 android:text="현재 1호봉"
+                 android:textStyle="bold"
+                 android:textColor="@color/horizontalProgressbarGreen"
+                 android:textSize="12sp"/>
+
+         <ProgressBar
+                 android:layout_below="@id/progress_horizontal_second"
+                 android:layout_alignStart="@id/progress_horizontal_first"
+                 android:layout_alignEnd="@id/progress_horizontal_first"
+                 android:layout_marginTop="9dp"
+                 android:max="100"
+                 android:progress="95"
+                 android:progressDrawable="@drawable/horizontal_progress_third"
+                 android:gravity="start|center_vertical"
+                 android:foregroundGravity="center"
+                 android:id="@+id/progress_horizontal_third"
+                 android:layout_width="120dp"
+                 android:layout_height="14dp"
+                 style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+         <TextView
+                 android:layout_alignParentEnd="true"
+                 android:layout_alignTop="@+id/progress_horizontal_third"
+                 android:layout_alignBottom="@id/progress_horizontal_third"
+                 android:gravity="end"
+                 android:layout_width="40dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/largePercentThird"
+                 android:text="@string/percent_text"
+                 android:textStyle="bold"
+                 android:textColor="@color/horizontalProgressbarGreen"
+                 android:textSize="12sp"/>
+
       </RelativeLayout>
       <RelativeLayout
               android:layout_width="0dp"
@@ -135,11 +194,11 @@
    <!-- first view of widget : 휴가-->
    <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="154dp"
+           android:layout_height="146dp"
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
-           android:id="@+id/secondLayout0" android:visibility="visible">
+           android:id="@+id/secondLayout0" android:visibility="gone">
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
@@ -158,7 +217,6 @@
                  android:progressDrawable="@drawable/circular_progress"/>
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
                  android:gravity="center_horizontal|bottom"
@@ -169,7 +227,6 @@
                  android:textColor="#fff"
                  android:text="@string/Vacation_text" android:textSize="14sp"/>
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
                  android:gravity="center_horizontal|top"
@@ -187,7 +244,6 @@
               android:layout_height="match_parent"
               android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout0">
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -196,7 +252,6 @@
                  android:textColor="#fff"
                  android:text="@string/nextVacation"/>
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -208,7 +263,6 @@
                  android:textStyle="bold"
                  android:textSize="28sp"/>
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -226,7 +280,7 @@
    <!-- second view of widget : 당직-->
    <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="154dp"
+           android:layout_height="146dp"
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
@@ -240,7 +294,6 @@
               android:id="@+id/leftLargeLayout1">
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:layout_marginTop="@dimen/large_memoSpace"
@@ -253,7 +306,6 @@
                  android:text="@string/largeNextShift"/>
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -266,7 +318,6 @@
                  android:textSize="32sp"/>
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -275,7 +326,7 @@
                  android:id="@+id/largeDDayShift"
                  android:text="@string/largeDDayShift"
                  android:textColor="#fff"
-                 android:textSize="22sp"/>
+                 android:textSize="32sp"/>
       </RelativeLayout>
       
       <RelativeLayout
@@ -286,7 +337,6 @@
               android:id="@+id/rightLargeLayout1">
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -299,7 +349,6 @@
                  android:textColor="@color/circularProgressbar"/>
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -317,32 +366,35 @@
    <!-- third view of widget : 훈련-->
    <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="154dp"
+           android:layout_height="146dp"
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
-           android:id="@+id/secondLayout2" android:visibility="gone">
+           android:id="@+id/secondLayout2" android:visibility="visible">
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="50"
+              android:layout_marginStart="@dimen/large_vertical"
+              android:layout_marginEnd="@dimen/large_vertical"
+              android:layout_marginTop="@dimen/large_vertical"
+              android:layout_marginBottom="@dimen/large_vertical"
+              android:paddingTop="8dp"
+              android:background="@drawable/memo_background"
               android:gravity="center_horizontal"
               android:id="@+id/leftLargeLayout2">
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
-                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:id="@+id/largeNextDrill"
                  android:textColor="@color/circularProgressbar"
-                 android:textSize="18sp"
+                 android:textSize="20sp"
                  android:textStyle="bold"
                  android:text="@string/largeNextDrill"/>
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -354,7 +406,6 @@
                  android:textStyle="bold"
                  android:textSize="32sp"/>
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
@@ -369,32 +420,37 @@
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:id="@+id/rightLargeLayout2">
+              android:layout_weight="50"
+              android:layout_marginStart="@dimen/large_vertical"
+              android:layout_marginEnd="@dimen/large_vertical"
+              android:layout_marginTop="@dimen/large_vertical"
+              android:layout_marginBottom="@dimen/large_vertical"
+              android:paddingTop="8dp"
+              android:layout_gravity="center"
+              android:background="@drawable/memo_background" android:id="@+id/rightLargeLayout2">
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
-                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:id="@+id/largeDrillMemo"
                  android:text="@string/largeMemo"
-                 android:textSize="18sp"
+                 android:textSize="20sp"
                  android:textStyle="bold"
                  android:textColor="@color/circularProgressbar"/>
 
          <TextView
-                 android:fontFamily="@font/jalnan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
+                 android:layout_marginStart="12dp"
+                 android:layout_marginEnd="12dp"
+                 android:layout_marginTop="6dp"
                  android:gravity="center"
                  android:layout_below="@id/largeDrillMemo"
-                 android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeDrillMemoContent"
                  android:text="@string/largeDrillMemoContent"
-                 android:textSize="20sp"
+                 android:textSize="16sp"
                  android:textColor="#fff"/>
       </RelativeLayout>
 
@@ -407,17 +463,18 @@
            android:layout_width="match_parent"
            android:layout_height="32dp"
            android:layout_alignParentBottom="true"
+           android:layout_marginBottom="@dimen/large_vertical"
            android:id="@+id/thirdLayout" android:gravity="center">
       <Button
-              android:layout_width="18dp"
-              android:layout_height="18dp"
+              android:layout_width="20dp"
+              android:layout_height="20dp"
               android:layout_marginEnd="144dp"
               android:gravity="center"
               android:background="@drawable/left_white"
               android:id="@+id/swapBackButton"/>
       <Button
-              android:layout_width="18dp"
-              android:layout_height="18dp"
+              android:layout_width="20dp"
+              android:layout_height="20dp"
               android:gravity="center"
               android:background="@drawable/right_white"
               android:id="@+id/swapNextButton"/>

@@ -147,8 +147,10 @@ class LargeWidget : AppWidgetProvider() {
             val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
             val nameText = userInfo.name
             val percentText = context.getText(R.string.large_percent_text).toString()
-            val percent =
+            val percentFirst =
                 (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()+"%"
+            val percentSecond = "30%"
+            val percentThird = "95%"
             val untilNextText = context.getText(R.string.large_until_text).toString()
             val dDayText = DateCalc.countDDay(etsDateTime)
             //val progress = 100 - actual progress(to be implemented)
@@ -168,12 +170,17 @@ class LargeWidget : AppWidgetProvider() {
                 }
 
             // Construct the RemoteViews object
-            views.setImageViewResource(R.id.largePromotionImage, promotionImageDefault + userInfo.rank)
-            views.setTextViewText(R.id.largePromotion, promotionText)
-            views.setTextViewText(R.id.largeName, nameText)
-            views.setTextViewText(R.id.largePercent_text, percentText)
-            views.setTextViewText(R.id.largePercent, percent)
-            views.setTextViewText(R.id.largeUntil_next, untilNextText)
+            //views.setImageViewResource(R.id.largePromotionImage, promotionImageDefault + userInfo.rank)
+            //views.setTextViewText(R.id.largePromotion, promotionText)
+            //views.setTextViewText(R.id.largeName, nameText)
+            views.setProgressBar(R.id.progress_horizontal_first, 100, 70, false)
+            views.setProgressBar(R.id.progress_horizontal_second, 100, 30, false)
+            views.setProgressBar(R.id.progress_horizontal_third, 100, 95, false)
+            //views.setTextViewText(R.id.largePercent_text, percentText)
+            views.setTextViewText(R.id.largePercentFirst, percentFirst)
+            views.setTextViewText(R.id.largePercentSecond, percentSecond)
+            views.setTextViewText(R.id.largePercentThird, percentThird)
+            //views.setTextViewText(R.id.largeUntil_next, untilNextText)
             views.setTextViewText(R.id.largeDDay, dDayText)
             views.setProgressBar(R.id.progress_circular, 100, 75, false)
             views.setTextViewText(R.id.large_vacation, vacationText)
