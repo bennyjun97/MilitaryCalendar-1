@@ -84,21 +84,25 @@ object DateCalc {
             0 -> when(affiliation) {
                 "사회복무요원" -> return "요원"
                 "의경", "해양의무경찰" -> return "이경"
+                "의무소방대" -> return "이방"
                 else -> return "이병"
             }
             1 -> when(affiliation) {
                 "사회복무요원" -> return "요투"
                 "의경", "해양의무경찰" -> return "일경"
+                "의무소방대" -> return "일방"
                 else -> return "일병"
             }
             2 -> when(affiliation) {
                 "사회복무요원" -> return "요쓰리"
                 "의경", "해양의무경찰" -> return "상경"
+                "의무소방대" -> return "상방"
                 else -> return "상병"
             }
             else -> when(affiliation) {
                 "사회복무요원" -> return "요포"
                 "의경", "해양의무경찰" -> return "수경"
+                "의무소방대" -> return "수방"
                 else -> return "병장"
             }
         }
