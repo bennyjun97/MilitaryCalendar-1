@@ -40,6 +40,12 @@ object DateCalc {
         return plus7Months(calcRank3(date, affiliation))
     }
 
+    //호봉 계산기
+    fun calcMonth(userInfo: User) : Int{
+        if (!userInfo.affiliation.equals("공군") && userInfo.rank == 0)
+            return ChronoUnit.MONTHS.between(userInfo.promotionDates[userInfo.rank].withDayOfMonth(1), LocalDate.now()).toInt() + 1
+        return ChronoUnit.MONTHS.between(userInfo.promotionDates[userInfo.rank], LocalDate.now()).toInt() + 1
+    }
     fun entirePercent(enlistDateTime: LocalDateTime, etsDateTime: LocalDateTime): Double {
         val now = LocalDateTime.now()
         if(now.isAfter(etsDateTime)) {
@@ -54,20 +60,87 @@ object DateCalc {
         return (timeDif2 / timeDif1) * 100.0
     }
 
-    fun rankPercent(startTime: LocalDateTime, endTime: LocalDateTime): Double {
+    fun rankPercent(userInfo : User): Double {
         val now = LocalDateTime.now()
-        val timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
-        val timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
+        var rank = userInfo.rank
+        var startTime = LocalDateTime.of(userInfo.promotionDates[rank].year, userInfo.promotionDates[rank].month, userInfo.promotionDates[rank].dayOfMonth, 0, 0, 0, 0)
+        var endTime = LocalDateTime.of(userInfo.promotionDates[rank+1].year, userInfo.promotionDates[rank+1].month, userInfo.promotionDates[rank+1].dayOfMonth, 0, 0, 0, 0)
+        val timeDif1 = ChronoUnit.SECONDS.between(startTime, endTime).toDouble()
+        val timeDif2 = ChronoUnit.SECONDS.between(startTime, now).toDouble()
 
-        return (timeDif1 / timeDif2) * 100.0
+        return (timeDif2 / timeDif1) * 100.0
     }
 
-    fun monthPercent(startTime: LocalDateTime, endTime: LocalDateTime) : Double {
+    fun monthPercent(userInfo : User) : Double {
         val now = LocalDateTime.now()
-        val timeDif1 = ChronoUnit.MILLIS.between(startTime, endTime).toDouble()
-        val timeDif2 = ChronoUnit.MILLIS.between(startTime, now).toDouble()
+        var rank = userInfo.rank
+        var month = calcMonth(userInfo)
 
-        return (timeDif1 / timeDif2) * 100.0
+        var promotion = userInfo.promotionDates[rank]
+
+        var start : LocalDate
+
+        when (month) {
+            1 -> start = promotion
+            2 -> when(userInfo.affiliation) {
+                "공군" -> start = plus1Month(promotion)
+                else -> start = plus1Month(promotion.withDayOfMonth(1))
+            }
+            3-> when(userInfo.affiliation) {
+                "공군" -> start = plus1Month(plus1Month(promotion))
+                else -> start = plus1Month(promotion.withDayOfMonth(1))
+            }
+            4 -> when(userInfo.affiliation) {
+                "공군" -> start = plus3Months(promotion)
+                else -> start = plus3Months(promotion.withDayOfMonth(1))
+            }
+            5-> when(userInfo.affiliation) {
+                "공군" -> start = plus1Month(plus3Months(promotion))
+                else -> start = plus1Month(plus3Months(promotion.withDayOfMonth(1)))
+            }
+            6 -> when(userInfo.affiliation) {
+                "공군" -> start = plus3Months(plus1Month(plus1Month(promotion)))
+                else ->start = plus3Months(plus1Month(plus1Month(promotion.withDayOfMonth(1))))
+            }
+            7 -> when(userInfo.affiliation) {
+                "공군" -> start = plus3Months(plus3Months(promotion))
+                else -> start = plus3Months(plus3Months(promotion.withDayOfMonth(1)))
+            }
+            8 -> when(userInfo.affiliation) {
+                "공군" -> start = plus7Months(promotion)
+                else -> start = plus7Months(promotion.withDayOfMonth(1))
+            }
+            9 -> when(userInfo.affiliation) {
+                "공군" -> start = plus7Months(plus1Month(promotion))
+                else -> start = plus7Months(plus1Month(promotion.withDayOfMonth(1)))
+            }
+            10 -> when(userInfo.affiliation) {
+                "공군" -> start = plus7Months(plus1Month(plus1Month(promotion)))
+                else -> start = plus7Months(plus1Month(plus1Month(promotion.withDayOfMonth(1))))
+            }
+            11 -> when(userInfo.affiliation) {
+                "공군" -> start = plus7Months(plus3Months(plus1Month(promotion)))
+                else -> start = plus7Months(plus3Months(promotion.withDayOfMonth(1)))
+            }
+            12 -> when(userInfo.affiliation) {
+                "공군" -> start = plus7Months(plus3Months(plus1Month(promotion)))
+                else -> start = plus7Months(plus3Months(plus1Month(promotion.withDayOfMonth(1))))
+            }
+            else -> when(userInfo.affiliation) {
+                "공군" -> start = plus7Months(plus3Months(plus1Month(plus1Month(promotion))))
+                else -> start = plus7Months(plus3Months(plus1Month(plus1Month(promotion.withDayOfMonth(1)))))
+            }
+        }
+
+        var end = plus1Month(start)
+        if(month==1 && !userInfo.affiliation.equals("공군")) end = plus1Month(start.withDayOfMonth(1))
+        var startTime = LocalDateTime.of(start.year, start.month, start.dayOfMonth, 0, 0, 0, 0)
+        var endTime = LocalDateTime.of(end.year, end.month, end.dayOfMonth, 0, 0, 0, 0)
+
+        val timeDif1 = ChronoUnit.SECONDS.between(startTime, endTime).toDouble()
+        val timeDif2 = ChronoUnit.SECONDS.between(startTime, now).toDouble()
+
+        return (timeDif2 / timeDif1) * 100.0
     }
 
     // D-day 계산
@@ -182,6 +255,16 @@ object DateCalc {
         return navyETS(date)
     }
 
+    private fun plus1Month(date: LocalDate) : LocalDate {
+        when(date.monthValue) {
+            1, 3, 5, 7, 8, 10, 12 -> return date.plusDays(31)
+            2 -> when {
+                date.year % 4 == 0 -> return date.plusDays(29)
+                else -> return date.plusDays(28)
+            }
+            else -> return date.plusDays(30)
+        }
+    }
     private fun plus3Months(date: LocalDate): LocalDate {
         when (date.monthValue) {
             1 -> when {

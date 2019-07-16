@@ -12,7 +12,7 @@ import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
-import kotlinx.android.synthetic.main.fragment_clock.*
+import kotlinx.android.synthetic.main.fragment_clock2.*
 import org.threeten.bp.LocalDateTime
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,7 +34,7 @@ class ClockFragment : Fragment() {
     ): View? {
         loadData()
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_clock, container, false)
+        return inflater.inflate(R.layout.fragment_clock2, container, false)
     }
 
     // Update UI after views are created.
@@ -60,8 +60,25 @@ class ClockFragment : Fragment() {
 
         val hour = percent * 0.24
         val min = (percent * 14.4) % 60
-        digitalTime.text = formatTime(hour.toInt(), min.toInt())
+        val sec = (percent * 864.0) % 60
+        clockText.text = formatTime(hour.toInt(), min.toInt(), sec.toInt())
         clockView.onTimeChanged(hour.toLong(), min.toLong())
+
+        var rankString = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
+        rankText.text = rankString
+        rankText2.text = rankString
+        rankText3.text = rankString
+
+        nameText.text = userInfo.name
+        remainText.text = "전역까지 " + DateCalc.countDDay(etsDateTime)
+
+        rankPercentText.text = "%.2f".format(DateCalc.rankPercent(userInfo)) + "%"
+        monthPercentText.text = "%.2f".format(DateCalc.monthPercent(userInfo)) + "%"
+
+        monthText.text = DateCalc.calcMonth(userInfo).toString() + "호봉"
+
+        entirePercentText.text = "%.3f".format(DateCalc.entirePercent(enlistDateTime, etsDateTime)) + "%"
+
     }
 
     private fun loadData() {
@@ -70,7 +87,7 @@ class ClockFragment : Fragment() {
         userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
     }
 
-    private fun formatTime(hour: Int, min: Int): String {
-        return "%02d".format(hour) + " : " + "%02d".format(min)
+    private fun formatTime(hour: Int, min: Int, sec:Int): String {
+        return "%02d".format(hour) + ":" + "%02d".format(min) + ":" + "%02d".format(sec)
     }
 }
