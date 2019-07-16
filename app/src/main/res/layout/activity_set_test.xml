@@ -58,8 +58,8 @@
                         android:paddingEnd="@dimen/content_padding_between"
                         android:inputType="textPersonName"
                         android:ems="10"
-                        android:id="@+id/nameInput" android:layout_weight="2"
                         android:theme="@style/JalnanTextViewStyle"
+                        android:id="@+id/nameInput" android:layout_weight="2"
                         android:textColorHint="@color/GrayDark" android:textColor="@color/black" android:textSize="14sp"
                         android:gravity="end|center_vertical" android:hint="이름을 입력하세요"/>
             </LinearLayout>
@@ -79,7 +79,7 @@
                         android:paddingEnd="@dimen/content_padding_between"
                         android:ems="10"
                         android:id="@+id/enlistDate" android:layout_weight="2" android:textColor="@color/black"
-                        android:textSize="14sp" android:gravity="right|center_vertical" android:hint="입대일을 입력하세요"
+                        android:textSize="14sp" android:gravity="end|center_vertical" android:hint="입대일을 입력하세요"
                         android:textColorHint="@color/GrayDark"
                         android:background="@drawable/adt_hint_background"/>
             </LinearLayout>
@@ -97,23 +97,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" android:layout_weight="1">
                     <Button
-                            android:text="육군"
+                            android:text="@string/army"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonArmy" android:layout_weight="1"
                             android:textColor="@android:color/white"/>
                     <Button
-                            android:text="공군"
+                            android:text="@string/airforce"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonAir" android:layout_weight="1"
                             android:textColor="@android:color/white"/>
                     <Button
-                            android:text="의경"
+                            android:text="@string/police"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonPolice"
                             android:layout_weight="1"
                             android:textColor="@android:color/white"/>
                     <Button
-                            android:text="의무소방"
+                            android:text="@string/fire"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonFire" android:layout_weight="1"
                             android:textColor="@android:color/white"/>
@@ -123,18 +123,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" android:layout_weight="1">
                     <Button
-                            android:text="해군"
+                            android:text="@string/navy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonNavy" android:layout_weight="1"
                             android:textColor="@android:color/white"/>
                     <Button
-                            android:text="해병대"
+                            android:text="@string/marine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonMarine"
                             android:layout_weight="1"
                             android:textColor="@android:color/white"/>
                     <Button
-                            android:text="해경"
+                            android:text="@string/seapolice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/buttonSeapolice"
                             android:layout_weight="1"
@@ -250,7 +250,7 @@
                         android:ems="10"
                         android:paddingEnd="@dimen/content_padding_between"
                         android:id="@+id/leaveDays" android:layout_weight="2" android:textColor="@color/black"
-                        android:gravity="bottom|right" android:hint="남은 휴가일을 입력하세요"
+                        android:gravity="bottom|end" android:hint="남은 휴가일을 입력하세요"
                         android:textColorHint="@color/GrayDark" android:textSize="14sp"/>
             </LinearLayout>
         </LinearLayout>

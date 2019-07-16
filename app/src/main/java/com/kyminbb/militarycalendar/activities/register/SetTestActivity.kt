@@ -2,7 +2,7 @@ package com.kyminbb.militarycalendar.activities.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.TextUtils
+import android.text.TextUtils.isEmpty
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.commit451.addendum.threetenabp.toLocalDate
@@ -24,8 +24,7 @@ import java.util.*
 
 class SetTestActivity : AppCompatActivity() {
 
-    private var affiliationSelected = false
-    private var buttonNum = -1
+    private var buttonSelected = -1
 
     //Initialize today's date
     private val today = Calendar.getInstance().toLocalDate()
@@ -65,8 +64,8 @@ class SetTestActivity : AppCompatActivity() {
         if (prefs.contains("userInfo")) {
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
             // Display the stored affiliation.
-            buttonNum = affiliations.indexOf(userInfo.affiliation)
-            buttons[buttonNum].setBackgroundResource(R.drawable.gray_gradient)
+            buttonSelected = affiliations.indexOf(userInfo.affiliation)
+            buttons[buttonSelected].setBackgroundResource(R.drawable.gray_gradient)
             // Display the promotion dates.
             for (index in Dates.RANK2.ordinal until dateInputs.size) {
                 dateInputs[index].text = formatDate(userInfo.promotionDates[index])
@@ -86,18 +85,17 @@ class SetTestActivity : AppCompatActivity() {
                 userInfo.affiliation = affiliations[index]
 
                 // Highlight the selected button.
-                if (0 <= buttonNum && buttonNum < buttons.size) {
-                    buttons[buttonNum].setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
+                if (0 <= buttonSelected && buttonSelected < buttons.size) {
+                    buttons[buttonSelected].setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
                 }
                 buttons[index].setBackgroundResource(R.drawable.gray_gradient)
-                buttonNum = index
+                buttonSelected = index
 
                 // Update promotion dates corresponding to the affiliation.
                 calcPromotionDates()
                 updatePromotionViews()
                 // Update rank names corresponding to the affiliation.
-                ranksByAffiliation(affiliations[index])
-                affiliationSelected = true
+                ranksByAffiliation()
             }
         }
     }
@@ -106,7 +104,7 @@ class SetTestActivity : AppCompatActivity() {
         for ((index, value) in dateInputs.withIndex()) {
             value.setOnClickListener {
                 // Alert if the user adjusts promotion dates before selecting an affiliation.
-                if (!(index == Dates.ENLIST.ordinal || affiliationSelected)) {
+                if (index != Dates.ENLIST.ordinal && buttonSelected == -1) {
                     DynamicToast.makeError(this, "군별을 골라주세요!").show()
                     return@setOnClickListener
                 }
@@ -154,29 +152,33 @@ class SetTestActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun ranksByAffiliation(affiliation: String) {
-        privateText.text = DateCalc.rankString(1, affiliation) + " 진급일"
-        corporalText.text = DateCalc.rankString(2, affiliation) + " 진급일"
-        sergeantText.text = DateCalc.rankString(3, affiliation) + " 진급일"
+    private fun ranksByAffiliation() {
+        privateText.text = DateCalc.rankString(1, userInfo.affiliation) + " 진급일"
+        corporalText.text = DateCalc.rankString(2, userInfo.affiliation) + " 진급일"
+        sergeantText.text = DateCalc.rankString(3, userInfo.affiliation) + " 진급일"
     }
 
     private fun completeRegister() {
         register.setOnClickListener {
-            if (TextUtils.isEmpty(nameInput.text.toString())) {
-                // https://github.com/pranavpandey/dynamic-toasts
-                DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-                return@setOnClickListener
-            } else if (!affiliationSelected) {
-                // https://github.com/pranavpandey/dynamic-toasts
-                DynamicToast.makeError(this, "군별을 골라주세요!").show()
-                return@setOnClickListener
-            } else {
-                saveData()
-                startActivity<HomeActivity>()
-                overridePendingTransition(
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
+            when {
+                isEmpty(nameInput.text.toString()) -> {
+                    // https://github.com/pranavpandey/dynamic-toasts
+                    DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+                    return@setOnClickListener
+                }
+                buttonSelected == -1 -> {
+                    // https://github.com/pranavpandey/dynamic-toasts
+                    DynamicToast.makeError(this, "군별을 골라주세요!").show()
+                    return@setOnClickListener
+                }
+                else -> {
+                    saveData()
+                    startActivity<HomeActivity>()
+                    overridePendingTransition(
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
+                }
             }
         }
     }
@@ -199,18 +201,22 @@ class SetTestActivity : AppCompatActivity() {
 
     private fun reset() {
         reset.setOnClickListener {
-            if (TextUtils.isEmpty(nameInput.text.toString())) {
-                // https://github.com/pranavpandey/dynamic-toasts
-                DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-                return@setOnClickListener
-            } else if (!affiliationSelected) {
-                // https://github.com/pranavpandey/dynamic-toasts
-                DynamicToast.makeError(this, "군별을 골라주세요!").show()
-                return@setOnClickListener
-            } else {
-                DynamicToast.makeError(this, "조정 사항이 입대일을 기준으로 초기화됩니다!").show()
-                calcPromotionDates()
-                updatePromotionViews()
+            when {
+                isEmpty(nameInput.text.toString()) -> {
+                    // https://github.com/pranavpandey/dynamic-toasts
+                    DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+                    return@setOnClickListener
+                }
+                buttonSelected == -1 -> {
+                    // https://github.com/pranavpandey/dynamic-toasts
+                    DynamicToast.makeError(this, "군별을 골라주세요!").show()
+                    return@setOnClickListener
+                }
+                else -> {
+                    DynamicToast.makeError(this, "조정 사항이 입대일을 기준으로 초기화됩니다!").show()
+                    calcPromotionDates()
+                    updatePromotionViews()
+                }
             }
         }
     }
