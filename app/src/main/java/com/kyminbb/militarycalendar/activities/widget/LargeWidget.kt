@@ -195,7 +195,7 @@ class LargeWidget : AppWidgetProvider() {
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_BACK))
 
             views.setInt(R.id.largeWidgetLayout, "setBackgroundColor",
-                Color.parseColor("#${alpha}313A31"))
+                Color.parseColor("#${alpha}424242"))
 
 
             // Construct the intents

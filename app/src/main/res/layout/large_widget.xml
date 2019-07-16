@@ -40,7 +40,7 @@
                  android:id="@+id/largeDDay"
                  android:text="@string/dday_text"
                  android:textColor="#fff"
-                 android:textStyle="bold" android:textSize="28sp"/>
+                 android:textStyle="bold" android:textSize="20sp"/>
 
 
 
@@ -226,6 +226,7 @@
                  android:layout_alignEnd="@id/progress_circular"
                  android:textColor="#fff"
                  android:text="@string/Vacation_text" android:textSize="14sp"/>
+
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
@@ -242,15 +243,27 @@
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center" android:id="@+id/rightLargeLayout0">
+              android:layout_weight="50"
+              android:gravity="center_horizontal"
+              android:background="@drawable/memo_background"
+              android:layout_marginTop="@dimen/large_vertical"
+              android:layout_marginBottom="@dimen/large_vertical"
+              android:layout_marginStart="@dimen/large_vertical"
+              android:layout_marginEnd="@dimen/large_vertical"
+              android:paddingTop="8dp"
+              android:id="@+id/rightLargeLayout0">
+
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeNextVacation"
-                 android:textColor="#fff"
+                 android:textColor="@color/horizontalProgressbarBlue"
+                 android:textSize="20sp"
+                 android:textStyle="bold"
                  android:text="@string/nextVacation"/>
+
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -261,17 +274,19 @@
                  android:text="@string/nextVacation_Date"
                  android:textColor="#fff"
                  android:textStyle="bold"
-                 android:textSize="28sp"/>
+                 android:textSize="32sp"/>
+
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_below="@id/largeNextVacationDate"
-                 android:layout_marginTop="@dimen/large_vertical"
+                 android:layout_marginTop="2dp"
                  android:id="@+id/largeDDayVacation"
                  android:text="@string/dday_text"
                  android:textColor="#fff"
-                 android:textSize="20sp"/>
+                 android:textStyle="bold"
+                 android:textSize="22sp"/>
 
       </RelativeLayout>
 
@@ -291,17 +306,22 @@
               android:layout_height="match_parent"
               android:layout_weight="50"
               android:gravity="center_horizontal"
+              android:layout_marginStart="@dimen/large_vertical"
+              android:layout_marginEnd="@dimen/large_vertical"
+              android:layout_marginTop="@dimen/large_vertical"
+              android:layout_marginBottom="@dimen/large_vertical"
+              android:paddingTop="8dp"
+              android:background="@drawable/memo_background"
               android:id="@+id/leftLargeLayout1">
 
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeNextShift"
-                 android:textColor="@color/circularProgressbar"
-                 android:textSize="18sp"
+                 android:textColor="@color/horizontalProgressbarBlue"
+                 android:textSize="20sp"
                  android:textStyle="bold"
                  android:text="@string/largeNextShift"/>
 
@@ -326,13 +346,20 @@
                  android:id="@+id/largeDDayShift"
                  android:text="@string/largeDDayShift"
                  android:textColor="#fff"
-                 android:textSize="32sp"/>
+                 android:textStyle="bold"
+                 android:textSize="22sp"/>
       </RelativeLayout>
       
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="50"
+              android:layout_marginStart="@dimen/large_vertical"
+              android:layout_marginEnd="@dimen/large_vertical"
+              android:layout_marginTop="@dimen/large_vertical"
+              android:layout_marginBottom="@dimen/large_vertical"
+              android:paddingTop="8dp"
+              android:background="@drawable/memo_background"
               android:gravity="center_horizontal"
               android:id="@+id/rightLargeLayout1">
 
@@ -341,12 +368,11 @@
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_alignParentTop="true"
-                 android:layout_marginTop="@dimen/large_memoSpace"
                  android:id="@+id/largeShiftMemo"
                  android:text="@string/largeMemo"
-                 android:textSize="18sp"
+                 android:textSize="20sp"
                  android:textStyle="bold"
-                 android:textColor="@color/circularProgressbar"/>
+                 android:textColor="@color/horizontalProgressbarBlue"/>
 
          <TextView
                  android:layout_width="match_parent"
@@ -357,7 +383,7 @@
                  android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeShiftMemoContent"
                  android:text="@string/largeShiftMemoContent"
-                 android:textSize="20sp"
+                 android:textSize="16sp"
                  android:textColor="#fff"/>
       </RelativeLayout>
 
@@ -371,6 +397,7 @@
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
            android:id="@+id/secondLayout2" android:visibility="visible">
+
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
@@ -390,7 +417,7 @@
                  android:gravity="center"
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeNextDrill"
-                 android:textColor="@color/circularProgressbar"
+                 android:textColor="@color/horizontalProgressbarBlue"
                  android:textSize="20sp"
                  android:textStyle="bold"
                  android:text="@string/largeNextDrill"/>
@@ -414,6 +441,7 @@
                  android:id="@+id/largeDDayDrill"
                  android:text="@string/largeDDayDrill"
                  android:textColor="#fff"
+                 android:textStyle="bold"
                  android:textSize="22sp"/>
 
       </RelativeLayout>
@@ -438,7 +466,7 @@
                  android:text="@string/largeMemo"
                  android:textSize="20sp"
                  android:textStyle="bold"
-                 android:textColor="@color/circularProgressbar"/>
+                 android:textColor="@color/horizontalProgressbarBlue"/>
 
          <TextView
                  android:layout_width="match_parent"
