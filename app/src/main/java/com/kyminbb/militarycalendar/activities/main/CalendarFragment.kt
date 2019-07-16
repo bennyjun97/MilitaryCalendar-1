@@ -50,11 +50,13 @@ class CalendarFragment : Fragment() {
         }
 
         buttonRight.setOnClickListener {
+            calendar.set(Calendar.DAY_OF_MONTH, 1)
             calendar.add(Calendar.MONTH, 1)
             updateCalendar(calendar)
         }
 
         buttonLeft.setOnClickListener {
+            calendar.set(Calendar.DAY_OF_MONTH, 1)
             calendar.add(Calendar.MONTH, -1)
             updateCalendar(calendar)
         }
