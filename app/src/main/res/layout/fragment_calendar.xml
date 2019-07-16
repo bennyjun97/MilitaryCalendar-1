@@ -94,289 +94,342 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp" android:layout_weight="15" android:id="@+id/calendar"
         >
-            <LinearLayout
-                    android:orientation="horizontal"
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/firstWeek"
-                    android:weightSum="7">
-                <Button
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/first">
+
+                <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot1" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot2" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot3" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot4" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot5" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot6" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot7" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
+                        android:layout_height="0dp" android:layout_weight="1" android:id="@+id/firstWeek"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot1" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot2" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot3" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot4" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot5" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot6" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot7" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/secondWeek">
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot8" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot9" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot10" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot11" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot12" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot13" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot14" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/second">
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:layout_weight="1" android:id="@+id/secondWeek"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot8" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot9" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot10" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot11" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot12" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot13" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot14" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/thirdWeek">
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot15" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot16" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot17" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot18" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot19" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot20" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot21" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/third">
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:layout_weight="1" android:id="@+id/thirdWeek"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot15" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot16" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot17" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot18" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot19" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot20" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot21" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fourthWeek">
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot22" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot23" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot24" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot25" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot26" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot27" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot28" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fourth">
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fourthWeek"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot22" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot23" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot24" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot25" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot26" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot27" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot28" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fifthWeek">
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot29" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot30" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot31" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot32" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot33" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot34" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot35" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fifth">
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:layout_weight="1" android:id="@+id/fifthWeek"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot29" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot30" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot31" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot32" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot33" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot34" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot35" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/sixthWeek">
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot36" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot37" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot38" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot39" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot40" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot41" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-                <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" android:id="@+id/slot42" android:layout_weight="1"
-                        android:background="@null" android:gravity="top|end" android:padding="8dp"
-                        android:textSize="14sp" android:fontFamily="@font/jalnan"
-                        android:textColor="@android:color/white"/>
-            </LinearLayout>
+                    android:layout_height="0dp" android:layout_weight="1" android:id="@+id/sixth">
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:layout_weight="1" android:id="@+id/sixthWeek"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot36" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot37" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot38" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot39" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot40" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot41" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" android:id="@+id/slot42" android:layout_weight="1"
+                            android:background="@null" android:gravity="top|end" android:padding="8dp"
+                            android:textSize="14sp" android:fontFamily="@font/jalnan"
+                            android:textColor="@android:color/white"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <CalendarView
                 android:layout_width="match_parent"
