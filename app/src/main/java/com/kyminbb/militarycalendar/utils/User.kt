@@ -10,6 +10,7 @@ data class User(
     var affiliation: String = "육군",
     var profileImage: String = "",
     var rank: Int = 0,
-    var promotionDates: MutableList<LocalDate> = MutableList(5, { Calendar.getInstance().toLocalDate() })
+    var promotionDates: MutableList<LocalDate> = MutableList(5) { Calendar.getInstance().toLocalDate() }
 )
+
 

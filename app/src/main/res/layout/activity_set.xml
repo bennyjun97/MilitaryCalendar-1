@@ -26,7 +26,7 @@
             android:text="등록하기"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/set" app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/register" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="100dp"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="100dp" android:layout_marginBottom="16dp"
@@ -41,7 +41,7 @@
             android:layout_marginStart="22dp" app:layout_constraintHorizontal_bias="0.498"
             android:layout_marginTop="22dp"
             app:layout_constraintTop_toTopOf="@+id/guideline23" android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/set">
+            app:layout_constraintBottom_toTopOf="@+id/register">
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:ems="10"
-                    android:id="@+id/startDate" android:layout_weight="2" android:textColor="@color/black"
+                    android:id="@+id/enlistDate" android:layout_weight="2" android:textColor="@color/black"
                     android:textSize="14sp" android:gravity="bottom|right" android:hint="입대일을 입력하세요"
                     android:textColorHint="@color/GrayDark"/>
         </LinearLayout>
