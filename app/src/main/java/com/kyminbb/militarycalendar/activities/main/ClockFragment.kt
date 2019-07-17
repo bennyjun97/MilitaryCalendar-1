@@ -1,6 +1,7 @@
 package com.kyminbb.militarycalendar.activities.main
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class ClockFragment : Fragment() {
     }
 
     // Update UI after views are created.
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -64,7 +66,7 @@ class ClockFragment : Fragment() {
         clockText.text = formatTime(hour.toInt(), min.toInt(), sec.toInt())
         clockView.onTimeChanged(hour.toLong(), min.toLong())
 
-        var rankString = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
+        val rankString = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
         rankText.text = rankString
         rankText2.text = rankString
         rankText3.text = rankString

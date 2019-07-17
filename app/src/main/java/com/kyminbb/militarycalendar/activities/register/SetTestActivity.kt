@@ -54,8 +54,14 @@ class SetTestActivity : AppCompatActivity() {
         loadData(affiliations, affiliationButtons, dateInputs)
         setAffiliation(affiliations, affiliationButtons)
         setDates(dateInputs)
-        completeRegister()
-        reset()
+
+        register.setOnClickListener {
+            completeRegister()
+        }
+
+        reset.setOnClickListener {
+            init()
+        }
     }
 
     // Load the user info from SharedPreferences.
@@ -159,26 +165,17 @@ class SetTestActivity : AppCompatActivity() {
     }
 
     private fun completeRegister() {
-        register.setOnClickListener {
-            when {
-                isEmpty(nameInput.text.toString()) -> {
-                    // https://github.com/pranavpandey/dynamic-toasts
-                    DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-                    return@setOnClickListener
-                }
-                buttonSelected == -1 -> {
-                    // https://github.com/pranavpandey/dynamic-toasts
-                    DynamicToast.makeError(this, "군별을 골라주세요!").show()
-                    return@setOnClickListener
-                }
-                else -> {
-                    saveData()
-                    startActivity<HomeActivity>()
-                    overridePendingTransition(
-                        R.anim.fade_in,
-                        R.anim.fade_out
-                    )
-                }
+        when {
+            // https://github.com/pranavpandey/dynamic-toasts
+            isEmpty(nameInput.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+            buttonSelected == -1 -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
+            else -> {
+                saveData()
+                startActivity<HomeActivity>()
+                overridePendingTransition(
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
             }
         }
     }
@@ -199,24 +196,15 @@ class SetTestActivity : AppCompatActivity() {
         prefs.edit().putString("userInfo", jsonString).putBoolean("firstStart", false).apply()
     }
 
-    private fun reset() {
-        reset.setOnClickListener {
-            when {
-                isEmpty(nameInput.text.toString()) -> {
-                    // https://github.com/pranavpandey/dynamic-toasts
-                    DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-                    return@setOnClickListener
-                }
-                buttonSelected == -1 -> {
-                    // https://github.com/pranavpandey/dynamic-toasts
-                    DynamicToast.makeError(this, "군별을 골라주세요!").show()
-                    return@setOnClickListener
-                }
-                else -> {
-                    DynamicToast.makeError(this, "조정 사항이 입대일을 기준으로 초기화됩니다!").show()
-                    calcPromotionDates()
-                    updatePromotionViews()
-                }
+    private fun init() {
+        when {
+            // https://github.com/pranavpandey/dynamic-toasts
+            isEmpty(nameInput.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+            buttonSelected == -1 -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
+            else -> {
+                DynamicToast.makeError(this, "조정 사항이 입대일을 기준으로 초기화됩니다!").show()
+                calcPromotionDates()
+                updatePromotionViews()
             }
         }
     }
