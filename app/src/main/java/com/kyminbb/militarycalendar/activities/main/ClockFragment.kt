@@ -10,22 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.activities.widget.LargeWidget
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
 import kotlinx.android.synthetic.main.fragment_clock2.*
-import org.threeten.bp.LocalDateTime
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class ClockFragment : Fragment() {
 
     private var userInfo = User()
@@ -47,18 +37,8 @@ class ClockFragment : Fragment() {
 
 
         // load LocalDate data
-        val enlistDateTime = LocalDateTime.of(
-            userInfo.promotionDates[Dates.ENLIST.ordinal].year,
-            userInfo.promotionDates[Dates.ENLIST.ordinal].month,
-            userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth,
-            0, 0, 0, 0
-        )
-        val etsDateTime = LocalDateTime.of(
-            userInfo.promotionDates[Dates.END.ordinal].year,
-            userInfo.promotionDates[Dates.END.ordinal].month,
-            userInfo.promotionDates[Dates.END.ordinal].dayOfMonth,
-            0, 0, 0, 0
-        )
+        val enlistDateTime = userInfo.promotionDates[Dates.ENLIST.ordinal].atStartOfDay()
+        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].plusDays(1).atStartOfDay()
 
 
         /**
@@ -113,7 +93,7 @@ class ClockFragment : Fragment() {
         userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
     }
 
-    private fun formatTime(hour: Int, min: Int, sec:Int): String {
+    private fun formatTime(hour: Int, min: Int, sec: Int): String {
         return "%02d".format(hour) + ":" + "%02d".format(min) + ":" + "%02d".format(sec)
     }
 }

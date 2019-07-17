@@ -63,112 +63,43 @@ object DateCalc {
         val timeDif1 = ChronoUnit.SECONDS.between(enlistDateTime, etsDateTime).toDouble()
         val timeDif2 = ChronoUnit.SECONDS.between(enlistDateTime, now).toDouble()
 
-        return (timeDif2 / timeDif1) * 100.0
+        return timeDif2 / timeDif1 * 100.0
     }
 
     fun rankPercent(userInfo: User): Double {
         val now = LocalDateTime.now()
         val rank = userInfo.rank
-        val startTime = LocalDateTime.of(
-            userInfo.promotionDates[rank].year,
-            userInfo.promotionDates[rank].month,
-            userInfo.promotionDates[rank].dayOfMonth,
-            0,
-            0,
-            0,
-            0
-        )
-        val endTime = LocalDateTime.of(
-            userInfo.promotionDates[rank + 1].year,
-            userInfo.promotionDates[rank + 1].month,
-            userInfo.promotionDates[rank + 1].dayOfMonth,
-            0,
-            0,
-            0,
-            0
-        )
+        val startTime = userInfo.promotionDates[rank].atStartOfDay()
+        val endTime = userInfo.promotionDates[rank + 1].atStartOfDay()
+
         val timeDif1 = ChronoUnit.SECONDS.between(startTime, endTime).toDouble()
         val timeDif2 = ChronoUnit.SECONDS.between(startTime, now).toDouble()
 
-        return (timeDif2 / timeDif1) * 100.0
+        return timeDif2 / timeDif1 * 100.0
     }
 
     fun monthPercent(userInfo: User): Double {
         val now = LocalDateTime.now()
         val rank = userInfo.rank
-        val month = calcMonth(userInfo)
-
-        val promotion = userInfo.promotionDates[rank]
-
-        val start: LocalDate
-
-        when (month) {
-            1 -> start = promotion
-            2 -> start = when (userInfo.affiliation) {
-                "공군" -> plus1Month(promotion)
-                else -> plus1Month(promotion.withDayOfMonth(1))
-            }
-            3 -> start = when (userInfo.affiliation) {
-                "공군" -> plus1Month(plus1Month(promotion))
-                else -> plus1Month(promotion.withDayOfMonth(1))
-            }
-            4 -> start = when (userInfo.affiliation) {
-                "공군" -> plus3Months(promotion)
-                else -> plus3Months(promotion.withDayOfMonth(1))
-            }
-            5 -> start = when (userInfo.affiliation) {
-                "공군" -> plus1Month(plus3Months(promotion))
-                else -> plus1Month(plus3Months(promotion.withDayOfMonth(1)))
-            }
-            6 -> start = when (userInfo.affiliation) {
-                "공군" -> plus3Months(plus1Month(plus1Month(promotion)))
-                else -> plus3Months(plus1Month(plus1Month(promotion.withDayOfMonth(1))))
-            }
-            7 -> start = when (userInfo.affiliation) {
-                "공군" -> plus3Months(plus3Months(promotion))
-                else -> plus3Months(plus3Months(promotion.withDayOfMonth(1)))
-            }
-            8 -> start = when (userInfo.affiliation) {
-                "공군" -> plus7Months(promotion)
-                else -> plus7Months(promotion.withDayOfMonth(1))
-            }
-            9 -> start = when (userInfo.affiliation) {
-                "공군" -> plus7Months(plus1Month(promotion))
-                else -> plus7Months(plus1Month(promotion.withDayOfMonth(1)))
-            }
-            10 -> start = when (userInfo.affiliation) {
-                "공군" -> plus7Months(plus1Month(plus1Month(promotion)))
-                else -> plus7Months(plus1Month(plus1Month(promotion.withDayOfMonth(1))))
-            }
-            11 -> start = when (userInfo.affiliation) {
-                "공군" -> plus7Months(plus3Months(plus1Month(promotion)))
-                else -> plus7Months(plus3Months(promotion.withDayOfMonth(1)))
-            }
-            12 -> start = when (userInfo.affiliation) {
-                "공군" -> plus7Months(plus3Months(plus1Month(promotion)))
-                else -> plus7Months(plus3Months(plus1Month(promotion.withDayOfMonth(1))))
-            }
-            else -> start = when (userInfo.affiliation) {
-                "공군" -> plus7Months(plus3Months(plus1Month(plus1Month(promotion))))
-                else -> plus7Months(plus3Months(plus1Month(plus1Month(promotion.withDayOfMonth(1)))))
-            }
+        var curMonth = userInfo.promotionDates[Dates.ENLIST.ordinal].withYear(now.year).withMonth(now.monthValue)
+        if (userInfo.affiliation != "공군") {
+            curMonth = curMonth.withDayOfMonth(1)
+        }
+        var curMonthTime = curMonth.atStartOfDay()
+        var nextMonthTime = curMonthTime
+        if (now.isAfter(curMonthTime)) {
+            nextMonthTime = nextMonthTime.plusMonths(1)
+        } else {
+            curMonthTime = curMonthTime.minusMonths(1)
         }
 
-        var end = plus1Month(start)
-        if (month == 1 && userInfo.affiliation != "공군") {
-            end = plus1Month(start.withDayOfMonth(1))
-        }
-        val startTime = LocalDateTime.of(start.year, start.month, start.dayOfMonth, 0, 0, 0, 0)
-        val endTime = LocalDateTime.of(end.year, end.month, end.dayOfMonth, 0, 0, 0, 0)
+        val timeDif1 = ChronoUnit.SECONDS.between(curMonthTime, nextMonthTime).toDouble()
+        val timeDif2 = ChronoUnit.SECONDS.between(curMonthTime, now).toDouble()
 
-        val timeDif1 = ChronoUnit.SECONDS.between(startTime, endTime).toDouble()
-        val timeDif2 = ChronoUnit.SECONDS.between(startTime, now).toDouble()
-
-        return (timeDif2 / timeDif1) * 100.0
+        return timeDif2 / timeDif1 * 100.0
     }
 
     // D-day 계산
-
     fun countDDay(endTime: LocalDateTime): String {
         val now = LocalDateTime.now()
         val dDays = now.until(endTime, ChronoUnit.DAYS).toInt() + 1
@@ -178,29 +109,29 @@ object DateCalc {
     // 계급 문자열로 리턴
     fun rankString(rank: Int, affiliation: String?): String {
         when (rank) {
-            0 -> when(affiliation) {
-                "사회복무요원" -> return "Lv.1"
-                "의경", "해양의무경찰" -> return "이경"
-                "의무소방대" -> return "이방"
-                else -> return "이병"
+            0 -> return when (affiliation) {
+                "사회복무요원" -> "Lv.1"
+                "의경", "해양의무경찰" -> "이경"
+                "의무소방대" -> "이방"
+                else -> "이병"
             }
-            1 -> when(affiliation) {
-                "사회복무요원" -> return "Lv.2"
-                "의경", "해양의무경찰" -> return "일경"
-                "의무소방대" -> return "일방"
-                else -> return "일병"
+            1 -> return when (affiliation) {
+                "사회복무요원" -> "Lv.2"
+                "의경", "해양의무경찰" -> "일경"
+                "의무소방대" -> "일방"
+                else -> "일병"
             }
-            2 -> when(affiliation) {
-                "사회복무요원" -> return "Lv.3"
-                "의경", "해양의무경찰" -> return "상경"
-                "의무소방대" -> return "상방"
-                else -> return "상병"
+            2 -> return when (affiliation) {
+                "사회복무요원" -> "Lv.3"
+                "의경", "해양의무경찰" -> "상경"
+                "의무소방대" -> "상방"
+                else -> "상병"
             }
-            else -> when(affiliation) {
-                "사회복무요원" -> return "Lv.4"
-                "의경", "해양의무경찰" -> return "수경"
-                "의무소방대" -> return "수방"
-                else -> return "병장"
+            else -> return when (affiliation) {
+                "사회복무요원" -> "Lv.4"
+                "의경", "해양의무경찰" -> "수경"
+                "의무소방대" -> "수방"
+                else -> "병장"
             }
         }
     }
