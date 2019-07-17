@@ -80,7 +80,6 @@ object DateCalc {
 
     fun monthPercent(userInfo: User): Double {
         val now = LocalDateTime.now()
-        val rank = userInfo.rank
         var curMonth = userInfo.promotionDates[Dates.ENLIST.ordinal].withYear(now.year).withMonth(now.monthValue)
         if (userInfo.affiliation != "공군") {
             curMonth = curMonth.withDayOfMonth(1)
