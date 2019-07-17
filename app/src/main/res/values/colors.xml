@@ -27,7 +27,7 @@
     <color name="buttonColor3">#fed766</color>
 
     <!-- widget -->
-    <color name="widgetBackground">#424242</color>
+    <color name="widgetBackground">#000000</color>
     <color name="percentText">#FFE324</color>
     <color name="circularProgressbar">#64B5F6</color>
     <color name="horizontalProgressbarRed">#E57373</color>

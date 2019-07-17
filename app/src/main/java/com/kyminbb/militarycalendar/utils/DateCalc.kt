@@ -178,29 +178,29 @@ object DateCalc {
     // 계급 문자열로 리턴
     fun rankString(rank: Int, affiliation: String?): String {
         when (rank) {
-            0 -> return when (affiliation) {
-                "사회복무요원" -> "요원"
-                "의경", "해양의무경찰" -> "이경"
-                "의무소방대" -> "이방"
-                else -> "이병"
+            0 -> when(affiliation) {
+                "사회복무요원" -> return "Lv.1"
+                "의경", "해양의무경찰" -> return "이경"
+                "의무소방대" -> return "이방"
+                else -> return "이병"
             }
-            1 -> return when (affiliation) {
-                "사회복무요원" -> "요투"
-                "의경", "해양의무경찰" -> "일경"
-                "의무소방대" -> "일방"
-                else -> "일병"
+            1 -> when(affiliation) {
+                "사회복무요원" -> return "Lv.2"
+                "의경", "해양의무경찰" -> return "일경"
+                "의무소방대" -> return "일방"
+                else -> return "일병"
             }
-            2 -> return when (affiliation) {
-                "사회복무요원" -> "요쓰리"
-                "의경", "해양의무경찰" -> "상경"
-                "의무소방대" -> "상방"
-                else -> "상병"
+            2 -> when(affiliation) {
+                "사회복무요원" -> return "Lv.3"
+                "의경", "해양의무경찰" -> return "상경"
+                "의무소방대" -> return "상방"
+                else -> return "상병"
             }
-            else -> return when (affiliation) {
-                "사회복무요원" -> "요포"
-                "의경", "해양의무경찰" -> "수경"
-                "의무소방대" -> "수방"
-                else -> "병장"
+            else -> when(affiliation) {
+                "사회복무요원" -> return "Lv.4"
+                "의경", "해양의무경찰" -> return "수경"
+                "의무소방대" -> return "수방"
+                else -> return "병장"
             }
         }
     }

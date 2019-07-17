@@ -142,7 +142,7 @@
     <!-- 총 복무율 프로그레스바 -->
     <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
                  style="@android:style/Widget.ProgressBar.Horizontal"
-                 android:max="100" android:progressDrawable="@drawable/horizontal_progress"
+                 android:max="100" android:progress="70" android:progressDrawable="@drawable/horizontal_progress"
                  app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="@+id/guideline30"
                  app:layout_constraintTop_toTopOf="@id/guideline27" app:layout_constraintStart_toEndOf="@id/guideline29"
                  android:id="@+id/progressBarTotal" app:layout_constraintVertical_bias="0.120000005"/>
@@ -170,7 +170,9 @@
     <!-- 계급 프로그레스바 Rank-->
     <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
                  style="@android:style/Widget.ProgressBar.Horizontal"
-                 android:max="100" android:progressDrawable="@drawable/horizontal_progress_second"
+                 android:max="100"
+                 android:progress="30"
+                 android:progressDrawable="@drawable/horizontal_progress_second"
                  android:id="@+id/progressBarRank"
                  app:layout_constraintTop_toBottomOf="@+id/progressBarTotal"
                  app:layout_constraintEnd_toStartOf="@+id/guideline31"
@@ -216,7 +218,9 @@
     <!-- 호봉 프로그레스바 -->
     <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
                  style="@android:style/Widget.ProgressBar.Horizontal"
-                 android:max="100" android:progressDrawable="@drawable/horizontal_progress_third"
+                 android:max="100"
+                 android:progress="95"
+                 android:progressDrawable="@drawable/horizontal_progress_third"
                  android:id="@+id/progressBarHobong"
                  android:layout_marginStart="4dp"
                  android:layout_marginTop="8dp"

@@ -10,6 +10,7 @@
            android:weightSum="100"
            android:baselineAligned="false"
            android:id="@+id/firstLayout">
+
       <!-- promotion image, name, promotion in order -->
       <RelativeLayout
               android:layout_width="0dp"
@@ -198,7 +199,7 @@
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
-           android:id="@+id/secondLayout0" android:visibility="gone">
+           android:id="@+id/secondLayout0" android:visibility="visible">
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
@@ -219,6 +220,7 @@
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
+                 android:paddingBottom="2dp"
                  android:gravity="center_horizontal|bottom"
                  android:id="@+id/large_vacation"
                  android:layout_alignTop="@id/progress_circular"
@@ -230,6 +232,7 @@
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
+                 android:paddingTop="2dp"
                  android:gravity="center_horizontal|top"
                  android:id="@+id/large_numVacation"
                  android:layout_alignBottom="@id/progress_circular"
@@ -247,10 +250,10 @@
               android:gravity="center_horizontal"
               android:background="@drawable/memo_background"
               android:layout_marginTop="@dimen/large_vertical"
-              android:layout_marginBottom="@dimen/large_vertical"
               android:layout_marginStart="@dimen/large_vertical"
               android:layout_marginEnd="@dimen/large_vertical"
               android:paddingTop="8dp"
+              android:paddingBottom="8dp"
               android:id="@+id/rightLargeLayout0">
 
          <TextView
@@ -259,7 +262,7 @@
                  android:gravity="center"
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeNextVacation"
-                 android:textColor="@color/horizontalProgressbarBlue"
+                 android:textColor="@color/leave"
                  android:textSize="20sp"
                  android:textStyle="bold"
                  android:text="@string/nextVacation"/>
@@ -269,7 +272,7 @@
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_below="@id/largeNextVacation"
-                 android:layout_marginTop="@dimen/large_vertical"
+                 android:layout_above="@id/largeDDayVacation"
                  android:id="@+id/largeNextVacationDate"
                  android:text="@string/nextVacation_Date"
                  android:textColor="#fff"
@@ -280,13 +283,12 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
-                 android:layout_below="@id/largeNextVacationDate"
-                 android:layout_marginTop="2dp"
+                 android:layout_alignParentBottom="true"
                  android:id="@+id/largeDDayVacation"
                  android:text="@string/dday_text"
                  android:textColor="#fff"
                  android:textStyle="bold"
-                 android:textSize="22sp"/>
+                 android:textSize="20sp"/>
 
       </RelativeLayout>
 
@@ -309,8 +311,8 @@
               android:layout_marginStart="@dimen/large_vertical"
               android:layout_marginEnd="@dimen/large_vertical"
               android:layout_marginTop="@dimen/large_vertical"
-              android:layout_marginBottom="@dimen/large_vertical"
               android:paddingTop="8dp"
+              android:paddingBottom="8dp"
               android:background="@drawable/memo_background"
               android:id="@+id/leftLargeLayout1">
 
@@ -320,7 +322,7 @@
                  android:gravity="center"
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeNextShift"
-                 android:textColor="@color/horizontalProgressbarBlue"
+                 android:textColor="@color/duty"
                  android:textSize="20sp"
                  android:textStyle="bold"
                  android:text="@string/largeNextShift"/>
@@ -329,8 +331,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
+                 android:layout_above="@+id/largeDDayShift"
                  android:layout_below="@id/largeNextShift"
-                 android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeNextShiftDate"
                  android:text="@string/largeNextShiftDate"
                  android:textColor="#fff"
@@ -341,8 +343,7 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
-                 android:layout_below="@id/largeNextShiftDate"
-                 android:layout_marginTop="2dp"
+                 android:layout_alignParentBottom="true"
                  android:id="@+id/largeDDayShift"
                  android:text="@string/largeDDayShift"
                  android:textColor="#fff"
@@ -354,13 +355,12 @@
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="50"
+              android:gravity="center_horizontal"
               android:layout_marginStart="@dimen/large_vertical"
               android:layout_marginEnd="@dimen/large_vertical"
-              android:layout_marginTop="@dimen/large_vertical"
-              android:layout_marginBottom="@dimen/large_vertical"
+              android:layout_marginTop="6dp"
               android:paddingTop="8dp"
               android:background="@drawable/memo_background"
-              android:gravity="center_horizontal"
               android:id="@+id/rightLargeLayout1">
 
          <TextView
@@ -372,14 +372,15 @@
                  android:text="@string/largeMemo"
                  android:textSize="20sp"
                  android:textStyle="bold"
-                 android:textColor="@color/horizontalProgressbarBlue"/>
+                 android:textColor="@color/duty"/>
 
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:gravity="center"
-                 android:layout_marginStart="12dp" android:layout_marginEnd="12dp"
+                 android:layout_marginStart="12dp"
+                 android:layout_marginEnd="12dp"
                  android:layout_below="@id/largeShiftMemo"
+                 android:gravity="center"
                  android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeShiftMemoContent"
                  android:text="@string/largeShiftMemoContent"
@@ -396,19 +397,19 @@
            android:weightSum="100"
            android:layout_below="@id/firstLayout"
            android:baselineAligned="false"
-           android:id="@+id/secondLayout2" android:visibility="visible">
+           android:id="@+id/secondLayout2" android:visibility="gone">
 
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="50"
+              android:gravity="center_horizontal"
               android:layout_marginStart="@dimen/large_vertical"
               android:layout_marginEnd="@dimen/large_vertical"
               android:layout_marginTop="@dimen/large_vertical"
-              android:layout_marginBottom="@dimen/large_vertical"
               android:paddingTop="8dp"
+              android:paddingBottom="8dp"
               android:background="@drawable/memo_background"
-              android:gravity="center_horizontal"
               android:id="@+id/leftLargeLayout2">
 
          <TextView
@@ -417,7 +418,7 @@
                  android:gravity="center"
                  android:layout_alignParentTop="true"
                  android:id="@+id/largeNextDrill"
-                 android:textColor="@color/horizontalProgressbarBlue"
+                 android:textColor="@color/exercise"
                  android:textSize="20sp"
                  android:textStyle="bold"
                  android:text="@string/largeNextDrill"/>
@@ -426,7 +427,7 @@
                  android:layout_height="wrap_content"
                  android:gravity="center"
                  android:layout_below="@id/largeNextDrill"
-                 android:layout_marginTop="@dimen/large_vertical"
+                 android:layout_above="@+id/largeDDayDrill"
                  android:id="@+id/largeNextDrillDate"
                  android:text="@string/largeNextDrillDate"
                  android:textColor="#fff"
@@ -436,26 +437,25 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:gravity="center"
-                 android:layout_below="@id/largeNextDrillDate"
-                 android:layout_marginTop="2dp"
+                 android:layout_alignParentBottom="true"
                  android:id="@+id/largeDDayDrill"
                  android:text="@string/largeDDayDrill"
                  android:textColor="#fff"
                  android:textStyle="bold"
-                 android:textSize="22sp"/>
+                 android:textSize="20sp"/>
 
       </RelativeLayout>
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="50"
+              android:gravity="center_horizontal"
               android:layout_marginStart="@dimen/large_vertical"
               android:layout_marginEnd="@dimen/large_vertical"
-              android:layout_marginTop="@dimen/large_vertical"
-              android:layout_marginBottom="@dimen/large_vertical"
+              android:layout_marginTop="6dp"
               android:paddingTop="8dp"
-              android:layout_gravity="center"
-              android:background="@drawable/memo_background" android:id="@+id/rightLargeLayout2">
+              android:background="@drawable/memo_background"
+              android:id="@+id/rightLargeLayout2">
 
          <TextView
                  android:layout_width="match_parent"
@@ -466,21 +466,22 @@
                  android:text="@string/largeMemo"
                  android:textSize="20sp"
                  android:textStyle="bold"
-                 android:textColor="@color/horizontalProgressbarBlue"/>
+                 android:textColor="@color/exercise"/>
 
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:layout_marginStart="12dp"
                  android:layout_marginEnd="12dp"
-                 android:layout_marginTop="6dp"
-                 android:gravity="center"
                  android:layout_below="@id/largeDrillMemo"
+                 android:gravity="center"
+                 android:layout_marginTop="@dimen/large_vertical"
                  android:id="@+id/largeDrillMemoContent"
-                 android:text="@string/largeDrillMemoContent"
+                 android:text="@string/largeShiftMemoContent"
                  android:textSize="16sp"
                  android:textColor="#fff"/>
       </RelativeLayout>
+
 
    </LinearLayout>
 
@@ -493,18 +494,33 @@
            android:layout_alignParentBottom="true"
            android:layout_marginBottom="@dimen/large_vertical"
            android:id="@+id/thirdLayout" android:gravity="center">
-      <Button
-              android:layout_width="20dp"
-              android:layout_height="20dp"
-              android:layout_marginEnd="144dp"
-              android:gravity="center"
-              android:background="@drawable/left_white"
-              android:id="@+id/swapBackButton"/>
-      <Button
-              android:layout_width="20dp"
-              android:layout_height="20dp"
-              android:gravity="center"
-              android:background="@drawable/right_white"
-              android:id="@+id/swapNextButton"/>
+
+      <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center">
+         <ImageButton
+                 android:scaleType="fitCenter"
+                 android:layout_width="match_parent"
+                 android:layout_height="20dp"
+                 app:srcCompat="@drawable/left_white"
+                 android:background="@null"
+                 android:id="@+id/swapBackButton"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center">
+         <ImageButton
+                 android:scaleType="fitCenter"
+                 android:layout_width="match_parent"
+                 android:layout_height="20dp"
+                 android:background="@null"
+                 app:srcCompat="@drawable/right_white"
+                 android:id="@+id/swapNextButton"/>
+      </RelativeLayout>
    </LinearLayout>
 </RelativeLayout>

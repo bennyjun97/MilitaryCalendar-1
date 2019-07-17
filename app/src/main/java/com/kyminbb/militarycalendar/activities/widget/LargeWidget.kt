@@ -133,6 +133,24 @@ class LargeWidget : AppWidgetProvider() {
                 userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth,
                 0, 0, 0, 0
             )
+            val rankSecondTime = LocalDateTime.of(
+                userInfo.promotionDates[Dates.RANK2.ordinal].year,
+                userInfo.promotionDates[Dates.RANK2.ordinal].month,
+                userInfo.promotionDates[Dates.RANK2.ordinal].dayOfMonth,
+                0, 0, 0, 0
+            )
+            val rankThirdTime = LocalDateTime.of(
+                userInfo.promotionDates[Dates.RANK3.ordinal].year,
+                userInfo.promotionDates[Dates.RANK3.ordinal].month,
+                userInfo.promotionDates[Dates.RANK3.ordinal].dayOfMonth,
+                0, 0, 0, 0
+            )
+            val rankFourthTime = LocalDateTime.of(
+                userInfo.promotionDates[Dates.RANK4.ordinal].year,
+                userInfo.promotionDates[Dates.RANK4.ordinal].month,
+                userInfo.promotionDates[Dates.RANK4.ordinal].dayOfMonth,
+                0, 0, 0, 0
+            )
             val etsDateTime = LocalDateTime.of(
                 userInfo.promotionDates[Dates.END.ordinal].year,
                 userInfo.promotionDates[Dates.END.ordinal].month,
@@ -143,14 +161,18 @@ class LargeWidget : AppWidgetProvider() {
             // calculate promotion, name, D-day, percent, "남은 휴가", numVacationDays
             val views = RemoteViews(context.packageName, R.layout.large_widget)
 
-            val promotionImageDefault = R.drawable.rank1
             val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
-            val nameText = userInfo.name
-            val percentText = context.getText(R.string.large_percent_text).toString()
-            val percentFirst =
-                (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()+"%"
-            val percentSecond = "30%"
-            val percentThird = "95%"
+            val percentTotal =
+                (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0)
+            val percentPromotion =
+                when (userInfo.rank) {
+                    0 -> kotlin.math.round(DateCalc.entirePercent(enlistDateTime, rankSecondTime)*10)/10.0
+                    1 -> kotlin.math.round(DateCalc.entirePercent(rankSecondTime, rankThirdTime)*10)/10.0
+                    2 -> kotlin.math.round(DateCalc.entirePercent(rankThirdTime, rankFourthTime)*10)/10.0
+                    3 -> kotlin.math.round(DateCalc.entirePercent(rankFourthTime, etsDateTime)*10)/10.0
+                    else -> 0.0
+                }
+            val percentHobong = "95%"
             val untilNextText = context.getText(R.string.large_until_text).toString()
             val dDayText = DateCalc.countDDay(etsDateTime)
             //val progress = 100 - actual progress(to be implemented)
@@ -170,17 +192,15 @@ class LargeWidget : AppWidgetProvider() {
                 }
 
             // Construct the RemoteViews object
-            //views.setImageViewResource(R.id.largePromotionImage, promotionImageDefault + userInfo.rank)
-            //views.setTextViewText(R.id.largePromotion, promotionText)
-            //views.setTextViewText(R.id.largeName, nameText)
-            views.setProgressBar(R.id.progress_horizontal_first, 100, 70, false)
-            views.setProgressBar(R.id.progress_horizontal_second, 100, 30, false)
-            views.setProgressBar(R.id.progress_horizontal_third, 100, 95, false)
-            //views.setTextViewText(R.id.largePercent_text, percentText)
-            views.setTextViewText(R.id.largePercentFirst, percentFirst)
-            views.setTextViewText(R.id.largePercentSecond, percentSecond)
-            views.setTextViewText(R.id.largePercentThird, percentThird)
-            //views.setTextViewText(R.id.largeUntil_next, untilNextText)
+
+            views.setTextViewText(R.id.largeProgressTextSecond, "현재 ${promotionText}")
+            //views.setTextViewText(R.id.largeProgressTextThird, "현재 ${}")
+            views.setProgressBar(R.id.progress_horizontal_first, 1000, (percentTotal*10).toInt(), false)
+            views.setProgressBar(R.id.progress_horizontal_second, 1000, (percentPromotion*10).toInt(), false)
+            views.setProgressBar(R.id.progress_horizontal_third, 1000, 950, false)
+            views.setTextViewText(R.id.largePercentFirst, "${percentTotal}%")
+            views.setTextViewText(R.id.largePercentSecond, "${percentPromotion}%")
+            views.setTextViewText(R.id.largePercentThird, percentHobong)
             views.setTextViewText(R.id.largeDDay, dDayText)
             views.setProgressBar(R.id.progress_circular, 100, 75, false)
             views.setTextViewText(R.id.large_vacation, vacationText)
@@ -188,6 +208,8 @@ class LargeWidget : AppWidgetProvider() {
             views.setTextViewText(R.id.largeNextVacation, nextVacation)
             views.setTextViewText(R.id.largeNextVacationDate, nextVacationDate)
             views.setTextViewText(R.id.largeDDayVacation, dDayVacation)
+            views.setImageViewResource(R.id.swapNextButton, R.drawable.right_white)
+            views.setImageViewResource(R.id.swapBackButton, R.drawable.left_white)
 
             views.setOnClickPendingIntent(R.id.swapNextButton,
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_NEXT))
@@ -195,7 +217,7 @@ class LargeWidget : AppWidgetProvider() {
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_BACK))
 
             views.setInt(R.id.largeWidgetLayout, "setBackgroundColor",
-                Color.parseColor("#${alpha}424242"))
+                Color.parseColor("#${alpha}000000"))
 
 
             // Construct the intents
