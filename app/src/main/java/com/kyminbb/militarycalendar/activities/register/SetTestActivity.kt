@@ -72,7 +72,7 @@ class SetTestActivity : AppCompatActivity() {
             }
         }
         // Display the stored name.
-        nameInput.setText(userInfo.name)
+        nameInput.hint = userInfo.name
         // Display the enlist date.
         enlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
     }
