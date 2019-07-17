@@ -73,7 +73,7 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/guideline27" app:layout_constraintGuide_percent="0.88"/>
+            android:id="@+id/guideline27" app:layout_constraintGuide_percent="0.85"/>
     <TextView
             android:text="국방부 시계는 지금"
             android:layout_width="0dp"
@@ -118,97 +118,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline29"
             app:layout_constraintGuide_percent="0.08"/>
-    <TextView
-            android:text="현재 계급"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/text"
-            app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27"
-            app:layout_constraintStart_toStartOf="@+id/guideline29"
-            android:layout_marginStart="8dp" android:gravity="center"
-            app:layout_constraintVertical_bias="0.8" android:textSize="10sp"
-            android:textColor="@color/horizontalProgressbarBlue"/>
+
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline33"
             app:layout_constraintGuide_percent="0.11"/>
-    <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
-                 style="@android:style/Widget.ProgressBar.Horizontal"
-                 android:max="100" android:progressDrawable="@drawable/horizontal_progress"
-                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="@+id/guideline30"
-                 app:layout_constraintTop_toTopOf="@id/guideline27" app:layout_constraintStart_toEndOf="@id/guideline29"
-                 android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:progress="50"
-                 android:id="@+id/progressBar" app:layout_constraintVertical_bias="0.40"/>
-    <TextView
-            android:text="50.000%"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/entirePercentText" app:layout_constraintEnd_toStartOf="@+id/guideline30"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp" android:textSize="10sp"
-            android:textColor="@color/horizontalProgressbarRed" app:layout_constraintVertical_bias="0.19999999"/>
-    <TextView
-            android:text="총 복무율"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text4" app:layout_constraintEnd_toStartOf="@+id/entirePercentText"
-            android:layout_marginEnd="4dp" app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:layout_constraintBottom_toBottomOf="parent" android:textSize="10sp"
-            android:textColor="@color/horizontalProgressbarRed" app:layout_constraintVertical_bias="0.19999999"/>
-    <TextView
-            android:text="이병"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rankText2" app:layout_constraintStart_toEndOf="@+id/text"
-            android:layout_marginStart="4dp"
-            app:layout_constraintTop_toTopOf="@+id/guideline26"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27" app:layout_constraintVertical_bias="0.8"
-            android:textColor="@color/horizontalProgressbarBlue"/>
-    <TextView
-            android:text="13.52%"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rankPercentText"
-            app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27" app:layout_constraintStart_toEndOf="@+id/rankText2"
-            android:layout_marginStart="4dp" android:textColor="@color/horizontalProgressbarBlue"
-            app:layout_constraintVertical_bias="0.8" android:textSize="10sp"/>
-    <TextView
-            android:text="81.66%"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/monthPercentText"
-            app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27" app:layout_constraintEnd_toStartOf="@+id/guideline30"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintVertical_bias="0.8" android:textColor="@color/horizontalProgressbarGreen"
-            android:textSize="10sp"/>
-    <TextView
-            android:text="1호봉"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/monthText" app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27"
-            app:layout_constraintEnd_toStartOf="@id/monthPercentText"
-            app:layout_constraintVertical_bias="0.8" android:layout_marginEnd="4dp"
-            android:textColor="@color/horizontalProgressbarGreen" android:textSize="10sp"/>
-    <TextView
-            android:text="이병"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/rankText3" app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27" app:layout_constraintEnd_toStartOf="@id/monthText"
-            app:layout_constraintVertical_bias="0.8" android:layout_marginEnd="4dp"
-            android:textColor="@color/horizontalProgressbarGreen" android:textSize="10sp"/>
-    <TextView
-            android:text="현재 호봉"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/Text4" app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27" app:layout_constraintEnd_toStartOf="@id/rankText3"
-            app:layout_constraintVertical_bias="0.8" android:layout_marginEnd="4dp"
-            android:textColor="@color/horizontalProgressbarGreen" android:textSize="10sp"
-    />
+
+
+
     <com.kyminbb.militarycalendar.utils.ClockView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -218,4 +136,130 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline24"
             android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
+
+
+    <!-- 프로레스바 및 관련 텍스트 -->
+    <!-- 총 복무율 프로그레스바 -->
+    <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
+                 style="@android:style/Widget.ProgressBar.Horizontal"
+                 android:max="100" android:progressDrawable="@drawable/horizontal_progress"
+                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="@+id/guideline30"
+                 app:layout_constraintTop_toTopOf="@id/guideline27" app:layout_constraintStart_toEndOf="@id/guideline29"
+                 android:id="@+id/progressBarTotal" app:layout_constraintVertical_bias="0.120000005"/>
+    <TextView
+            android:text="총 복무율"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/entirePercentText"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:textSize="12sp"
+            android:textColor="@color/horizontalProgressbarRed"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarTotal"/>
+
+    <TextView
+            android:text="99.999999%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/entirePercentText"
+            android:layout_marginBottom="4dp" android:textSize="12sp"
+            android:textColor="@color/horizontalProgressbarRed"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarTotal"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarTotal"/>
+
+    <!-- 계급 프로그레스바 Rank-->
+    <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
+                 style="@android:style/Widget.ProgressBar.Horizontal"
+                 android:max="100" android:progressDrawable="@drawable/horizontal_progress_second"
+                 android:id="@+id/progressBarRank"
+                 app:layout_constraintTop_toBottomOf="@+id/progressBarTotal"
+                 app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                 app:layout_constraintStart_toStartOf="@+id/progressBarTotal"
+                 android:layout_marginTop="8dp"
+                 android:layout_marginEnd="4dp"/>
+
+    <TextView
+            android:text="현재 계급"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressCurrentRankText"
+            app:layout_constraintStart_toStartOf="@+id/progressBarRank"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textColor="@color/horizontalProgressbarBlue"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarRank"/>
+
+    <TextView
+            android:text="이병"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressRankText"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textColor="@color/horizontalProgressbarBlue"
+            app:layout_constraintStart_toEndOf="@+id/progressCurrentRankText"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarRank"/>
+
+    <TextView
+            android:text="13.52%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rankPercentText"
+            app:layout_constraintStart_toEndOf="@+id/progressRankText"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/horizontalProgressbarBlue"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarRank"/>
+
+    <!-- 호봉 프로그레스바 -->
+    <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
+                 style="@android:style/Widget.ProgressBar.Horizontal"
+                 android:max="100" android:progressDrawable="@drawable/horizontal_progress_third"
+                 android:id="@+id/progressBarHobong"
+                 android:layout_marginStart="4dp"
+                 android:layout_marginTop="8dp"
+                 app:layout_constraintStart_toStartOf="@+id/guideline31"
+                 app:layout_constraintTop_toBottomOf="@+id/progressBarTotal"
+                 app:layout_constraintEnd_toEndOf="@+id/progressBarTotal"/>
+    <TextView
+            android:text="현재 호봉"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/progressCurrentMonthText"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/horizontalProgressbarGreen" android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/monthRankText"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
+    <TextView
+            android:text="이병"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/monthRankText"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/horizontalProgressbarGreen" android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/monthText"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
+    <TextView
+            android:text="1호봉"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/monthText"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@id/monthPercentText"
+            android:textColor="@color/horizontalProgressbarGreen" android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
+
+    <TextView
+            android:text="81.66%"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/monthPercentText"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/horizontalProgressbarGreen"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarHobong"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

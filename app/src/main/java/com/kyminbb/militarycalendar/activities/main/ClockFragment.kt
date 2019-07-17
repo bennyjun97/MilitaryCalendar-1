@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.activities.widget.LargeWidget
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
@@ -29,6 +30,7 @@ class ClockFragment : Fragment() {
 
     private var userInfo = User()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +45,8 @@ class ClockFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        // load LocalDate data
         val enlistDateTime = LocalDateTime.of(
             userInfo.promotionDates[Dates.ENLIST.ordinal].year,
             userInfo.promotionDates[Dates.ENLIST.ordinal].month,
@@ -56,31 +60,51 @@ class ClockFragment : Fragment() {
             0, 0, 0, 0
         )
 
-        progressBar.max = 100
-        val percent = DateCalc.entirePercent(enlistDateTime, etsDateTime)
-        progressBar.progress = percent.toInt()
 
-        val hour = percent * 0.24
-        val min = (percent * 14.4) % 60
-        val sec = (percent * 864.0) % 60
+        /**
+         * set ProgressBars:
+         * progressTotal, progressRank, progressHobong
+         */
+        progressBarTotal.max = 100
+        val percentTotal = DateCalc.entirePercent(enlistDateTime, etsDateTime)
+        progressBarTotal.progress = percentTotal.toInt()
+
+        progressBarRank.max = 100
+        val percentRank = DateCalc.rankPercent(userInfo)
+        progressBarRank.progress = percentRank.toInt()
+
+        progressBarHobong.max = 100
+        val percentHobong = DateCalc.monthPercent(userInfo)
+        progressBarHobong.progress = percentHobong.toInt()
+
+        /**
+         * set Clock Design
+         */
+        val hour = percentTotal * 0.24
+        val min = (percentTotal * 14.4) % 60
+        val sec = (percentTotal * 864.0) % 60
         clockText.text = formatTime(hour.toInt(), min.toInt(), sec.toInt())
         clockView.onTimeChanged(hour.toLong(), min.toLong())
 
+
+        /**
+         * setTextView data
+         */
+        // set Rank, Hobong
         val rankString = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
         rankText.text = rankString
-        rankText2.text = rankString
-        rankText3.text = rankString
+        rankPercentText.text = rankString
+        monthRankText.text = rankString
+        monthText.text = "${DateCalc.calcMonth(userInfo)}호봉"
 
+        // set Text in the Top View
         nameText.text = userInfo.name
-        remainText.text = "전역까지 " + DateCalc.countDDay(etsDateTime)
+        remainText.text = "전역까지 ${DateCalc.countDDay(etsDateTime)}"
 
-        rankPercentText.text = "%.2f".format(DateCalc.rankPercent(userInfo)) + "%"
-        monthPercentText.text = "%.2f".format(DateCalc.monthPercent(userInfo)) + "%"
-
-        monthText.text = DateCalc.calcMonth(userInfo).toString() + "호봉"
-
-        entirePercentText.text = "%.3f".format(DateCalc.entirePercent(enlistDateTime, etsDateTime)) + "%"
-
+        // set Percent Texts in the Bottom View
+        entirePercentText.text = "%.6f".format(percentTotal) + "%"
+        rankPercentText.text = "${"%.2f".format(percentRank)}%"
+        monthPercentText.text = "${"%.2f".format(percentHobong)}%"
     }
 
     private fun loadData() {
