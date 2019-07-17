@@ -230,24 +230,24 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:textColor="@color/horizontalProgressbarGreen" android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/monthRankText"
+            app:layout_constraintEnd_toStartOf="@id/progressMonthRankText"
             app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
     <TextView
             android:text="이병"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/monthRankText"
+            android:id="@+id/progressMonthRankText"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:textColor="@color/horizontalProgressbarGreen" android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/monthText"
+            app:layout_constraintEnd_toStartOf="@id/progressMonthText"
             app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
     <TextView
             android:text="1호봉"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/monthText"
+            android:id="@+id/progressMonthText"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            app:layout_constraintEnd_toStartOf="@id/monthPercentText"
+            app:layout_constraintEnd_toStartOf="@id/progressMonthPercentText"
             android:textColor="@color/horizontalProgressbarGreen" android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
 
@@ -255,7 +255,7 @@
             android:text="81.66%"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/monthPercentText"
+            android:id="@+id/progressMonthPercentText"
             android:layout_marginTop="4dp"
             android:textColor="@color/horizontalProgressbarGreen"
             android:textSize="12sp"

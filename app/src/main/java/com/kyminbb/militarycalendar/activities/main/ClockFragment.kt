@@ -93,9 +93,9 @@ class ClockFragment : Fragment() {
         // set Rank, Hobong
         val rankString = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
         rankText.text = rankString
-        rankPercentText.text = rankString
-        monthRankText.text = rankString
-        monthText.text = "${DateCalc.calcMonth(userInfo)}호봉"
+        progressRankText.text = rankString
+        progressMonthRankText.text = rankString
+        progressMonthText.text = "${DateCalc.calcMonth(userInfo)}호봉"
 
         // set Text in the Top View
         nameText.text = userInfo.name
@@ -104,7 +104,7 @@ class ClockFragment : Fragment() {
         // set Percent Texts in the Bottom View
         entirePercentText.text = "%.6f".format(percentTotal) + "%"
         rankPercentText.text = "${"%.2f".format(percentRank)}%"
-        monthPercentText.text = "${"%.2f".format(percentHobong)}%"
+        progressMonthPercentText.text = "${"%.2f".format(percentHobong)}%"
     }
 
     private fun loadData() {
