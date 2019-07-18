@@ -136,23 +136,41 @@ class CalendarFragment : Fragment() {
     }
 
     private fun updateCalendar(calendar: Calendar) {
+        //clearing slots
         for(i in 0..41) {
             slots[i].text = ""
+            slots[i].setBackgroundResource(0)
         }
+
+        //cloning just in case
         val cal = calendar.clone() as Calendar
+
+        //putting numbers for month
         var month = cal.get(Calendar.MONTH)
         textMonth.text = "${month+1}월"
         cal.set(Calendar.DAY_OF_MONTH, 1)
         val init = cal.get(Calendar.DAY_OF_WEEK)-1
         var position = init
+
+        //calculating last day
         val cal2 = cal.clone() as Calendar
         cal2.add(Calendar.MONTH, 1)
         cal2.add(Calendar.DAY_OF_MONTH, -1)
         val j = cal2.get(Calendar.DAY_OF_MONTH) - 1
+
+        //putting numbers for days
         for(i in 0..j) {
             slots[position].text = cal.get(Calendar.DAY_OF_MONTH).toString()
             position += 1
             cal.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        // circle on today
+        // https://stackoverflow.com/questions/25203501/android-creating-a-circular-textview
+        val today = Calendar.getInstance()
+        if (cal2.get(Calendar.YEAR) == today.get(Calendar.YEAR) && cal2.get(Calendar.MONTH) == today.get(Calendar.MONTH)) {
+            val todayposition = today.get(Calendar.DAY_OF_MONTH)
+            slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
         }
     }
 }

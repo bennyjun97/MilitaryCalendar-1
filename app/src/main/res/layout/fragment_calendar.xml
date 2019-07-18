@@ -34,7 +34,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent" android:layout_weight="3"
                     app:autoSizeTextType="uniform" android:gravity="center"
-                    android:textColor="@color/leave" android:textSize="36sp" android:id="@+id/textMonth"/>
+                    android:textColor="@color/leave" android:textSize="36sp" android:id="@+id/textMonth"
+            />
             <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/right" android:id="@+id/buttonRight"
