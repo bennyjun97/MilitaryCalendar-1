@@ -1,6 +1,7 @@
 package com.kyminbb.militarycalendar.activities.register
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
 import android.widget.Button
@@ -79,6 +80,8 @@ class SetTestActivity : AppCompatActivity() {
         }
         // Display the stored name.
         nameInput.hint = userInfo.name
+        // when name is loaded from data into hint, its color will be black
+        nameInput.setHintTextColor(Color.BLACK)
         // Display the enlist date.
         enlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
     }
@@ -167,7 +170,7 @@ class SetTestActivity : AppCompatActivity() {
     private fun completeRegister() {
         when {
             // https://github.com/pranavpandey/dynamic-toasts
-            isEmpty(nameInput.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+            isEmpty(nameInput.text.toString()) && (nameInput.hint.equals("입대일을 입력하세요")) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
             buttonSelected == -1 -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
             else -> {
                 saveData()
@@ -182,7 +185,10 @@ class SetTestActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        userInfo.name = nameInput.text.toString()
+        if(isEmpty(nameInput.text.toString()))
+            userInfo.name = nameInput.hint.toString()
+        else
+            userInfo.name = nameInput.text.toString()
         when {
             today.isBefore(userInfo.promotionDates[Dates.RANK2.ordinal]) -> userInfo.rank = 0
             today.isBefore(userInfo.promotionDates[Dates.RANK3.ordinal]) -> userInfo.rank = 1
