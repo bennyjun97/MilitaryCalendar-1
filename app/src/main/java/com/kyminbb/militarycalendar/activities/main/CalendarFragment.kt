@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
-import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.fragment_calendar2.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.textColor
@@ -33,7 +33,7 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        return inflater.inflate(R.layout.fragment_calendar2, container, false)
     }
 
     // Update UI after views are created.
@@ -42,7 +42,7 @@ class CalendarFragment : Fragment() {
 
         val dbHelper = DBHelper(this.context!!)
 
-        slots = arrayOf(slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32, slot33, slot34, slot35, slot36, slot37, slot38, slot39, slot40, slot41, slot42)
+        slots = arrayOf(day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14, day15, day16, day17, day18, day19, day20, day21, day22, day23, day24, day25, day26, day27, day28, day29, day30, day31, day32, day33, day34, day35, day36, day37, day38, day39, day40, day41, day42)
 
         updateCalendar(calendar)
 
@@ -76,7 +76,7 @@ class CalendarFragment : Fragment() {
             updateCalendar(calendar)
         }
 
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+        /*(calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val date = formatDate(year, month+1, dayOfMonth)
 
             // Show saved schedules of the date.
@@ -92,7 +92,7 @@ class CalendarFragment : Fragment() {
                     testText.text = text
                 }
             }
-        }
+        }*/
     }
 
     private fun writeDB(dbHelper: DBHelper, content: String, date: String) {
@@ -187,5 +187,21 @@ class CalendarFragment : Fragment() {
             val todayposition = today.get(Calendar.DAY_OF_MONTH)
             slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
         }
+
+        val leaveText1 = TextView(this.context)
+        val constraintSet = ConstraintSet()
+        leaveText1.id = View.generateViewId()
+        constraintSet.clone(calendarLayout)
+        constraintSet.connect(leaveText1.id, ConstraintSet.START, day30.id, ConstraintSet.START)
+        constraintSet.connect(leaveText1.id, ConstraintSet.END, day32.id, ConstraintSet.END)
+        constraintSet.connect(leaveText1.id, ConstraintSet.BOTTOM, day30.id, ConstraintSet.BOTTOM)
+        constraintSet.connect(leaveText1.id, ConstraintSet.TOP, day30.id, ConstraintSet.TOP)
+        constraintSet.constrainWidth(leaveText1.id, ConstraintSet.MATCH_CONSTRAINT)
+        constraintSet.constrainHeight(leaveText1.id, ConstraintSet.WRAP_CONTENT)
+        leaveText1.setBackgroundColor(R.drawable.textleavebackground)
+        leaveText1.text = "와~~집에 간다!"
+        leaveText1.textSize = 8.0f
+        calendarLayout.addView(leaveText1)
+        constraintSet.applyTo(calendarLayout)
     }
 }

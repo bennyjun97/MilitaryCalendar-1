@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+                                                   android:layout_height="match_parent" android:id="@+id/calendarLayout">
 
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
@@ -105,7 +105,7 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/friguide"
-            app:layout_constraintGuide_percent="0.71"/>
+            app:layout_constraintGuide_percent="0.71" android:paddingTop="4dp"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
             android:id="@+id/monday" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/monGuide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
-            android:gravity="center" android:layout_marginTop="8dp"/>
+            android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
             android:text="화"
             android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
             android:id="@+id/tuesday" app:layout_constraintStart_toStartOf="@id/monGuide"
             app:layout_constraintEnd_toStartOf="@id/tueGuide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
-            android:gravity="center" android:layout_marginTop="8dp"/>
+            android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
             android:text="수"
             android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
             android:id="@+id/wednesday" app:layout_constraintStart_toStartOf="@id/tueGuide"
             app:layout_constraintEnd_toStartOf="@id/wenGuide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
-            android:gravity="center" android:layout_marginTop="8dp"/>
+            android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
             android:text="목"
             android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
             android:id="@+id/thursday" app:layout_constraintStart_toStartOf="@id/wenGuide"
             app:layout_constraintEnd_toStartOf="@id/thurGuide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
-            android:gravity="center" android:layout_marginTop="8dp"/>
+            android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
             android:text="금"
             android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
             android:id="@+id/friday" app:layout_constraintStart_toStartOf="@id/thurGuide"
             app:layout_constraintEnd_toStartOf="@id/friguide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
-            android:gravity="center" android:layout_marginTop="8dp"/>
+            android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
             android:text="토"
             android:layout_width="wrap_content"
@@ -163,7 +163,7 @@
             android:id="@+id/saturday" app:layout_constraintStart_toStartOf="@id/friguide"
             app:layout_constraintEnd_toStartOf="@id/satguide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
-            android:gravity="center" android:layout_marginTop="8dp"/>
+            android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
             android:text="일"
             android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
             android:id="@+id/sunday" app:layout_constraintStart_toStartOf="@id/satguide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
-            android:gravity="center" android:layout_marginTop="8dp"/>
+            android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day1"
@@ -179,7 +179,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day2"
@@ -187,7 +187,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day3"
@@ -195,7 +195,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day4"
@@ -203,7 +203,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day5"
@@ -211,7 +211,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day6"
@@ -219,7 +219,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day7"
@@ -227,7 +227,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
@@ -236,7 +236,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day9"
@@ -244,7 +244,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day10"
@@ -252,7 +252,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day11"
@@ -260,7 +260,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day12"
@@ -276,7 +276,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day14"
@@ -284,7 +284,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
@@ -293,7 +293,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day16"
@@ -301,7 +301,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day17"
@@ -309,7 +309,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day18"
@@ -317,7 +317,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day19"
@@ -325,7 +325,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day20"
@@ -333,7 +333,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day21"
@@ -341,7 +341,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day22"
@@ -349,7 +349,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day23"
@@ -357,7 +357,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day24"
@@ -365,7 +365,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day25"
@@ -373,7 +373,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day26"
@@ -381,7 +381,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day27"
@@ -389,7 +389,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day28"
@@ -397,7 +397,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
@@ -406,31 +406,31 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day30"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:gravity="top|end" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day31"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:gravity="top|end" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day32"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:gravity="top|end" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day33"
@@ -446,7 +446,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day35"
@@ -454,7 +454,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
@@ -463,7 +463,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/monGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day37"
@@ -471,7 +471,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day38"
@@ -479,7 +479,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day39"
@@ -487,7 +487,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day40"
@@ -495,7 +495,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/friguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day41"
@@ -503,7 +503,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/satguide"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day42"
@@ -511,36 +511,7 @@
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@android:color/white"/>
-
-    <LinearLayout
-            app:layout_constraintTop_toTopOf="@id/bottomGuide" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="0dp" android:background="@android:color/white"
-            android:visibility="gone" android:id="@+id/addTab">
-        <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/leave_add"
-                android:id="@+id/addLeave" android:layout_weight="1" android:background="@null"
-                android:scaleType="fitCenter" android:layout_margin="16dp"/>
-        <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/duty_add"
-                android:id="@+id/addDuty" android:layout_weight="1" android:background="@null"
-                android:scaleType="fitCenter" android:layout_margin="16dp"/>
-        <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/exercise_add"
-                android:id="@+id/addExercise" android:layout_weight="1" android:background="@null"
-                android:scaleType="fitCenter" android:layout_margin="16dp"/>
-        <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/personal_add"
-                android:id="@+id/addPersonal" android:layout_weight="1" android:background="@null"
-                android:scaleType="fitCenter" android:layout_margin="16dp"/>
-    </LinearLayout>
+            android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -555,14 +526,94 @@
             android:layout_width="0dp" app:layout_constraintTop_toTopOf="@id/bottomGuide"
             android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/textDate" app:layout_constraintStart_toStartOf="parent"/>
+    <View
+            android:id="@+id/horizontalDivider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="#000000"
+            app:layout_constraintStart_toStartOf="@id/textDateGuide"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottomGuide"
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:paddingEnd="8dp"/>
     <TextView
-            android:id="@+id/line"
-            style="?android:attr/listSeparatorTextViewStyle"
-            android:paddingTop="5dp"
-            android:gravity="center_horizontal"
-            android:layout_below="@+id/connect_help"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000"/>
+            android:text="일정 종류"
+            android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/dayType"
+            app:layout_constraintTop_toBottomOf="@id/bottomGuide"
+            app:layout_constraintBottom_toTopOf="@id/horizontalDivider"
+            app:layout_constraintEnd_toStartOf="@id/textDividerGuide" android:gravity="bottom|start"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/textDateGuide"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold" android:background="@android:color/white" android:textSize="14sp"
+            android:paddingStart="4dp"/>
+    <TextView
+            android:text="휴가"
+            android:layout_width="0dp" app:layout_constraintTop_toBottomOf="@id/bottomGuide"
+            android:layout_height="0dp" app:layout_constraintBottom_toTopOf="@id/horizontalDivider"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@+id/textDividerGuide"
+            android:background="@android:color/white"
+            android:layout_weight="1" android:gravity="bottom|end" android:textColor="@color/black"
+            android:fontFamily="sans-serif" android:textSize="14sp"
+            android:id="@+id/dayTypeText" android:paddingRight="8dp"/>
 
+    <TextView
+            android:text="설명"
+            android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/comment"
+            app:layout_constraintTop_toBottomOf="@id/horizontalDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textDividerGuide" android:gravity="top|start"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/textDateGuide"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold" android:background="@android:color/white" android:textSize="14sp"
+            android:paddingStart="4dp"/>
+    <TextView
+            android:text="집에 간다~"
+            android:layout_width="0dp" app:layout_constraintTop_toBottomOf="@id/horizontalDivider"
+            android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@+id/textDividerGuide"
+            android:background="@android:color/white"
+            android:layout_weight="1" android:gravity="top|end" android:textColor="@color/black"
+            android:fontFamily="sans-serif" android:textSize="14sp"
+            android:id="@+id/commentText" android:paddingRight="8dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dividerGuide" app:layout_constraintGuide_percent="0.93"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textDividerGuide" app:layout_constraintGuide_percent="0.64" android:paddingTop="4dp"/>
+
+   <LinearLayout
+           app:layout_constraintTop_toTopOf="@id/bottomGuide" app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
+           android:layout_width="0dp"
+           android:layout_height="0dp" android:background="@android:color/white"
+           android:visibility="gone" android:id="@+id/addTab">
+       <ImageButton
+               android:layout_width="0dp"
+               android:layout_height="wrap_content" app:srcCompat="@drawable/leave_add"
+               android:id="@+id/addLeave" android:layout_weight="1" android:background="@null"
+               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+       <ImageButton
+               android:layout_width="0dp"
+               android:layout_height="wrap_content" app:srcCompat="@drawable/duty_add"
+               android:id="@+id/addDuty" android:layout_weight="1" android:background="@null"
+               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+       <ImageButton
+               android:layout_width="0dp"
+               android:layout_height="wrap_content" app:srcCompat="@drawable/exercise_add"
+               android:id="@+id/addExercise" android:layout_weight="1" android:background="@null"
+               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+       <ImageButton
+               android:layout_width="0dp"
+               android:layout_height="wrap_content" app:srcCompat="@drawable/personal_add"
+               android:id="@+id/addPersonal" android:layout_weight="1" android:background="@null"
+               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
