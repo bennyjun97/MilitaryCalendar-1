@@ -74,7 +74,6 @@ class ClockFragment : Fragment() {
         progressMonthRankText.text = rankString
         progressMonthText.text = "${DateCalc.calcMonth(userInfo)}호봉"
 
-
         // update D-day
         remainText.text = "전역까지 ${DateCalc.countDDay(etsDateTime)}"
 
@@ -84,10 +83,9 @@ class ClockFragment : Fragment() {
 
     // terminate background thread
     override fun onDestroy() {
-        super.onDestroy()
         isRunning = false
+        super.onDestroy()
     }
-
 
     private fun loadData() {
         // Get context from the parent activity.
@@ -109,6 +107,7 @@ class ClockFragment : Fragment() {
             val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].plusDays(1).atStartOfDay()
 
             while(isRunning){
+                SystemClock.sleep(500)
                 // calc percents
                 val percentTotal = DateCalc.entirePercent(enlistDateTime, etsDateTime)
                 val percentRank = DateCalc.rankPercent(userInfo)
@@ -126,7 +125,6 @@ class ClockFragment : Fragment() {
                     progressBarRank.progress = percentRank.toInt()
                     progressBarHobong.progress = percentHobong.toInt()
                 }
-
             }
 
         }

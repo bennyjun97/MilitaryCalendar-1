@@ -162,18 +162,13 @@ class LargeWidget : AppWidgetProvider() {
             val views = RemoteViews(context.packageName, R.layout.large_widget)
 
             val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
+            val hobongText = DateCalc.calcMonth(userInfo)
             val percentTotal =
-                (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0)
+                kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0
             val percentPromotion =
-                when (userInfo.rank) {
-                    0 -> kotlin.math.round(DateCalc.entirePercent(enlistDateTime, rankSecondTime)*10)/10.0
-                    1 -> kotlin.math.round(DateCalc.entirePercent(rankSecondTime, rankThirdTime)*10)/10.0
-                    2 -> kotlin.math.round(DateCalc.entirePercent(rankThirdTime, rankFourthTime)*10)/10.0
-                    3 -> kotlin.math.round(DateCalc.entirePercent(rankFourthTime, etsDateTime)*10)/10.0
-                    else -> 0.0
-                }
-            val percentHobong = "95%"
-            val untilNextText = context.getText(R.string.large_until_text).toString()
+                kotlin.math.round(DateCalc.rankPercent(userInfo)*10)/10.0
+            val percentHobong =
+                kotlin.math.round(DateCalc.monthPercent(userInfo)*10)/10.0
             val dDayText = DateCalc.countDDay(etsDateTime)
             //val progress = 100 - actual progress(to be implemented)
             val vacationText = context.getText(R.string.Vacation_text).toString()
@@ -193,31 +188,41 @@ class LargeWidget : AppWidgetProvider() {
 
             // Construct the RemoteViews object
 
+            // set progressbar indicater text
             views.setTextViewText(R.id.largeProgressTextSecond, "현재 ${promotionText}")
-            //views.setTextViewText(R.id.largeProgressTextThird, "현재 ${}")
-            views.setProgressBar(R.id.progress_horizontal_first, 1000, (percentTotal*10).toInt(), false)
-            views.setProgressBar(R.id.progress_horizontal_second, 1000, (percentPromotion*10).toInt(), false)
-            views.setProgressBar(R.id.progress_horizontal_third, 1000, 950, false)
+            views.setTextViewText(R.id.largeProgressTextThird, "현재 ${hobongText}호봉")
+            // set progressbar
+            views.setProgressBar(
+                R.id.progress_horizontal_first, 1000, (percentTotal*10).toInt(), false)
+            views.setProgressBar(
+                R.id.progress_horizontal_second, 1000, (percentPromotion*10).toInt(), false)
+            views.setProgressBar(
+                R.id.progress_horizontal_third, 1000, (percentHobong*10).toInt(), false)
+            // set progressbar percent text
             views.setTextViewText(R.id.largePercentFirst, "${percentTotal}%")
             views.setTextViewText(R.id.largePercentSecond, "${percentPromotion}%")
-            views.setTextViewText(R.id.largePercentThird, percentHobong)
+            views.setTextViewText(R.id.largePercentThird, "${percentHobong}%")
+            // set D-day
             views.setTextViewText(R.id.largeDDay, dDayText)
+            // set vacaction progress bar (100 - actual progress(to be implemented) because it is counter-clockwise)
             views.setProgressBar(R.id.progress_circular, 100, 75, false)
+            // set text for memos, notification
             views.setTextViewText(R.id.large_vacation, vacationText)
             views.setTextViewText(R.id.large_numVacation, numVacationText)
             views.setTextViewText(R.id.largeNextVacation, nextVacation)
             views.setTextViewText(R.id.largeNextVacationDate, nextVacationDate)
             views.setTextViewText(R.id.largeDDayVacation, dDayVacation)
+            // set button image resource
             views.setImageViewResource(R.id.swapNextButton, R.drawable.right_white)
             views.setImageViewResource(R.id.swapBackButton, R.drawable.left_white)
-
+            // construct buttonlistener for swapping views
             views.setOnClickPendingIntent(R.id.swapNextButton,
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_NEXT))
             views.setOnClickPendingIntent(R.id.swapBackButton,
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_BACK))
-
+            // change Opacity
             views.setInt(R.id.largeWidgetLayout, "setBackgroundColor",
-                Color.parseColor("#${alpha}000000"))
+                Color.parseColor("#${alpha}333333"))
 
 
             // Construct the intents
@@ -237,7 +242,7 @@ class LargeWidget : AppWidgetProvider() {
             views.apply{setOnClickPendingIntent(R.id.largeWidgetLayout, largeMainIntent)}
                 .apply{setOnClickPendingIntent(R.id.largeConfigureButton, largeConfigureIntent)}
 
-            // construct buttonlistener for swapping views
+
 
 
             // Instruct the widget manager to update the widget
