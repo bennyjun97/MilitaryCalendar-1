@@ -86,7 +86,7 @@
                 android:id="@+id/smallPercent"
                 android:text="@string/percent_text"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/horizontalProgressbarGreen"
                 android:textSize="26sp"/>
 
         <TextView

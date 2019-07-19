@@ -27,7 +27,7 @@
     <color name="buttonColor3">#fed766</color>
 
     <!-- widget -->
-    <color name="widgetBackground">#000000</color>
+    <color name="widgetBackground">#333333</color>
     <color name="percentText">#FFE324</color>
     <color name="circularProgressbar">#64B5F6</color>
     <color name="horizontalProgressbarRed">#E57373</color>
@@ -40,9 +40,9 @@
     <!-- calendar -->
     <color name="calendarBackground">#424242</color>
     <color name="calendarButtons">#9E9D24</color>
-    <color name="leave">#7CB342</color>
-    <color name="exercise">#8C6E64</color>
-    <color name="duty">#9E9C31</color>
-    <color name="personal">#E57373</color>
+    <color name="leave">#E57373</color>
+    <color name="exercise">#7CB342</color>
+    <color name="duty">#64B5F6</color>
+    <color name="personal">#FFF463</color>
 
 </resources>

@@ -203,7 +203,11 @@
       <RelativeLayout
               android:layout_width="0dp"
               android:layout_height="match_parent"
-              android:layout_weight="50" android:gravity="center" android:id="@+id/leftLargeLayout0">
+              android:layout_weight="50" android:gravity="center"
+              android:layout_marginTop="@dimen/large_vertical"
+              android:layout_marginStart="@dimen/large_vertical"
+              android:layout_marginEnd="@dimen/large_vertical"
+              android:id="@+id/leftLargeLayout0">
 
          <!-- progress bar cannot rotate counterclockwise -> code 100 - actual progress as
       progress-->
@@ -220,7 +224,7 @@
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
-                 android:paddingBottom="2dp"
+                 android:paddingBottom="8dp"
                  android:gravity="center_horizontal|bottom"
                  android:id="@+id/large_vacation"
                  android:layout_alignTop="@id/progress_circular"
@@ -232,7 +236,7 @@
          <TextView
                  android:layout_width="match_parent"
                  android:layout_height="77dp"
-                 android:paddingTop="2dp"
+                 android:paddingTop="8dp"
                  android:gravity="center_horizontal|top"
                  android:id="@+id/large_numVacation"
                  android:layout_alignBottom="@id/progress_circular"
