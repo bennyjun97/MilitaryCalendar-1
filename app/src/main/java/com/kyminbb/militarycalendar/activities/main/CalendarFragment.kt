@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
@@ -27,6 +28,13 @@ class CalendarFragment : Fragment() {
     private var adding = true
     var calendar = Calendar.getInstance()
     var slots: Array<Button> = arrayOf()
+    var startSlot = 0
+    var leaveTextViewNum = 0
+    var leavesinMonth: MutableList<TextView> = mutableListOf<TextView>()  //stores all the leave of the month. updated by updateCalendar()
+    /*var dutiesinMonth: MutableList<Duty> = mutableListOf<Duty>() //stores all the duty of the month. updated by updateCalendar()
+    var exercisesinMonth: MutableList<Exercise> = mutableListOf<Exerciese>() //stores all the exercise of the month. updated by updateCalendar()
+    var personalinMonth: MutableList<Personal> = mutableListOf<Personal>()
+    */
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -157,6 +165,18 @@ class CalendarFragment : Fragment() {
             slots[i].setBackgroundResource(0)
         }
 
+        //clearing textViews
+        if(leaveTextViewNum != 0) {
+            calendarLayout.removeView(leavesinMonth[0])
+            if(leaveTextViewNum >=2)
+                calendarLayout.removeView(leavesinMonth[1])
+            for (leave in leavesinMonth) {
+                calendarLayout.removeView(leave)
+            }
+            leavesinMonth.clear()
+        }
+        leaveTextViewNum = 0
+
         //cloning just in case
         val cal = calendar.clone() as Calendar
 
@@ -166,6 +186,7 @@ class CalendarFragment : Fragment() {
         cal.set(Calendar.DAY_OF_MONTH, 1)
         val init = cal.get(Calendar.DAY_OF_WEEK)-1
         var position = init
+        startSlot = init
 
         //calculating last day
         val cal2 = cal.clone() as Calendar
@@ -188,20 +209,46 @@ class CalendarFragment : Fragment() {
             slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
         }
 
-        val leaveText1 = TextView(this.context)
+        val cal3 = cal2.clone() as Calendar
+        cal2.set(Calendar.DAY_OF_MONTH, 15)
+        cal3.set(Calendar.DAY_OF_MONTH, 19)
+        addLeaveinCalendar(cal2, cal3, "영덩이 찰싹")
+
+    }
+
+    fun addLeaveinCalendar(startDate: Calendar, endDate: Calendar, text: String) {
+        var startPosition = startDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+        var endPosition = endDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+
+        if((startPosition) / 7 == (endPosition) / 7)
+            drawLeaveTextView(startPosition, endPosition, text)
+
+        else {
+            drawLeaveTextView(startPosition, (startPosition/7) * 7 + 6, text)
+            for (i in (startPosition / 7)+1..(endPosition / 7) - 1)
+                drawLeaveTextView(i * 7, i * 7 + 6, text)
+            drawLeaveTextView((endPosition / 7) * 7, endPosition, text)
+        }
+
+    }
+
+    //drawing Leave Text Views on fragment_calendar2 programmatically
+    private fun drawLeaveTextView(startPos : Int, endPos : Int, text: String) {
         val constraintSet = ConstraintSet()
-        leaveText1.id = View.generateViewId()
+        leavesinMonth.add(TextView(this.context))
+        leavesinMonth[leaveTextViewNum].id = View.generateViewId()
         constraintSet.clone(calendarLayout)
-        constraintSet.connect(leaveText1.id, ConstraintSet.START, day30.id, ConstraintSet.START)
-        constraintSet.connect(leaveText1.id, ConstraintSet.END, day32.id, ConstraintSet.END)
-        constraintSet.connect(leaveText1.id, ConstraintSet.BOTTOM, day30.id, ConstraintSet.BOTTOM)
-        constraintSet.connect(leaveText1.id, ConstraintSet.TOP, day30.id, ConstraintSet.TOP)
-        constraintSet.constrainWidth(leaveText1.id, ConstraintSet.MATCH_CONSTRAINT)
-        constraintSet.constrainHeight(leaveText1.id, ConstraintSet.WRAP_CONTENT)
-        leaveText1.setBackgroundColor(R.drawable.textleavebackground)
-        leaveText1.text = "와~~집에 간다!"
-        leaveText1.textSize = 8.0f
-        calendarLayout.addView(leaveText1)
+        constraintSet.connect(leavesinMonth[leaveTextViewNum].id, ConstraintSet.START, slots[startPos].id, ConstraintSet.START)
+        constraintSet.connect(leavesinMonth[leaveTextViewNum].id, ConstraintSet.END, slots[endPos].id, ConstraintSet.END)
+        constraintSet.connect(leavesinMonth[leaveTextViewNum].id, ConstraintSet.BOTTOM, slots[startPos].id, ConstraintSet.BOTTOM)
+        constraintSet.connect(leavesinMonth[leaveTextViewNum].id, ConstraintSet.TOP, slots[endPos].id, ConstraintSet.TOP)
+        constraintSet.constrainWidth(leavesinMonth[leaveTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
+        constraintSet.constrainHeight(leavesinMonth[leaveTextViewNum].id, ConstraintSet.WRAP_CONTENT)
+        leavesinMonth[leaveTextViewNum].setBackgroundColor(Color.parseColor("#7CB342"))
+        leavesinMonth[leaveTextViewNum].text = text
+        leavesinMonth[leaveTextViewNum].textSize = 8.0f
+        calendarLayout.addView(leavesinMonth[leaveTextViewNum])
         constraintSet.applyTo(calendarLayout)
+        leaveTextViewNum++
     }
 }
