@@ -80,6 +80,8 @@
     <string name="promotionTextFirst">일병 진급일</string>
     <string name="promotionTextSecond">상병 진급일</string>
     <string name="promotionTextThird">병장 진급일</string>
+    <string name="profileEndDate">전역일</string>
+    <string name="profileEndDateHint">전역일을 입력하세요</string>
     <string name="profileLeaveDayText">휴가일 조정</string>
     <string name="profileLeaveDay">남은 휴가일을 입력하세요</string>
     <string name="noAdminEffect">위 계산 결과는 행정효력이 없습니다</string>

@@ -1,11 +1,17 @@
 package com.kyminbb.militarycalendar.activities.register
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
 import android.widget.Button
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -17,15 +23,16 @@ import com.kyminbb.militarycalendar.utils.User
 import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
-import kotlinx.android.synthetic.main.activity_set_test.*
+import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.yesButton
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
 
-class SetTestActivity : AppCompatActivity() {
-
-    private var buttonSelected = -1
+class RegisterActivity : AppCompatActivity() {
 
     //Initialize today's date
     private val today = Calendar.getInstance().toLocalDate()
@@ -37,23 +44,16 @@ class SetTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Initialize the timezone information.
         AndroidThreeTen.init(this)
-        setContentView(R.layout.activity_set_test)
+        setContentView(R.layout.activity_register)
 
-        val affiliations = resources.getStringArray(R.array.affiliations_string)
-        val affiliationButtons = arrayOf(
-            buttonArmy,
-            buttonNavy,
-            buttonAir,
-            buttonMarine,
-            buttonPolice,
-            buttonSeapolice,
-            buttonPublic,
-            buttonFire
-        )
-        val dateInputs = arrayOf(enlistDate, privateDate, corporalDate, sergeantDate, endDate)
+        val dateInputs = arrayOf(inputEnlist, privateDate, corporalDate, sergeantDate, inputEnd)
 
-        loadData(affiliations, affiliationButtons, dateInputs)
-        setAffiliation(affiliations, affiliationButtons)
+        loadData(dateInputs)
+
+        inputAffiliation.setOnClickListener {
+            setAffiliation()
+        }
+
         setDates(dateInputs)
 
         register.setOnClickListener {
@@ -66,54 +66,59 @@ class SetTestActivity : AppCompatActivity() {
     }
 
     // Load the user info from SharedPreferences.
-    private fun loadData(affiliations: Array<String>, buttons: Array<Button>, dateInputs: Array<Button>) {
+    private fun loadData(dateInputs: Array<Button>) {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         if (prefs.contains("userInfo")) {
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
             // Display the stored affiliation.
-            buttonSelected = affiliations.indexOf(userInfo.affiliation)
-            buttons[buttonSelected].setBackgroundResource(R.drawable.gray_gradient)
+            inputAffiliation.text = userInfo.affiliation
             // Display the promotion dates.
             for (index in Dates.RANK2.ordinal until dateInputs.size) {
                 dateInputs[index].text = formatDate(userInfo.promotionDates[index])
             }
         }
         // Display the stored name.
-        nameInput.hint = userInfo.name
+        inputName.hint = userInfo.name
         // when name is loaded from data into hint, its color will be black
-        nameInput.setHintTextColor(Color.BLACK)
+        inputName.setHintTextColor(Color.BLACK)
         // Display the enlist date.
-        enlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+        inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
     }
 
-    // Save the affiliation for each selection.
-    @SuppressLint("PrivateResource")
-    private fun setAffiliation(affiliations: Array<String>, buttons: Array<Button>) {
-        for ((index, value) in buttons.withIndex()) {
-            value.setOnClickListener {
-                userInfo.affiliation = affiliations[index]
+    private fun setAffiliation() {
+        val affiliations = resources.getStringArray(R.array.affiliations_string)
+        val affiliationButtons = arrayOf(
+            R.id.army,
+            R.id.navy,
+            R.id.airforce,
+            R.id.marine,
+            R.id.police,
+            R.id.seapolice,
+            R.id.agent,
+            R.id.fire
+        )
 
-                // Highlight the selected button.
-                if (0 <= buttonSelected && buttonSelected < buttons.size) {
-                    buttons[buttonSelected].setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
-                }
-                buttons[index].setBackgroundResource(R.drawable.gray_gradient)
-                buttonSelected = index
+        val popupMenu = PopupMenu(this, inputAffiliation)
+        popupMenu.menuInflater.inflate(R.menu.affiliation_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            userInfo.affiliation = affiliations[affiliationButtons.indexOf(it.itemId)]
+            inputAffiliation.text = userInfo.affiliation
 
-                // Update promotion dates corresponding to the affiliation.
-                calcPromotionDates()
-                updatePromotionViews()
-                // Update rank names corresponding to the affiliation.
-                ranksByAffiliation()
-            }
+            // Update promotion dates corresponding to the affiliation.
+            calcPromotionDates()
+            updatePromotionViews()
+            // Update rank names corresponding to the affiliation.
+            ranksByAffiliation()
+            true
         }
+        popupMenu.show()
     }
 
     private fun setDates(dateInputs: Array<Button>) {
         for ((index, value) in dateInputs.withIndex()) {
             value.setOnClickListener {
                 // Alert if the user adjusts promotion dates before selecting an affiliation.
-                if (index != Dates.ENLIST.ordinal && buttonSelected == -1) {
+                if (index != Dates.ENLIST.ordinal && isEmpty(inputAffiliation.text)) {
                     DynamicToast.makeError(this, "군별을 골라주세요!").show()
                     return@setOnClickListener
                 }
@@ -170,8 +175,8 @@ class SetTestActivity : AppCompatActivity() {
     private fun completeRegister() {
         when {
             // https://github.com/pranavpandey/dynamic-toasts
-            isEmpty(nameInput.text.toString()) && (nameInput.hint.equals("입대일을 입력하세요")) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-            buttonSelected == -1 -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
+            isEmpty(inputName.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+            isEmpty(inputAffiliation.text) -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
             else -> {
                 saveData()
                 startActivity<HomeActivity>()
@@ -185,10 +190,10 @@ class SetTestActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        if(isEmpty(nameInput.text.toString()))
-            userInfo.name = nameInput.hint.toString()
+        if (isEmpty(inputName.text.toString()))
+            userInfo.name = inputName.hint.toString()
         else
-            userInfo.name = nameInput.text.toString()
+            userInfo.name = inputName.text.toString()
         when {
             today.isBefore(userInfo.promotionDates[Dates.RANK2.ordinal]) -> userInfo.rank = 0
             today.isBefore(userInfo.promotionDates[Dates.RANK3.ordinal]) -> userInfo.rank = 1
@@ -205,8 +210,8 @@ class SetTestActivity : AppCompatActivity() {
     private fun init() {
         when {
             // https://github.com/pranavpandey/dynamic-toasts
-            isEmpty(nameInput.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-            buttonSelected == -1 -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
+            isEmpty(inputName.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+            isEmpty(inputAffiliation.text) -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
             else -> {
                 DynamicToast.makeError(this, "조정 사항이 입대일을 기준으로 초기화됩니다!").show()
                 calcPromotionDates()
@@ -216,14 +221,61 @@ class SetTestActivity : AppCompatActivity() {
     }
 
     private fun updatePromotionViews() {
-        enlistDate.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+        inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
         privateDate.text = formatDate(userInfo.promotionDates[Dates.RANK2.ordinal])
         corporalDate.text = formatDate(userInfo.promotionDates[Dates.RANK3.ordinal])
         sergeantDate.text = formatDate(userInfo.promotionDates[Dates.RANK4.ordinal])
-        endDate.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
+        inputEnd.text = formatDate(userInfo.promotionDates[Dates.END.ordinal])
     }
 
     private fun formatDate(date: LocalDate): String {
         return date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"))
     }
+
+    /*private fun setProfileImage() {
+        // First check whether permission to read gallery is granted.
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+                // Request permission to user.
+                alert("사진 정보를 얻으려면 외부 저장소 권한이 필수로 필요합니다", "권한이 필요한 이유") {
+                    yesButton {
+                        ActivityCompat.requestPermissions(
+                            this@RegisterActivity,
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            REQUEST_READ_EXTERNAL_STORAGE
+                        )
+                    }
+                    noButton { }
+                }.show()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_READ_EXTERNAL_STORAGE
+                )
+            }
+        } else {
+            // Start gallery intent if permission is granted.
+            startGalleryIntent()
+        }
+    }
+
+    private fun startGalleryIntent() {
+        val intent = Intent()
+        intent.type = "image"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(
+            Intent.createChooser(intent, "Select image"),
+            SELECT_PICTURE
+        )
+    }*/
+
+/*
+ */
 }

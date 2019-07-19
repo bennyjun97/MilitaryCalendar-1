@@ -3,7 +3,6 @@ package com.kyminbb.militarycalendar.activities.main
 
 import android.annotation.SuppressLint
 import android.os.*
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.activities.register.SetTestActivity
+import com.kyminbb.militarycalendar.activities.register.RegisterActivity
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
 import kotlinx.android.synthetic.main.fragment_clock2.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.support.v4.startActivity
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import java.lang.ref.WeakReference
-import java.util.*
 
 
 class ClockFragment : Fragment() {
@@ -51,7 +45,7 @@ class ClockFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         buttonEdit.setOnClickListener {
-            startActivity<SetTestActivity>()
+            startActivity<RegisterActivity>()
         }
 
 

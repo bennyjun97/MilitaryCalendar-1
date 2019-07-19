@@ -58,7 +58,7 @@
                         android:paddingEnd="@dimen/content_padding_between"
                         android:inputType="textPersonName"
                         android:ems="10"
-                        android:id="@+id/nameInput" android:layout_weight="2"
+                        android:id="@+id/inputName" android:layout_weight="2"
                         android:textColorHint="@color/GrayDark" android:textColor="@color/black" android:textSize="14sp"
                         android:gravity="end|center_vertical" android:hint="이름을 입력하세요"/>
             </LinearLayout>
@@ -69,7 +69,7 @@
                 <TextView
                         android:text="입대일"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content" android:id="@+id/date" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/enlistText" android:layout_weight="1"
                         android:textColor="@color/black" android:layout_gravity="center_vertical"/>
                 <Button
                         android:layout_width="0dp"
@@ -77,7 +77,7 @@
                         android:inputType="date"
                         android:paddingEnd="@dimen/content_padding_between"
                         android:ems="10"
-                        android:id="@+id/enlistDate" android:layout_weight="2" android:textColor="@color/black"
+                        android:id="@+id/inputEnlist" android:layout_weight="2" android:textColor="@color/black"
                         android:textSize="14sp" android:gravity="end|center_vertical" android:hint="입대일을 입력하세요"
                         android:textColorHint="@color/GrayDark"
                         android:background="@drawable/adt_hint_background"/>
@@ -85,7 +85,7 @@
             <TextView
                     android:text="군별"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" android:id="@+id/affiliationText2" android:textColor="@color/black"
+                    android:layout_height="0dp" android:id="@+id/affiliationText" android:textColor="@color/black"
                     android:layout_weight="1" android:gravity="center_vertical"/>
             <LinearLayout
                     android:orientation="horizontal"
@@ -247,7 +247,7 @@
                 <TextView
                         android:text="휴가일 조정"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content" android:id="@+id/leave" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/endText" android:layout_weight="1"
                         android:textColor="@color/black" android:layout_gravity="center_vertical"/>
 
                 <EditText

@@ -49,19 +49,11 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.register.SetTestActivity">
+        <activity android:name=".activities.register.RegisterActivity">
         </activity>
         <activity android:name=".activities.main.HomeActivity">
         </activity>
         <activity android:name=".activities.main.GraphActivity">
-        </activity>
-        <activity android:name=".activities.main.CalendarActivity">
-        </activity>
-        <activity android:name=".activities.register.SetEnlistActivity">
-        </activity>
-        <activity android:name=".activities.register.SetAffActivity">
-        </activity>
-        <activity android:name=".activities.register.SetNameActivity">
         </activity>
         <activity
                 android:name=".activities.MainActivity"
@@ -73,9 +65,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-                android:name=".activities.register.SettingActivity"
-                android:theme="@style/AppTheme.Setting"/>
     </application>
 
 </manifest>
