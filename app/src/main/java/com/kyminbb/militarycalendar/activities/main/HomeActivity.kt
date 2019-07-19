@@ -18,9 +18,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun createTabs() {
-        adapter.addFragment(ClockFragment(), "Clock")
-        adapter.addFragment(CalendarFragment(), "Calendar")
-        adapter.addFragment(GraphFragment(), "Graph")
+        adapter.addFragment(ClockFragment(), "짬중현황")
+        adapter.addFragment(CalendarFragment(), "짬중일지")
+        adapter.addFragment(GraphFragment(), "짬중성취")
 
         // Link fragments and the activity.
         viewPager.adapter = adapter

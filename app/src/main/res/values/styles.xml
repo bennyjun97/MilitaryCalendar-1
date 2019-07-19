@@ -6,13 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textViewStyle">@style/JalnanTextViewStyle</item>
+        <item name="android:textViewStyle">@style/LeeHeaderRegular</item>
     </style>
 
     <style name="AppTheme.Setting" parent="AppTheme">
         <item name="colorPrimary">#6C7E46</item>
         <item name="colorPrimaryDark">#5C6E36</item>
-        <item name="android:textViewStyle">@style/JalnanTextViewStyle</item>
+        <item name="android:textViewStyle">@style/LeeText</item>
     </style>
 
     <style name="NumberPickerStyle">
@@ -31,7 +31,24 @@
 
     <!-- customize font for all activities -->
     <style name="JalnanTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/jalnan</item>
+        <item name="android:fontFamily">@font/lee_text_l</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- custom font lee-sun-shin header -->
+    <style name="LeeHeaderBold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lee_header_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- custom font lee-sun-shin header -->
+    <style name="LeeHeaderRegular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lee_header_regular</item>
+    </style>
+    <!-- custom font lee-sun-shin text -->
+    <style name="LeeText" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lee_text_m</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!--For splash screen-->

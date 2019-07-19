@@ -68,5 +68,22 @@
     <string name="agent">사회복무요원</string>
     <string name="fire">의무소방대</string>
 
+    
+    <!-- profile setting -->
+    <string name="profileHeader">출사표</string>
+    <string name="profileNameHint">이름/별명*</string>
+    <string name="profilePromotion">군별*</string>
+    <string name="profileEnlistDate">입대일*</string>
+    <string name="profileEnlistDateHint">입대일을 입력하세요</string>
+    <string name="promotionTextMain">진급일 조정</string>
+    <string name="promotionTextHint">진급일</string>
+    <string name="promotionTextFirst">일병 진급일</string>
+    <string name="promotionTextSecond">상병 진급일</string>
+    <string name="promotionTextThird">병장 진급일</string>
+    <string name="profileLeaveDayText">휴가일 조정</string>
+    <string name="profileLeaveDay">남은 휴가일을 입력하세요</string>
+    <string name="noAdminEffect">위 계산 결과는 행정효력이 없습니다</string>
+    <string name="reset">초기화</string>
+    <string name="register">등록하기</string>
 
 </resources>

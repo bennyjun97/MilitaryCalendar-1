@@ -17,6 +17,7 @@
 
     <TextView
             android:text="전역까지 D - 83"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_height="wrap_content" android:layout_width="0dp"
             android:id="@+id/remainText" android:layout_weight="0.4"
             android:gravity="center|left" android:textSize="14sp"
@@ -38,6 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.7"/>
     <TextView
             android:text="이병"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/rankText"
             android:gravity="center|left" android:textSize="24sp" android:textStyle="bold"
@@ -47,6 +49,7 @@
     />
     <TextView
             android:text="김호건"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/nameText"
             android:gravity="center|left" android:textSize="24sp" android:textStyle="normal"
@@ -76,6 +79,7 @@
             android:id="@+id/guideline27" app:layout_constraintGuide_percent="0.85"/>
     <TextView
             android:text="국방부 시계는 지금"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_weight="0.3"
             android:gravity="center" android:textSize="22sp"
@@ -85,6 +89,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline30"/>
     <TextView
             android:text="20:42:15"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/clockText" android:layout_weight="0.7"
             android:gravity="center" android:textStyle="bold" android:textSize="50sp"
@@ -151,6 +156,7 @@
     <TextView
             android:text="총 복무율"
             android:id="@+id/CHONGBOKMOOYUL"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/entirePercentText"
@@ -162,6 +168,7 @@
 
     <TextView
             android:text="99.999999%"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/entirePercentText"
@@ -185,6 +192,7 @@
 
     <TextView
             android:text="현재 계급"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/progressCurrentRankText"
@@ -196,6 +204,7 @@
 
     <TextView
             android:text="이병"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/progressRankText"
@@ -208,6 +217,7 @@
 
     <TextView
             android:text="13.52%"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rankPercentText"
@@ -232,6 +242,7 @@
                  app:layout_constraintEnd_toEndOf="@+id/progressBarTotal"/>
     <TextView
             android:text="현재 호봉"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/progressCurrentMonthText"
             android:layout_marginTop="4dp"
@@ -250,6 +261,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
     <TextView
             android:text="1호봉"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/progressMonthText"
             android:layout_marginTop="4dp"
@@ -260,6 +272,7 @@
 
     <TextView
             android:text="81.66%"
+            android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/progressMonthPercentText"
