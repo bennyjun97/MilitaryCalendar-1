@@ -92,11 +92,11 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         if (requestCode == SELECT_PICTURE && resultCode == Activity.RESULT_OK) try {
-            // Load profile image to view
+            // Load profile image to view.
             val mImageUri = intent!!.data
             Glide.with(this).load(mImageUri).into(profileImage)
 
-            // Get persistent Uri permission so that it will be allowed to reload when you restart the device
+            // Get persistent Uri permission so that it is allowed to reload when you restart the device.
             userInfo.profileImage = mImageUri!!.toString()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -110,6 +110,8 @@ class RegisterActivity : AppCompatActivity() {
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
             // Display the stored profile image.
             profileImage.setImageURI(Uri.parse(userInfo.profileImage))
+            // Display the stored name.
+            inputName.setText(userInfo.name)
             // Display the stored affiliation.
             inputAffiliation.text = userInfo.affiliation
             // Display the promotion dates.
@@ -117,20 +119,22 @@ class RegisterActivity : AppCompatActivity() {
                 dateInputs[index].text = formatDate(userInfo.promotionDates[index])
             }
         }
-        // Display the stored name.
+        /*// Display the stored name.
         inputName.hint = userInfo.name
         // when name is loaded from data into hint, its color will be black
         inputName.setHintTextColor(Color.BLACK)
-        // Display the enlist date.
+        // Display the enlist date.*/
         inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
     }
 
     private fun setProfileImage() {
+        // Check whether the permission is granted.
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            // Request permission to access gallery.
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this, Manifest.permission.READ_EXTERNAL_STORAGE
                 )
@@ -159,7 +163,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun startGalleryIntent() {
         val intent = Intent()
         intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
+        intent.action = Intent.ACTION_OPEN_DOCUMENT
         startActivityForResult(Intent.createChooser(intent, "Select image"), SELECT_PICTURE)
     }
 

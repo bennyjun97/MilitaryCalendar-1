@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.activities.main.HomeActivity
 import com.kyminbb.militarycalendar.activities.register.RegisterActivity
 import org.jetbrains.anko.startActivity
 
