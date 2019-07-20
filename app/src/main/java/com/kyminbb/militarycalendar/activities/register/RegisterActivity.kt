@@ -2,9 +2,11 @@ package com.kyminbb.militarycalendar.activities.register
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
 import android.widget.Button
@@ -12,6 +14,7 @@ import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -30,15 +33,21 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
+import java.io.IOException
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
+
+    companion object {
+        private const val SELECT_PICTURE = 1
+        private const val REQUEST_READ_EXTERNAL_STORAGE = 1000
+    }
 
     //Initialize today's date
     private val today = Calendar.getInstance().toLocalDate()
 
     // Initialize the user info.
-    var userInfo = User()
+    private var userInfo = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +58,10 @@ class RegisterActivity : AppCompatActivity() {
         val dateInputs = arrayOf(inputEnlist, privateDate, corporalDate, sergeantDate, inputEnd)
 
         loadData(dateInputs)
+
+        profileImage.setOnClickListener {
+            setProfileImage()
+        }
 
         inputAffiliation.setOnClickListener {
             setAffiliation()
@@ -65,11 +78,38 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            REQUEST_READ_EXTERNAL_STORAGE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    startGalleryIntent()
+                }
+                return
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        if (requestCode == SELECT_PICTURE && resultCode == Activity.RESULT_OK) try {
+            // Load profile image to view
+            val mImageUri = intent!!.data
+            Glide.with(this).load(mImageUri).into(profileImage)
+
+            // Get persistent Uri permission so that it will be allowed to reload when you restart the device
+            userInfo.profileImage = mImageUri!!.toString()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
     // Load the user info from SharedPreferences.
     private fun loadData(dateInputs: Array<Button>) {
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         if (prefs.contains("userInfo")) {
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+            // Display the stored profile image.
+            profileImage.setImageURI(Uri.parse(userInfo.profileImage))
             // Display the stored affiliation.
             inputAffiliation.text = userInfo.affiliation
             // Display the promotion dates.
@@ -83,6 +123,44 @@ class RegisterActivity : AppCompatActivity() {
         inputName.setHintTextColor(Color.BLACK)
         // Display the enlist date.
         inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+    }
+
+    private fun setProfileImage() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+                alert("사진 정보를 얻으려면 외부 저장소 권한이 필수로 필요합니다", "권한이 필요한 이유") {
+                    yesButton {
+                        ActivityCompat.requestPermissions(
+                            this@RegisterActivity,
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE
+                        )
+                    }
+                    noButton { }
+                }.show()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_READ_EXTERNAL_STORAGE
+                )
+            }
+        } else {
+            startGalleryIntent()
+        }
+
+    }
+
+    private fun startGalleryIntent() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select image"), SELECT_PICTURE)
     }
 
     private fun setAffiliation() {
@@ -175,7 +253,10 @@ class RegisterActivity : AppCompatActivity() {
     private fun completeRegister() {
         when {
             // https://github.com/pranavpandey/dynamic-toasts
-            isEmpty(inputName.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+            isEmpty(inputName.text.toString()) && isEmpty(userInfo.name) -> return DynamicToast.makeError(
+                this,
+                "이름을 입력해주세요!"
+            ).show()
             isEmpty(inputAffiliation.text) -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
             else -> {
                 saveData()
@@ -231,51 +312,4 @@ class RegisterActivity : AppCompatActivity() {
     private fun formatDate(date: LocalDate): String {
         return date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"))
     }
-
-    /*private fun setProfileImage() {
-        // First check whether permission to read gallery is granted.
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this, Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-            ) {
-                // Request permission to user.
-                alert("사진 정보를 얻으려면 외부 저장소 권한이 필수로 필요합니다", "권한이 필요한 이유") {
-                    yesButton {
-                        ActivityCompat.requestPermissions(
-                            this@RegisterActivity,
-                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                            REQUEST_READ_EXTERNAL_STORAGE
-                        )
-                    }
-                    noButton { }
-                }.show()
-            } else {
-                ActivityCompat.requestPermissions(
-                    this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    REQUEST_READ_EXTERNAL_STORAGE
-                )
-            }
-        } else {
-            // Start gallery intent if permission is granted.
-            startGalleryIntent()
-        }
-    }
-
-    private fun startGalleryIntent() {
-        val intent = Intent()
-        intent.type = "image"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(
-            Intent.createChooser(intent, "Select image"),
-            SELECT_PICTURE
-        )
-    }*/
-
-/*
- */
 }

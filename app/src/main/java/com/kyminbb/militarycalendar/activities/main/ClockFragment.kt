@@ -2,6 +2,7 @@ package com.kyminbb.militarycalendar.activities.main
 
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.*
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,8 @@ class ClockFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        profileImage.setImageURI(Uri.parse(userInfo.profileImage))
+
         buttonEdit.setOnClickListener {
             startActivity<RegisterActivity>()
         }
@@ -54,7 +57,7 @@ class ClockFragment : Fragment() {
         val percentTotal = DateCalc.entirePercent(enlistDateTime, etsDateTime)
 
 
-        // update clock infos
+        // update clock info
         val hour = percentTotal * 0.24
         val min = (percentTotal * 14.4) % 60
         val sec = (percentTotal * 864.0) % 60
