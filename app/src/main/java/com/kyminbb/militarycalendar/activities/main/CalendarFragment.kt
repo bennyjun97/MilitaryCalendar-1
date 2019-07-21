@@ -423,7 +423,7 @@ class CalendarFragment : Fragment() {
         constraintSet.constrainWidth(personalinMonth[personalTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
         constraintSet.constrainHeight(personalinMonth[personalTextViewNum].id, ConstraintSet.WRAP_CONTENT)
         constraintSet.setVerticalBias(personalinMonth[personalTextViewNum].id, 0.80f)
-        personalinMonth[personalTextViewNum].setBackgroundColor(Color.parseColor("#B9B9B9"))
+        personalinMonth[personalTextViewNum].setBackgroundColor(Color.parseColor("#E57373"))
         personalinMonth[personalTextViewNum].text = text
         personalinMonth[personalTextViewNum].textSize = 8.0f
         calendarLayout.addView(personalinMonth[personalTextViewNum])
