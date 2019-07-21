@@ -38,4 +38,8 @@ class HomeActivity : AppCompatActivity() {
         tabs.getTabAt(2)!!.setIcon(tabIcons[2])
 
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
 }

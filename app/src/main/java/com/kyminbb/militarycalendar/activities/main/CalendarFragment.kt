@@ -33,12 +33,15 @@ class CalendarFragment : Fragment() {
     var startSlot = 0
     var endSlot = 41
     var leaveTextViewNum = 0
+    var dutyTextViewNum = 0
+    var exerciseTextViewNum = 0
+    var personalTextViewNum = 0
     var leavesinMonth: MutableList<TextView> =
         mutableListOf<TextView>()  //stores all the leave of the month. updated by updateCalendar()
-    /*var dutiesinMonth: MutableList<Duty> = mutableListOf<Duty>() //stores all the duty of the month. updated by updateCalendar()
-    var exercisesinMonth: MutableList<Exercise> = mutableListOf<Exerciese>() //stores all the exercise of the month. updated by updateCalendar()
-    var personalinMonth: MutableList<Personal> = mutableListOf<Personal>()
-    */
+    var dutiesinMonth: MutableList<TextView> = mutableListOf<TextView>() //stores all the duty of the month. updated by updateCalendar()
+    var exercisesinMonth: MutableList<TextView> = mutableListOf<TextView>() //stores all the exercise of the month. updated by updateCalendar()
+    var personalinMonth: MutableList<TextView> = mutableListOf<TextView>()
+
     var daySelected = -1
 
     override fun onCreateView(
@@ -127,7 +130,7 @@ class CalendarFragment : Fragment() {
             button.setOnClickListener {
                 if (!button.text.isEmpty()) {
                     button.setBackgroundResource(R.drawable.calendar_stroke)
-                    if (daySelected == -1) {
+                    if (daySelected == -1 || daySelected==Integer.parseInt(button.text.toString()) + startSlot -1 ){
                         daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
                         return@setOnClickListener
                     } else {
@@ -247,6 +250,31 @@ class CalendarFragment : Fragment() {
         }
         leaveTextViewNum = 0
 
+        if(dutyTextViewNum != 0) {
+            for(duty in dutiesinMonth)
+                calendarLayout.removeView(duty)
+            dutiesinMonth.clear()
+        }
+        dutyTextViewNum = 0
+
+        if (exerciseTextViewNum != 0) {
+            calendarLayout.removeView(exercisesinMonth[0])
+            if (exerciseTextViewNum >= 2)
+                calendarLayout.removeView(exercisesinMonth[1])
+            for (exercise in exercisesinMonth) {
+                calendarLayout.removeView(exercise)
+            }
+            exercisesinMonth.clear()
+        }
+        exerciseTextViewNum = 0
+
+        if(personalTextViewNum != 0) {
+            for(duty in personalinMonth)
+                calendarLayout.removeView(duty)
+            personalinMonth.clear()
+        }
+        personalTextViewNum = 0
+
         //cloning just in case
         val cal = calendar.clone() as Calendar
 
@@ -286,6 +314,22 @@ class CalendarFragment : Fragment() {
         cal2.set(Calendar.DAY_OF_MONTH, 15)
         cal3.set(Calendar.DAY_OF_MONTH, 19)
         addLeaveinCalendar(cal2, cal3, "영덩이 찰싹")
+        cal3.set(Calendar.DAY_OF_MONTH, 18)
+        addExerciseinCalendar(cal2, cal3, "유격 훈련")
+
+        cal2.set(Calendar.DAY_OF_MONTH, 16)
+        addDutyinCalendar(cal2, "당직")
+        cal2.set(Calendar.DAY_OF_MONTH, 8)
+        addDutyinCalendar(cal2, "4시 불침번")
+        cal2.set(Calendar.DAY_OF_MONTH, 1)
+        cal3.set(Calendar.DAY_OF_MONTH, 12)
+        addExerciseinCalendar(cal2, cal3, "전술작전훈련")
+
+        addPersonalinCalendar(cal2, "후임 생일")
+        cal2.set(Calendar.DAY_OF_MONTH, 24)
+        addPersonalinCalendar(cal2, "100일!")
+        cal2.set(Calendar.DAY_OF_YEAR, 28)
+        addPersonalinCalendar(cal2, "티켓 예매!")
 
     }
 
@@ -301,7 +345,104 @@ class CalendarFragment : Fragment() {
                 drawLeaveTextView(i * 7, i * 7 + 6, text)
             drawLeaveTextView((endPosition / 7) * 7, endPosition, text)
         }
+    }
 
+    fun addDutyinCalendar(date: Calendar, text: String) {
+        var position = date.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+
+        val constraintSet = ConstraintSet()
+        dutiesinMonth.add(TextView(this.context))
+        dutiesinMonth[dutyTextViewNum].id = View.generateViewId()
+        constraintSet.clone(calendarLayout)
+        constraintSet.connect(
+            dutiesinMonth[dutyTextViewNum].id,
+            ConstraintSet.START,
+            slots[position].id,
+            ConstraintSet.START
+        )
+        constraintSet.connect(
+            dutiesinMonth[dutyTextViewNum].id,
+            ConstraintSet.END,
+            slots[position].id,
+            ConstraintSet.END
+        )
+        constraintSet.connect(
+            dutiesinMonth[dutyTextViewNum].id,
+            ConstraintSet.BOTTOM,
+            slots[position].id,
+            ConstraintSet.BOTTOM
+        )
+        constraintSet.connect(
+            dutiesinMonth[dutyTextViewNum].id,
+            ConstraintSet.TOP,
+            slots[position].id,
+            ConstraintSet.TOP
+        )
+        constraintSet.constrainWidth(dutiesinMonth[dutyTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
+        constraintSet.constrainHeight(dutiesinMonth[dutyTextViewNum].id, ConstraintSet.WRAP_CONTENT)
+        constraintSet.setVerticalBias(dutiesinMonth[dutyTextViewNum].id, 0.50f)
+        dutiesinMonth[dutyTextViewNum].setBackgroundColor(Color.parseColor("#64B5F6"))
+        dutiesinMonth[dutyTextViewNum].text = text
+        dutiesinMonth[dutyTextViewNum].textSize = 8.0f
+        calendarLayout.addView(dutiesinMonth[dutyTextViewNum])
+        constraintSet.applyTo(calendarLayout)
+        dutyTextViewNum++
+    }
+
+    fun addPersonalinCalendar(date: Calendar, text: String) {
+        var position = date.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+
+        val constraintSet = ConstraintSet()
+        personalinMonth.add(TextView(this.context))
+        personalinMonth[personalTextViewNum].id = View.generateViewId()
+        constraintSet.clone(calendarLayout)
+        constraintSet.connect(
+            personalinMonth[personalTextViewNum].id,
+            ConstraintSet.START,
+            slots[position].id,
+            ConstraintSet.START
+        )
+        constraintSet.connect(
+            personalinMonth[personalTextViewNum].id,
+            ConstraintSet.END,
+            slots[position].id,
+            ConstraintSet.END
+        )
+        constraintSet.connect(
+            personalinMonth[personalTextViewNum].id,
+            ConstraintSet.BOTTOM,
+            slots[position].id,
+            ConstraintSet.BOTTOM
+        )
+        constraintSet.connect(
+            personalinMonth[personalTextViewNum].id,
+            ConstraintSet.TOP,
+            slots[position].id,
+            ConstraintSet.TOP
+        )
+        constraintSet.constrainWidth(personalinMonth[personalTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
+        constraintSet.constrainHeight(personalinMonth[personalTextViewNum].id, ConstraintSet.WRAP_CONTENT)
+        constraintSet.setVerticalBias(personalinMonth[personalTextViewNum].id, 0.80f)
+        personalinMonth[personalTextViewNum].setBackgroundColor(Color.parseColor("#B9B9B9"))
+        personalinMonth[personalTextViewNum].text = text
+        personalinMonth[personalTextViewNum].textSize = 8.0f
+        calendarLayout.addView(personalinMonth[personalTextViewNum])
+        constraintSet.applyTo(calendarLayout)
+        personalTextViewNum++
+    }
+
+    fun addExerciseinCalendar(startDate: Calendar, endDate: Calendar, text: String) {
+        var startPosition = startDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+        var endPosition = endDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+
+        if ((startPosition) / 7 == (endPosition) / 7)
+            drawExerciseTextView(startPosition, endPosition, text)
+        else {
+            drawExerciseTextView(startPosition, (startPosition / 7) * 7 + 6, text)
+            for (i in (startPosition / 7) + 1..(endPosition / 7) - 1)
+                drawExerciseTextView(i * 7, i * 7 + 6, text)
+            drawExerciseTextView((endPosition / 7) * 7, endPosition, text)
+        }
     }
 
     //drawing Leave Text Views on fragment_calendar2 programmatically
@@ -336,11 +477,52 @@ class CalendarFragment : Fragment() {
         )
         constraintSet.constrainWidth(leavesinMonth[leaveTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
         constraintSet.constrainHeight(leavesinMonth[leaveTextViewNum].id, ConstraintSet.WRAP_CONTENT)
+        constraintSet.setVerticalBias(leavesinMonth[leaveTextViewNum].id, 0.35f)
         leavesinMonth[leaveTextViewNum].setBackgroundColor(Color.parseColor("#7CB342"))
         leavesinMonth[leaveTextViewNum].text = text
         leavesinMonth[leaveTextViewNum].textSize = 8.0f
         calendarLayout.addView(leavesinMonth[leaveTextViewNum])
         constraintSet.applyTo(calendarLayout)
         leaveTextViewNum++
+    }
+
+    fun drawExerciseTextView(startPos: Int, endPos: Int, text: String) {
+        val constraintSet = ConstraintSet()
+        exercisesinMonth.add(TextView(this.context))
+        exercisesinMonth[exerciseTextViewNum].id = View.generateViewId()
+        constraintSet.clone(calendarLayout)
+        constraintSet.connect(
+            exercisesinMonth[exerciseTextViewNum].id,
+            ConstraintSet.START,
+            slots[startPos].id,
+            ConstraintSet.START
+        )
+        constraintSet.connect(
+            exercisesinMonth[exerciseTextViewNum].id,
+            ConstraintSet.END,
+            slots[endPos].id,
+            ConstraintSet.END
+        )
+        constraintSet.connect(
+            exercisesinMonth[exerciseTextViewNum].id,
+            ConstraintSet.BOTTOM,
+            slots[startPos].id,
+            ConstraintSet.BOTTOM
+        )
+        constraintSet.connect(
+            exercisesinMonth[exerciseTextViewNum].id,
+            ConstraintSet.TOP,
+            slots[endPos].id,
+            ConstraintSet.TOP
+        )
+        constraintSet.constrainWidth(exercisesinMonth[exerciseTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
+        constraintSet.constrainHeight(exercisesinMonth[exerciseTextViewNum].id, ConstraintSet.WRAP_CONTENT)
+        constraintSet.setVerticalBias(exercisesinMonth[exerciseTextViewNum].id, 0.65f)
+        exercisesinMonth[exerciseTextViewNum].setBackgroundColor(Color.parseColor("#9E9D24"))
+        exercisesinMonth[exerciseTextViewNum].text = text
+        exercisesinMonth[exerciseTextViewNum].textSize = 8.0f
+        calendarLayout.addView(exercisesinMonth[exerciseTextViewNum])
+        constraintSet.applyTo(calendarLayout)
+        exerciseTextViewNum++
     }
 }
