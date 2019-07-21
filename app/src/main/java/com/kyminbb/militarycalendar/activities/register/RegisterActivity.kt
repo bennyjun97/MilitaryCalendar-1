@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils.isEmpty
 import android.widget.Button
 import android.widget.PopupMenu
@@ -32,6 +33,7 @@ import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import java.io.IOException
 import java.util.*
@@ -61,6 +63,9 @@ class RegisterActivity : AppCompatActivity() {
 
         profileImage.setOnClickListener {
             setProfileImage()
+        }
+
+        inputName.setOnClickListener{
         }
 
         inputAffiliation.setOnClickListener {
@@ -111,20 +116,28 @@ class RegisterActivity : AppCompatActivity() {
             // Display the stored profile image.
             profileImage.setImageURI(Uri.parse(userInfo.profileImage))
             // Display the stored name.
-            inputName.setText(userInfo.name)
+            //inputName.text = Editable.Factory.getInstance().newEditable(userInfo.name)
+            inputName.hint = userInfo.name
+            //inputName.setHintTextColor(Color.BLACK)
             // Display the stored affiliation.
             inputAffiliation.text = userInfo.affiliation
+            // Display the enlist date.*/
+            inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
             // Display the promotion dates.
             for (index in Dates.RANK2.ordinal until dateInputs.size) {
                 dateInputs[index].text = formatDate(userInfo.promotionDates[index])
             }
         }
+        else {
+            inputName.hint = getString(R.string.profileNameHint)
+        }
+
         /*// Display the stored name.
         inputName.hint = userInfo.name
         // when name is loaded from data into hint, its color will be black
         inputName.setHintTextColor(Color.BLACK)
         // Display the enlist date.*/
-        inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
+        // inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
     }
 
     private fun setProfileImage() {
