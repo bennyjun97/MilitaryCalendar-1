@@ -4,22 +4,20 @@ import android.content.ContentValues
 import android.graphics.Color
 import android.os.Bundle
 import android.provider.BaseColumns
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.PopupWindow
 import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
 import kotlinx.android.synthetic.main.fragment_calendar2.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.textColor
+import kotlinx.android.synthetic.main.add_event.*
 import java.util.*
 
 
@@ -41,6 +39,7 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_calendar2, container, false)
     }
 
@@ -74,6 +73,18 @@ class CalendarFragment : Fragment() {
             calendar.add(Calendar.MONTH, -1)
             updateCalendar(calendar)
         }
+
+        // 일정 추가 코드!!
+        // 밑에 코드 이해 못 해서 일단 이걸로 씀 ㅠㅠ
+
+        var popupView = getLayoutInflater().inflate(R.layout.add_event, null)
+        var popUp = PopupWindow(popupView)
+
+        addLeave.setOnClickListener() {
+            popUp.showAtLocation(view, Gravity.CENTER, 0, 0)
+            popUp.update(view, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels)
+        }
+
 
         /*(calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val date = formatDate(year, month+1, dayOfMonth)
