@@ -92,6 +92,7 @@
 
     <!-- 소속 설정 -->
     <TextView
+            android:maxLines="1"
             android:text="@string/profilePromotion"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -121,6 +122,7 @@
 
     <!-- 입대일 정보 -->
     <TextView
+            android:maxLines="1"
             android:text="@string/profileEnlistDate"
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/enlistText"
@@ -152,6 +154,7 @@
 
     <!-- 자동 업데이트 되는 진급일 표시 -->
     <TextView
+            android:maxLines="1"
             android:text="@string/promotionTextMain"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -164,6 +167,7 @@
             app:layout_constraintTop_toTopOf="@+id/privateDate"
             app:layout_constraintBottom_toBottomOf="@+id/privateDate"/>
     <TextView
+            android:maxLines="1"
             android:text="@string/promotionTextFirst"
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/privateText"
@@ -190,6 +194,7 @@
             app:layout_constraintStart_toStartOf="@+id/middle" app:layout_constraintTop_toBottomOf="@+id/inputEnlist"
             android:layout_marginTop="8dp"/>
     <TextView
+            android:maxLines="1"
             android:text="@string/promotionTextSecond"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -214,6 +219,7 @@
             app:layout_constraintTop_toBottomOf="@+id/privateDate" android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"/>
     <TextView
+            android:maxLines="1"
             android:text="@string/promotionTextThird"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -240,6 +246,7 @@
     <!-- 전역일 정보 -->
 
     <TextView
+            android:maxLines="1"
             android:text="@string/profileEndDate"
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/endText"

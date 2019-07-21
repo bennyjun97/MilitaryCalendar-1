@@ -48,14 +48,12 @@ class ClockFragment : Fragment() {
         // set Text in the Top View
         nameText.text = userInfo.name
 
-        val enlistDateTime = userInfo.promotionDates[Dates.ENLIST.ordinal].atStartOfDay()
-        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].plusDays(1).atStartOfDay()
 
         // update datas concurrently until main thread is finished
         GlobalScope.launch(Dispatchers.Main){
             while(true) {
                 delay(100)
-                upDateInfos(enlistDateTime, etsDateTime)
+                upDateInfos()
             }
         }
 
@@ -71,7 +69,10 @@ class ClockFragment : Fragment() {
         return "%02d".format(hour) + ":" + "%02d".format(min) + ":" + "%02d".format(sec)
     }
 
-    private fun upDateInfos(enlistDateTime: LocalDateTime, etsDateTime: LocalDateTime){
+    private fun upDateInfos(){
+
+        val enlistDateTime = userInfo.promotionDates[Dates.ENLIST.ordinal].atStartOfDay()
+        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].plusDays(1).atStartOfDay()
 
         // calc percents
         val percentTotal = DateCalc.entirePercent(enlistDateTime, etsDateTime)
