@@ -40,9 +40,10 @@
     <!-- calendar -->
     <color name="calendarBackground">#424242</color>
     <color name="calendarButtons">#9E9D24</color>
-    <color name="leave">#E57373</color>
-    <color name="exercise">#7CB342</color>
+    <color name="personal">#E57373</color>
+    <color name="leave">#7CB342</color>
     <color name="duty">#64B5F6</color>
-    <color name="personal">#FFF463</color>
+    <color name="exercise">#9E9D24</color>
+    <color name="dateButtons">#B9B9B9</color>
 
 </resources>
