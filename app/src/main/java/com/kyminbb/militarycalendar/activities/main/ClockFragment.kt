@@ -56,7 +56,6 @@ class ClockFragment : Fragment() {
                 upDateInfos()
             }
         }
-
     }
 
     private fun loadData() {
@@ -80,7 +79,7 @@ class ClockFragment : Fragment() {
         val percentHobong = DateCalc.monthPercent(userInfo)
 
         // update percent text
-        entirePercentText.text = "%.8f".format(percentTotal) + "%"
+        entirePercentText.text = "${"%.8f".format(percentTotal)}%"
         rankPercentText.text = "${"%.2f".format(percentRank)}%"
         progressMonthPercentText.text = "${"%.2f".format(percentHobong)}%"
 

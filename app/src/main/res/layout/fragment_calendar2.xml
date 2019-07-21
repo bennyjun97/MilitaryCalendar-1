@@ -84,48 +84,58 @@
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/leftGuide"
+            app:layout_constraintGuide_percent="0.045"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/rightGuide"
+            app:layout_constraintGuide_percent="0.955"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/monGuide"
-            app:layout_constraintGuide_percent="0.15"/>
+            app:layout_constraintGuide_percent="0.175"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/tueGuide"
-            app:layout_constraintGuide_percent="0.29"/>
+            app:layout_constraintGuide_percent="0.305"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/wenGuide"
-            app:layout_constraintGuide_percent="0.43"/>
+            app:layout_constraintGuide_percent="0.435"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/thurGuide"
-            app:layout_constraintGuide_percent="0.57"/>
+            app:layout_constraintGuide_percent="0.565"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/friguide"
-            app:layout_constraintGuide_percent="0.71" android:paddingTop="4dp"/>
+            app:layout_constraintGuide_percent="0.695" android:paddingTop="4dp"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/satguide"
-            app:layout_constraintGuide_percent="0.85"/>
+            app:layout_constraintGuide_percent="0.825"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/topmenuGuide"
             app:layout_constraintGuide_percent="0.1"/>
     <TextView
-            android:text="월"
+            android:text="일"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/monday" app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/monday" app:layout_constraintStart_toStartOf="@id/leftGuide"
             app:layout_constraintEnd_toStartOf="@id/monGuide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
             android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
-            android:text="화"
+            android:text="월"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tuesday" app:layout_constraintStart_toStartOf="@id/monGuide"
@@ -133,7 +143,7 @@
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
             android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
-            android:text="수"
+            android:text="화"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/wednesday" app:layout_constraintStart_toStartOf="@id/tueGuide"
@@ -141,7 +151,7 @@
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
             android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
-            android:text="목"
+            android:text="수"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/thursday" app:layout_constraintStart_toStartOf="@id/wenGuide"
@@ -149,7 +159,7 @@
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
             android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
-            android:text="금"
+            android:text="목"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/friday" app:layout_constraintStart_toStartOf="@id/thurGuide"
@@ -157,7 +167,7 @@
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
             android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
-            android:text="토"
+            android:text="금"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/saturday" app:layout_constraintStart_toStartOf="@id/friguide"
@@ -165,25 +175,25 @@
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
             android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <TextView
-            android:text="일"
+            android:text="토"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sunday" app:layout_constraintStart_toStartOf="@id/satguide"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/rightGuide"
             app:layout_constraintTop_toTopOf="@id/topmenuGuide" app:layout_constraintBottom_toBottomOf="@id/week1Guide"
             android:gravity="center" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day1"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week1Guide"
+            app:layout_constraintStart_toStartOf="@id/leftGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day2"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
@@ -191,7 +201,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day3"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
@@ -199,7 +209,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day4"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
@@ -207,7 +217,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day5"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
@@ -215,7 +225,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day6"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week1Guide"
             app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
@@ -223,24 +233,24 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day7"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week1Guide"
-            app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/week2Guide" app:layout_constraintEnd_toEndOf="@id/rightGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day8"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week2Guide"
+            app:layout_constraintStart_toStartOf="@id/leftGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day9"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
@@ -248,7 +258,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day10"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
@@ -256,7 +266,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day11"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
@@ -264,7 +274,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day12"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
@@ -272,7 +282,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day13"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week2Guide"
             app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
@@ -280,24 +290,24 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day14"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week2Guide"
-            app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/week3Guide" app:layout_constraintEnd_toEndOf="@id/rightGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day15"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week3Guide"
+            app:layout_constraintStart_toStartOf="@id/leftGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day16"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
@@ -305,7 +315,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day17"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
@@ -313,7 +323,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day18"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
@@ -321,7 +331,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day19"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
@@ -329,7 +339,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day20"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week3Guide"
             app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
@@ -337,23 +347,23 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day21"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week3Guide"
-            app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/week4Guide" app:layout_constraintEnd_toEndOf="@id/rightGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day22"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week4Guide"
+            app:layout_constraintStart_toStartOf="@id/leftGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day23"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
@@ -361,7 +371,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day24"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
@@ -369,7 +379,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day25"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
@@ -377,7 +387,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day26"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
@@ -385,7 +395,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day27"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week4Guide"
             app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
@@ -393,24 +403,24 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day28"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week4Guide"
-            app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/week5Guide" app:layout_constraintEnd_toEndOf="@id/rightGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day29"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week5Guide"
+            app:layout_constraintStart_toStartOf="@id/leftGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/monGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day30"
-            android:gravity="top|end" android:padding="2dp"
+            android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
@@ -418,7 +428,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day31"
-            android:gravity="top|end" android:padding="2dp"
+            android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
@@ -426,7 +436,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day32"
-            android:gravity="top|end" android:padding="2dp"
+            android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
@@ -434,7 +444,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day33"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/friguide"
@@ -442,7 +452,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day34"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week5Guide"
             app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toStartOf="@id/satguide"
@@ -450,24 +460,24 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day35"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week5Guide"
-            app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/week6Guide" app:layout_constraintEnd_toEndOf="@id/rightGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
 
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day36"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/week6Guide"
+            app:layout_constraintStart_toStartOf="@id/leftGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/monGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day37"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/monGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/tueGuide"
@@ -475,7 +485,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day38"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/tueGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/wenGuide"
@@ -483,7 +493,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day39"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/wenGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/thurGuide"
@@ -491,7 +501,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day40"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/thurGuide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/friguide"
@@ -499,7 +509,7 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day41"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/friguide" app:layout_constraintTop_toTopOf="@id/week6Guide"
             app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toStartOf="@id/satguide"
@@ -507,10 +517,10 @@
     <Button
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/day42"
-            android:background="@null" android:gravity="top|end" android:padding="2dp"
+            android:background="@null" android:gravity="center|top" android:padding="2dp"
             android:textSize="14sp" android:fontFamily="@font/jalnan"
             app:layout_constraintStart_toStartOf="@id/satguide" app:layout_constraintTop_toTopOf="@id/week6Guide"
-            app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/bottomGuide" app:layout_constraintEnd_toEndOf="@id/rightGuide"
             android:textColor="@android:color/white" android:paddingTop="4dp"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
