@@ -44,5 +44,6 @@
     <color name="leave">#7CB342</color>
     <color name="duty">#64B5F6</color>
     <color name="exercise">#9E9D24</color>
+    <color name="dateButtons">#B9B9B9</color>
 
 </resources>

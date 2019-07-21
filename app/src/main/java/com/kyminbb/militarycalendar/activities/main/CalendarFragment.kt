@@ -54,15 +54,6 @@ class CalendarFragment : Fragment() {
 
         updateCalendar(calendar)
 
-
-        addLeave.setOnClickListener {
-            if(!adding)
-                return@setOnClickListener
-            else {
-
-            }
-        }
-
         buttonAdd.setOnClickListener {
             if (adding) {
                 addTab.visibility = View.VISIBLE
