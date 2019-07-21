@@ -88,4 +88,7 @@
     <string name="reset">초기화</string>
     <string name="register">등록하기</string>
 
+
+    <!-- Clockview -->
+    <string name="clockUnitlEnd">전역까지 D-83</string>
 </resources>
