@@ -68,7 +68,7 @@
     <string name="agent">사회복무요원</string>
     <string name="fire">의무소방대</string>
 
-    
+
     <!-- profile setting -->
     <string name="profileHeader">출사표</string>
     <string name="profileNameHint">이름/별명*</string>
@@ -91,4 +91,7 @@
 
     <!-- Clockview -->
     <string name="clockUnitlEnd">전역까지 D-83</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -85,42 +85,42 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/leftGuide"
-            app:layout_constraintGuide_percent="0.045"/>
+            app:layout_constraintGuide_percent="0.01"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/rightGuide"
-            app:layout_constraintGuide_percent="0.955"/>
+            app:layout_constraintGuide_percent="0.99"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/monGuide"
-            app:layout_constraintGuide_percent="0.175"/>
+            app:layout_constraintGuide_percent="0.15"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/tueGuide"
-            app:layout_constraintGuide_percent="0.305"/>
+            app:layout_constraintGuide_percent="0.29"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/wenGuide"
-            app:layout_constraintGuide_percent="0.435"/>
+            app:layout_constraintGuide_percent="0.43"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/thurGuide"
-            app:layout_constraintGuide_percent="0.565"/>
+            app:layout_constraintGuide_percent="0.57"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/friguide"
-            app:layout_constraintGuide_percent="0.695" android:paddingTop="4dp"/>
+            app:layout_constraintGuide_percent="0.71" android:paddingTop="4dp"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/satguide"
-            app:layout_constraintGuide_percent="0.825"/>
+            app:layout_constraintGuide_percent="0.85"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"

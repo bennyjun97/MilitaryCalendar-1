@@ -23,7 +23,6 @@ class HomeActivity : AppCompatActivity() {
         adapter.addFragment(GraphFragment(), "짬중성취")
 
 
-
         // Link fragments and the activity.
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
@@ -37,10 +36,10 @@ class HomeActivity : AppCompatActivity() {
         tabs.getTabAt(1)!!.setIcon(tabIcons[1])
         tabs.getTabAt(2)!!.setIcon(tabIcons[2])
 
+
         if(viewPager.currentItem == 0){
             isFirstPage = true
-        } else
-            isFirstPage = false
+        }
 
     }
     companion object {
