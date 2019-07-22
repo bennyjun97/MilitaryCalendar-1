@@ -1,9 +1,8 @@
 package com.kyminbb.militarycalendar.activities.main
 
-import android.content.ContentValues
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.provider.BaseColumns
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,24 +10,30 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupWindow
 import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import com.commit451.addendum.threetenabp.toLocalDate
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
+import com.tsongkha.spinnerdatepicker.DatePickerDialog
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_calendar2.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.textColor
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.parseList
+import org.jetbrains.anko.db.rowParser
+import org.jetbrains.anko.db.select
+import org.jetbrains.anko.find
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class CalendarFragment : Fragment() {
 
     private var adding = true
-    var calendar = Calendar.getInstance()
+    private var calendar = Calendar.getInstance()
+    private val today = calendar.toLocalDate()
+
     var slots: Array<Button> = arrayOf()
     var startSlot = 0
     var endSlot = 41
@@ -38,8 +43,10 @@ class CalendarFragment : Fragment() {
     var personalTextViewNum = 0
     var leavesinMonth: MutableList<TextView> =
         mutableListOf<TextView>()  //stores all the leave of the month. updated by updateCalendar()
-    var dutiesinMonth: MutableList<TextView> = mutableListOf<TextView>() //stores all the duty of the month. updated by updateCalendar()
-    var exercisesinMonth: MutableList<TextView> = mutableListOf<TextView>() //stores all the exercise of the month. updated by updateCalendar()
+    var dutiesinMonth: MutableList<TextView> =
+        mutableListOf<TextView>() //stores all the duty of the month. updated by updateCalendar()
+    var exercisesinMonth: MutableList<TextView> =
+        mutableListOf<TextView>() //stores all the exercise of the month. updated by updateCalendar()
     var personalinMonth: MutableList<TextView> = mutableListOf<TextView>()
 
     var daySelected = -1
@@ -56,7 +63,7 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dbHelper = DBHelper(this.context!!)
+        val dbHelper: DBHelper = DBHelper.getInstance(context!!)
 
         slots = arrayOf(
             day1,
@@ -128,9 +135,9 @@ class CalendarFragment : Fragment() {
 
         for (button in slots) {
             button.setOnClickListener {
-                if (!button.text.isEmpty()) {
+                if (button.text.isNotEmpty()) {
                     button.setBackgroundResource(R.drawable.calendar_stroke)
-                    if (daySelected == -1 || daySelected==Integer.parseInt(button.text.toString()) + startSlot -1 ){
+                    if (daySelected == -1 || daySelected == Integer.parseInt(button.text.toString()) + startSlot - 1) {
                         daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
                         return@setOnClickListener
                     } else {
@@ -143,92 +150,141 @@ class CalendarFragment : Fragment() {
         // 일정 추가 코드!!
         // 밑에 코드 이해 못 해서 일단 이걸로 씀 ㅠㅠ
 
-        var popupView = getLayoutInflater().inflate(R.layout.add_event, null)
-        var popUp = PopupWindow(popupView)
+        val popupView = layoutInflater.inflate(R.layout.add_event, null)
+        val popup = PopupWindow(popupView)
 
-        addLeave.setOnClickListener() {
-            popUp.showAtLocation(view, Gravity.CENTER, 0, 0)
-            popUp.update(
+        addLeave.setOnClickListener {
+            popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+            popup.update(
                 view,
-                getResources().getDisplayMetrics().widthPixels,
-                getResources().getDisplayMetrics().heightPixels
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels
+            )
+
+            val startSchedule = popupView.find<Button>(R.id.startSchedule)
+            val endSchedule = popupView.find<Button>(R.id.endSchedule)
+            val buttonAddEvent = popupView.find<Button>(R.id.buttonAddEvent)
+            val buttonCancel = popupView.find<Button>(R.id.buttonCancel)
+
+            startSchedule.setOnClickListener {
+                setDate(popupView, "Start")
+            }
+
+            endSchedule.setOnClickListener {
+                setDate(popupView, "End")
+            }
+
+            buttonAddEvent.setOnClickListener {
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                    // Store the schedule.
+                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), "디비실험")
+                    // Retrieve the data for test purpose.
+                    val endDates = readDB(dbHelper, startSchedule.text.toString())
+                    for (endDate in endDates) {
+                        addLeaveinCalendar(
+                            string2Date(startSchedule.text.toString()),
+                            string2Date(endDate.first),
+                            endDate.third
+                        )
+                    }
+
+                    startSchedule.text = ""
+                    endSchedule.text = ""
+                    // Dismiss the popup window.
+                    popup.dismiss()
+                }
+            }
+
+            buttonCancel.setOnClickListener {
+                // Dismiss the popup window.
+                popup.dismiss()
+            }
+        }
+    }
+
+    // To be revised to display the selected date for the default.
+    private fun setDate(view: View, type: String) {
+        val startSchedule = view.find<Button>(R.id.startSchedule)
+        val endSchedule = view.find<Button>(R.id.endSchedule)
+        // Use SpinnerDatePicker to select date.
+        // https://github.com/drawers/SpinnerDatePicker
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            when (type) {
+                "Start" -> startSchedule.text = date2String(year, month + 1, day)
+                "End" -> endSchedule.text = date2String(year, month + 1, day)
+            }
+        }
+
+        val dialog = SpinnerDatePickerDialogBuilder()
+            .context(context)
+            .callback(dateSetListener)
+            .spinnerTheme(R.style.NumberPickerStyle)
+            .showTitle(true)
+            .showDaySpinner(true)
+            .maxDate(today.year + 4, 11, 31)
+            .minDate(today.year - 5, 0, 1)
+            .defaultDate(today.year, today.monthValue - 1, today.dayOfMonth)
+        dialog.build().show()
+    }
+
+
+    /*(calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+        val date = formatDate(year, month+1, dayOfMonth)
+
+        // Show saved schedules of the date.
+        val contents = readDB(dbHelper, date)
+        toast("$contents")
+
+        // Add a schedule on the date.
+        val addButtons = mapOf(addLeave to "휴가", addDuty to "당직", addExercise to "훈련", addPersonal to "개인일정")
+        for (button in addButtons.keys) {
+            button.setOnClickListener {
+                writeDB(dbHelper, (addButtons[button])!!, date)
+                val text = "${addButtons[button]} 추가"
+                testText.text = text
+            }
+        }
+    }*/
+
+    private fun writeDB(dbHelper: DBHelper, content: String, startDate: String, endDate: String, memo: String) {
+        dbHelper.use {
+            insert(
+                TableReaderContract.TableEntry.TABLE_NAME,
+                TableReaderContract.TableEntry.COLUMN_START_DATE to startDate,
+                TableReaderContract.TableEntry.COLUMN_END_DATE to endDate,
+                TableReaderContract.TableEntry.COLUMN_CONTENT to content,
+                TableReaderContract.TableEntry.COLUMN_MEMO to memo
             )
         }
     }
 
-
-        /*(calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val date = formatDate(year, month+1, dayOfMonth)
-
-            // Show saved schedules of the date.
-            val contents = readDB(dbHelper, date)
-            toast("$contents")
-
-            // Add a schedule on the date.
-            val addButtons = mapOf(addLeave to "휴가", addDuty to "당직", addExercise to "훈련", addPersonal to "개인일정")
-            for (button in addButtons.keys) {
-                button.setOnClickListener {
-                    writeDB(dbHelper, (addButtons[button])!!, date)
-                    val text = "${addButtons[button]} 추가"
-                    testText.text = text
+    private fun readDB(dbHelper: DBHelper, startDate: String): List<Triple<String, String, String>> {
+        return dbHelper.use {
+            select(
+                TableReaderContract.TableEntry.TABLE_NAME,
+                TableReaderContract.TableEntry.COLUMN_END_DATE,
+                TableReaderContract.TableEntry.COLUMN_CONTENT,
+                TableReaderContract.TableEntry.COLUMN_MEMO
+            )
+                .whereSimple("${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?", startDate).exec {
+                    val parser = rowParser { endDate: String, content: String, memo: String ->
+                        Triple(endDate, content, memo)
+                    }
+                    parseList(parser)
                 }
-            }
-        }*/
-
-    private fun writeDB(dbHelper: DBHelper, content: String, date: String) {
-        val db = dbHelper.writableDatabase
-
-        val values = ContentValues().apply {
-            put(TableReaderContract.TableEntry.COLUMN_START_DATE, date)
-            put(TableReaderContract.TableEntry.COLUMN_END_DATE, date)
-            put(TableReaderContract.TableEntry.COLUMN_CONTENT, content)
         }
-        db?.insert(TableReaderContract.TableEntry.TABLE_NAME, null, values)
     }
 
-    private fun readDB(dbHelper: DBHelper, date: String): MutableList<String> {
-        val db = dbHelper.readableDatabase
-
-        // Define a projection that specifies which columns from the database you will actually find after the query.
-        val projection = arrayOf(
-            BaseColumns._ID,
-            TableReaderContract.TableEntry.COLUMN_START_DATE,
-            TableReaderContract.TableEntry.COLUMN_END_DATE,
-            TableReaderContract.TableEntry.COLUMN_CONTENT
-        )
-
-        val selection = "${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?"
-        val selectionArgs = arrayOf(date)
-
-        val sortOrder = "${TableReaderContract.TableEntry.COLUMN_END_DATE} ASC"
-
-        val cursor = db.query(
-            TableReaderContract.TableEntry.TABLE_NAME,
-            projection,
-            selection,
-            selectionArgs,
-            null,
-            null,
-            sortOrder
-        )
-
-        val contents = mutableListOf<String>()
-        // Read the column's value by iterating through results.
-        with(cursor) {
-            while (moveToNext()) {
-                val content =
-                    getString(getColumnIndexOrThrow(TableReaderContract.TableEntry.COLUMN_CONTENT))
-                if (content != null) {
-                    contents.add(content)
-                }
-            }
-        }
-        cursor.close()
-        return contents
-    }
-
-    private fun formatDate(year: Int, month: Int, dayOfMonth: Int): String {
+    private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
         return "$year-$month-$dayOfMonth"
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun string2Date(date: String): Calendar {
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        val cal = Calendar.getInstance()
+        cal.time = format.parse(date)
+        return cal
     }
 
     private fun updateCalendar(calendar: Calendar) {
@@ -250,8 +306,8 @@ class CalendarFragment : Fragment() {
         }
         leaveTextViewNum = 0
 
-        if(dutyTextViewNum != 0) {
-            for(duty in dutiesinMonth)
+        if (dutyTextViewNum != 0) {
+            for (duty in dutiesinMonth)
                 calendarLayout.removeView(duty)
             dutiesinMonth.clear()
         }
@@ -268,8 +324,8 @@ class CalendarFragment : Fragment() {
         }
         exerciseTextViewNum = 0
 
-        if(personalTextViewNum != 0) {
-            for(duty in personalinMonth)
+        if (personalTextViewNum != 0) {
+            for (duty in personalinMonth)
                 calendarLayout.removeView(duty)
             personalinMonth.clear()
         }
@@ -333,9 +389,9 @@ class CalendarFragment : Fragment() {
 
     }
 
-    fun addLeaveinCalendar(startDate: Calendar, endDate: Calendar, text: String) {
-        var startPosition = startDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
-        var endPosition = endDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+    private fun addLeaveinCalendar(startDate: Calendar, endDate: Calendar, text: String) {
+        val startPosition = startDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+        val endPosition = endDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
 
         if ((startPosition) / 7 == (endPosition) / 7)
             drawLeaveTextView(startPosition, endPosition, text)
@@ -347,7 +403,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    fun addDutyinCalendar(date: Calendar, text: String) {
+    private fun addDutyinCalendar(date: Calendar, text: String) {
         var position = date.get(Calendar.DAY_OF_MONTH) + startSlot - 1
 
         val constraintSet = ConstraintSet()
@@ -431,7 +487,7 @@ class CalendarFragment : Fragment() {
         personalTextViewNum++
     }
 
-    fun addExerciseinCalendar(startDate: Calendar, endDate: Calendar, text: String) {
+    private fun addExerciseinCalendar(startDate: Calendar, endDate: Calendar, text: String) {
         var startPosition = startDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
         var endPosition = endDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
 
@@ -446,7 +502,7 @@ class CalendarFragment : Fragment() {
     }
 
     //drawing Leave Text Views on fragment_calendar2 programmatically
-    fun drawLeaveTextView(startPos: Int, endPos: Int, text: String) {
+    private fun drawLeaveTextView(startPos: Int, endPos: Int, text: String) {
         val constraintSet = ConstraintSet()
         leavesinMonth.add(TextView(this.context))
         leavesinMonth[leaveTextViewNum].id = View.generateViewId()
@@ -486,7 +542,7 @@ class CalendarFragment : Fragment() {
         leaveTextViewNum++
     }
 
-    fun drawExerciseTextView(startPos: Int, endPos: Int, text: String) {
+    private fun drawExerciseTextView(startPos: Int, endPos: Int, text: String) {
         val constraintSet = ConstraintSet()
         exercisesinMonth.add(TextView(this.context))
         exercisesinMonth[exerciseTextViewNum].id = View.generateViewId()
