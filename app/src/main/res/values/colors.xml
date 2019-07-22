@@ -37,6 +37,10 @@
     <color name="progressHorizontalBackgroundEnd">#747474</color>
 
 
+    <!-- profile -->
+    <color name="profileBackground">#ffffff</color>
+
+
     <!-- calendar -->
     <color name="calendarBackground">#424242</color>
     <color name="calendarButtons">#9E9D24</color>

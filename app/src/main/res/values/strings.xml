@@ -91,6 +91,16 @@
 
     <!-- Clockview -->
     <string name="clockUnitlEnd">전역까지 D-83</string>
+    <string name="clockPromotion">이병</string>
+    <string name="clockHobong">1호봉</string>
+    <string name="clockName">경에이</string>
+    <string name="clockCurrentTimeMessage">국방부 시계는 지금</string>
+    <string name="clockCurrentTime">20:42:15</string>
+    <string name="clockTotalProgressText">총 복무율</string>
+    <string name="clockTotalProgress">97.423%</string>
+    <string name="clockCurrentRankText">현재 계급</string>
+    <string name="clockCurrentHobongText">현재 호봉</string>
+
 
     <!-- Deposit Fragment -->
     <!-- Deposit Popup -->

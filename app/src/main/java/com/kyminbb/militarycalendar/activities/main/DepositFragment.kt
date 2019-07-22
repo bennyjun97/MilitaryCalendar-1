@@ -66,6 +66,7 @@ class DepositFragment : Fragment() {
         // enables editText
 
 
+        // Add new deposit information
         depositButtonAdd.setOnClickListener {
             popup.showAtLocation(view, Gravity.CENTER, 0, 0)
             popup.update(
@@ -85,7 +86,11 @@ class DepositFragment : Fragment() {
             val bankCancelButton = popupView.find<Button>(R.id.bankCancelButton)
             val bankRegisterButton = popupView.find<Button>(R.id.bankRegisterButton)
 
-            // add functionality to each buttons
+            /**
+             * add functionality to each buttons
+             * set the default value of endDate as 전역일
+             * create a new popup when depositAmount is onClicked
+             */
             // set end date default as the 전역일(end date)
             val localDateEnd = userInfo.promotionDates[Dates.END.ordinal]
             bankEndDateButton.text = date2String(
@@ -148,28 +153,7 @@ class DepositFragment : Fragment() {
                     popupDeposit.dismiss()
                 }
             }
-/*
-            bankDepositAmountButton.setOnClickListener {
-                var temp = ""
-                val watcher = object : TextWatcher {
-                    override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
-                    override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                        if (!TextUtils.isEmpty(charSequence.toString()) && charSequence.toString() != temp) {
-                            temp = decimalFormat.format(
-                                java.lang.Double.parseDouble(
-                                    charSequence.toString().replace(
-                                        ",".toRegex(),
-                                        ""
-                                    )))
-
-                        }
-                    }
-                    override fun afterTextChanged(editable: Editable) {
-                    }
-                }
-            }
-*/
             bankInterestButton.setOnClickListener {}
 
             // make decision on init, cancel, registering bank infos
@@ -179,7 +163,6 @@ class DepositFragment : Fragment() {
         }
     }
 
-    // To be revised to display the selected date for the default.
     private fun setDate(button: Button) {
         // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
