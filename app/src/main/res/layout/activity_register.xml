@@ -104,7 +104,8 @@
             app:layout_constraintEnd_toStartOf="@+id/leftCategory"
             app:layout_constraintStart_toStartOf="@+id/leftStart"
             app:layout_constraintTop_toTopOf="@+id/inputAffiliation"
-            app:layout_constraintBottom_toBottomOf="@+id/inputAffiliation" app:layout_constraintHorizontal_bias="0.0"/>
+            app:layout_constraintBottom_toBottomOf="@+id/inputAffiliation" app:layout_constraintHorizontal_bias="0.0"
+            app:autoSizeTextType="uniform"/>
 
     <Button
             android:paddingStart="@dimen/large_vertical"
@@ -135,7 +136,7 @@
             app:layout_constraintEnd_toStartOf="@+id/leftCategory"
             app:layout_constraintTop_toTopOf="@+id/inputEnlist"
             app:layout_constraintBottom_toBottomOf="@+id/inputEnlist" android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp" app:autoSizeTextType="uniform"/>
 
     <Button
             android:paddingStart="@dimen/large_vertical"
@@ -165,7 +166,7 @@
             app:layout_constraintStart_toStartOf="@+id/leftStart" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/leftCategory"
             app:layout_constraintTop_toTopOf="@+id/privateDate"
-            app:layout_constraintBottom_toBottomOf="@+id/privateDate"/>
+            app:layout_constraintBottom_toBottomOf="@+id/privateDate" app:autoSizeTextType="uniform"/>
     <TextView
             android:maxLines="1"
             android:text="@string/promotionTextFirst"
@@ -177,7 +178,7 @@
             app:layout_constraintStart_toStartOf="@+id/leftCategory" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/middle"
             app:layout_constraintTop_toTopOf="@+id/privateDate"
-            app:layout_constraintBottom_toBottomOf="@+id/privateDate"/>
+            app:layout_constraintBottom_toBottomOf="@+id/privateDate" app:autoSizeTextType="uniform"/>
 
     <Button
             android:paddingStart="@dimen/large_vertical"
@@ -204,7 +205,7 @@
             app:layout_constraintTop_toTopOf="@+id/corporalDate"
             app:layout_constraintBottom_toBottomOf="@+id/corporalDate" app:layout_constraintEnd_toStartOf="@+id/middle"
             app:layout_constraintStart_toStartOf="@+id/leftCategory"
-            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"/>
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp" app:autoSizeTextType="uniform"/>
     <Button
             android:paddingStart="@dimen/large_vertical"
             android:paddingEnd="@dimen/large_vertical"
@@ -228,7 +229,8 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/middle" app:layout_constraintStart_toStartOf="@+id/leftCategory"
             app:layout_constraintTop_toTopOf="@+id/sergeantDate"
-            app:layout_constraintBottom_toBottomOf="@+id/sergeantDate" android:layout_marginStart="8dp"/>
+            app:layout_constraintBottom_toBottomOf="@+id/sergeantDate" android:layout_marginStart="8dp"
+            app:autoSizeTextType="uniform"/>
     <Button
             android:paddingStart="@dimen/large_vertical"
             android:paddingEnd="@dimen/large_vertical"
@@ -260,7 +262,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintTop_toTopOf="@+id/inputEnd"
             app:layout_constraintBottom_toBottomOf="@+id/inputEnd" android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp" app:autoSizeTextType="uniform"/>
     <Button
             android:paddingStart="@dimen/large_vertical"
             android:paddingEnd="@dimen/large_vertical"

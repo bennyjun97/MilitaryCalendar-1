@@ -18,8 +18,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun createTabs() {
-        adapter.addFragment(CalendarFragment(), "짬중일지")
         adapter.addFragment(ClockFragment(), "짬중현황")
+        adapter.addFragment(CalendarFragment(), "짬중일지")
         adapter.addFragment(GraphFragment(), "짬중성취")
 
 
@@ -29,14 +29,22 @@ class HomeActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
 
         val tabIcons = arrayOf(
-            R.drawable.calendar,
             R.drawable.clock,
+            R.drawable.calendar,
             R.drawable.graph
         )
         tabs.getTabAt(0)!!.setIcon(tabIcons[0])
         tabs.getTabAt(1)!!.setIcon(tabIcons[1])
         tabs.getTabAt(2)!!.setIcon(tabIcons[2])
 
+        if(viewPager.currentItem == 0){
+            isFirstPage = true
+        } else
+            isFirstPage = false
+
+    }
+    companion object {
+        var isFirstPage = false
     }
 
     override fun onBackPressed() {

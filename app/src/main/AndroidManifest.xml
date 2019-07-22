@@ -49,7 +49,7 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.register.RegisterActivity">
+        <activity android:name=".activities.register.RegisterActivity" android:noHistory="true">
         </activity>
         <activity android:name=".activities.main.HomeActivity">
         </activity>
