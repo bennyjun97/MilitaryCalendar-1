@@ -207,6 +207,150 @@ class CalendarFragment : Fragment() {
                 popup.dismiss()
             }
         }
+
+        addDuty.setOnClickListener {
+            popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+            popup.update(
+                view,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels
+            )
+
+            val startSchedule = popupView.find<Button>(R.id.startSchedule)
+            val endSchedule = popupView.find<Button>(R.id.endSchedule)
+            val buttonAddEvent = popupView.find<Button>(R.id.buttonAddEvent)
+            val buttonCancel = popupView.find<Button>(R.id.buttonCancel)
+
+            startSchedule.setOnClickListener {
+                setDate(popupView, "Start")
+            }
+
+            endSchedule.setOnClickListener {
+                setDate(popupView, "End")
+            }
+
+            buttonAddEvent.setOnClickListener {
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                    // Store the schedule.
+                    writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), "당직")
+                    // Retrieve the data for test purpose.
+                    val endDates = readDB(dbHelper, startSchedule.text.toString())
+                    for (endDate in endDates) {
+                        addEventinCalendar(
+                            string2Date(startSchedule.text.toString()),
+                            string2Date(endDate.first),
+                            "당직",
+                            endDate.third
+                        )
+                    }
+
+                    startSchedule.text = ""
+                    endSchedule.text = ""
+                    // Dismiss the popup window.
+                    popup.dismiss()
+                }
+            }
+            buttonCancel.setOnClickListener {
+                // Dismiss the popup window.
+                popup.dismiss()
+            }
+        }
+
+        addExercise.setOnClickListener {
+            popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+            popup.update(
+                view,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels
+            )
+
+            val startSchedule = popupView.find<Button>(R.id.startSchedule)
+            val endSchedule = popupView.find<Button>(R.id.endSchedule)
+            val buttonAddEvent = popupView.find<Button>(R.id.buttonAddEvent)
+            val buttonCancel = popupView.find<Button>(R.id.buttonCancel)
+
+            startSchedule.setOnClickListener {
+                setDate(popupView, "Start")
+            }
+
+            endSchedule.setOnClickListener {
+                setDate(popupView, "End")
+            }
+
+            buttonAddEvent.setOnClickListener {
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                    // Store the schedule.
+                    writeDB(dbHelper, "훈련", startSchedule.text.toString(), endSchedule.text.toString(), "유격훈련")
+                    // Retrieve the data for test purpose.
+                    val endDates = readDB(dbHelper, startSchedule.text.toString())
+                    for (endDate in endDates) {
+                        addEventinCalendar(
+                            string2Date(startSchedule.text.toString()),
+                            string2Date(endDate.first),
+                            "훈련",
+                            endDate.third
+                        )
+                    }
+
+                    startSchedule.text = ""
+                    endSchedule.text = ""
+                    // Dismiss the popup window.
+                    popup.dismiss()
+                }
+            }
+            buttonCancel.setOnClickListener {
+                // Dismiss the popup window.
+                popup.dismiss()
+            }
+        }
+
+        addPersonal.setOnClickListener {
+            popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+            popup.update(
+                view,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels
+            )
+
+            val startSchedule = popupView.find<Button>(R.id.startSchedule)
+            val endSchedule = popupView.find<Button>(R.id.endSchedule)
+            val buttonAddEvent = popupView.find<Button>(R.id.buttonAddEvent)
+            val buttonCancel = popupView.find<Button>(R.id.buttonCancel)
+
+            startSchedule.setOnClickListener {
+                setDate(popupView, "Start")
+            }
+
+            endSchedule.setOnClickListener {
+                setDate(popupView, "End")
+            }
+
+            buttonAddEvent.setOnClickListener {
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                    // Store the schedule.
+                    writeDB(dbHelper, "개인", startSchedule.text.toString(), endSchedule.text.toString(), "소개팅")
+                    // Retrieve the data for test purpose.
+                    val endDates = readDB(dbHelper, startSchedule.text.toString())
+                    for (endDate in endDates) {
+                        addEventinCalendar(
+                            string2Date(startSchedule.text.toString()),
+                            string2Date(endDate.first),
+                            "개인",
+                            endDate.third
+                        )
+                    }
+
+                    startSchedule.text = ""
+                    endSchedule.text = ""
+                    // Dismiss the popup window.
+                    popup.dismiss()
+                }
+            }
+            buttonCancel.setOnClickListener {
+                // Dismiss the popup window.
+                popup.dismiss()
+            }
+        }
     }
 
     // To be revised to display the selected date for the default.
@@ -352,36 +496,14 @@ class CalendarFragment : Fragment() {
             val todayposition = today.get(Calendar.DAY_OF_MONTH)
             slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
         }
-
-        val cal3 = cal2.clone() as Calendar
-        cal2.set(Calendar.DAY_OF_MONTH, 15)
-        cal3.set(Calendar.DAY_OF_MONTH, 19)
-        addEventinCalendar(cal2, cal3, "휴가", "영덩이 찰싹")
-        cal3.set(Calendar.DAY_OF_MONTH, 18)
-        addEventinCalendar(cal2, cal3, "훈련", "유격 훈련")
-
-        cal2.set(Calendar.DAY_OF_MONTH, 16)
-        addEventinCalendar(cal2, cal2, "당직", "당직")
-        cal2.set(Calendar.DAY_OF_MONTH, 8)
-        addEventinCalendar(cal2, cal2, "당직", "4시 불침번")
-        cal2.set(Calendar.DAY_OF_MONTH, 1)
-        cal3.set(Calendar.DAY_OF_MONTH, 12)
-        addEventinCalendar(cal2, cal3, "훈련", "전술작전훈련")
-
-        addEventinCalendar(cal2, cal2, "개인","후임 생일")
-        cal2.set(Calendar.DAY_OF_MONTH, 24)
-        addEventinCalendar(cal2, cal2, "개인", "100일!")
-        cal2.set(Calendar.DAY_OF_YEAR, 28)
-        addEventinCalendar(cal2, cal2, "개인","티켓 예매!")
-
     }
 
     private fun addEventinCalendar(startDate: Calendar, endDate: Calendar, type: String, text: String) {
         val startPosition = startDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
         val endPosition = endDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
 
-        for(index in startPosition..endPosition) {
-            if(type.equals("휴가") && leaveExist[index-1]) {
+        for(index in startDate.get(Calendar.DAY_OF_MONTH)-1..endDate.get(Calendar.DAY_OF_MONTH)) {
+            if(type.equals("휴가") && leaveExist[index]) {
                 Toast.makeText(this.context, "휴가일이 겹칩니다!", Toast.LENGTH_SHORT).show() //나중엔 여기다 쓰면 안 된다. 실험용으로 여기에 씀.
                 return
             }
@@ -446,8 +568,8 @@ class CalendarFragment : Fragment() {
         eventTextViewNum++
 
         if(type.equals("휴가")) {
-            for (index in startPos..endPos) {
-                leaveExist[index - 1] = true
+            for (index in startPos-startSlot..endPos-startSlot) {
+                leaveExist[index] = true
             }
         }
     }
