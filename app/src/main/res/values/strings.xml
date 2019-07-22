@@ -92,6 +92,21 @@
     <!-- Clockview -->
     <string name="clockUnitlEnd">전역까지 D-83</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Deposit Fragment -->
+    <!-- Deposit Popup -->
+    <string name="enroll">새 적금 등록하기</string>
+    <string name="bankName">은행명</string>
+    <string name="bankNameHint">은행을 선택해주세요</string>
+    <string name="startDate">시작일</string>
+    <string name="startDateHint">시작일을 선택해주세요</string>
+    <string name="endDate">만기일</string>
+    <string name="endDateHint">만기일을 선택해주세요</string>
+    <string name="depositAmount">입금 금액</string>
+    <string name="depositAmountHint">1회 입금 금액을 입력해주세요</string>
+    <string name="interest">만기 이율</string>
+    <string name="interestHint">만기시 이율을 입력해주세요</string>
+    <string name="bankCancel">등록 취소</string>
+    <string name="bankInit">초기화</string>
+    <string name="bankRegister">등록 완료</string>
+
 </resources>

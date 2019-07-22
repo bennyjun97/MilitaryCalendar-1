@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:theme="@style/LeeText"
+                                                   android:background="@android:color/transparent">
+
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineStart"
+                                                android:orientation="vertical"
+                                                app:layout_constraintGuide_percent="0.12"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineEnd"
+                                                android:orientation="vertical"
+                                                app:layout_constraintGuide_percent="0.88"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineTop"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent=".15"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineBottom"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.95"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:theme="@style/LeeText"
+            android:id="@+id/depositPopupLayout" android:background="@drawable/memo_background"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottom">
+
+
+        <!-- Popup guidelines -->
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/depositPopUpTop"
+                app:layout_constraintGuide_percent=".10"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/popUpBankName"
+                app:layout_constraintGuide_percent="0.26"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/popUpStartDate"
+                app:layout_constraintGuide_percent="0.42"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/pupUpEndDate"
+                app:layout_constraintGuide_percent="0.58"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/pupUpAmount"
+                app:layout_constraintGuide_percent="0.74"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/popUpInterest"
+                app:layout_constraintGuide_percent=".90"/>
+
+        <!-- popup title -->
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/init" app:layout_constraintGuide_percent=".3"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/cancel" app:layout_constraintGuide_percent=".6"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enroll"
+                android:textSize="24sp"
+                android:maxLines="1"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/depositPopUpTop" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.0"
+                android:id="@+id/textView13"/>
+        <!-- popup contents -->
+        <TextView
+                android:text="@string/bankName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/bankName" app:layout_constraintStart_toStartOf="@+id/textView13"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toTopOf="@+id/depositPopUpTop" android:layout_marginStart="4dp"/>
+        <Button
+                android:hint="@string/bankNameHint"
+                android:gravity="center_vertical|start"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/bankNameButton" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bankName"
+                android:layout_marginBottom="4dp" app:layout_constraintBottom_toTopOf="@+id/popUpBankName"
+                android:layout_marginEnd="8dp" android:layout_marginStart="8dp"/>
+        <TextView
+                android:text="@string/startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/bankStartDate" app:layout_constraintStart_toStartOf="@+id/bankName"
+                app:layout_constraintTop_toTopOf="@+id/popUpBankName" android:layout_marginTop="4dp"
+        />
+        <Button
+                android:hint="@string/startDateHint"
+                android:gravity="center_vertical|start"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/bankStartDateButton" app:layout_constraintStart_toStartOf="@+id/bankNameButton"
+                app:layout_constraintEnd_toEndOf="@+id/bankNameButton"
+                app:layout_constraintTop_toBottomOf="@+id/bankStartDate"
+                app:layout_constraintBottom_toTopOf="@+id/popUpStartDate"
+                android:layout_marginBottom="4dp"/>
+        <TextView
+                android:text="@string/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/bankEndDate" app:layout_constraintStart_toStartOf="@+id/bankName"
+                app:layout_constraintTop_toTopOf="@+id/popUpStartDate" android:layout_marginTop="4dp"
+        />
+        <Button
+                android:hint="@string/endDateHint"
+                android:gravity="center_vertical|start"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/bankEndDateButton" app:layout_constraintStart_toStartOf="@+id/bankNameButton"
+                app:layout_constraintEnd_toEndOf="@+id/bankNameButton"
+                app:layout_constraintBottom_toTopOf="@+id/pupUpEndDate"
+                app:layout_constraintTop_toBottomOf="@+id/bankEndDate" android:layout_marginBottom="4dp"/>
+        <TextView
+                android:text="@string/depositAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/bankDepositAmount" app:layout_constraintStart_toStartOf="@+id/bankName"
+                app:layout_constraintTop_toTopOf="@+id/pupUpEndDate" android:layout_marginTop="4dp"
+        />
+        <Button
+                android:hint="@string/depositAmountHint"
+                android:gravity="center_vertical|start"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/bankDepositAmountButton" app:layout_constraintStart_toStartOf="@+id/bankNameButton"
+                app:layout_constraintEnd_toEndOf="@+id/bankNameButton"
+                app:layout_constraintTop_toBottomOf="@+id/bankDepositAmount"
+                app:layout_constraintBottom_toTopOf="@+id/pupUpAmount"
+                android:layout_marginBottom="4dp"/>
+        <TextView
+                android:text="@string/interest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/bankInterest" app:layout_constraintStart_toStartOf="@+id/bankName"
+                app:layout_constraintTop_toTopOf="@+id/pupUpAmount" android:layout_marginTop="4dp"
+        />
+        <Button
+                android:hint="@string/interestHint"
+                android:gravity="center_vertical|start"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/bankInterestButton" app:layout_constraintStart_toStartOf="@+id/bankNameButton"
+                app:layout_constraintEnd_toEndOf="@+id/bankNameButton"
+                app:layout_constraintTop_toBottomOf="@+id/bankInterest"
+                app:layout_constraintBottom_toTopOf="@+id/popUpInterest"
+                android:layout_marginBottom="4dp"/>
+        <Button
+                android:text="@string/bankInit"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/bankInitButton"
+                android:background="@drawable/register_button"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/popUpInterest"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/init"
+                app:layout_constraintStart_toStartOf="@+id/bankInterestButton"/>
+        <Button
+                android:text="@string/bankCancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/register_button"
+                android:id="@+id/bankCancelButton"
+                app:layout_constraintEnd_toStartOf="@+id/cancel" android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="@+id/init" android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/bankInitButton"
+                app:layout_constraintBottom_toBottomOf="@+id/bankInitButton"/>
+        <Button
+                android:text="@string/bankRegister"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/register_button"
+                android:id="@+id/bankRegisterButton"
+                app:layout_constraintTop_toTopOf="@+id/bankInitButton"
+                app:layout_constraintBottom_toBottomOf="@+id/bankInitButton"
+                app:layout_constraintEnd_toEndOf="@+id/bankInterestButton" android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="@+id/cancel" android:layout_marginStart="8dp"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
