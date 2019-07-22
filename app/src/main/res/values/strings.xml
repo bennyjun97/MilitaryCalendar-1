@@ -71,9 +71,9 @@
 
     <!-- profile setting -->
     <string name="profileHeader">출사표</string>
-    <string name="profileNameHint">이름/별명*</string>
-    <string name="profilePromotion">군별*</string>
-    <string name="profileEnlistDate">입대일*</string>
+    <string name="profileNameHint">이름/별명</string>
+    <string name="profilePromotion">군별</string>
+    <string name="profileEnlistDate">입대일</string>
     <string name="profileEnlistDateHint">입대일을 입력하세요</string>
     <string name="promotionTextMain">진급일 조정</string>
     <string name="promotionTextHint">진급일</string>
@@ -103,6 +103,9 @@
     <string name="endDateHint">만기일을 선택해주세요</string>
     <string name="depositAmount">입금 금액</string>
     <string name="depositAmountHint">1회 입금 금액을 입력해주세요</string>
+    <string name="depositAmountPopup">1회 입금 금액(원)</string>
+    <string name="depositAmountPopupCancel">취소</string>
+    <string name="depositAmountPopupSave">입력</string>
     <string name="interest">만기 이율</string>
     <string name="interestHint">만기시 이율을 입력해주세요</string>
     <string name="bankCancel">등록 취소</string>

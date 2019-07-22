@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.register.RegisterActivity"
-        android:theme="@style/JalnanTextViewStyle"
         android:background="@android:color/white">
 
     <androidx.constraintlayout.widget.Guideline
@@ -51,6 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textSize="32sp"
+            android:fontFamily="@font/lee_header_regular"
             android:id="@+id/title"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/titleTop"
@@ -97,15 +97,16 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/affiliationText"
-            android:textColor="@color/black" android:textSize="20sp"
-            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:gravity="center_vertical|start"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/leftCategory"
             app:layout_constraintStart_toStartOf="@+id/leftStart"
             app:layout_constraintTop_toTopOf="@+id/inputAffiliation"
             app:layout_constraintBottom_toBottomOf="@+id/inputAffiliation" app:layout_constraintHorizontal_bias="0.0"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" android:layout_marginTop="8dp" android:layout_marginBottom="8dp"/>
 
     <Button
             android:paddingStart="@dimen/large_vertical"
@@ -127,16 +128,16 @@
             android:text="@string/profileEnlistDate"
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/enlistText"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|start"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="@+id/leftStart"
             app:layout_constraintEnd_toStartOf="@+id/leftCategory"
             app:layout_constraintTop_toTopOf="@+id/inputEnlist"
-            app:layout_constraintBottom_toBottomOf="@+id/inputEnlist" android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" app:autoSizeTextType="uniform"/>
+            app:layout_constraintBottom_toBottomOf="@+id/inputEnlist"
+            app:autoSizeTextType="uniform" android:layout_marginTop="8dp" android:layout_marginBottom="8dp"/>
 
     <Button
             android:paddingStart="@dimen/large_vertical"
@@ -166,7 +167,8 @@
             app:layout_constraintStart_toStartOf="@+id/leftStart" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/leftCategory"
             app:layout_constraintTop_toTopOf="@+id/privateDate"
-            app:layout_constraintBottom_toBottomOf="@+id/privateDate" app:autoSizeTextType="uniform"/>
+            app:layout_constraintBottom_toBottomOf="@+id/privateDate" app:autoSizeTextType="uniform"
+            android:layout_marginTop="8dp" android:layout_marginBottom="8dp"/>
     <TextView
             android:maxLines="1"
             android:text="@string/promotionTextFirst"
@@ -252,9 +254,9 @@
             android:text="@string/profileEndDate"
             android:layout_width="0dp"
             android:layout_height="0dp" android:id="@+id/endText"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|start"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="@+id/leftStart"
@@ -286,6 +288,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/reset"
+            android:fontFamily="@font/lee_header_regular"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/leftCategory"
             app:layout_constraintStart_toStartOf="@+id/leftStart"
@@ -300,6 +303,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/register"
+            android:fontFamily="@font/lee_header_regular"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
