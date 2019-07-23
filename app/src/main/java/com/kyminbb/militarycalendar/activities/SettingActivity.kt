@@ -113,7 +113,7 @@ class SettingActivity : AppCompatActivity() {
             inputName.setText(userInfo.name)
             // Display the stored affiliation.
             inputAffiliation.text = userInfo.affiliation
-            // Display the enlist date.*/
+            // Display the enlist date.
             inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
             // Display the promotion dates.
             for (index in Dates.RANK2.ordinal until dateInputs.size) {
