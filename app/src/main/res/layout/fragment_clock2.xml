@@ -20,10 +20,10 @@
 
     <TextView
             android:text="@string/clockUnitlEnd"
-            android:fontFamily="@font/lee_header_bold"
+            android:fontFamily="@font/lee_header_regular"
             android:layout_height="wrap_content" android:layout_width="0dp"
             android:id="@+id/remainText" android:layout_weight="0.4"
-            android:gravity="center|left" android:textSize="24sp"
+            android:gravity="center|start" android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="@+id/guideline28"
@@ -38,24 +38,23 @@
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="@+id/guideline32"
             app:layout_constraintTop_toTopOf="@+id/nameText"
-            app:layout_constraintBottom_toBottomOf="@+id/nameText"
-    />
+            app:layout_constraintBottom_toBottomOf="@+id/nameText"/>
     <TextView
-            android:text="이병"
-            android:fontFamily="@font/lee_header_bold"
+            android:text="@string/clockPromotion"
+            android:fontFamily="@font/lee_header_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/rankText"
-            android:gravity="center|left" android:textSize="28sp" android:textStyle="bold"
+            android:gravity="center_vertical|start" android:textSize="28sp" android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline28"
             app:layout_constraintBottom_toTopOf="@+id/remainText"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp" android:layout_marginTop="8dp"/>
     <TextView
-            android:text="김호건"
-            android:fontFamily="@font/lee_header_bold"
-            android:layout_width="wrap_content"
+            android:text="@string/clockName"
+            android:fontFamily="@font/lee_header_regular"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/nameText"
-            android:gravity="center|left" android:textSize="28sp" android:textStyle="normal"
+            android:gravity="center" android:textSize="28sp" android:textStyle="normal"
             app:layout_constraintEnd_toStartOf="@+id/guideline32" app:layout_constraintTop_toTopOf="@+id/rankText"
             app:layout_constraintStart_toEndOf="@+id/rankText"
             app:layout_constraintBottom_toBottomOf="@+id/rankText"/>
@@ -80,8 +79,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/guideline27" app:layout_constraintGuide_percent="0.85"/>
     <TextView
-            android:text="국방부 시계는 지금"
-            android:fontFamily="@font/lee_header_bold"
+            android:text="@string/clockCurrentTimeMessage"
+            android:fontFamily="@font/lee_header_regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_weight="0.3"
             android:gravity="center" android:textSize="22sp"
@@ -90,8 +89,8 @@
             app:layout_constraintStart_toStartOf="@+id/guideline29" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline30"/>
     <TextView
-            android:text="20:42:15"
-            android:fontFamily="@font/lee_header_bold"
+            android:text="@string/clockCurrentTime"
+            android:fontFamily="@font/lee_text_m"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/clockText" android:layout_weight="0.7"
             android:gravity="center" android:textStyle="bold" android:textSize="50sp"
@@ -149,8 +148,8 @@
                  app:layout_constraintTop_toTopOf="@id/guideline27" app:layout_constraintStart_toEndOf="@id/guideline29"
                  android:id="@+id/progressBarTotal" app:layout_constraintVertical_bias="0.120000005"/>
     <TextView
-            android:text="총 복무율"
-            android:id="@+id/CHONGBOKMOOYUL"
+            android:text="@string/clockTotalProgressText"
+            android:id="@+id/clockTotalProgresText"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -162,7 +161,7 @@
             app:layout_constraintBottom_toTopOf="@+id/progressBarTotal"/>
 
     <TextView
-            android:text="99.999999%"
+            android:text="@string/clockTotalProgress"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -186,7 +185,7 @@
                  android:layout_marginEnd="4dp"/>
 
     <TextView
-            android:text="현재 계급"
+            android:text="@string/clockCurrentRankText"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -198,7 +197,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressBarRank"/>
 
     <TextView
-            android:text="이병"
+            android:text="@string/clockPromotion"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -211,7 +210,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressBarRank"/>
 
     <TextView
-            android:text="13.52%"
+            android:text="@string/clockTotalProgress"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -236,7 +235,7 @@
                  app:layout_constraintTop_toBottomOf="@+id/progressBarTotal"
                  app:layout_constraintEnd_toEndOf="@+id/progressBarTotal"/>
     <TextView
-            android:text="현재 호봉"
+            android:text="@string/clockCurrentHobongText"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/progressCurrentMonthText"
@@ -246,7 +245,7 @@
             app:layout_constraintEnd_toStartOf="@id/progressMonthRankText"
             app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
     <TextView
-            android:text="이병"
+            android:text="@string/clockPromotion"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/progressMonthRankText"
             android:layout_marginTop="4dp"
@@ -255,7 +254,7 @@
             app:layout_constraintEnd_toStartOf="@id/progressMonthText"
             app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
     <TextView
-            android:text="1호봉"
+            android:text="@string/clockHobong"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/progressMonthText"
@@ -266,7 +265,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressBarHobong"/>
 
     <TextView
-            android:text="81.66%"
+            android:text="@string/clockTotalProgress"
             android:fontFamily="@font/lee_header_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

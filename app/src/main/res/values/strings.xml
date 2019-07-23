@@ -91,9 +91,50 @@
 
     <!-- Clockview -->
     <string name="clockUnitlEnd">전역까지 D-83</string>
+    <string name="clockPromotion">이병</string>
+    <string name="clockHobong">1호봉</string>
+    <string name="clockName">경에이</string>
+    <string name="clockCurrentTimeMessage">국방부 시계는 지금</string>
+    <string name="clockCurrentTime">20:42:15</string>
+    <string name="clockTotalProgressText">총 복무율</string>
+    <string name="clockTotalProgress">97.423%</string>
+    <string name="clockCurrentRankText">현재 계급</string>
+    <string name="clockCurrentHobongText">현재 호봉</string>
+
 
     <!-- Deposit Fragment -->
     <!-- Deposit Popup -->
+    <string-array name="bank_string">
+        <item>수협은행</item>
+        <item>신한은행</item>
+        <item>우리은행</item>
+        <item>하나은행</item>
+        <item>국민은행</item>
+        <item>농협은행</item>
+        <item>기업은행</item>
+        <item>대구은행</item>
+        <item>부산은행</item>
+        <item>경남은행</item>
+        <item>광주은행</item>
+        <item>전북은행</item>
+        <item>제주은행</item>
+        <item>우체국은행</item>
+    </string-array>
+    <string name="bankSuhyeobText">수협은행</string>
+    <string name="bankShinhanText">신한은행</string>
+    <string name="bankWooriText">우리은행</string>
+    <string name="bankHanaText">하나은행</string>
+    <string name="bankKookminText">국민은행</string>
+    <string name="bankNonghyeobText">농협은행</string>
+    <string name="bankIndustrialText">기업은행</string>
+    <string name="bankDaeguText">대구은행</string>
+    <string name="bankBusanText">부산은행</string>
+    <string name="bankGyeongnamText">경남은행</string>
+    <string name="bankGwangjuText">광주은행</string>
+    <string name="bankJeonbookText">전북은행</string>
+    <string name="bankJejuText">제주은행</string>
+    <string name="bankPostOfficeText">우체국은행</string>
+
     <string name="enroll">새 적금 등록하기</string>
     <string name="bankName">은행명</string>
     <string name="bankNameHint">은행을 선택해주세요</string>

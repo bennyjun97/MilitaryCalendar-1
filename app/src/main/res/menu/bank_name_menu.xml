@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bankSuhyeob"
+          android:title="@string/bankSuhyeobText" />
+    <item android:id="@+id/bankShinhan"
+          android:title="@string/bankShinhanText" />
+    <item android:id="@+id/bankWoori"
+          android:title="@string/bankWooriText" />
+    <item android:id="@+id/bankHana"
+          android:title="@string/bankHanaText" />
+    <item android:id="@+id/bankKookmin"
+          android:title="@string/bankKookminText" />
+    <item android:id="@+id/bankNonghyeob"
+          android:title="@string/bankNonghyeobText" />
+    <item android:id="@+id/bankIndustrial"
+          android:title="@string/bankIndustrialText" />
+    <item android:id="@+id/bankDaegu"
+          android:title="@string/bankDaeguText" />
+    <item android:id="@+id/bankBusan"
+          android:title="@string/bankBusanText" />
+    <item android:id="@+id/bankGyeongnam"
+          android:title="@string/bankGyeongnamText" />
+    <item android:id="@+id/bankGwangju"
+          android:title="@string/bankGwangjuText" />
+    <item android:id="@+id/bankJeonbook"
+          android:title="@string/bankJeonbookText" />
+    <item android:id="@+id/bankJejuText"
+          android:title="@string/bankJejuText" />
+    <item android:id="@+id/bankPostOffice"
+          android:title="@string/bankPostOfficeText" />
+</menu>

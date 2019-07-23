@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.register.RegisterActivity"
-        android:background="@android:color/white">
+        android:background="@color/profileBackground">
 
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"

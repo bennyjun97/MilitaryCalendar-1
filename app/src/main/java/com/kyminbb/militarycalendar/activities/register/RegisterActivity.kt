@@ -8,7 +8,9 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextUtils.isEmpty
+import android.text.TextWatcher
 import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +51,7 @@ class RegisterActivity : AppCompatActivity() {
 
     // Initialize the user info.
     private var userInfo = User()
+    private var temp = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,6 +120,15 @@ class RegisterActivity : AppCompatActivity() {
             // Display the stored name.
             //inputName.text = Editable.Factory.getInstance().newEditable(userInfo.name)
             inputName.hint = userInfo.name
+            /*inputName.addTextChangedListener(object: TextWatcher{
+                override fun afterTextChanged(p0: Editable?) {}
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    if (!isEmpty(p0.toString()) && p0.toString() != temp) {temp = p0.toString()}
+                    inputName.setText(temp)
+                    inputName.setSelection(temp.length)
+                }
+            })*/
             //inputName.setHintTextColor(Color.BLACK)
             // Display the stored affiliation.
             inputAffiliation.text = userInfo.affiliation

@@ -100,8 +100,10 @@
                 android:layout_marginTop="4dp"
                 app:layout_constraintTop_toTopOf="@+id/depositPopUpTop" android:layout_marginStart="4dp"/>
         <Button
+                android:clickable="false"
                 android:hint="@string/bankNameHint"
                 android:gravity="center_vertical|start"
+                style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:id="@+id/bankNameButton" app:layout_constraintStart_toStartOf="parent"
@@ -141,10 +143,11 @@
                 android:gravity="center_vertical|start"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/bankEndDateButton" app:layout_constraintStart_toStartOf="@+id/bankNameButton"
-                app:layout_constraintEnd_toEndOf="@+id/bankNameButton"
+                android:id="@+id/bankEndDateButton" app:layout_constraintStart_toStartOf="@+id/bankStartDateButton"
+                app:layout_constraintEnd_toEndOf="@+id/bankStartDateButton"
                 app:layout_constraintBottom_toTopOf="@+id/pupUpEndDate"
-                app:layout_constraintTop_toBottomOf="@+id/bankEndDate" android:layout_marginBottom="4dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/bankEndDate" android:layout_marginBottom="4dp"
+        />
         <TextView
                 android:text="@string/depositAmount"
                 android:layout_width="wrap_content"
@@ -158,8 +161,8 @@
                 android:gravity="center_vertical|start"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/bankDepositAmountButton" app:layout_constraintStart_toStartOf="@+id/bankNameButton"
-                app:layout_constraintEnd_toEndOf="@+id/bankNameButton"
+                android:id="@+id/bankDepositAmountButton" app:layout_constraintStart_toStartOf="@+id/bankEndDateButton"
+                app:layout_constraintEnd_toEndOf="@+id/bankEndDateButton"
                 app:layout_constraintTop_toBottomOf="@+id/bankDepositAmount"
                 app:layout_constraintBottom_toTopOf="@+id/pupUpAmount"
                 android:layout_marginBottom="4dp"
@@ -177,7 +180,7 @@
                 android:gravity="center_vertical|start"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/bankInterestButton" app:layout_constraintStart_toStartOf="@+id/bankNameButton"
+                android:id="@+id/bankInterestButton" app:layout_constraintStart_toStartOf="@+id/bankDepositAmountButton"
                 app:layout_constraintEnd_toEndOf="@+id/bankNameButton"
                 app:layout_constraintTop_toBottomOf="@+id/bankInterest"
                 app:layout_constraintBottom_toTopOf="@+id/popUpInterest"
@@ -215,7 +218,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/bankInitButton"
                 app:layout_constraintEnd_toEndOf="@+id/bankInterestButton" android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="@+id/cancel" android:layout_marginStart="8dp"/>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
