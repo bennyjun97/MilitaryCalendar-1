@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankSuhyeob">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankSuhyeobText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankShinhan">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankShinhanText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankWoori">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankWooriText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankHana">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankHanaText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankKookmin">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankKookminText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankNonghyeob">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankNonghyeobText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankIndustrial">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankIndustrialText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankDaegu">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankDaeguText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankBusan">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankBusanText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankGyeongnam">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankGyeongnamText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankGwangju">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankGwangjuText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankJeonbook">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankJeonbookText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankJeju">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankJejuText"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="40dp" app:cardBackgroundColor="@color/GrayDark" android:id="@+id/bankPostOffice">
+        <TextView
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/bankPostOfficeText"/>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

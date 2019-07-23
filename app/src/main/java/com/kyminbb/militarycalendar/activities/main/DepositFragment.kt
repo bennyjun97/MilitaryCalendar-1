@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.PopupWindow
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 
@@ -22,16 +22,18 @@ import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
+import kotlinx.android.synthetic.main.activity_graph.*
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.add_deposit.*
+import kotlinx.android.synthetic.main.add_deposit.view.*
 import kotlinx.android.synthetic.main.fragment_calendar2.*
 import kotlinx.android.synthetic.main.fragment_deposit.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.textView
 import org.threeten.bp.LocalDate
+import java.lang.Double.parseDouble
 import java.text.DecimalFormat
 import java.util.*
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
 /**
@@ -63,8 +65,8 @@ class DepositFragment : Fragment() {
         // Show pop-up when add button is clicked
         val popupView = layoutInflater.inflate(R.layout.add_deposit, null)
         val popup = PopupWindow(popupView)
+        popup.isFocusable
         // enables editText
-
 
         // Add new deposit information
         depositButtonAdd.setOnClickListener {
@@ -75,7 +77,6 @@ class DepositFragment : Fragment() {
                 resources.displayMetrics.heightPixels
             )
 
-
             // enable buttons as views
             val bankNameButton = popupView.find<Button>(R.id.bankNameButton)
             val bankStartDateButton = popupView.find<Button>(R.id.bankStartDateButton)
@@ -85,29 +86,62 @@ class DepositFragment : Fragment() {
             val bankInitButton = popupView.find<Button>(R.id.bankInitButton)
             val bankCancelButton = popupView.find<Button>(R.id.bankCancelButton)
             val bankRegisterButton = popupView.find<Button>(R.id.bankRegisterButton)
+            //val bankNameSpinner = popupView.find<Spinner>(R.id.spinner)
 
-            /**
-             * add functionality to each buttons
-             * set the default value of endDate as 전역일
-             * create a new popup when depositAmount is onClicked
-             */
+
+
+            /* Add functionality to buttons */
             // set end date default as the 전역일(end date)
             val localDateEnd = userInfo.promotionDates[Dates.END.ordinal]
             bankEndDateButton.text = date2String(
                 localDateEnd.year, localDateEnd.monthValue, localDateEnd.dayOfMonth
             )
+            val bankArr = resources.getStringArray(R.array.bank_string)
+            val bankArrButtons = arrayOf(
+                R.id.bankSuhyeob, R.id.bankShinhan, R.id.bankWoori, R.id.bankHana,
+                R.id.bankKookmin, R.id.bankNonghyeob, R.id.bankIndustrial, R.id.bankDaegu,
+                R.id.bankBusan, R.id.bankGyeongnam, R.id.bankGwangju,
+                R.id.bankJeonbook, R.id.bankJeju, R.id.bankPostOffice
+            )
             // input information
-            bankNameButton.setOnClickListener { }
+            bankNameButton.setOnClickListener {
+                /*if (bankNameSpinner.performClick()){
+                    bankNameSpinner.isVisible = true
+                    bankNameSpinner.adapter = ArrayAdapter<String>(bankNameSpinner.context, android.R.layout.simple_spinner_item, bankArr)
+                    bankNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(p0: AdapterView<*>?) {}
+                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                            bankNameButton.text = bankArr.get(position)
+                        }
+                    }
+                }*/
+                val popupMenu = PopupMenu(activity, bankNameButton)
+                popupMenu.menuInflater.inflate(R.menu.bank_name_menu, popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener {
+                    bankNameButton.text =  bankArr[bankArrButtons.indexOf(it.itemId)]
+                    true
+                }
+                popupMenu.show()
+            }
 
+
+
+
+
+
+
+
+
+
+            // input the date from spinnerDatePicker, default: today
             bankStartDateButton.setOnClickListener {
-                // input the date from spinnerDatePicker, default : today
                 setDate(bankStartDateButton)
             }
-
+            // input the endDate from spinnerDatePicker, default: userInfo.promotion.endDate
             bankEndDateButton.setOnClickListener {
-                // the enddate default is the endDATe
                 setDate(bankEndDateButton)
             }
+            // input the deposit amount, using another pop-up view
             bankDepositAmountButton.setOnClickListener {
                 // enable deposit Popup
                 val popupDepositView = layoutInflater.inflate(R.layout.add_deposit_amount, null)
@@ -119,24 +153,18 @@ class DepositFragment : Fragment() {
                     resources.displayMetrics.widthPixels,
                     resources.displayMetrics.heightPixels
                 )
-
                 // enable buttons, editTexts
                 val depositPopUpCancel = popupDepositView.find<Button>(R.id.depositPopUpCancel)
                 val depositPopUpSave = popupDepositView.find<Button>(R.id.depositPopUpSave)
                 val depositAmountEditText = popupDepositView.find<EditText>(R.id.depositAmountEditText)
-
 
                 // format editText into Korean Currency
                 val watcher = object : TextWatcher {
                     override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                     override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                         if (!TextUtils.isEmpty(charSequence.toString()) && charSequence.toString() != temp) {
-                            temp = decimalFormat.format(
-                                java.lang.Double.parseDouble(
-                                    charSequence.toString().replace(
-                                        ",".toRegex(),
-                                        ""
-                                    )))
+                            temp = decimalFormat.format(parseDouble(charSequence.toString().
+                                replace(",".toRegex(), "")))
                             depositAmountEditText.setText(temp)
                             depositAmountEditText.setSelection(temp.length)
                         }
@@ -146,8 +174,10 @@ class DepositFragment : Fragment() {
                 }
                 depositAmountEditText.addTextChangedListener(watcher)
 
-                // add onClickListener to buttons
+                /* Add functionality to buttons */
+                // cancel input
                 depositPopUpCancel.setOnClickListener{popupDeposit.dismiss()}
+                // save input
                 depositPopUpSave.setOnClickListener{
                     bankDepositAmountButton.text = "${depositAmountEditText.text}원"
                     popupDeposit.dismiss()
@@ -156,13 +186,27 @@ class DepositFragment : Fragment() {
 
             bankInterestButton.setOnClickListener {}
 
-            // make decision on init, cancel, registering bank infos
-            bankInitButton.setOnClickListener { /* init */ }
-            bankCancelButton.setOnClickListener { popup.dismiss() }
+            /* make decision on init, cancel, registering bank information */
+            // create an arrayList of info-buttons for convenience
+            val buttonArr = arrayOf(
+                bankNameButton, bankStartDateButton, bankEndDateButton,
+                bankDepositAmountButton, bankInterestButton)
+            // init
+            bankInitButton.setOnClickListener {
+                for (infoButton in buttonArr)
+                    infoButton.text = ""
+            }
+            // cancel
+            bankCancelButton.setOnClickListener {
+                for (infoButton in buttonArr)
+                    infoButton.text = ""
+                popup.dismiss() }
+            // register
             bankRegisterButton.setOnClickListener { /* save */ }
         }
     }
 
+    // set datePicker functionality for buttons
     private fun setDate(button: Button) {
         // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
@@ -181,10 +225,13 @@ class DepositFragment : Fragment() {
         dialog.build().show()
     }
 
+
+    // convert date into format that are SQLite readable
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
         return "$year-$month-$dayOfMonth"
     }
 
+    // load data
     private fun loadData() {
         // Get context from the parent activity.
         val prefs = this.context!!.getSharedPreferences("prefs", AppCompatActivity.MODE_PRIVATE)
