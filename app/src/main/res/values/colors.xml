@@ -51,5 +51,7 @@
     <color name="dateButtons">#B9B9B9</color>
 
     <!-- deposit -->
-    <color name="recyclerItemStroke">#5F5F5F</color>
+    <color name="recyclerItemStroke">#A5A5A5</color>
+    <color name="recyclerItem">#A5A5A5</color>
+
 </resources>

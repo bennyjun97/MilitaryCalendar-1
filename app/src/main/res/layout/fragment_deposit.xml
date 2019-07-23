@@ -10,11 +10,11 @@
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/start" app:layout_constraintGuide_percent="0.08"/>
+            android:layout_height="wrap_content" android:id="@+id/start" app:layout_constraintGuide_percent="0.05"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/end" app:layout_constraintGuide_percent="0.92"/>
+            android:layout_height="wrap_content" android:id="@+id/end" app:layout_constraintGuide_percent="0.95"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/bottom" app:layout_constraintGuide_percent=".90"/>
+            android:layout_height="wrap_content" android:id="@+id/bottom" app:layout_constraintGuide_percent=".95"/>
 
 
     <ImageButton
@@ -64,13 +64,13 @@
                 android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" app:cardCornerRadius="4dp" app:cardElevation="4dp"
+                    android:layout_height="250dp" app:cardCornerRadius="4dp" app:cardElevation="4dp"
                     app:cardUseCompatPadding="true">
                 <LinearLayout
-                        android:layout_marginStart="@dimen/large_vertical"
-                        android:layout_marginEnd="@dimen/large_vertical"
-                        android:layout_marginTop="@dimen/large_vertical"
-                        android:layout_marginBottom="@dimen/large_vertical"
+                        android:layout_marginStart="@dimen/cardViewMarginStartEnd"
+                        android:layout_marginEnd="@dimen/cardViewMarginStartEnd"
+                        android:layout_marginTop="@dimen/cardViewMarginTopBottom"
+                        android:layout_marginBottom="@dimen/cardViewMarginTopBottom"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -79,20 +79,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                android:text="내 적금"
+                                android:text="@string/bankMyDepositText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" android:id="@+id/textView20"
                                 android:layout_weight="1" android:textSize="24sp"
                                 android:gravity="start|center_vertical"/>
                         <TextView
-                                android:text="총 3,200,000 원"
+                                android:text="@string/bankTotalDeposit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" android:id="@+id/textView21"
-                                android:layout_weight="1" android:textSize="24sp" android:gravity="clip_vertical|end"/>
+                                android:layout_weight="1" android:textSize="24sp"
+                                android:gravity="center_vertical|end"/>
                     </LinearLayout>
                     <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" android:id="@+id/bankRecyclerView"/>
+                            android:layout_height="match_parent" android:id="@+id/bankRecyclerView"
+                            android:layout_marginTop="@dimen/cardViewMarginTopBottom"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -104,7 +106,10 @@
                     android:layout_height="200dp"
                     app:cardCornerRadius="4dp" app:cardElevation="4dp" app:cardUseCompatPadding="true">
                 <LinearLayout
-                        android:layout_marginStart="@dimen/large_vertical"
+                        android:layout_marginStart="@dimen/cardViewMarginStartEnd"
+                        android:layout_marginEnd="@dimen/cardViewMarginStartEnd"
+                        android:layout_marginTop="@dimen/cardViewMarginTopBottom"
+                        android:layout_marginBottom="@dimen/cardViewMarginTopBottom"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">

@@ -39,7 +39,4 @@ class BankRvAdapter(val context: Context, val bankList: ArrayList<Bank>) :
             bankItemMonthDeposit?.text = bank.monthDeposit
         }
     }
-
-
-
 }
