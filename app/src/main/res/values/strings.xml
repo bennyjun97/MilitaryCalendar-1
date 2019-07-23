@@ -134,6 +134,10 @@
     <string name="bankJeonbookText">전북은행</string>
     <string name="bankJejuText">제주은행</string>
     <string name="bankPostOfficeText">우체국은행</string>
+    <string name="bankMyDepositText">내 적금</string>
+    <string name="bankTotalDeposit">총 3,200,000원</string>
+    <string name="bankByBankDeposit">1,000,000원</string>
+    <string name="bankMonthDeposit">월 150,000원</string>
 
     <string name="enroll">새 적금 등록하기</string>
     <string name="bankName">은행명</string>

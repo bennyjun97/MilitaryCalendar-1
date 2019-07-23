@@ -3,20 +3,25 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="70dp"
-                                                   android:background="@drawable/item_border"
-                                                   android:layout_margin="@dimen/large_between">
+                                                   android:layout_height="60dp"
+                                                   android:layout_margin="@dimen/itemMargin">
 
     <TextView
-            android:text="신한은행"
+            android:text="@string/bankShinhanText"
+            android:textStyle="bold"
+            android:textColor="@color/recyclerItem"
+            android:fontFamily="@font/lee_text_m"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bankItemName" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:textSize="20sp"/>
+            android:textSize="20sp"/>
     <TextView
-            android:text="1,200,000원"
+            android:fontFamily="@font/lee_text_m"
+            android:textStyle="bold"
+            android:textColor="@color/recyclerItem"
+            android:text="@string/bankByBankDeposit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/bankItemTotalDeposit" android:layout_marginBottom="8dp"
@@ -26,7 +31,10 @@
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/bankItemSetting"
             android:gravity="center_vertical|end"/>
     <TextView
-            android:text="월 200,000원"
+            android:textStyle="bold"
+            android:textColor="@color/recyclerItem"
+            android:fontFamily="@font/lee_text_m"
+            android:text="@string/bankMonthDeposit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bankItemMonthDeposit" app:layout_constraintEnd_toEndOf="@+id/bankItemTotalDeposit"
@@ -37,7 +45,8 @@
             android:text="f"
             android:layout_width="34dp"
             android:layout_height="34dp"
-            android:id="@+id/bankItemSetting" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:id="@+id/bankItemSetting" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bankItemTotalDeposit" android:layout_marginStart="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

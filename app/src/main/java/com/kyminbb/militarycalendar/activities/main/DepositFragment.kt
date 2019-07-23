@@ -45,14 +45,16 @@ import java.util.*
  */
 class DepositFragment : Fragment() {
 
+
     private var userInfo = User()
     private val today = LocalDate.now()
+
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
     private var bankList = arrayListOf<Bank>(
-        Bank("신한은행", "총 1,000,000원", "월 200,000원"),
-        Bank("우리은행", "총  800,000원", "월 100,000원"),
-        Bank("광주은행", "총 200,000원", "월 50,000원")
+        Bank("신한은행", "1,000,000원", "월 200,000원"),
+        Bank("우리은행", "800,000원", "월 100,000원"),
+        Bank("광주은행", "200,000원", "월 50,000원")
         )
 
     override fun onCreateView(
@@ -63,20 +65,18 @@ class DepositFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_deposit, container, false)
     }
 
+    /**
+     * onViewCreated is divied into 4 parts of code -> to be restructured later.
+     * 1. Implementing Montly Deposit(적금) infos
+     * 2. Implementing Montly Graph
+     * 3. Implementing current well-being(적금이 잘 이루어지는지에 대한 평가)
+     * 4. Implementing addButton on the top-right corner
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadData()
-        /**
-         * when the top-right button is pressed,
-         * the pop-up menu appears to enroll a new monthly deposit
-         */
-        // Show pop-up when add button is clicked
-        val popupView = layoutInflater.inflate(R.layout.add_deposit, null)
-        val popup = PopupWindow(popupView)
-        popup.isFocusable
-        // enables editText
 
-
+        /** Implement Montly Deposit Info using Recycler View */
         // add recylcerView
         val adapter = BankRvAdapter(activity!!.applicationContext, bankList)
         bankRecyclerView.adapter = adapter
@@ -86,14 +86,20 @@ class DepositFragment : Fragment() {
         bankRecyclerView.layoutManager = lm
         bankRecyclerView.setHasFixedSize(true)
 
+
+        /** Implement addButton on the top-right corner */
+        // Show pop-up when add button is clicked
+        val popupView = layoutInflater.inflate(R.layout.add_deposit, null)
+        val popup = PopupWindow(popupView)
+        popup.isFocusable = true
+
         // Add new deposit information
         depositButtonAdd.setOnClickListener {
             popup.showAtLocation(view, Gravity.CENTER, 0, 0)
             popup.update(
                 view,
                 resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels
-            )
+                resources.displayMetrics.heightPixels)
 
             // enable buttons as views
             val bankNameButton = popupView.find<Button>(R.id.bankNameButton)
@@ -123,16 +129,6 @@ class DepositFragment : Fragment() {
             )
             // input information
             bankNameButton.setOnClickListener {
-                /*if (bankNameSpinner.performClick()){
-                    bankNameSpinner.isVisible = true
-                    bankNameSpinner.adapter = ArrayAdapter<String>(bankNameSpinner.context, android.R.layout.simple_spinner_item, bankArr)
-                    bankNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onNothingSelected(p0: AdapterView<*>?) {}
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            bankNameButton.text = bankArr.get(position)
-                        }
-                    }
-                }*/
                 val popupMenu = PopupMenu(activity, bankNameButton)
                 popupMenu.menuInflater.inflate(R.menu.bank_name_menu, popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener {
@@ -142,13 +138,9 @@ class DepositFragment : Fragment() {
                 popupMenu.show()
             }
             // input the date from spinnerDatePicker, default: today
-            bankStartDateButton.setOnClickListener {
-                setDate(bankStartDateButton)
-            }
+            bankStartDateButton.setOnClickListener { setDate(bankStartDateButton) }
             // input the endDate from spinnerDatePicker, default: userInfo.promotion.endDate
-            bankEndDateButton.setOnClickListener {
-                setDate(bankEndDateButton)
-            }
+            bankEndDateButton.setOnClickListener { setDate(bankEndDateButton) }
             // input the deposit amount, using another pop-up view
             bankDepositAmountButton.setOnClickListener {
                 // enable deposit Popup
@@ -171,27 +163,29 @@ class DepositFragment : Fragment() {
                     override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                     override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                         if (!TextUtils.isEmpty(charSequence.toString()) && charSequence.toString() != temp) {
-                            temp = decimalFormat.format(parseDouble(charSequence.toString().
-                                replace(",".toRegex(), "")))
+                            temp = decimalFormat.format(
+                                parseDouble(
+                                    charSequence.toString().replace(",".toRegex(), "")
+                                )
+                            )
                             depositAmountEditText.setText(temp)
                             depositAmountEditText.setSelection(temp.length)
                         }
                     }
-                    override fun afterTextChanged(editable: Editable) {
-                    }
+
+                    override fun afterTextChanged(editable: Editable) {}
                 }
                 depositAmountEditText.addTextChangedListener(watcher)
 
                 /* Add functionality to buttons */
                 // cancel input
-                depositPopUpCancel.setOnClickListener{popupDeposit.dismiss()}
+                depositPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
                 // save input
-                depositPopUpSave.setOnClickListener{
+                depositPopUpSave.setOnClickListener {
                     bankDepositAmountButton.text = "${depositAmountEditText.text}원"
                     popupDeposit.dismiss()
                 }
             }
-
             bankInterestButton.setOnClickListener {}
 
             /* make decision on init, cancel, registering bank information */
@@ -208,7 +202,8 @@ class DepositFragment : Fragment() {
             bankCancelButton.setOnClickListener {
                 for (infoButton in buttonArr)
                     infoButton.text = ""
-                popup.dismiss() }
+                popup.dismiss()
+            }
             // register
             bankRegisterButton.setOnClickListener { /* save */ }
         }

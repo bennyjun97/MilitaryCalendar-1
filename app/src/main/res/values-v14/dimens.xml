@@ -13,4 +13,9 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="large_vertical">6dp</dimen>
     <dimen name="large_between">8dp</dimen>
     <dimen name="large_memoSpace">20dp</dimen>
+
+    <!-- dimen for deposit -->
+    <dimen name="cardViewMarginStartEnd">12dp</dimen>
+    <dimen name="cardViewMarginTopBottom">16dp</dimen>
+    <dimen name="itemMargin">2dp</dimen>
 </resources>
