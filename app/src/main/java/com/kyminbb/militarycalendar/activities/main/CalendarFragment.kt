@@ -7,20 +7,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.PopupWindow
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
-import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_calendar2.*
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.rowParser
@@ -38,22 +35,9 @@ class CalendarFragment : Fragment() {
 
     var slots: Array<Button> = arrayOf()
     var startSlot = 0
-    var endSlot = 41
-    var leaveTextViewNum = 0
-    var dutyTextViewNum = 0
-    var exerciseTextViewNum = 0
-    var personalTextViewNum = 0
     var eventTextViewNum = 0
     var leaveExist : MutableList<Boolean> = mutableListOf()
     var eventsinMonth : MutableList<TextView> = mutableListOf<TextView>()
-    var leavesinMonth: MutableList<TextView> =
-        mutableListOf<TextView>()  //stores all the leave of the month. updated by updateCalendar()
-    var dutiesinMonth: MutableList<TextView> =
-        mutableListOf<TextView>() //stores all the duty of the month. updated by updateCalendar()
-    var exercisesinMonth: MutableList<TextView> =
-        mutableListOf<TextView>() //stores all the exercise of the month. updated by updateCalendar()
-    var personalinMonth: MutableList<TextView> = mutableListOf<TextView>()
-
     var daySelected = -1
 
     override fun onCreateView(
@@ -161,51 +145,7 @@ class CalendarFragment : Fragment() {
         val popup = PopupWindow(popupView)
 
         addLeave.setOnClickListener {
-            popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-            popup.update(
-                view,
-                resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels
-            )
-
-            val startSchedule = popupView.find<Button>(R.id.startSchedule)
-            val endSchedule = popupView.find<Button>(R.id.endSchedule)
-            val buttonAddEvent = popupView.find<Button>(R.id.buttonAddEvent)
-            val buttonCancel = popupView.find<Button>(R.id.buttonCancel)
-
-            startSchedule.setOnClickListener {
-                setDate(popupView, "Start")
-            }
-
-            endSchedule.setOnClickListener {
-                setDate(popupView, "End")
-            }
-
-            buttonAddEvent.setOnClickListener {
-                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
-                    // Store the schedule.
-                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), "디비실험")
-                    // Retrieve the data for test purpose.
-                    val endDates = readDB(dbHelper, startSchedule.text.toString())
-                    for (endDate in endDates) {
-                        addEventinCalendar(
-                            string2Date(startSchedule.text.toString()),
-                            string2Date(endDate.first),
-                            "휴가",
-                            endDate.third
-                        )
-                    }
-
-                    startSchedule.text = ""
-                    endSchedule.text = ""
-                    // Dismiss the popup window.
-                    popup.dismiss()
-                }
-            }
-            buttonCancel.setOnClickListener {
-                // Dismiss the popup window.
-                popup.dismiss()
-            }
+            addLeaveMenu(dbHelper)
         }
 
         addDuty.setOnClickListener {
@@ -318,11 +258,11 @@ class CalendarFragment : Fragment() {
             val buttonCancel = popupView.find<Button>(R.id.buttonCancel)
 
             startSchedule.setOnClickListener {
-                setDate(popupView, "Start")
+                setDate(popupView, "Start", "")
             }
 
             endSchedule.setOnClickListener {
-                setDate(popupView, "End")
+                setDate(popupView, "End", "")
             }
 
             buttonAddEvent.setOnClickListener {
@@ -366,6 +306,46 @@ class CalendarFragment : Fragment() {
             }
         }
 
+        val dialog = SpinnerDatePickerDialogBuilder()
+            .context(context)
+            .callback(dateSetListener)
+            .spinnerTheme(R.style.NumberPickerStyle)
+            .showTitle(true)
+            .showDaySpinner(true)
+            .maxDate(today.year + 4, 11, 31)
+            .minDate(today.year - 5, 0, 1)
+            .defaultDate(today.year, today.monthValue - 1, today.dayOfMonth)
+        dialog.build().show()
+    }
+
+    //실제 휴가 일수 기본값을 자동으로 보여주기 위한 함수
+    private fun setDate(view: View, type: String, leaveType: String?) {
+        val startSchedule = view.find<Button>(R.id.startSchedule)
+        val endSchedule = view.find<Button>(R.id.endSchedule)
+        val actualDate = view.find<Button>(R.id.actualDayBtn)
+
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            when (type) {
+                "Start" -> when {
+                    endSchedule.text.isEmpty() -> startSchedule.text = date2String(year, month + 1, day)
+                    //endSchedule에 이미 날짜가 기입되어있을 경우 spinnerDatePicker에서 날짜를 고르면 그거에 따라서 자동으로 휴가 길이를 계산해준다.
+                    else -> {
+                        startSchedule.text = date2String(year, month + 1, day)
+                        actualDate.text = (string2Date(endSchedule.text.toString()).get(Calendar.DAY_OF_YEAR)
+                                - string2Date(startSchedule.text.toString()).get(Calendar.DAY_OF_YEAR) + 1).toString() + "일"
+                    }
+                }
+                "End" -> when {
+                    startSchedule.text.isEmpty() -> endSchedule.text = date2String(year, month + 1, day)
+                    //startSchedule에 이미 날짜가 기입되어있을 경우 spinnerDatePicker에서 날짜를 고르면 그거에 따라서 자동으로 휴가 길이를 계산해준다.
+                    else -> {
+                        endSchedule.text = date2String(year, month + 1, day)
+                        actualDate.text = (string2Date(endSchedule.text.toString()).get(Calendar.DAY_OF_YEAR)
+                                - string2Date(startSchedule.text.toString()).get(Calendar.DAY_OF_YEAR) + 1).toString() + "일"
+                    }
+                }
+            }
+        }
         val dialog = SpinnerDatePickerDialogBuilder()
             .context(context)
             .callback(dateSetListener)
@@ -551,15 +531,17 @@ class CalendarFragment : Fragment() {
         )
         constraintSet.constrainWidth(eventsinMonth[eventTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
         constraintSet.constrainHeight(eventsinMonth[eventTextViewNum].id, ConstraintSet.WRAP_CONTENT)
+        constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.START, 4)
+        constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.END, 4)
         when(type) {
             "휴가" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.35f)
-                eventsinMonth[eventTextViewNum].setBackgroundColor(Color.parseColor("#7CB342"))}
+                eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.leave_textview_both_rounded) }
             "당직" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.50f)
-                eventsinMonth[eventTextViewNum].setBackgroundColor(Color.parseColor("#64B5F6"))}
+                eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.duty_textview_both_rounded)}
             "훈련" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.65f)
-                eventsinMonth[eventTextViewNum].setBackgroundColor(Color.parseColor("#9E9D24"))}
+                eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.exercise_textview_both_rounded)}
             else -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.80f)
-                eventsinMonth[eventTextViewNum].setBackgroundColor(Color.parseColor("#E57373"))}
+                eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.personal_textview_both_rounded)}
         }
         eventsinMonth[eventTextViewNum].text = text
         eventsinMonth[eventTextViewNum].textSize = 8.0f
@@ -571,6 +553,113 @@ class CalendarFragment : Fragment() {
             for (index in startPos-startSlot..endPos-startSlot) {
                 leaveExist[index] = true
             }
+        }
+    }
+
+    private fun addLeaveMenu(dbHelper: DBHelper) {
+        val addLeaveArray = resources.getStringArray(R.array.addLeave_string)
+        val addLeaveButtons = arrayOf(
+            R.id.LeaveSelect,
+            R.id.PassSelect,
+            R.id.offPostSelect
+        )
+        val popupMenu = PopupMenu(this.context, addLeave)
+        popupMenu.menuInflater.inflate(R.menu.pass_leave_menu, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener {
+            when(addLeaveArray[addLeaveButtons.indexOf(it.itemId)]) {
+                "휴가" -> addLeave(dbHelper)
+                "외박" -> addLeave(dbHelper)
+                else -> addLeave(dbHelper)
+            }
+            true
+        }
+        popupMenu.show()
+    }
+
+    private fun addLeave(dbHelper: DBHelper) {
+        val popupView = layoutInflater.inflate(R.layout.add_leave, null)
+        val popup = PopupWindow(popupView)
+        popup.isFocusable = true
+        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+        popup.update(
+            view,
+            resources.displayMetrics.widthPixels,
+            resources.displayMetrics.heightPixels
+        )
+
+        val startSchedule = popupView.find<Button>(R.id.startSchedule)
+        val endSchedule = popupView.find<Button>(R.id.endSchedule)
+        val buttonAddEvent = popupView.find<Button>(R.id.leaveRegisterBtn)
+        val buttonCancel = popupView.find<Button>(R.id.leaveCancelBtn)
+        val actualDateUsed = popupView.find<Button>(R.id.actualDayBtn)
+        val buttonInit = popupView.find<Button>(R.id.leaveInitBtn)
+        val leaveMemo = popupView.find<EditText>(R.id.memoBtn)
+
+        var memo = ""
+
+        //leaveMemo.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
+
+
+        startSchedule.setOnClickListener {
+            setDate(popupView, "Start", "leave")
+        }
+
+        endSchedule.setOnClickListener {
+            setDate(popupView, "End", "leave")
+        }
+
+        leaveMemo.setOnClickListener { }
+
+        actualDateUsed.setOnClickListener {
+            val popupMenu = PopupMenu(this.context, addLeave)
+            popupMenu.menuInflater.inflate(R.menu.actual_leave_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener {
+                actualDateUsed.text = it.title
+                true
+            }
+            popupMenu.show()
+        }
+
+        //leaveMemo.setOnClickListener {}
+
+
+        buttonAddEvent.setOnClickListener {
+            if(leaveMemo.text.isEmpty()) memo = "휴가"
+            else memo = leaveMemo.text.toString()
+            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                // Store the schedule.
+                writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                // Retrieve the data for test purpose.
+                val endDates = readDB(dbHelper, startSchedule.text.toString())
+                for (endDate in endDates) {
+                    addEventinCalendar(
+                        string2Date(startSchedule.text.toString()),
+                        string2Date(endDate.first),
+                        "휴가",
+                        endDate.third
+                    )
+                }
+
+                startSchedule.text = ""
+                endSchedule.text = ""
+                actualDateUsed.text = ""
+                leaveMemo.text = null
+                // Dismiss the popup window.
+                popup.dismiss()
+            }
+        }
+        buttonInit.setOnClickListener {
+            startSchedule.text = ""; leaveMemo.text = null
+            actualDateUsed.text = ""; endSchedule.text = ""
+        }
+        buttonCancel.setOnClickListener {
+            // Dismiss the popup window.
+            startSchedule.text = ""
+            actualDateUsed.text = ""
+            endSchedule.text = ""
+            leaveMemo.text = null
+            popup.dismiss()
         }
     }
 }
