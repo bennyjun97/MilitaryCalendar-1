@@ -13,11 +13,14 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
 
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.utils.Bank
+import com.kyminbb.militarycalendar.utils.BankRvAdapter
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
@@ -46,6 +49,11 @@ class DepositFragment : Fragment() {
     private val today = LocalDate.now()
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
+    private var bankList = arrayListOf<Bank>(
+        Bank("신한은행", "총 1,000,000원", "월 200,000원"),
+        Bank("우리은행", "총  800,000원", "월 100,000원"),
+        Bank("광주은행", "총 200,000원", "월 50,000원")
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +75,16 @@ class DepositFragment : Fragment() {
         val popup = PopupWindow(popupView)
         popup.isFocusable
         // enables editText
+
+
+        // add recylcerView
+        val adapter = BankRvAdapter(activity!!.applicationContext, bankList)
+        bankRecyclerView.adapter = adapter
+
+        // add layoutManager
+        val lm = LinearLayoutManager(activity!!.applicationContext)
+        bankRecyclerView.layoutManager = lm
+        bankRecyclerView.setHasFixedSize(true)
 
         // Add new deposit information
         depositButtonAdd.setOnClickListener {
@@ -123,16 +141,6 @@ class DepositFragment : Fragment() {
                 }
                 popupMenu.show()
             }
-
-
-
-
-
-
-
-
-
-
             // input the date from spinnerDatePicker, default: today
             bankStartDateButton.setOnClickListener {
                 setDate(bankStartDateButton)

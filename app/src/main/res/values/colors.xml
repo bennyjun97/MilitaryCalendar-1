@@ -50,4 +50,6 @@
     <color name="exercise">#9E9D24</color>
     <color name="dateButtons">#B9B9B9</color>
 
+    <!-- deposit -->
+    <color name="recyclerItemStroke">#5F5F5F</color>
 </resources>
