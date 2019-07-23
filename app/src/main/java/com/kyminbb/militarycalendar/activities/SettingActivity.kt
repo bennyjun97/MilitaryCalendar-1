@@ -1,4 +1,4 @@
-package com.kyminbb.militarycalendar.activities.register
+package com.kyminbb.militarycalendar.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,10 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextUtils.isEmpty
-import android.text.TextWatcher
 import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -28,36 +25,34 @@ import com.kyminbb.militarycalendar.utils.User
 import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
-import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_setting.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import java.io.IOException
 import java.util.*
 
-class RegisterActivity : AppCompatActivity() {
+class SettingActivity : AppCompatActivity() {
 
     companion object {
         private const val SELECT_PICTURE = 1
         private const val REQUEST_READ_EXTERNAL_STORAGE = 1000
     }
 
-    //Initialize today's date
+    // Initialize today's date.
     private val today = Calendar.getInstance().toLocalDate()
 
     // Initialize the user info.
     private var userInfo = User()
-    private var temp = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize the timezone information.
         AndroidThreeTen.init(this)
-        setContentView(R.layout.activity_register)
+        setContentView(R.layout.activity_setting)
 
         val dateInputs = arrayOf(inputEnlist, privateDate, corporalDate, sergeantDate, inputEnd)
 
@@ -65,9 +60,6 @@ class RegisterActivity : AppCompatActivity() {
 
         profileImage.setOnClickListener {
             setProfileImage()
-        }
-
-        inputName.setOnClickListener{
         }
 
         inputAffiliation.setOnClickListener {
@@ -118,18 +110,7 @@ class RegisterActivity : AppCompatActivity() {
             // Display the stored profile image.
             profileImage.setImageURI(Uri.parse(userInfo.profileImage))
             // Display the stored name.
-            //inputName.text = Editable.Factory.getInstance().newEditable(userInfo.name)
-            inputName.hint = userInfo.name
-            /*inputName.addTextChangedListener(object: TextWatcher{
-                override fun afterTextChanged(p0: Editable?) {}
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    if (!isEmpty(p0.toString()) && p0.toString() != temp) {temp = p0.toString()}
-                    inputName.setText(temp)
-                    inputName.setSelection(temp.length)
-                }
-            })*/
-            //inputName.setHintTextColor(Color.BLACK)
+            inputName.setText(userInfo.name)
             // Display the stored affiliation.
             inputAffiliation.text = userInfo.affiliation
             // Display the enlist date.*/
@@ -139,16 +120,6 @@ class RegisterActivity : AppCompatActivity() {
                 dateInputs[index].text = formatDate(userInfo.promotionDates[index])
             }
         }
-        else {
-            inputName.hint = getString(R.string.profileNameHint)
-        }
-
-        /*// Display the stored name.
-        inputName.hint = userInfo.name
-        // when name is loaded from data into hint, its color will be black
-        inputName.setHintTextColor(Color.BLACK)
-        // Display the enlist date.*/
-        // inputEnlist.text = formatDate(userInfo.promotionDates[Dates.ENLIST.ordinal])
     }
 
     private fun setProfileImage() {
@@ -166,8 +137,9 @@ class RegisterActivity : AppCompatActivity() {
                 alert("사진 정보를 얻으려면 외부 저장소 권한이 필수로 필요합니다", "권한이 필요한 이유") {
                     yesButton {
                         ActivityCompat.requestPermissions(
-                            this@RegisterActivity,
-                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE
+                            this@SettingActivity,
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            REQUEST_READ_EXTERNAL_STORAGE
                         )
                     }
                     noButton { }
@@ -224,7 +196,7 @@ class RegisterActivity : AppCompatActivity() {
         for ((index, value) in dateInputs.withIndex()) {
             value.setOnClickListener {
                 // Alert if the user adjusts promotion dates before selecting an affiliation.
-                if (index != Dates.ENLIST.ordinal && isEmpty(inputAffiliation.text)) {
+                if (index != Dates.ENLIST.ordinal && TextUtils.isEmpty(inputAffiliation.text)) {
                     DynamicToast.makeError(this, "군별을 골라주세요!").show()
                     return@setOnClickListener
                 }
@@ -281,11 +253,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun completeRegister() {
         when {
             // https://github.com/pranavpandey/dynamic-toasts
-            isEmpty(inputName.text.toString()) && isEmpty(userInfo.name) -> return DynamicToast.makeError(
+            TextUtils.isEmpty(inputName.text.toString()) && TextUtils.isEmpty(userInfo.name) -> return DynamicToast.makeError(
                 this,
                 "이름을 입력해주세요!"
             ).show()
-            isEmpty(inputAffiliation.text) -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
+            TextUtils.isEmpty(inputAffiliation.text) -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
             else -> {
                 saveData()
                 startActivity<HomeActivity>()
@@ -299,7 +271,7 @@ class RegisterActivity : AppCompatActivity() {
 
     // Save the user info to SharedPreferences.
     private fun saveData() {
-        if (isEmpty(inputName.text.toString()))
+        if (TextUtils.isEmpty(inputName.text.toString()))
             userInfo.name = inputName.hint.toString()
         else
             userInfo.name = inputName.text.toString()
@@ -319,8 +291,8 @@ class RegisterActivity : AppCompatActivity() {
     private fun init() {
         when {
             // https://github.com/pranavpandey/dynamic-toasts
-            isEmpty(inputName.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
-            isEmpty(inputAffiliation.text) -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
+            TextUtils.isEmpty(inputName.text.toString()) -> return DynamicToast.makeError(this, "이름을 입력해주세요!").show()
+            TextUtils.isEmpty(inputAffiliation.text) -> return DynamicToast.makeError(this, "군별을 골라주세요!").show()
             else -> {
                 DynamicToast.makeError(this, "조정 사항이 입대일을 기준으로 초기화됩니다!").show()
                 calcPromotionDates()

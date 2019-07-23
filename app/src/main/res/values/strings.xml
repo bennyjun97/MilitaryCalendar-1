@@ -1,4 +1,4 @@
-    <resources>
+<resources>
     <string name="app_name">MilitaryCalendar</string>
     <string name="title_activity_clock">ClockActivity</string>
     <string name="title_activity_calendar">CalendarActivity</string>
@@ -10,6 +10,7 @@
     <string name="input_name">이름을 입력하세요.</string>
     <string name="input_enlist">입대 날짜를 선택해주세요.</string>
     <string name="verify">정보가 맞나요?</string>
+    <string name="profile_image">프로필 사진</string>
 
     <!-- widget-->
     <string name="promotion">직급</string>

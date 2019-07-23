@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.activities.main.HomeActivity
-import com.kyminbb.militarycalendar.activities.register.RegisterActivity
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -22,13 +20,13 @@ class MainActivity : AppCompatActivity() {
         // Open the sign-up page if the application is first-time executed.
         // 실험할 때는 느낌표를 놓아서 무조건 SetName 들어가게 하지만 나중에는 지울것!
         if (!firstStart) {
-            startActivity<RegisterActivity>()
+            startActivity<SettingActivity>()
             overridePendingTransition(
                 R.anim.fade_in,
                 R.anim.fade_out
             )
         } else {
-            startActivity<RegisterActivity>()
+            startActivity<SettingActivity>()
             overridePendingTransition(
                 R.anim.fade_in,
                 R.anim.fade_out

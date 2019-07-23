@@ -6,18 +6,17 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.PopupMenu
+import android.widget.PopupWindow
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.commit451.addendum.threetenabp.toLocalDate
 import com.google.gson.Gson
-
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.utils.Bank
 import com.kyminbb.militarycalendar.utils.BankRvAdapter
@@ -25,18 +24,11 @@ import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
-import kotlinx.android.synthetic.main.activity_graph.*
-import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.add_deposit.*
-import kotlinx.android.synthetic.main.add_deposit.view.*
-import kotlinx.android.synthetic.main.fragment_calendar2.*
 import kotlinx.android.synthetic.main.fragment_deposit.*
 import org.jetbrains.anko.find
-import org.jetbrains.anko.textView
 import org.threeten.bp.LocalDate
 import java.lang.Double.parseDouble
 import java.text.DecimalFormat
-import java.util.*
 
 
 /**
@@ -55,7 +47,7 @@ class DepositFragment : Fragment() {
         Bank("신한은행", "1,000,000원", "월 200,000원"),
         Bank("우리은행", "800,000원", "월 100,000원"),
         Bank("광주은행", "200,000원", "월 50,000원")
-        )
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,7 +91,8 @@ class DepositFragment : Fragment() {
             popup.update(
                 view,
                 resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels)
+                resources.displayMetrics.heightPixels
+            )
 
             // enable buttons as views
             val bankNameButton = popupView.find<Button>(R.id.bankNameButton)
@@ -111,7 +104,6 @@ class DepositFragment : Fragment() {
             val bankCancelButton = popupView.find<Button>(R.id.bankCancelButton)
             val bankRegisterButton = popupView.find<Button>(R.id.bankRegisterButton)
             //val bankNameSpinner = popupView.find<Spinner>(R.id.spinner)
-
 
 
             /* Add functionality to buttons */
@@ -132,7 +124,7 @@ class DepositFragment : Fragment() {
                 val popupMenu = PopupMenu(activity, bankNameButton)
                 popupMenu.menuInflater.inflate(R.menu.bank_name_menu, popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener {
-                    bankNameButton.text =  bankArr[bankArrButtons.indexOf(it.itemId)]
+                    bankNameButton.text = bankArr[bankArrButtons.indexOf(it.itemId)]
                     true
                 }
                 popupMenu.show()
@@ -192,7 +184,8 @@ class DepositFragment : Fragment() {
             // create an arrayList of info-buttons for convenience
             val buttonArr = arrayOf(
                 bankNameButton, bankStartDateButton, bankEndDateButton,
-                bankDepositAmountButton, bankInterestButton)
+                bankDepositAmountButton, bankInterestButton
+            )
             // init
             bankInitButton.setOnClickListener {
                 for (infoButton in buttonArr)
@@ -214,7 +207,7 @@ class DepositFragment : Fragment() {
         // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                button.text = date2String(year, month + 1, day)
+            button.text = date2String(year, month + 1, day)
         }
         val dialog = SpinnerDatePickerDialogBuilder()
             .context(context)

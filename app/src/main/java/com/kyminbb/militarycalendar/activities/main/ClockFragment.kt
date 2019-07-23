@@ -2,31 +2,27 @@ package com.kyminbb.militarycalendar.activities.main
 
 
 import android.annotation.SuppressLint
-import android.os.*
-import android.provider.Settings
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
-import com.kyminbb.militarycalendar.activities.register.RegisterActivity
+import com.kyminbb.militarycalendar.activities.SettingActivity
 import com.kyminbb.militarycalendar.utils.ClockView
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
-import kotlinx.android.synthetic.main.activity_set.*
 import kotlinx.android.synthetic.main.fragment_clock2.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.support.v4.startActivity
-import org.threeten.bp.LocalDateTime
-import org.w3c.dom.Text
-import kotlin.coroutines.CoroutineContext
 
 
 class ClockFragment: Fragment() {
@@ -52,7 +48,7 @@ class ClockFragment: Fragment() {
         nameText.text = userInfo.name
 
         buttonEdit.setOnClickListener {
-            startActivity<RegisterActivity>()
+            startActivity<SettingActivity>()
         }
 
         updateTotal(entirePercentText, progressBarTotal)

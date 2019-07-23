@@ -11,6 +11,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.SettingActivity">
+        </activity>
         <activity android:name=".activities.main.CalendarTest">
         </activity>
 
@@ -48,8 +50,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".activities.register.RegisterActivity" android:noHistory="true">
         </activity>
         <activity android:name=".activities.main.HomeActivity">
         </activity>
