@@ -240,7 +240,7 @@ class DepositFragment : Fragment() {
 
     // convert date into format that are SQLite readable
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
-        return "$year-${"%02d".format(month)}-$dayOfMonth"
+        return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
     }
 
     // load data
