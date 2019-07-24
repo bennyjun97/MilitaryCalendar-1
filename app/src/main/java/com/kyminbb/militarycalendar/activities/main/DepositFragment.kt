@@ -197,7 +197,7 @@ class DepositFragment : Fragment() {
             // register
             bankRegisterButton.setOnClickListener {
                 for (infoButton in buttonArr) {
-                    if (infoButton.text == null){
+                    if (infoButton.text == ""){
                         DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
                         return@setOnClickListener
                     }
@@ -208,6 +208,7 @@ class DepositFragment : Fragment() {
                         bankDepositAmountButton.text.toString(), parseDouble(bankInterestButton.text.toString()))
 
                 saveBankData(activity!!.applicationContext, bankToBeSaved)
+                popup.dismiss()
             }
         }
     }
