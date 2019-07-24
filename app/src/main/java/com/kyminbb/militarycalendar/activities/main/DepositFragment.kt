@@ -325,7 +325,7 @@ class DepositFragment : Fragment() {
             adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
                 override fun onItemClick(v: View, position: Int) {
                     deleteBankData(context, arrayBankList.get(position))
-                    updateRecyclerView(context, view)
+                    //updateRecyclerView(context, view)
                 }
             })
             // add layoutManager
