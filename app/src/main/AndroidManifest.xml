@@ -12,8 +12,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activities.main.CalendarTest">
-        </activity>
 
         <receiver android:name=".activities.widget.LargeWidget">
             <intent-filter>
@@ -50,12 +48,10 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.register.RegisterActivity" android:noHistory="true">
+        <activity android:name=".activities.SettingActivity" android:noHistory="true">
         </activity>
         <activity android:name=".activities.main.HomeActivity"  android:windowSoftInputMode="adjustPan|stateAlwaysVisible">
-        </activity>
-        <activity android:name=".activities.main.GraphActivity">
-        </activity>
+        </activity>=
         <activity
                 android:name=".activities.MainActivity"
                 android:noHistory="true"

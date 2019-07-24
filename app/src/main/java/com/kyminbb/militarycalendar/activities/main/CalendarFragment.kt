@@ -149,51 +149,7 @@ class CalendarFragment : Fragment() {
         }
 
         addDuty.setOnClickListener {
-            popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-            popup.update(
-                view,
-                resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels
-            )
-
-            val startSchedule = popupView.find<Button>(R.id.startSchedule)
-            val endSchedule = popupView.find<Button>(R.id.endSchedule)
-            val buttonAddEvent = popupView.find<Button>(R.id.buttonAddEvent)
-            val buttonCancel = popupView.find<Button>(R.id.buttonCancel)
-
-            startSchedule.setOnClickListener {
-                setDate(popupView, "Start")
-            }
-
-            endSchedule.setOnClickListener {
-                setDate(popupView, "End")
-            }
-
-            buttonAddEvent.setOnClickListener {
-                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
-                    // Store the schedule.
-                    writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), "당직")
-                    // Retrieve the data for test purpose.
-                    val endDates = readDB(dbHelper, startSchedule.text.toString())
-                    for (endDate in endDates) {
-                        addEventinCalendar(
-                            string2Date(startSchedule.text.toString()),
-                            string2Date(endDate.first),
-                            "당직",
-                            endDate.third
-                        )
-                    }
-
-                    startSchedule.text = ""
-                    endSchedule.text = ""
-                    // Dismiss the popup window.
-                    popup.dismiss()
-                }
-            }
-            buttonCancel.setOnClickListener {
-                // Dismiss the popup window.
-                popup.dismiss()
-            }
+            addDuty(dbHelper)
         }
 
         addExercise.setOnClickListener {
@@ -728,7 +684,7 @@ class CalendarFragment : Fragment() {
     private fun addPass(dbHelper: DBHelper) {
         val popupView = layoutInflater.inflate(R.layout.add_pass, null)
         val popup = PopupWindow(popupView)
-        popup.isFocusable = false
+        popup.isFocusable = true
         popup.showAtLocation(view, Gravity.CENTER, 0, 0)
         popup.update(
             view,
@@ -762,6 +718,67 @@ class CalendarFragment : Fragment() {
                         string2Date(startSchedule.text.toString()),
                         string2Date(endDate.first),
                         "휴가",
+                        endDate.third
+                    )
+                }
+                startSchedule.text = ""
+                leaveMemo.text = null
+                // Dismiss the popup window.
+                popup.dismiss()
+            }
+        }
+
+        leaveMemo.setOnClickListener { }
+
+        buttonInit.setOnClickListener {
+            startSchedule.text = ""; leaveMemo.text = null; endSchedule.text = ""
+        }
+        buttonCancel.setOnClickListener {
+            // Dismiss the popup window.
+            startSchedule.text = ""
+            leaveMemo.text = null; endSchedule.text = ""
+            popup.dismiss()
+        }
+    }
+
+    private fun addDuty(dbHelper: DBHelper) {
+        val popupView = layoutInflater.inflate(R.layout.add_pass, null)
+        val popup = PopupWindow(popupView)
+        popup.isFocusable = true
+        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+        popup.update(
+            view,
+            resources.displayMetrics.widthPixels,
+            resources.displayMetrics.heightPixels
+        )
+
+        changeTexts(popupView, "당직")
+        val startSchedule = popupView.find<Button>(R.id.startSchedule)
+        val endSchedule = popupView.find<Button>(R.id.endSchedule)
+        val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
+        val buttonCancel = popupView.find<Button>(R.id.passCancelBtn)
+        val buttonInit = popupView.find<Button>(R.id.passInitBtn)
+        val leaveMemo = popupView.find<EditText>(R.id.memoEdit)
+
+        var memo = ""
+        leaveMemo.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
+
+        startSchedule.setOnClickListener {setDate(popupView, "Start")}
+        endSchedule.setOnClickListener { setDate(popupView, "End") }
+
+        buttonAddEvent.setOnClickListener {
+            if (leaveMemo.text.isEmpty()) memo = "당직"
+            else memo = leaveMemo.text.toString()
+            if (startSchedule.text.isNotEmpty()) {
+                // Store the schedule.
+                writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                // Retrieve the data for test purpose.
+                val endDates = readDB(dbHelper, startSchedule.text.toString())
+                for (endDate in endDates) {
+                    addEventinCalendar(
+                        string2Date(startSchedule.text.toString()),
+                        string2Date(endDate.first),
+                        "당직",
                         endDate.third
                     )
                 }
