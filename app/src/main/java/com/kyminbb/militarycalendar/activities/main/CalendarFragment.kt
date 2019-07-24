@@ -344,7 +344,7 @@ class CalendarFragment : Fragment() {
     }
 
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
-        return "$year-${"%02d".format(month)}-$dayOfMonth"
+        return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
     }
 
     /*@SuppressLint("SimpleDateFormat")
@@ -574,6 +574,10 @@ class CalendarFragment : Fragment() {
         buttonAddEvent.setOnClickListener {
             if(leaveMemo.text.isEmpty()) memo = "휴가"
             else memo = leaveMemo.text.toString()
+            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
+                Toast.makeText(this.context, "복귀 안 할거에요?", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
                 if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
                     Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
@@ -712,6 +716,10 @@ class CalendarFragment : Fragment() {
         buttonAddEvent.setOnClickListener {
             if (leaveMemo.text.isEmpty()) memo = "휴가"
             else memo = leaveMemo.text.toString()
+            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
+                Toast.makeText(this.context, "복귀 안 할거에요?", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
                 if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
                     Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
@@ -777,7 +785,11 @@ class CalendarFragment : Fragment() {
         buttonAddEvent.setOnClickListener {
             if (leaveMemo.text.isEmpty()) memo = "당직"
             else memo = leaveMemo.text.toString()
-            if (startSchedule.text.isNotEmpty()) {
+            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
+            Toast.makeText(this.context, "퇴근 안 할거에요?", Toast.LENGTH_SHORT).show()
+            return@setOnClickListener
+        }
+            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
                 if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
                     Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
@@ -795,6 +807,7 @@ class CalendarFragment : Fragment() {
                     )
                 }
                 startSchedule.text = ""
+                endSchedule.text = ""
                 leaveMemo.text = null
                 // Dismiss the popup window.
                 popup.dismiss()
