@@ -5,24 +5,24 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:background="@android:color/transparent"
-                                                   android:id="@+id/mConstraintLayout" >
+                                                   android:id="@+id/mConstraintLayout">
 
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guidelineLeft"
                                                 android:orientation="vertical"
-                                                app:layout_constraintGuide_percent="0.1"/>
+                                                app:layout_constraintGuide_percent="0.15"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guidelineRight"
                                                 android:orientation="vertical"
-                                                app:layout_constraintGuide_percent="0.9"/>
+                                                app:layout_constraintGuide_percent="0.85"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guidelineTop"
                                                 android:orientation="horizontal"
-                                                app:layout_constraintGuide_percent="0.2"/>
+                                                app:layout_constraintGuide_percent="0.30"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guidelineBottom"
                                                 android:orientation="horizontal"
-                                                app:layout_constraintGuide_percent="0.8"/>
+                                                app:layout_constraintGuide_percent="0.70"/>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp" app:layout_constraintStart_toEndOf="@id/guidelineLeft"
@@ -35,27 +35,17 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/titleGuide" app:layout_constraintGuide_percent="0.12"/>
+                android:id="@+id/titleGuide" app:layout_constraintGuide_percent="0.18"/>
         <androidx.constraintlayout.widget.Guideline
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/bottomGuideLine" app:layout_constraintGuide_percent="0.88"/>
+                android:id="@+id/bottomGuideLine" app:layout_constraintGuide_percent="0.82"/>
         <androidx.constraintlayout.widget.Guideline
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/startDateGuide" app:layout_constraintGuide_percent="0.31"/>
-        <androidx.constraintlayout.widget.Guideline
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/endDateGuide" app:layout_constraintGuide_percent="0.50"/>
-        <androidx.constraintlayout.widget.Guideline
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/actualDayGuide"
-                app:layout_constraintGuide_percent="0.69"/>
+                android:id="@+id/startDateGuide" app:layout_constraintGuide_percent="0.50"/>
         <androidx.constraintlayout.widget.Guideline
                 android:orientation="vertical"
                 android:layout_width="wrap_content" app:layout_constraintGuide_percent="0.30"
@@ -65,7 +55,7 @@
                 android:layout_width="wrap_content" app:layout_constraintGuide_percent="0.60"
                 android:layout_height="wrap_content" android:id="@+id/cancel"/>
         <TextView
-                android:text="휴가 등록하기"
+                android:text="외출 등록하기"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/titleText" app:layout_constraintStart_toStartOf="parent"
@@ -74,10 +64,10 @@
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.0"
                 android:textSize="24sp" android:fontFamily="@font/lee_header_bold"/>
         <TextView
-                android:text="휴가 시작일"
+                android:text="외출 날짜"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/startText"
+                android:id="@+id/offPostDateText"
                 app:layout_constraintTop_toTopOf="@+id/titleGuide"
                 android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/startSchedule"
                 android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/titleText"
@@ -87,46 +77,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/startDateGuide" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
                 android:layout_marginBottom="4dp" android:layout_marginEnd="4dp" android:hint="시작일을 선택해주세요"
-                android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/startText"
-                android:clickable="false"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintVertical_bias="0.0"/>
-
-        <TextView
-                android:text="휴가 종료일"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/endText"
-                app:layout_constraintTop_toTopOf="@+id/startDateGuide"
-                android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/endSchedule"
-                android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
-                android:layout_marginStart="0dp"/>
-        <Button
-                android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/endSchedule"
-                app:layout_constraintBottom_toTopOf="@+id/endDateGuide" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
-                android:layout_marginBottom="4dp" android:layout_marginEnd="4dp" android:hint="종료일을 선택해주세요"
-                android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/endText"
-                android:clickable="false"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:text="실제 사용 휴가 일수"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/actualDayText"
-            app:layout_constraintTop_toTopOf="@+id/endDateGuide"
-            android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/actualDayBtn"
-            android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
-            android:layout_marginStart="0dp"/>
-        <Button
-                android:hint = "실제 사용하는 휴가 일수를 적어주세요"
-                android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/actualDayBtn"
-                app:layout_constraintBottom_toTopOf="@+id/actualDayGuide" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
-                android:layout_marginBottom="4dp" android:layout_marginEnd="4dp"
-                android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/actualDayText"
+                android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/offPostDateText"
                 android:clickable="false"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintVertical_bias="0.0"/>
@@ -136,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/memoText"
-                app:layout_constraintTop_toTopOf="@+id/actualDayGuide"
+                app:layout_constraintTop_toTopOf="@+id/startDateGuide"
                 android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/memoEdit"
                 android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
                 android:layout_marginStart="0dp"/>
@@ -156,7 +107,7 @@
                 android:text="초기화"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/leaveInitBtn"
+                android:id="@+id/offPostInitBtn"
                 android:fontFamily="@font/lee_header_regular"
                 android:background="@drawable/register_button"
 
@@ -170,20 +121,20 @@
                 android:layout_height="0dp"
                 android:fontFamily="@font/lee_header_regular"
                 android:background="@drawable/register_button"
-                android:id="@+id/leaveCancelBtn"
+                android:id="@+id/offPostCancelBtn"
                 app:layout_constraintEnd_toStartOf="@+id/cancel" android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="@+id/init" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@+id/leaveInitBtn"
-                app:layout_constraintBottom_toBottomOf="@+id/leaveInitBtn"/>
+                app:layout_constraintTop_toTopOf="@+id/offPostInitBtn"
+                app:layout_constraintBottom_toBottomOf="@+id/offPostInitBtn"/>
         <Button
-                android:text="휴가 등록"
+                android:text="외출 등록"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/lee_header_regular"
                 android:background="@drawable/register_button"
                 android:id="@+id/RegisterBtn"
-                app:layout_constraintTop_toTopOf="@+id/leaveInitBtn"
-                app:layout_constraintBottom_toBottomOf="@+id/leaveInitBtn"
+                app:layout_constraintTop_toTopOf="@+id/offPostInitBtn"
+                app:layout_constraintBottom_toBottomOf="@+id/offPostInitBtn"
                 app:layout_constraintStart_toStartOf="@+id/cancel" android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/memoEdit" android:layout_marginEnd="8dp"/>
 
