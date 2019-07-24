@@ -135,6 +135,14 @@ object DateCalc {
         }
     }
 
+    fun leaveDaysCalculator(date1: LocalDate, date2: LocalDate): Int {
+        return ChronoUnit.DAYS.between(localDateToLocalDateTime(date1), localDateToLocalDateTime(date2)).toInt() + 1
+    }
+
+    fun localDateToLocalDateTime(date: LocalDate) : LocalDateTime {
+        return LocalDateTime.of(date.year, date.month, date.dayOfMonth, 0, 0, 0, 0)
+    }
+
     //육군 전역날짜 계산.
     private fun armyETS(date: LocalDate): LocalDate {
         //원래 21개월
