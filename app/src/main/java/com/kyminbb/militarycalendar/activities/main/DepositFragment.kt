@@ -35,6 +35,8 @@ import java.lang.Double.parseDouble
 import java.text.DecimalFormat
 
 
+
+
 /**
  * A simple [Fragment] subclass.
  *
@@ -74,7 +76,6 @@ class DepositFragment : Fragment() {
         //loadBankData(activity!!.applicationContext)
         updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
 
-
         /** Implement addButton on the top-right corner */
         // Show pop-up when add button is clicked
         val popupView = layoutInflater.inflate(R.layout.add_deposit, null)
@@ -99,7 +100,6 @@ class DepositFragment : Fragment() {
             val bankInitButton = popupView.find<Button>(R.id.bankInitButton)
             val bankCancelButton = popupView.find<Button>(R.id.bankCancelButton)
             val bankRegisterButton = popupView.find<Button>(R.id.bankRegisterButton)
-            //val bankNameSpinner = popupView.find<Spinner>(R.id.spinner)
 
 
             /* Add functionality to buttons */
@@ -216,7 +216,7 @@ class DepositFragment : Fragment() {
                         //parseDouble(bankInterestButton.text.toString())
                     )
 
-                    saveBankData(activity!!.applicationContext, bankToBeSaved, view)
+                    saveBankData(activity!!.applicationContext, bankToBeSaved)
                     loadBankData(activity!!.applicationContext)
                     updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
                     popup.dismiss()
@@ -261,7 +261,7 @@ class DepositFragment : Fragment() {
         private const val BANK_PREFS_NAME = "com.kyminbb.militarycalendar.activities.main.DepositFragment"
         private const val BANK_PREF_PREFIX_KEY = "BANK_NAME_"
 
-        internal fun saveBankData(context: Context, inputBank: Bank, view: View) {
+        internal fun saveBankData(context: Context, inputBank: Bank) {
             val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
             val prefsEditor = prefs.edit()
 
@@ -318,9 +318,16 @@ class DepositFragment : Fragment() {
 
         internal fun updateRecyclerView(context:Context, view: RecyclerView) {
             // add recylcerView
-            val adapter = BankRvAdapter(context, loadBankData(context))
+            val arrayBankList = loadBankData(context)
+            val adapter = BankRvAdapter(context, arrayBankList)
             view.adapter = adapter
 
+            adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
+                override fun onItemClick(v: View, position: Int) {
+                    deleteBankData(context, arrayBankList.get(position))
+                    updateRecyclerView(context, view)
+                }
+            })
             // add layoutManager
             val lm = LinearLayoutManager(context)
             view.layoutManager = lm

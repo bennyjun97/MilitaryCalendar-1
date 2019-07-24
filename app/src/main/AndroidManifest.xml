@@ -13,8 +13,6 @@
             android:theme="@style/AppTheme">
         <activity android:name=".activities.SettingActivity">
         </activity>
-        <activity android:name=".activities.main.CalendarTest">
-        </activity>
 
         <receiver android:name=".activities.widget.LargeWidget">
             <intent-filter>
@@ -52,8 +50,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.main.HomeActivity">
-        </activity>
-        <activity android:name=".activities.main.GraphActivity">
         </activity>
         <activity
                 android:name=".activities.MainActivity"
