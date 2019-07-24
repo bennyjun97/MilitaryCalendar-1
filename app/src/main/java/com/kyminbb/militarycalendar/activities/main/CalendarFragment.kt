@@ -14,6 +14,7 @@ import com.commit451.addendum.threetenabp.toLocalDate
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
+import com.kyminbb.militarycalendar.utils.DateCalc
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_calendar2.*
@@ -23,6 +24,7 @@ import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.find
+import org.threeten.bp.LocalDate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,8 +32,8 @@ import java.util.*
 class CalendarFragment : Fragment() {
 
     private var adding = true
-    private var calendar = Calendar.getInstance()
-    private val today = calendar.toLocalDate()
+    private var calendar = LocalDate.now()
+    private val today = LocalDate.now()
 
     var slots: Array<Button> = arrayOf()
     var startSlot = 0
@@ -99,7 +101,7 @@ class CalendarFragment : Fragment() {
             day42
         )
 
-        updateCalendar(calendar)
+        updateCalendar(today)
 
         buttonAdd.setOnClickListener {
             if (adding) {
@@ -111,14 +113,14 @@ class CalendarFragment : Fragment() {
         }
 
         buttonRight.setOnClickListener {
-            calendar.set(Calendar.DAY_OF_MONTH, 1)
-            calendar.add(Calendar.MONTH, 1)
+            calendar = calendar.withDayOfMonth(1)
+            calendar = calendar.plusMonths(1)
             updateCalendar(calendar)
         }
 
         buttonLeft.setOnClickListener {
-            calendar.set(Calendar.DAY_OF_MONTH, 1)
-            calendar.add(Calendar.MONTH, -1)
+            calendar = calendar.withDayOfMonth(1)
+            calendar = calendar.minusMonths(1)
             updateCalendar(calendar)
         }
 
@@ -287,8 +289,7 @@ class CalendarFragment : Fragment() {
                     //endSchedule에 이미 날짜가 기입되어있을 경우 spinnerDatePicker에서 날짜를 고르면 그거에 따라서 자동으로 휴가 길이를 계산해준다.
                     else -> {
                         startSchedule.text = date2String(year, month + 1, day)
-                        actualDate.text = (string2Date(endSchedule.text.toString()).get(Calendar.DAY_OF_YEAR)
-                                - string2Date(startSchedule.text.toString()).get(Calendar.DAY_OF_YEAR) + 1).toString() + "일"
+                        actualDate.text = DateCalc.leaveDaysCalculator(LocalDate.of(year, month + 1, day), string2Date(endSchedule.text.toString())).toString() + "일"
                     }
                 }
                 "End" -> when {
@@ -296,8 +297,7 @@ class CalendarFragment : Fragment() {
                     //startSchedule에 이미 날짜가 기입되어있을 경우 spinnerDatePicker에서 날짜를 고르면 그거에 따라서 자동으로 휴가 길이를 계산해준다.
                     else -> {
                         endSchedule.text = date2String(year, month + 1, day)
-                        actualDate.text = (string2Date(endSchedule.text.toString()).get(Calendar.DAY_OF_YEAR)
-                                - string2Date(startSchedule.text.toString()).get(Calendar.DAY_OF_YEAR) + 1).toString() + "일"
+                        actualDate.text = DateCalc.leaveDaysCalculator(string2Date(startSchedule.text.toString()), LocalDate.of(year, month+1, day)).toString() + "일"
                     }
                 }
             }
@@ -313,25 +313,6 @@ class CalendarFragment : Fragment() {
             .defaultDate(today.year, today.monthValue - 1, today.dayOfMonth)
         dialog.build().show()
     }
-
-
-    /*(calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-        val date = formatDate(year, month+1, dayOfMonth)
-
-        // Show saved schedules of the date.
-        val contents = readDB(dbHelper, date)
-        toast("$contents")
-
-        // Add a schedule on the date.
-        val addButtons = mapOf(addLeave to "휴가", addDuty to "당직", addExercise to "훈련", addPersonal to "개인일정")
-        for (button in addButtons.keys) {
-            button.setOnClickListener {
-                writeDB(dbHelper, (addButtons[button])!!, date)
-                val text = "${addButtons[button]} 추가"
-                testText.text = text
-            }
-        }
-    }*/
 
     private fun writeDB(dbHelper: DBHelper, content: String, startDate: String, endDate: String, memo: String) {
         dbHelper.use {
@@ -363,18 +344,23 @@ class CalendarFragment : Fragment() {
     }
 
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
-        return "$year-$month-$dayOfMonth"
+        return "$year-${"%02d".format(month)}-$dayOfMonth"
     }
 
-    @SuppressLint("SimpleDateFormat")
+    /*@SuppressLint("SimpleDateFormat")
     private fun string2Date(date: String): Calendar {
         val format = SimpleDateFormat("yyyy-MM-dd")
         val cal = Calendar.getInstance()
         cal.time = format.parse(date)
         return cal
+    }*/
+
+    @SuppressLint("SimpleDateFormat")
+    private fun string2Date(date: String): LocalDate {
+       return LocalDate.parse(date)
     }
 
-    private fun updateCalendar(calendar: Calendar) {
+    private fun updateCalendar(calendar: LocalDate) {
         //clearing slots
         for (i in 0..41) {
             slots[i].text = ""
@@ -398,47 +384,61 @@ class CalendarFragment : Fragment() {
         leaveExist.clear()
 
         //cloning just in case
-        val cal = calendar.clone() as Calendar
+        var cal = calendar
 
         //putting numbers for month
-        var month = cal.get(Calendar.MONTH)
-        textMonth.text = "${month + 1}월"
-        cal.set(Calendar.DAY_OF_MONTH, 1)
-        val init = cal.get(Calendar.DAY_OF_WEEK) - 1
+        var month = cal.monthValue
+        textMonth.text = "${month}월"
+        cal = cal.withDayOfMonth(1)
+        val init = cal.dayOfWeek.value % 7
         var position = init
         startSlot = init
 
         //calculating last day
-        val cal2 = cal.clone() as Calendar
-        cal2.add(Calendar.MONTH, 1)
+        var cal2 = cal
+        cal2 = cal2.withDayOfMonth(1)
+        cal2 = cal2.plusMonths(1)
+        cal2 = cal2.minusDays(1)
+        var j = cal2.dayOfMonth - 1
+
+        /*cal2.add(Calendar.MONTH, 1)
         cal2.add(Calendar.DAY_OF_MONTH, -1)
-        val j = cal2.get(Calendar.DAY_OF_MONTH) - 1
+        val j = cal2.get(Calendar.DAY_OF_MONTH) - 1*/
 
         //putting numbers for days
         for (i in 0..j) {
             leaveExist.add(false)
-            slots[position].text = cal.get(Calendar.DAY_OF_MONTH).toString()
+            slots[position].text = cal.dayOfMonth.toString()
+            //slots[position].text = cal.get(Calendar.DAY_OF_MONTH).toString()
             position += 1
-            cal.add(Calendar.DAY_OF_MONTH, 1)
+            cal = cal.plusDays(1)
+            //cal.add(Calendar.DAY_OF_MONTH, 1)
         }
 
         // circle on today
         // https://stackoverflow.com/questions/25203501/android-creating-a-circular-textview
-        val today = Calendar.getInstance()
+
+        val today = LocalDate.now()
+        if (cal2.year == today.year && cal2.monthValue == today.monthValue) {
+            val todayposition = today.dayOfMonth
+            slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
+        }
+
+        /*val today = Calendar.getInstance()
         if (cal2.get(Calendar.YEAR) == today.get(Calendar.YEAR) && cal2.get(Calendar.MONTH) == today.get(
                 Calendar.MONTH
             )
         ) {
             val todayposition = today.get(Calendar.DAY_OF_MONTH)
             slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
-        }
+        }*/
     }
 
-    private fun addEventinCalendar(startDate: Calendar, endDate: Calendar, type: String, text: String) {
-        val startPosition = startDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
-        val endPosition = endDate.get(Calendar.DAY_OF_MONTH) + startSlot - 1
+    private fun addEventinCalendar(startDate: LocalDate, endDate: LocalDate, type: String, text: String) {
+        val startPosition = startDate.dayOfMonth + startSlot - 1
+        val endPosition = endDate.dayOfMonth + startSlot - 1
 
-        for(index in startDate.get(Calendar.DAY_OF_MONTH)-1..endDate.get(Calendar.DAY_OF_MONTH)) {
+        for(index in startDate.dayOfMonth-1..endDate.dayOfMonth-1) {
             if(type.equals("휴가") && leaveExist[index]) {
                 Toast.makeText(this.context, "휴가일이 겹칩니다!", Toast.LENGTH_SHORT).show() //나중엔 여기다 쓰면 안 된다. 실험용으로 여기에 씀.
                 return
@@ -575,6 +575,10 @@ class CalendarFragment : Fragment() {
             if(leaveMemo.text.isEmpty()) memo = "휴가"
             else memo = leaveMemo.text.toString()
             if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
+                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 // Store the schedule.
                 writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
                 // Retrieve the data for test purpose.
@@ -708,7 +712,11 @@ class CalendarFragment : Fragment() {
         buttonAddEvent.setOnClickListener {
             if (leaveMemo.text.isEmpty()) memo = "휴가"
             else memo = leaveMemo.text.toString()
-            if (startSchedule.text.isNotEmpty()) {
+            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
+                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 // Store the schedule.
                 writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
                 // Retrieve the data for test purpose.
@@ -741,7 +749,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun addDuty(dbHelper: DBHelper) {
+    private fun addDuty(dbHelper: DBHelper) { //addPass랑 묶기
         val popupView = layoutInflater.inflate(R.layout.add_pass, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -770,6 +778,10 @@ class CalendarFragment : Fragment() {
             if (leaveMemo.text.isEmpty()) memo = "당직"
             else memo = leaveMemo.text.toString()
             if (startSchedule.text.isNotEmpty()) {
+                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
+                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 // Store the schedule.
                 writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), memo)
                 // Retrieve the data for test purpose.
@@ -801,6 +813,8 @@ class CalendarFragment : Fragment() {
             popup.dismiss()
         }
     }
+
+
 
     private fun changeTexts(view: View, type: String) {
         val title = view.findViewById<TextView>(R.id.titleText)
