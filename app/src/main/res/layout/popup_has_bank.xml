@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/popupHasBankTop"
+            app:layout_constraintGuide_percent="0.35"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/popupHasBankBottom"
+            app:layout_constraintGuide_percent="0.65"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/popupHasBankStart"
+            app:layout_constraintGuide_percent="0.1"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/popupHasBankEnd"
+            app:layout_constraintGuide_percent="0.9"/>
+    <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/popupHasBankBottom" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/popupHasBankTop"
+            app:layout_constraintEnd_toStartOf="@+id/popupHasBankEnd" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="@+id/popupHasBankStart" android:layout_marginStart="8dp"
+            app:cardCornerRadius="4dp" app:cardUseCompatPadding="true" app:cardElevation="4dp">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:weightSum="100">
+            <TextView
+                    android:text="@string/bankPopupWarning"
+                    android:textColor="@color/warning"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView" android:gravity="center"
+                    android:layout_weight="35"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="65" android:gravity="center">
+                <Button
+                        android:text="@string/bankCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/popupHasBankCancel"
+                        android:layout_marginEnd="24dp"/>
+                <Button
+                        android:text="@string/bankRegister"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/popupHasBankRegister"
+                        android:layout_marginStart="24dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

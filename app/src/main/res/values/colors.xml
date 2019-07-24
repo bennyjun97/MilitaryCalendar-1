@@ -54,4 +54,7 @@
     <color name="recyclerItemStroke">#A5A5A5</color>
     <color name="recyclerItem">#A5A5A5</color>
 
+    <!-- warning -->
+    <color name="warning">#FF5722</color>
+
 </resources>

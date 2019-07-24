@@ -35,8 +35,8 @@ class BankRvAdapter(val context: Context, val bankList: ArrayList<Bank>) :
         fun bind (bank: Bank, context: Context){
             /* Textview 와 String data를 연결한다 */
             bankItemName?.text = bank.bankName
-            //bankItemTotalDeposit?.text = bank.totalDeposit
-            bankItemMonthDeposit?.text = bank.monthDeposit
+            bankItemTotalDeposit?.text = "총 ${bank.monthDeposit}"
+            bankItemMonthDeposit?.text = "월 ${bank.monthDeposit}"
         }
     }
 }

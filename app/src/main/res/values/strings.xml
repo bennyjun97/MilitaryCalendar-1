@@ -153,6 +153,7 @@
     <string name="bankStatusScoreText">훌륭해요!</string>
     <string name="bankStatusMonthlyRatio">월급의 73.94%를 저금 중입니다!</string>
     <string name="bankStatusMontlyRatioDescription">(병장 월급 405,700원 중 적금 300,000원)</string>
+    <string name="bankPopupWarning">입력하신 은행의 정보가 이미 있습니다.\n지금 입력하신 정보로 수정하시겠습니까?</string>
 
 
     <!-- deposit fragment add button -->

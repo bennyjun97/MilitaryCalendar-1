@@ -2,6 +2,7 @@ package com.kyminbb.militarycalendar.activities.main
 
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -10,13 +11,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.PopupMenu
-import android.widget.PopupWindow
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.utils.Bank
@@ -26,8 +25,11 @@ import com.kyminbb.militarycalendar.utils.User
 import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
+import kotlinx.android.synthetic.main.add_deposit.*
 import kotlinx.android.synthetic.main.fragment_deposit.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.layoutInflater
+import org.jetbrains.anko.matchParent
 import org.threeten.bp.LocalDate
 import java.lang.Double.parseDouble
 import java.text.DecimalFormat
@@ -45,6 +47,9 @@ class DepositFragment : Fragment() {
 
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
+    private val temp2 = arrayListOf<Bank>(
+        Bank("신한은행", LocalDate.now(), LocalDate.now(), "100,000", 0.0)
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,14 +71,8 @@ class DepositFragment : Fragment() {
         loadData()
 
         /** Implement Montly Deposit Info using Recycler View */
-        // add recylcerView
-        val adapter = BankRvAdapter(activity!!.applicationContext, loadBankData(activity!!.applicationContext))
-        bankRecyclerView.adapter = adapter
-
-        // add layoutManager
-        val lm = LinearLayoutManager(activity!!.applicationContext)
-        bankRecyclerView.layoutManager = lm
-        bankRecyclerView.setHasFixedSize(true)
+        //loadBankData(activity!!.applicationContext)
+        updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
 
 
         /** Implement addButton on the top-right corner */
@@ -181,7 +180,8 @@ class DepositFragment : Fragment() {
             // create an arrayList of info-buttons for convenience
             val buttonArr = arrayOf(
                 bankNameButton, bankStartDateButton, bankEndDateButton,
-                bankDepositAmountButton, bankInterestButton
+                bankDepositAmountButton
+                //bankInterestButton
             )
             // init
             bankInitButton.setOnClickListener {
@@ -196,19 +196,31 @@ class DepositFragment : Fragment() {
             }
             // register
             bankRegisterButton.setOnClickListener {
+                var complete = true
                 for (infoButton in buttonArr) {
-                    if (infoButton.text == ""){
+                    complete = complete && infoButton.text != ""
+                    /*if (infoButton.text == ""){
                         DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
-                        return@setOnClickListener
-                    }
+                    }*/
                 }
-                val bankToBeSaved = Bank(bankNameButton.text.toString(), LocalDate.now(), LocalDate.now(),
+                if (!complete) {
+                    DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
+                }
+                else {
+                    val bankToBeSaved = Bank(
+                        bankNameButton.text.toString(), LocalDate.now(), LocalDate.now(),
                         /*bankStartDateButton.text,
                         bankEndDateButton.text,*/
-                        bankDepositAmountButton.text.toString(), parseDouble(bankInterestButton.text.toString()))
+                        bankDepositAmountButton.text.toString(),
+                        0.0
+                        //parseDouble(bankInterestButton.text.toString())
+                    )
 
-                saveBankData(activity!!.applicationContext, bankToBeSaved)
-                popup.dismiss()
+                    saveBankData(activity!!.applicationContext, bankToBeSaved, view)
+                    loadBankData(activity!!.applicationContext)
+                    updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
+                    popup.dismiss()
+                }
             }
         }
     }
@@ -248,27 +260,48 @@ class DepositFragment : Fragment() {
     companion object{
         private const val BANK_PREFS_NAME = "com.kyminbb.militarycalendar.activities.main.DepositFragment"
         private const val BANK_PREF_PREFIX_KEY = "BANK_NAME_"
-        private var bankInfo = Bank()
+
+        internal fun saveBankData(context: Context, inputBank: Bank, view: View) {
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
+            val prefsEditor = prefs.edit()
+
+            val jsonString = Gson().toJson(inputBank)
+
+            // when the bank type is already contained
+            // show pop-up whether to update or not
+            if(prefs.all.containsKey(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())){
+                Toast.makeText(context, "!", Toast.LENGTH_LONG).show()
+                /*val popupHasBankView = context.layoutInflater.inflate(R.layout.popup_has_bank, null)
+                val popupHasBank = PopupWindow(popupHasBankView)
+                popupHasBank.isFocusable = true
+                popupHasBank.showAtLocation(view, Gravity.CENTER, 0,0)
+                popupHasBank.update(
+                    view, 200, 200
+                )
 
 
-        internal fun saveBankData(context: Context, inputBank: Bank) {
-            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, 0).edit()
-            bankInfo.bankName = inputBank.bankName
-            bankInfo.startDate = inputBank.startDate
-            bankInfo.endDate = inputBank.endDate
-            bankInfo.monthDeposit = inputBank.monthDeposit
-            bankInfo.interest = inputBank.interest
+                val popupHasBankCancel = popupHasBankView.find<Button>(R.id.popupHasBankCancel)
+                val popupHasBankRegister = popupHasBankView.find<Button>(R.id.popupHasBankRegister)
 
-            val jsonString = Gson().toJson(bankInfo)
-            prefs.putString(BANK_PREF_PREFIX_KEY + bankInfo.bankName.hashCode(), jsonString)
-            prefs.apply()
+                popupHasBankCancel.setOnClickListener { popupHasBank.dismiss() }
+                popupHasBankRegister.setOnClickListener {
+                    prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
+                    prefsEditor.apply()
+                    popupHasBank.dismiss()
+                }*/
+
+            } else {
+                prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
+                prefsEditor.apply()
+            }
+
         }
 
         internal fun loadBankData(context: Context): ArrayList<Bank> {
-            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, 0)
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
             val arrayList = ArrayList<Bank>()
 
-            // retrieve a map containing all datas saved
+            // retrieve a map containing all data saved
             val allEntries = prefs.all
             for(keys in allEntries.keys){
                 val bankInfo = Gson().fromJson(prefs.getString(keys, ""), Bank::class.java)
@@ -278,9 +311,20 @@ class DepositFragment : Fragment() {
         }
 
         internal fun deleteBankData(context: Context, inputBank: Bank) {
-            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, 0).edit()
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE).edit()
             prefs.remove(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())
             prefs.apply()
+        }
+
+        internal fun updateRecyclerView(context:Context, view: RecyclerView) {
+            // add recylcerView
+            val adapter = BankRvAdapter(context, loadBankData(context))
+            view.adapter = adapter
+
+            // add layoutManager
+            val lm = LinearLayoutManager(context)
+            view.layoutManager = lm
+            view.setHasFixedSize(true)
         }
     }
 }
