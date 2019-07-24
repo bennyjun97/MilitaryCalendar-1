@@ -1,6 +1,7 @@
 package com.kyminbb.militarycalendar.activities.main
 
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -22,6 +23,7 @@ import com.kyminbb.militarycalendar.utils.Bank
 import com.kyminbb.militarycalendar.utils.BankRvAdapter
 import com.kyminbb.militarycalendar.utils.Dates
 import com.kyminbb.militarycalendar.utils.User
+import com.pranavpandey.android.dynamic.toasts.DynamicToast
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_deposit.*
@@ -43,11 +45,6 @@ class DepositFragment : Fragment() {
 
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
-    private var bankList = arrayListOf<Bank>(
-        Bank("신한은행", "1,000,000원", "월 200,000원"),
-        Bank("우리은행", "800,000원", "월 100,000원"),
-        Bank("광주은행", "200,000원", "월 50,000원")
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +67,7 @@ class DepositFragment : Fragment() {
 
         /** Implement Montly Deposit Info using Recycler View */
         // add recylcerView
-        val adapter = BankRvAdapter(activity!!.applicationContext, bankList)
+        val adapter = BankRvAdapter(activity!!.applicationContext, loadBankData(activity!!.applicationContext))
         bankRecyclerView.adapter = adapter
 
         // add layoutManager
@@ -169,7 +166,6 @@ class DepositFragment : Fragment() {
                 }
                 depositAmountEditText.addTextChangedListener(watcher)
 
-                /* Add functionality to buttons */
                 // cancel input
                 depositPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
                 // save input
@@ -179,6 +175,7 @@ class DepositFragment : Fragment() {
                 }
             }
             bankInterestButton.setOnClickListener {}
+
 
             /* make decision on init, cancel, registering bank information */
             // create an arrayList of info-buttons for convenience
@@ -198,7 +195,20 @@ class DepositFragment : Fragment() {
                 popup.dismiss()
             }
             // register
-            bankRegisterButton.setOnClickListener { /* save */ }
+            bankRegisterButton.setOnClickListener {
+                for (infoButton in buttonArr) {
+                    if (infoButton.text == null){
+                        DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
+                        return@setOnClickListener
+                    }
+                }
+                val bankToBeSaved = Bank(bankNameButton.text.toString(), LocalDate.now(), LocalDate.now(),
+                        /*bankStartDateButton.text,
+                        bankEndDateButton.text,*/
+                        bankDepositAmountButton.text.toString(), parseDouble(bankInterestButton.text.toString()))
+
+                saveBankData(activity!!.applicationContext, bankToBeSaved)
+            }
         }
     }
 
@@ -232,5 +242,44 @@ class DepositFragment : Fragment() {
         // Get context from the parent activity.
         val prefs = this.context!!.getSharedPreferences("prefs", AppCompatActivity.MODE_PRIVATE)
         userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
+    }
+
+    companion object{
+        private const val BANK_PREFS_NAME = "com.kyminbb.militarycalendar.activities.main.DepositFragment"
+        private const val BANK_PREF_PREFIX_KEY = "BANK_NAME_"
+        private var bankInfo = Bank()
+
+
+        internal fun saveBankData(context: Context, inputBank: Bank) {
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, 0).edit()
+            bankInfo.bankName = inputBank.bankName
+            bankInfo.startDate = inputBank.startDate
+            bankInfo.endDate = inputBank.endDate
+            bankInfo.monthDeposit = inputBank.monthDeposit
+            bankInfo.interest = inputBank.interest
+
+            val jsonString = Gson().toJson(bankInfo)
+            prefs.putString(BANK_PREF_PREFIX_KEY + bankInfo.bankName.hashCode(), jsonString)
+            prefs.apply()
+        }
+
+        internal fun loadBankData(context: Context): ArrayList<Bank> {
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, 0)
+            val arrayList = ArrayList<Bank>()
+
+            // retrieve a map containing all datas saved
+            val allEntries = prefs.all
+            for(keys in allEntries.keys){
+                val bankInfo = Gson().fromJson(prefs.getString(keys, ""), Bank::class.java)
+                arrayList.add(bankInfo)
+            }
+            return arrayList
+        }
+
+        internal fun deleteBankData(context: Context, inputBank: Bank) {
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, 0).edit()
+            prefs.remove(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())
+            prefs.apply()
+        }
     }
 }

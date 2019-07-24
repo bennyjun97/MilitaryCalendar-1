@@ -115,33 +115,34 @@
                         android:layout_height="match_parent">
                     <TextView
                             android:layout_marginTop="@dimen/large_vertical"
-                            android:text="이번 달 나의 적금 점수"
+                            android:text="@string/bankStatusHeaderText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:textSize="24sp"/>
                     <LinearLayout
+                            android:layout_marginTop="@dimen/large_vertical"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="86dp" android:gravity="bottom|start">
+                            android:layout_height="wrap_content" android:gravity="bottom|start">
                         <TextView
-                                android:text="A"
+                                android:text="@string/bankStatusScore"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:id="@+id/textView16"
                                 android:layout_weight="20" android:textSize="48sp"
                                 android:textColor="@color/horizontalProgressbarRed"/>
                         <TextView
-                                android:text="훌룽해요!"
+                                android:text="@string/bankStatusScoreText"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:id="@+id/textView15"
                                 android:layout_weight="80" android:textSize="30sp"/>
                     </LinearLayout>
                     <TextView
                             android:layout_marginTop="@dimen/large_vertical"
-                            android:text="월급의 73.94%를 저금 중입니다!"
+                            android:text="@string/bankStatusMonthlyRatio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/textView17"/>
                     <TextView
                             android:layout_marginTop="@dimen/large_vertical"
-                            android:text="(병장 월급 405,700원 중 적금 300,000원)"
+                            android:text="@string/bankStatusMontlyRatioDescription"
                             android:layout_width="match_parent"
                             android:layout_height="68dp" android:id="@+id/textView18"/>
                 </LinearLayout>

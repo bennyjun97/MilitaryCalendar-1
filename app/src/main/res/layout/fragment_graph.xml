@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/JalnanTextViewStyle"
-        tools:context=".activities.main.GraphActivity" android:background="@color/skyblue">
+        android:background="@color/skyblue">
 
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline21"

@@ -85,8 +85,8 @@ class LargeWidgetConfigureActivity : Activity() {
 
     companion object {
 
-        private val LARGE_PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.LargeWidget"
-        private val LARGE_PREF_PREFIX_KEY = "LargeOpacity_"
+        private const val LARGE_PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.LargeWidget"
+        private const val LARGE_PREF_PREFIX_KEY = "LargeOpacity_"
 
         // Write the prefix to the SharedPreferences object for this widget
         internal fun saveOpacityPref(context: Context, appWidgetId: Int, text: String) {

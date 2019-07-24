@@ -98,8 +98,8 @@ class SmallWidgetConfigureActivity : Activity() {
 
     companion object {
 
-        private val SMALL_PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.SmallWidget"
-        private val SMALL_PREF_PREFIX_KEY = "SmallOpacity_"
+        private const val SMALL_PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.SmallWidget"
+        private const val SMALL_PREF_PREFIX_KEY = "SmallOpacity_"
 
         // Write the prefix to the SharedPreferences object for this widget
         internal fun saveOpacityPref(context: Context, appWidgetId: Int, text: String) {
