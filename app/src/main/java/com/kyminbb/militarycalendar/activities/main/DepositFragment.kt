@@ -34,13 +34,6 @@ import org.threeten.bp.LocalDate
 import java.lang.Double.parseDouble
 import java.text.DecimalFormat
 
-
-
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class DepositFragment : Fragment() {
 
 
@@ -208,15 +201,15 @@ class DepositFragment : Fragment() {
                 }
                 else {
                     val bankToBeSaved = Bank(
-                        bankNameButton.text.toString(), LocalDate.now(), LocalDate.now(),
-                        /*bankStartDateButton.text,
-                        bankEndDateButton.text,*/
+                        bankNameButton.text.toString(), //LocalDate.now(), LocalDate.now(),
+                        LocalDate.parse(bankStartDateButton.text),
+                        LocalDate.parse(bankEndDateButton.text),
                         bankDepositAmountButton.text.toString(),
                         0.0
                         //parseDouble(bankInterestButton.text.toString())
                     )
 
-                    saveBankData(activity!!.applicationContext, bankToBeSaved)
+                    saveBankData(activity!!.applicationContext, bankToBeSaved, view, bankRecyclerView)
                     loadBankData(activity!!.applicationContext)
                     updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
                     popup.dismiss()
@@ -247,7 +240,7 @@ class DepositFragment : Fragment() {
 
     // convert date into format that are SQLite readable
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
-        return "$year-$month-$dayOfMonth"
+        return "$year-${"%02d".format(month)}-$dayOfMonth"
     }
 
     // load data
@@ -261,7 +254,7 @@ class DepositFragment : Fragment() {
         private const val BANK_PREFS_NAME = "com.kyminbb.militarycalendar.activities.main.DepositFragment"
         private const val BANK_PREF_PREFIX_KEY = "BANK_NAME_"
 
-        internal fun saveBankData(context: Context, inputBank: Bank) {
+        internal fun saveBankData(context: Context, inputBank: Bank, view: View, recyclerView: RecyclerView) {
             val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
             val prefsEditor = prefs.edit()
 
@@ -270,14 +263,14 @@ class DepositFragment : Fragment() {
             // when the bank type is already contained
             // show pop-up whether to update or not
             if(prefs.all.containsKey(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())){
-                Toast.makeText(context, "!", Toast.LENGTH_LONG).show()
-                /*val popupHasBankView = context.layoutInflater.inflate(R.layout.popup_has_bank, null)
+                val popupHasBankView = context.layoutInflater.inflate(R.layout.popup_has_bank, null)
                 val popupHasBank = PopupWindow(popupHasBankView)
                 popupHasBank.isFocusable = true
                 popupHasBank.showAtLocation(view, Gravity.CENTER, 0,0)
                 popupHasBank.update(
-                    view, 200, 200
-                )
+                    view,
+                    view.resources.displayMetrics.widthPixels,
+                    view.resources.displayMetrics.heightPixels)
 
 
                 val popupHasBankCancel = popupHasBankView.find<Button>(R.id.popupHasBankCancel)
@@ -287,8 +280,10 @@ class DepositFragment : Fragment() {
                 popupHasBankRegister.setOnClickListener {
                     prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
                     prefsEditor.apply()
+                    loadBankData(context)
+                    updateRecyclerView(context, recyclerView)
                     popupHasBank.dismiss()
-                }*/
+                }
 
             } else {
                 prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
