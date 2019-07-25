@@ -30,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
         val tabIcons = arrayOf(
             R.drawable.clock,
             R.drawable.calendar,
-            R.drawable.graph
+            R.drawable.deposit_icon
         )
         tabs.getTabAt(0)!!.setIcon(tabIcons[0])
         tabs.getTabAt(1)!!.setIcon(tabIcons[1])

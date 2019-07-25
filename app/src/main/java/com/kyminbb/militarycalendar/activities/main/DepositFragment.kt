@@ -207,6 +207,8 @@ class DepositFragment : Fragment() {
                     saveBankData(activity!!.applicationContext, bankToBeSaved, view, bankRecyclerView)
                     loadBankData(activity!!.applicationContext)
                     updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
+                    for (infoButton in buttonArr)
+                        infoButton.text = ""
                     popup.dismiss()
                 }
             }
