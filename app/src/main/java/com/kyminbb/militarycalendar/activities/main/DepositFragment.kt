@@ -162,7 +162,7 @@ class DepositFragment : Fragment() {
                 depositPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
                 // save input
                 depositPopUpSave.setOnClickListener {
-                    bankDepositAmountButton.text = "${depositAmountEditText.text}원"
+                    bankDepositAmountButton.text = "${depositAmountEditText.text}"
                     popupDeposit.dismiss()
                 }
             }
