@@ -109,6 +109,7 @@ class ClockFragment: Fragment() {
         if(!HomeActivity.isFirstPage){ job.cancel() }
     }
 
+    // update clock and d-day
     private fun updateClock(textView: TextView, view: ClockView){
 
         val enlistDateTime = userInfo.promotionDates[Dates.ENLIST.ordinal].atStartOfDay()
@@ -122,6 +123,7 @@ class ClockFragment: Fragment() {
                 val sec = (percentTotal * 864.0) % 60
                 textView.text = formatTime(hour.toInt(), min.toInt(), sec.toInt())
                 view.onTimeChanged(hour.toLong(), min.toLong())
+                remainText.text = "전역까지 ${DateCalc.countDDay(etsDateTime)}"
                 delay(100000)
             }
         }
