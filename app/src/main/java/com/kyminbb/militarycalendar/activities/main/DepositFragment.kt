@@ -247,102 +247,99 @@ class DepositFragment : Fragment() {
         userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
     }
 
-    companion object {
+    companion object{
         private val animStyle = R.style.Animation_AppCompat_DropDownUp
 
         private const val BANK_PREFS_NAME = "com.kyminbb.militarycalendar.activities.main.DepositFragment"
         private const val BANK_PREF_PREFIX_KEY = "BANK_NAME_"
-    }
 
-    private fun saveBankData(context: Context, inputBank: Bank, view: View, recyclerView: RecyclerView) {
-        val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
-        val prefsEditor = prefs.edit()
+        internal fun saveBankData(context: Context, inputBank: Bank, view: View, recyclerView: RecyclerView) {
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
+            val prefsEditor = prefs.edit()
 
-        val jsonString = Gson().toJson(inputBank)
+            val jsonString = Gson().toJson(inputBank)
 
-        // when the bank type is already contained
-        // show pop-up whether to update or not
-        if(prefs.all.containsKey(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())){
-            val popupHasBankView = context.layoutInflater.inflate(R.layout.popup_has_bank, null)
-            val popupHasBank = PopupWindow(popupHasBankView)
-            popupHasBank.isFocusable = true
-            popupHasBank.animationStyle = animStyle
-            popupHasBank.showAtLocation(view, Gravity.CENTER, 0,0)
-            popupHasBank.update(
-                view,
-                view.resources.displayMetrics.widthPixels,
-                view.resources.displayMetrics.heightPixels)
+            // when the bank type is already contained
+            // show pop-up whether to update or not
+            if(prefs.all.containsKey(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())){
+                val popupHasBankView = context.layoutInflater.inflate(R.layout.popup_has_bank, null)
+                val popupHasBank = PopupWindow(popupHasBankView)
+                popupHasBank.isFocusable = true
+                popupHasBank.animationStyle = animStyle
+                popupHasBank.showAtLocation(view, Gravity.CENTER, 0,0)
+                popupHasBank.update(
+                    view,
+                    view.resources.displayMetrics.widthPixels,
+                    view.resources.displayMetrics.heightPixels)
 
 
-            val popupHasBankCancel = popupHasBankView.find<Button>(R.id.popupHasBankCancel)
-            val popupHasBankRegister = popupHasBankView.find<Button>(R.id.popupHasBankRegister)
+                val popupHasBankCancel = popupHasBankView.find<Button>(R.id.popupHasBankCancel)
+                val popupHasBankRegister = popupHasBankView.find<Button>(R.id.popupHasBankRegister)
 
-            popupHasBankCancel.setOnClickListener { popupHasBank.dismiss() }
-            popupHasBankRegister.setOnClickListener {
+                popupHasBankCancel.setOnClickListener { popupHasBank.dismiss() }
+                popupHasBankRegister.setOnClickListener {
+                    prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
+                    prefsEditor.apply()
+                    loadBankData(context)
+                    updateRecyclerView(context, recyclerView)
+                    popupHasBank.dismiss()
+                }
+
+            } else {
                 prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
                 prefsEditor.apply()
-                loadBankData(context)
-                updateRecyclerView(context, recyclerView)
-                popupHasBank.dismiss()
             }
 
-        } else {
-            prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
-            prefsEditor.apply()
         }
 
-    }
+        internal fun loadBankData(context: Context): ArrayList<Bank> {
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
+            val arrayList = ArrayList<Bank>()
 
-    private fun loadBankData(context: Context): ArrayList<Bank> {
-        val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE)
-        val arrayList = ArrayList<Bank>()
-
-        // retrieve a map containing all data saved
-        val allEntries = prefs.all
-        for(keys in allEntries.keys){
-            val bankInfo = Gson().fromJson(prefs.getString(keys, ""), Bank::class.java)
-            arrayList.add(bankInfo)
+            // retrieve a map containing all data saved
+            val allEntries = prefs.all
+            for(keys in allEntries.keys){
+                val bankInfo = Gson().fromJson(prefs.getString(keys, ""), Bank::class.java)
+                arrayList.add(bankInfo)
+            }
+            return arrayList
         }
-        return arrayList
-    }
 
-    private fun deleteBankData(context: Context, inputBank: Bank) {
-        val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE).edit()
-        prefs.remove(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())
-        prefs.apply()
-    }
+        internal fun deleteBankData(context: Context, inputBank: Bank) {
+            val prefs = context.getSharedPreferences(BANK_PREFS_NAME, MODE_PRIVATE).edit()
+            prefs.remove(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode())
+            prefs.apply()
+        }
 
-    private fun updateRecyclerView(context:Context, view: RecyclerView) {
-        // add recylcerView
-        val arrayBankList = loadBankData(context)
-        val adapter = BankRvAdapter(context, arrayBankList)
-        view.adapter = adapter
+        internal fun updateRecyclerView(context:Context, view: RecyclerView) {
+            // add recylcerView
+            val arrayBankList = loadBankData(context)
+            val adapter = BankRvAdapter(context, arrayBankList)
+            view.adapter = adapter
 
-        adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
-            override fun onItemClick(v: View, position: Int) {
-                val popupEditMenu = PopupMenu(context, v)
-                popupEditMenu.menuInflater.inflate(R.menu.bank_recycler_edit_menu, popupEditMenu.menu)
-                popupEditMenu.setOnMenuItemClickListener {
-                    when ((it.itemId)) {
-                        R.id.bankRecyclerEdit ->
-                            depositButtonAdd.performClick()
+            adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
+                override fun onItemClick(v: View, position: Int) {
+                    val popupEditMenu = PopupMenu(context, v)
+                    popupEditMenu.menuInflater.inflate(R.menu.bank_recycler_edit_menu, popupEditMenu.menu)
+                    popupEditMenu.setOnMenuItemClickListener {
+                        when ((it.itemId)) {
+                            R.id.bankRecyclerEdit -> Toast.makeText(context, "1", Toast.LENGTH_SHORT).show()
+                            else -> Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                        }
+                        /*userInfo.affiliation = affiliations[affiliationButtons.indexOf(it.itemId)]
+                        inputAffiliation.text = userInfo.affiliation*/
 
-                            //Toast.makeText(context, "1", Toast.LENGTH_SHORT).show()
-                        else -> Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                        true
                     }
-                    /*userInfo.affiliation = affiliations[affiliationButtons.indexOf(it.itemId)]
-                    inputAffiliation.text = userInfo.affiliation*/
-
-                    true
+                    popupEditMenu.show()
+                    /*deleteBankData(context, arrayBankList.get(position))
+                    updateRecyclerView(context, view)*/
                 }
-                popupEditMenu.show()
-                /*deleteBankData(context, arrayBankList.get(position))
-                updateRecyclerView(context, view)*/
-            }
-        })
-        // add layoutManager
-        val lm = LinearLayoutManager(context)
-        view.layoutManager = lm
-        view.setHasFixedSize(true)
+            })
+            // add layoutManager
+            val lm = LinearLayoutManager(context)
+            view.layoutManager = lm
+            view.setHasFixedSize(true)
+        }
     }
 }
