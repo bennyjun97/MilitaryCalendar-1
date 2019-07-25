@@ -42,8 +42,6 @@ class DepositFragment : Fragment() {
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

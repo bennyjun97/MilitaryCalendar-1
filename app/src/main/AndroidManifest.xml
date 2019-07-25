@@ -52,13 +52,14 @@
         <activity android:name=".activities.SettingActivity" android:noHistory="true">
         </activity>
         <activity android:name=".activities.main.HomeActivity"  android:windowSoftInputMode="adjustPan|stateAlwaysVisible">
-        </activity>=
+        </activity>
         <activity
                 android:name=".activities.MainActivity"
                 android:noHistory="true"
                 android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
