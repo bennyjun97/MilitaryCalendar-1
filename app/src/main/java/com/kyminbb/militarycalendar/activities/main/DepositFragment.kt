@@ -78,6 +78,7 @@ class DepositFragment : Fragment() {
         // Add new deposit information
         depositButtonAdd.setOnClickListener {
             popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+            popup.animationStyle = R.style.Animation_Design_BottomSheetDialog
             popup.update(
                 view,
                 resources.displayMetrics.widthPixels,
@@ -128,6 +129,7 @@ class DepositFragment : Fragment() {
                 val popupDepositView = layoutInflater.inflate(R.layout.add_deposit_amount, null)
                 val popupDeposit = PopupWindow(popupDepositView)
                 popupDeposit.isFocusable = true
+
                 popupDeposit.showAtLocation(view, Gravity.CENTER, 0, 0)
                 popupDeposit.update(
                     view,
@@ -190,12 +192,7 @@ class DepositFragment : Fragment() {
             // register
             bankRegisterButton.setOnClickListener {
                 var complete = true
-                for (infoButton in buttonArr) {
-                    complete = complete && infoButton.text != ""
-                    /*if (infoButton.text == ""){
-                        DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
-                    }*/
-                }
+                for (infoButton in buttonArr) { complete = complete && infoButton.text != "" }
                 if (!complete) {
                     DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
                 }

@@ -51,13 +51,13 @@ class ClockFragment: Fragment() {
             startActivity<SettingActivity>()
         }
 
+        // update percentages using co-routine
         updateTotal(entirePercentText, progressBarTotal)
         updateRank(rankPercentText, progressBarRank)
         updateHobong(progressMonthPercentText, progressBarHobong)
         updateClock(clockText, clockView)
         updateRankText(rankText, progressRankText, progressMonthRankText, progressMonthText)
     }
-
 
     private fun loadData() {
         // Get context from the parent activity.
@@ -69,11 +69,10 @@ class ClockFragment: Fragment() {
         return "%02d".format(hour) + ":" + "%02d".format(min) + ":" + "%02d".format(sec)
     }
 
-
-
+    /** Co-routine functions**/
     private fun updateTotal(percentText: TextView, progressBar: ProgressBar) {
         val enlistDateTime = userInfo.promotionDates[Dates.ENLIST.ordinal].atStartOfDay()
-        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].plusDays(1).atStartOfDay()
+        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].atStartOfDay()
 
         val job = GlobalScope.launch(Dispatchers.Main) { // launch coroutine in the main thread
             while(true) {
@@ -90,7 +89,7 @@ class ClockFragment: Fragment() {
         val job = GlobalScope.launch(Dispatchers.Main) { // launch coroutine in the main thread
             while(true) {
                 val percentTotal = DateCalc.rankPercent(userInfo)
-                percentText.text = "${"%.3f".format(percentTotal)}%"
+                percentText.text = "${"%.4f".format(percentTotal)}%"
                 progressBar.progress = percentTotal.toInt()
                 delay(10)
             }
@@ -102,7 +101,7 @@ class ClockFragment: Fragment() {
         val job = GlobalScope.launch(Dispatchers.Main) { // launch coroutine in the main thread
             while(true) {
                 val percentTotal = DateCalc.monthPercent(userInfo)
-                percentText.text = "${"%.3f".format(percentTotal)}%"
+                percentText.text = "${"%.4f".format(percentTotal)}%"
                 progressBar.progress = percentTotal.toInt()
                 delay(10)
             }
@@ -113,7 +112,7 @@ class ClockFragment: Fragment() {
     private fun updateClock(textView: TextView, view: ClockView){
 
         val enlistDateTime = userInfo.promotionDates[Dates.ENLIST.ordinal].atStartOfDay()
-        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].plusDays(1).atStartOfDay()
+        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].atStartOfDay()
 
         val job = GlobalScope.launch(Dispatchers.Main) { // launch coroutine in the main thread
             while(true) {

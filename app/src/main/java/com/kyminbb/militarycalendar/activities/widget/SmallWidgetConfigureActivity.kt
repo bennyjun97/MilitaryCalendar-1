@@ -20,13 +20,14 @@ import org.jetbrains.anko.view
  * The configuration screen for the [SmallWidget] AppWidget.
  */
 class SmallWidgetConfigureActivity : Activity() {
-    internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-    internal lateinit var mAppSeekBar: SeekBar
-    internal lateinit var mAppTextView: TextView
-    internal lateinit var widgetBackground: Drawable
-    internal lateinit var mAppTestBackground: LinearLayout
 
-    internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
+    /** instantiate properties **/
+    private var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+    private lateinit var mAppSeekBar: SeekBar
+    private lateinit var mAppTextView: TextView
+    private lateinit var widgetBackground: Drawable
+    private lateinit var mAppTestBackground: LinearLayout
+    private var mOnClickListener: View.OnClickListener = View.OnClickListener {
         val context = this@SmallWidgetConfigureActivity
 
         // When the button is clicked, store the string locally
@@ -51,17 +52,18 @@ class SmallWidgetConfigureActivity : Activity() {
         // out of the widget placement if the user presses the back button.
         setResult(Activity.RESULT_CANCELED)
 
+        // set content view for configuration screen
         setContentView(R.layout.small_widget_configure)
         val buttonOpacityTest = findViewById<View>(R.id.smallButtonTemp)
-
+        buttonOpacityTest.setOnClickListener(mOnClickListener)
         mAppTextView = findViewById<View>(R.id.smallOpacityText) as TextView
+        mAppTextView.text = loadOpacityPref(this@SmallWidgetConfigureActivity, mAppWidgetId)
         mAppTestBackground = findViewById<View>(R.id.smallTransparentLayout) as LinearLayout
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
             mAppTestBackground.setBackgroundResource(R.drawable.cloud)
             //mAppTestBackground.setBackground(ContextCompat.getDrawable(this, FLAG_SYSTEM))
             //WallpaperManager.getInstance(this@SmallWidgetConfigureActivity).drawable
         }
-
         mAppSeekBar = findViewById<View>(R.id.smallSeekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -72,9 +74,7 @@ class SmallWidgetConfigureActivity : Activity() {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
-        findViewById<View>(R.id.smallButtonTemp).setOnClickListener(mOnClickListener)
-
-
+        mAppSeekBar.progress = mAppTextView.text.toString().toInt()
 
         // Find the widget id from the intent.
         val intent = intent
@@ -90,12 +90,9 @@ class SmallWidgetConfigureActivity : Activity() {
             finish()
             return
         }
-
-        //mAppWidgetText.setText(loadTitlePref(this@SmallWidgetConfigureActivity, mAppWidgetId))
-        mAppTextView.text = loadOpacityPref(this@SmallWidgetConfigureActivity, mAppWidgetId)
-        mAppSeekBar.progress = mAppTextView.text.toString().toInt()
     }
 
+    /** manage data (save, load, delete) **/
     companion object {
 
         private const val SMALL_PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.SmallWidget"
@@ -116,6 +113,7 @@ class SmallWidgetConfigureActivity : Activity() {
             return titleValue ?: "0"
         }
 
+        // Delete opacity data when the widget is removed
         internal fun deleteOpacityPref(context: Context, appWidgetId: Int) {
             val prefs = context.getSharedPreferences(SMALL_PREFS_NAME, 0).edit()
             prefs.remove(SMALL_PREF_PREFIX_KEY + appWidgetId)

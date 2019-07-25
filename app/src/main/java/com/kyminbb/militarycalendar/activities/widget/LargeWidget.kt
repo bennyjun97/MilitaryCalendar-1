@@ -49,6 +49,7 @@ class LargeWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
         val views = RemoteViews(context!!.packageName, R.layout.large_widget)
 
+        /* swap views when next button is clicked */
         if(ACTION_UPDATE_CLICK_NEXT.equals(intent!!.action)){
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val largeWidget = ComponentName(context, LargeWidget::class.java)
@@ -73,6 +74,7 @@ class LargeWidget : AppWidgetProvider() {
             layoutNum = (layoutNum + 1) % 3
             appWidgetManager.updateAppWidget(largeWidget, views)
         }
+        /* swap views when back button is clicked */
         else if(ACTION_UPDATE_CLICK_BACK.equals(intent.action)){
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val largeWidget = ComponentName(context, LargeWidget::class.java)
@@ -105,12 +107,13 @@ class LargeWidget : AppWidgetProvider() {
 
         private var userInfo = User()
 
-        private val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
-        private val ACTION_UPDATE_CLICK_BACK = "action.UPDATE_CLICK_BACK"
+        private const val ACTION_UPDATE_CLICK_NEXT = "action.UPDATE_CLICK_NEXT"
+        private const val ACTION_UPDATE_CLICK_BACK = "action.UPDATE_CLICK_BACK"
 
         private var layoutNum = 0
 
 
+        // get intent for swapping views
         private fun getPendingSelfIntent(context: Context, action: String) : PendingIntent {
             val intent = Intent(context, LargeWidget::class.java)
             intent.action = action
@@ -121,34 +124,16 @@ class LargeWidget : AppWidgetProvider() {
             context: Context, appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-
+            /** load Data **/
+            // load userInfo data
             val prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
-
 
             // load LocalDate data
             val enlistDateTime = LocalDateTime.of(
                 userInfo.promotionDates[Dates.ENLIST.ordinal].year,
                 userInfo.promotionDates[Dates.ENLIST.ordinal].month,
                 userInfo.promotionDates[Dates.ENLIST.ordinal].dayOfMonth,
-                0, 0, 0, 0
-            )
-            val rankSecondTime = LocalDateTime.of(
-                userInfo.promotionDates[Dates.RANK2.ordinal].year,
-                userInfo.promotionDates[Dates.RANK2.ordinal].month,
-                userInfo.promotionDates[Dates.RANK2.ordinal].dayOfMonth,
-                0, 0, 0, 0
-            )
-            val rankThirdTime = LocalDateTime.of(
-                userInfo.promotionDates[Dates.RANK3.ordinal].year,
-                userInfo.promotionDates[Dates.RANK3.ordinal].month,
-                userInfo.promotionDates[Dates.RANK3.ordinal].dayOfMonth,
-                0, 0, 0, 0
-            )
-            val rankFourthTime = LocalDateTime.of(
-                userInfo.promotionDates[Dates.RANK4.ordinal].year,
-                userInfo.promotionDates[Dates.RANK4.ordinal].month,
-                userInfo.promotionDates[Dates.RANK4.ordinal].dayOfMonth,
                 0, 0, 0, 0
             )
             val etsDateTime = LocalDateTime.of(
@@ -158,9 +143,8 @@ class LargeWidget : AppWidgetProvider() {
                 0, 0, 0, 0
             )
 
-            // calculate promotion, name, D-day, percent, "남은 휴가", numVacationDays
+            // load promotion, name, D-day, percent, "남은 휴가", numVacationDays data
             val views = RemoteViews(context.packageName, R.layout.large_widget)
-
             val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
             val hobongText = DateCalc.calcMonth(userInfo)
             val percentTotal =
@@ -178,6 +162,7 @@ class LargeWidget : AppWidgetProvider() {
             val dDayVacation = context.getText(R.string.dday_text).toString()
 
 
+            // load opacity (opacity is hexadecimal) data
             val alphaNum = (100 - LargeWidgetConfigureActivity.
                 loadOpacityPref(context, appWidgetId).toInt())*255/100
             val alpha =
@@ -186,11 +171,11 @@ class LargeWidget : AppWidgetProvider() {
                     else -> Integer.toHexString(alphaNum).toUpperCase()
                 }
 
-            // Construct the RemoteViews object
-
+            /** Instantiate the views**/
             // set progressbar indicater text
             views.setTextViewText(R.id.largeProgressTextSecond, "현재 ${promotionText}")
             views.setTextViewText(R.id.largeProgressTextThird, "현재 ${hobongText}호봉")
+
             // set progressbar
             views.setProgressBar(
                 R.id.progress_horizontal_first, 1000, (percentTotal*10).toInt(), false)
@@ -198,53 +183,59 @@ class LargeWidget : AppWidgetProvider() {
                 R.id.progress_horizontal_second, 1000, (percentPromotion*10).toInt(), false)
             views.setProgressBar(
                 R.id.progress_horizontal_third, 1000, (percentHobong*10).toInt(), false)
+
             // set progressbar percent text
             views.setTextViewText(R.id.largePercentFirst, "${percentTotal}%")
             views.setTextViewText(R.id.largePercentSecond, "${percentPromotion}%")
             views.setTextViewText(R.id.largePercentThird, "${percentHobong}%")
+
             // set D-day
             views.setTextViewText(R.id.largeDDay, dDayText)
-            // set vacaction progress bar (100 - actual progress(to be implemented) because it is counter-clockwise)
+
+            // set vacation progress bar (100 - actual progress(to be implemented) because it is counter-clockwise)
             views.setProgressBar(R.id.progress_circular, 100, 75, false)
+
             // set text for memos, notification
             views.setTextViewText(R.id.large_vacation, vacationText)
             views.setTextViewText(R.id.large_numVacation, numVacationText)
             views.setTextViewText(R.id.largeNextVacation, nextVacation)
             views.setTextViewText(R.id.largeNextVacationDate, nextVacationDate)
             views.setTextViewText(R.id.largeDDayVacation, dDayVacation)
+
             // set button image resource
             views.setImageViewResource(R.id.swapNextButton, R.drawable.right_white)
             views.setImageViewResource(R.id.swapBackButton, R.drawable.left_white)
-            // construct buttonlistener for swapping views
+
+            // set buttonListener for swapping views
             views.setOnClickPendingIntent(R.id.swapNextButton,
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_NEXT))
             views.setOnClickPendingIntent(R.id.swapBackButton,
                 getPendingSelfIntent(context, ACTION_UPDATE_CLICK_BACK))
-            // change Opacity
+            // set Opacity with alpha values(loaded above)
             views.setInt(R.id.largeWidgetLayout, "setBackgroundColor",
                 Color.parseColor("#${alpha}333333"))
 
-
-            // Construct the intents
-            // main intent (goes to homeactivity)
+            /** Instantiate Intents **/
+            // Widgets can only receive PendingIntent class as intents
+            // main intent (goes to HomeActivity) when the widget is onClicked
             val largeMainIntent:PendingIntent = Intent(context, HomeActivity::class.java)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 .let { intent ->
                     PendingIntent.getActivity(context, 0, intent, 0)
                 }
-            // configure intent (goes to configure activity)
+
+            // configure intent (goes to configure activity) when setting button is onClicked
             val largeConfigureIntent: PendingIntent = Intent(context, LargeWidgetConfigureActivity::class.java)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 .let { intent ->
                     PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 }
+
             // apply the intents to the widget view
             views.apply{setOnClickPendingIntent(R.id.largeWidgetLayout, largeMainIntent)}
                 .apply{setOnClickPendingIntent(R.id.largeConfigureButton, largeConfigureIntent)}
 
-
-
-
+            /** Instruct Widget Manager**/
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }

@@ -36,11 +36,11 @@ class SmallWidget : AppWidgetProvider() {
     }
 
     override fun onEnabled(context: Context) {
-        // Enter relevant functionality for when the first widget is created
+        /* Enter relevant functionality for when the first widget is created */
     }
 
     override fun onDisabled(context: Context) {
-        // Enter relevant functionality for when the last widget is disabled
+        /* Enter relevant functionality for when the last widget is disabled */
     }
 
     companion object {
@@ -51,7 +51,8 @@ class SmallWidget : AppWidgetProvider() {
             context: Context, appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-
+            /** load Data **/
+            // load userInfo data
             val prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
             userInfo = Gson().fromJson(prefs.getString("userInfo", ""), User::class.java)
 
@@ -69,17 +70,16 @@ class SmallWidget : AppWidgetProvider() {
                 0, 0, 0, 0
             )
 
-            // calculate promotion, name, D-day, percent, "남은 휴가", numVacationDays
+            // load promotion, name, D-day, percent, "남은 휴가", numVacationDays data
             val promotionImageDefault = R.drawable.rank1
             val promotionText = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
             val nameText = userInfo.name
             val percentText =
                 (kotlin.math.round(DateCalc.entirePercent(enlistDateTime, etsDateTime)*10)/10.0).toString()+"%"
             val dDayText = DateCalc.countDDay(etsDateTime)
-            //val numVacationText = "77일"
             val numVacationText = SmallWidgetConfigureActivity.loadOpacityPref(context, appWidgetId)
 
-
+            // load opacity (opacity is hexadecimal) data
             val alphaNum = (100 - SmallWidgetConfigureActivity.
                 loadOpacityPref(context, appWidgetId).toInt())*255/100
             val alpha =
@@ -88,7 +88,8 @@ class SmallWidget : AppWidgetProvider() {
                     else -> Integer.toHexString(alphaNum).toUpperCase()
                 }
 
-            // Construct the RemoteViews object, and instantiate the views using Remoteviews
+            /** Instantiate the views **/
+            // Construct the RemoteViews object, and instantiate the views using RemoteViews
             val views = RemoteViews(context.packageName, R.layout.small_widget)
             views.setImageViewResource(R.id.smallPromotionImage, promotionImageDefault + userInfo.rank)
             views.setTextViewText(R.id.smallPromotion, promotionText)
@@ -100,27 +101,26 @@ class SmallWidget : AppWidgetProvider() {
                 Color.parseColor("#${alpha}333333"))
 
 
-            /**
-             * Construct Intents so that when the widget is clicked, it moves to calendarfragment
-             * when the setting button is clicked, it moves to widget configuration
-             */
-            // mainIntent to move to ClockFragment
+            /** Instantiate Intents **/
+            // Widgets can only receive PendingIntent class as intents
+            // main intent (goes to HomeActivity) when the widget is onClicked
             val smallMainIntent: PendingIntent = Intent(context, HomeActivity::class.java)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 .let { intent ->
                     PendingIntent.getActivity(context, 0, intent, 0)
                 }
-            // configureIntent to move to Configuration
+            // configure intent (goes to configure activity) when setting button is onClicked
             val smallConfigureIntent: PendingIntent = Intent(context, SmallWidgetConfigureActivity::class.java)
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 .let { intent ->
                     PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 }
 
-            // apply Intent
+            // apply the intents to the widget view
             views.apply{setOnClickPendingIntent(R.id.smallWidgetLayout, smallMainIntent)}
                 .apply{setOnClickPendingIntent(R.id.smallConfigureButton, smallConfigureIntent)}
 
+            /** Instruct Widget Manager **/
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }

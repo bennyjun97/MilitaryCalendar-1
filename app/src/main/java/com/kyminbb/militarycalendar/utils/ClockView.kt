@@ -50,7 +50,7 @@ class ClockView @JvmOverloads constructor(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         cX = w / 2f
         cY = h / 2f
-        mRadius = Math.min(cX, cY) - mPadding
+        mRadius = Math.min(cX, cY) - mPadding * 2f
         mHandLength = mRadius * 3 / 4
         edgePaint.strokeWidth = mRadius * 0.1f
         handPaint.strokeWidth = mRadius * 0.08f

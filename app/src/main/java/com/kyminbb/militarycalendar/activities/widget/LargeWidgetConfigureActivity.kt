@@ -18,13 +18,13 @@ import com.kyminbb.militarycalendar.R
  * The configuration screen for the [LargeWidget] AppWidget.
  */
 class LargeWidgetConfigureActivity : Activity() {
-    internal var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-    internal lateinit var mAppSeekBar: SeekBar
-    internal lateinit var mAppTextView: TextView
-    internal lateinit var widgetBackground: Drawable
-    internal lateinit var mAppTestBackground: LinearLayout
-
-    internal var mOnClickListener: View.OnClickListener = View.OnClickListener {
+    /** instantiate properties **/
+    private var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+    private lateinit var mAppSeekBar: SeekBar
+    private lateinit var mAppTextView: TextView
+    private lateinit var widgetBackground: Drawable
+    private lateinit var mAppTestBackground: LinearLayout
+    private var mOnClickListener: View.OnClickListener = View.OnClickListener {
         val context = this@LargeWidgetConfigureActivity
 
         // When the button is clicked, store the string locally
@@ -38,7 +38,7 @@ class LargeWidgetConfigureActivity : Activity() {
         // Make sure we pass back the original appWidgetId
         val largeResultValue = Intent()
         largeResultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId)
-        setResult(Activity.RESULT_OK, largeResultValue)
+        setResult(RESULT_OK, largeResultValue)
         finish()
     }
 
@@ -47,11 +47,14 @@ class LargeWidgetConfigureActivity : Activity() {
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
         // out of the widget placement if the user presses the back button.
-        setResult(Activity.RESULT_CANCELED)
+        setResult(RESULT_CANCELED)
 
+        // set content view for configuration screen
         setContentView(R.layout.large_widget_configure)
         val buttonOpacityTest = findViewById<View>(R.id.largeButtonTemp)
+        buttonOpacityTest.setOnClickListener(mOnClickListener)
         mAppTextView = findViewById<View>(R.id.largeOpacityText) as TextView
+        mAppTextView.text = loadOpacityPref(this@LargeWidgetConfigureActivity, mAppWidgetId)
         mAppSeekBar = findViewById<View>(R.id.largeSeekBar) as SeekBar
         mAppSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -62,7 +65,7 @@ class LargeWidgetConfigureActivity : Activity() {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
-        buttonOpacityTest.setOnClickListener(mOnClickListener)
+        mAppSeekBar.progress = mAppTextView.text.toString().toInt()
 
         // Find the widget id from the intent.
         val intent = intent
@@ -78,11 +81,9 @@ class LargeWidgetConfigureActivity : Activity() {
             finish()
             return
         }
-
-        mAppTextView.text = loadOpacityPref(this@LargeWidgetConfigureActivity, mAppWidgetId)
-        mAppSeekBar.progress = mAppTextView.text.toString().toInt()
     }
 
+    /** manage data (save, load, delete) **/
     companion object {
 
         private const val LARGE_PREFS_NAME = "com.kyminbb.militarycalendar.activities.widget.LargeWidget"
@@ -103,6 +104,7 @@ class LargeWidgetConfigureActivity : Activity() {
             return titleValue ?: "0"
         }
 
+        // Delete opacity data when the widget is removed
         internal fun deleteOpacityPref(context: Context, appWidgetId: Int) {
             val prefs = context.getSharedPreferences(LARGE_PREFS_NAME, 0).edit()
             prefs.remove(LARGE_PREF_PREFIX_KEY + appWidgetId)
