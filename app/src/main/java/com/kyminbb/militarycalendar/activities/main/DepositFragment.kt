@@ -43,6 +43,7 @@ class DepositFragment : Fragment() {
     private var temp = ""
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +64,7 @@ class DepositFragment : Fragment() {
         loadData()
 
         /** Implement Montly Deposit Info using Recycler View */
-        //loadBankData(activity!!.applicationContext)
+        loadBankData(activity!!.applicationContext)
         updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
 
         /** Implement addButton on the top-right corner */
@@ -75,7 +76,7 @@ class DepositFragment : Fragment() {
         // Add new deposit information
         depositButtonAdd.setOnClickListener {
             popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-            popup.animationStyle = R.style.Animation_AppCompat_DropDownUp
+            popup.animationStyle =animStyle
             popup.update(
                 view,
                 resources.displayMetrics.widthPixels,
@@ -125,7 +126,7 @@ class DepositFragment : Fragment() {
                 // enable deposit Popup
                 val popupDepositView = layoutInflater.inflate(R.layout.add_deposit_amount, null)
                 val popupDeposit = PopupWindow(popupDepositView)
-                popupDeposit.animationStyle = R.style.Animation_AppCompat_DropDownUp
+                popupDeposit.animationStyle = animStyle
                 popupDeposit.isFocusable = true
 
                 popupDeposit.showAtLocation(view, Gravity.CENTER, 0, 0)
@@ -248,6 +249,8 @@ class DepositFragment : Fragment() {
     }
 
     companion object{
+        private val animStyle = R.style.Animation_AppCompat_DropDownUp
+
         private const val BANK_PREFS_NAME = "com.kyminbb.militarycalendar.activities.main.DepositFragment"
         private const val BANK_PREF_PREFIX_KEY = "BANK_NAME_"
 
@@ -263,6 +266,7 @@ class DepositFragment : Fragment() {
                 val popupHasBankView = context.layoutInflater.inflate(R.layout.popup_has_bank, null)
                 val popupHasBank = PopupWindow(popupHasBankView)
                 popupHasBank.isFocusable = true
+                popupHasBank.animationStyle = animStyle
                 popupHasBank.showAtLocation(view, Gravity.CENTER, 0,0)
                 popupHasBank.update(
                     view,

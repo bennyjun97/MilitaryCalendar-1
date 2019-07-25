@@ -22,7 +22,6 @@ class HomeActivity : AppCompatActivity() {
         adapter.addFragment(CalendarFragment(), "짬중일지")
         adapter.addFragment(DepositFragment(), "짬중화폐")
 
-
         // Link fragments and the activity.
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
@@ -30,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
         val tabIcons = arrayOf(
             R.drawable.clock,
             R.drawable.calendar,
-            R.drawable.deposit_icon
+            R.drawable.deposit
         )
         tabs.getTabAt(0)!!.setIcon(tabIcons[0])
         tabs.getTabAt(1)!!.setIcon(tabIcons[1])
