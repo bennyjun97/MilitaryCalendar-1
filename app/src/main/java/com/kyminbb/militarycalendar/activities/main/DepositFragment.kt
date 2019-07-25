@@ -39,12 +39,9 @@ class DepositFragment : Fragment() {
 
     private var userInfo = User()
     private val today = LocalDate.now()
-
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
-    private val temp2 = arrayListOf<Bank>(
-        Bank("신한은행", LocalDate.now(), LocalDate.now(), "100,000", 0.0)
-    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,7 +75,7 @@ class DepositFragment : Fragment() {
         // Add new deposit information
         depositButtonAdd.setOnClickListener {
             popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-            popup.animationStyle = R.style.Animation_Design_BottomSheetDialog
+            popup.animationStyle = R.style.Animation_AppCompat_DropDownUp
             popup.update(
                 view,
                 resources.displayMetrics.widthPixels,
@@ -128,6 +125,7 @@ class DepositFragment : Fragment() {
                 // enable deposit Popup
                 val popupDepositView = layoutInflater.inflate(R.layout.add_deposit_amount, null)
                 val popupDeposit = PopupWindow(popupDepositView)
+                popupDeposit.animationStyle = R.style.Animation_AppCompat_DropDownUp
                 popupDeposit.isFocusable = true
 
                 popupDeposit.showAtLocation(view, Gravity.CENTER, 0, 0)

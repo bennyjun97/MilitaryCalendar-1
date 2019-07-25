@@ -12,10 +12,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp" app:srcCompat="@drawable/profilepic"
             android:id="@+id/profileImage" android:layout_weight="3.5" android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline28" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline28"
+            app:layout_constraintStart_toStartOf="@+id/guideline29"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/clockView" android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/clockView"
             android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
 
     <TextView
@@ -24,21 +24,20 @@
             android:layout_height="wrap_content" android:layout_width="0dp"
             android:id="@+id/remainText" android:layout_weight="0.4"
             android:gravity="center|start" android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="@+id/guideline28"
             app:layout_constraintTop_toBottomOf="@+id/rankText" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintBottom_toTopOf="@+id/clockView" android:layout_marginBottom="8dp"/>
+            app:layout_constraintBottom_toTopOf="@+id/clockView" android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline30"/>
     <ImageButton
             android:layout_width="0dp"
             android:layout_height="30dp" android:id="@+id/buttonEdit"
             android:layout_weight="2" android:scaleType="fitCenter" android:background="@null"
             app:srcCompat="@drawable/setting_widget_white" android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="@+id/guideline32"
             app:layout_constraintTop_toTopOf="@+id/nameText"
-            app:layout_constraintBottom_toBottomOf="@+id/nameText"/>
+            app:layout_constraintBottom_toBottomOf="@+id/nameText"
+            app:layout_constraintEnd_toStartOf="@+id/guideline30"/>
     <TextView
             android:text="@string/clockPromotion"
             android:fontFamily="@font/lee_header_regular"
@@ -118,12 +117,12 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline30"
-            app:layout_constraintGuide_percent="0.92"/>
+            app:layout_constraintGuide_percent="0.95"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/guideline29"
-            app:layout_constraintGuide_percent="0.08"/>
+            app:layout_constraintGuide_percent="0.05"/>
 
 
     <com.kyminbb.militarycalendar.utils.ClockView
@@ -145,8 +144,9 @@
                  android:progress="72"
                  android:progressDrawable="@drawable/horizontal_progress"
                  app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="@+id/guideline30"
-                 app:layout_constraintTop_toTopOf="@id/guideline27" app:layout_constraintStart_toEndOf="@id/guideline29"
-                 android:id="@+id/progressBarTotal" app:layout_constraintVertical_bias="0.120000005"/>
+                 app:layout_constraintStart_toEndOf="@id/guideline29"
+                 android:id="@+id/progressBarTotal" app:layout_constraintVertical_bias="0.0"
+                 app:layout_constraintTop_toBottomOf="@+id/clockTotalProgresText" android:layout_marginTop="4dp"/>
     <TextView
             android:text="@string/clockTotalProgressText"
             android:id="@+id/clockTotalProgresText"
@@ -155,10 +155,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/entirePercentText"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
             android:textSize="12sp"
             android:textColor="@color/horizontalProgressbarRed"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarTotal"/>
+            app:layout_constraintTop_toTopOf="@+id/guideline26" android:layout_marginTop="8dp"/>
 
     <TextView
             android:text="@string/clockTotalProgress"
@@ -166,10 +165,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/entirePercentText"
-            android:layout_marginBottom="4dp" android:textSize="12sp"
+            android:textSize="12sp"
             android:textColor="@color/horizontalProgressbarRed"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarTotal"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarTotal"/>
+            app:layout_constraintEnd_toEndOf="@+id/progressBarTotal"
+            app:layout_constraintTop_toTopOf="@+id/clockTotalProgresText"/>
 
     <!-- 계급 프로그레스바 Rank-->
     <ProgressBar android:layout_width="0dp" android:layout_height="14dp"
