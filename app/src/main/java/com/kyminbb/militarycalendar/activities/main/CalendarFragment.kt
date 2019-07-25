@@ -14,6 +14,7 @@ import com.commit451.addendum.threetenabp.toLocalDate
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
+import com.kyminbb.militarycalendar.database.TableReaderForEachDays
 import com.kyminbb.militarycalendar.utils.DateCalc
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
@@ -39,8 +40,13 @@ class CalendarFragment : Fragment() {
     var startSlot = 0
     var eventTextViewNum = 0
     var leaveExist : MutableList<Boolean> = mutableListOf()
+
     var eventsinMonth : MutableList<TextView> = mutableListOf<TextView>()
+
+
     var daySelected = -1
+    var selectedDate = LocalDate.now()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,7 +107,7 @@ class CalendarFragment : Fragment() {
             day42
         )
 
-        updateCalendar(today)
+        updateCalendar(today, dbHelper)
 
         buttonAdd.setOnClickListener {
             if (adding) {
@@ -115,13 +121,13 @@ class CalendarFragment : Fragment() {
         buttonRight.setOnClickListener {
             calendar = calendar.withDayOfMonth(1)
             calendar = calendar.plusMonths(1)
-            updateCalendar(calendar)
+            updateCalendar(calendar, dbHelper)
         }
 
         buttonLeft.setOnClickListener {
             calendar = calendar.withDayOfMonth(1)
             calendar = calendar.minusMonths(1)
-            updateCalendar(calendar)
+            updateCalendar(calendar, dbHelper)
         }
 
         for (button in slots) {
@@ -132,10 +138,21 @@ class CalendarFragment : Fragment() {
                     button.setBackgroundResource(R.drawable.calendar_stroke)
                     if (daySelected == -1 || daySelected == Integer.parseInt(button.text.toString()) + startSlot - 1) {
                         daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
-                        return@setOnClickListener
                     } else {
                         slots[daySelected].setBackgroundResource(R.drawable.calendar_button)
                         daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
+                    }
+                    textDate.text = "${calendar.monthValue}월 ${button.text.toString()}일"
+                    val readDate = readDBEachDate(dbHelper, date2String(calendar.year, calendar.monthValue, button.text.toString().toInt()))
+                    if(readDate.isEmpty()) {
+                        dayTypeText.text = "일정 없음"
+                        commentText.text = ""
+                    }
+                    else {
+                        for(date in readDate) {
+                            dayTypeText.text = date.third
+                            commentText.text = date.first
+                        }
                     }
                 }
             }
@@ -311,6 +328,26 @@ class CalendarFragment : Fragment() {
         }
     }
 
+    private fun writeDBEachDay(dbHelper: DBHelper, content: String, date: String, name: String, memo: String) {
+        dbHelper.use {
+            insert(
+                TableReaderForEachDays.TableEntry2.TABLE_NAME,
+                TableReaderForEachDays.TableEntry2.COLUMN_DATE to date,
+                TableReaderForEachDays.TableEntry2.COLUMN_NAME to name,
+                TableReaderForEachDays.TableEntry2.COLUMN_CONTENT to content,
+                TableReaderForEachDays.TableEntry2.COLUMN_MEMO to memo
+            )
+        }
+    }
+
+    private fun writeDBEachDay(dbHelper: DBHelper, startDate: LocalDate, endDate: LocalDate, content: String, name: String, memo: String) {
+        var date1 = startDate
+        for(i in 0..DateCalc.leaveDaysCalculator(startDate, endDate) - 1) {
+            writeDBEachDay(dbHelper, content, date2String(date1.year, date1.monthValue, date1.dayOfMonth), name, memo)
+            date1 = date1.plusDays(1)
+        }
+    }
+
     private fun readDB(dbHelper: DBHelper, startDate: String): List<Triple<String, String, String>> {
         return dbHelper.use {
             select(
@@ -327,6 +364,43 @@ class CalendarFragment : Fragment() {
                 }
         }
     }
+
+    //to read db for each days
+    private fun readDBEachDate(dbHelper: DBHelper, date: String) : List<Triple<String, String, String>> {
+        return dbHelper.use {
+            select(
+                TableReaderForEachDays.TableEntry2.TABLE_NAME,
+                TableReaderForEachDays.TableEntry2.COLUMN_NAME,
+                TableReaderForEachDays.TableEntry2.COLUMN_MEMO,
+                TableReaderForEachDays.TableEntry2.COLUMN_CONTENT
+            )
+                .whereSimple("${TableReaderForEachDays.TableEntry2.COLUMN_DATE} = ?", date).exec {
+                    val parser = rowParser { name: String, memo: String, content: String ->
+                        Triple(name, memo, content)
+                    }
+                    parseList(parser)
+                }
+        }
+    }
+
+    //search according to end Date (월을 넘어가는 일정을 달력에 표시하기 위해서)
+    private fun readDBEndDate(dbHelper: DBHelper, endDate: String): List<Triple<String, String, String>> {
+        return dbHelper.use {
+            select(
+                TableReaderContract.TableEntry.TABLE_NAME,
+                TableReaderContract.TableEntry.COLUMN_START_DATE,
+                TableReaderContract.TableEntry.COLUMN_CONTENT,
+                TableReaderContract.TableEntry.COLUMN_MEMO
+            )
+                .whereSimple("${TableReaderContract.TableEntry.COLUMN_END_DATE} = ?", endDate).exec {
+                    val parser = rowParser { startDate: String, content: String, memo: String ->
+                        Triple(startDate, content, memo)
+                    }
+                    parseList(parser)
+                }
+        }
+    }
+
 
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
         return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
@@ -345,7 +419,7 @@ class CalendarFragment : Fragment() {
        return LocalDate.parse(date)
     }
 
-    private fun updateCalendar(calendar: LocalDate) {
+    private fun updateCalendar(calendar: LocalDate, dbHelper: DBHelper) {
         //clearing slots
         for (i in 0..41) {
             slots[i].text = ""
@@ -386,18 +460,13 @@ class CalendarFragment : Fragment() {
         cal2 = cal2.minusDays(1)
         var j = cal2.dayOfMonth - 1
 
-        /*cal2.add(Calendar.MONTH, 1)
-        cal2.add(Calendar.DAY_OF_MONTH, -1)
-        val j = cal2.get(Calendar.DAY_OF_MONTH) - 1*/
 
         //putting numbers for days
         for (i in 0..j) {
             leaveExist.add(false)
             slots[position].text = cal.dayOfMonth.toString()
-            //slots[position].text = cal.get(Calendar.DAY_OF_MONTH).toString()
             position += 1
             cal = cal.plusDays(1)
-            //cal.add(Calendar.DAY_OF_MONTH, 1)
         }
 
         // circle on today
@@ -409,24 +478,23 @@ class CalendarFragment : Fragment() {
             slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
         }
 
-        /*val today = Calendar.getInstance()
-        if (cal2.get(Calendar.YEAR) == today.get(Calendar.YEAR) && cal2.get(Calendar.MONTH) == today.get(
-                Calendar.MONTH
-            )
-        ) {
-            val todayposition = today.get(Calendar.DAY_OF_MONTH)
-            slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
-        }*/
+       drawEventsinMonth(cal.minusDays(1), dbHelper)
     }
 
     private fun addEventinCalendar(startDate: LocalDate, endDate: LocalDate, type: String, text: String) {
-        val startPosition = startDate.dayOfMonth + startSlot - 1
-        val endPosition = endDate.dayOfMonth + startSlot - 1
-
-        for(index in startDate.dayOfMonth-1..endDate.dayOfMonth-1) {
-            if(type.equals("휴가") && leaveExist[index]) {
-                Toast.makeText(this.context, "휴가일이 겹칩니다!", Toast.LENGTH_SHORT).show() //나중엔 여기다 쓰면 안 된다. 실험용으로 여기에 씀.
+        var startPosition = startDate.dayOfMonth + startSlot - 1
+        var endPosition = endDate.dayOfMonth + startSlot - 1
+        if(calendar.year != startDate.year || calendar.monthValue != startDate.monthValue) {
+            if(calendar.year != endDate.year || calendar.monthValue != endDate.monthValue) {
                 return
+            }
+            else {
+                startPosition = startSlot
+            }
+        }
+        else {
+            if (endDate.monthValue != startDate.monthValue) {
+                endPosition = startDate.withDayOfMonth(1).plusMonths(1).minusDays(1).dayOfMonth + startSlot - 1
             }
         }
 
@@ -568,18 +636,16 @@ class CalendarFragment : Fragment() {
                     Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                // Store the schedule.
-                writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
-                // Retrieve the data for test purpose.
-                val endDates = readDB(dbHelper, startSchedule.text.toString())
-                for (endDate in endDates) {
-                    addEventinCalendar(
-                        string2Date(startSchedule.text.toString()),
-                        string2Date(endDate.first),
-                        "휴가",
-                        endDate.third
-                    )
+                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "휴가")) {
+                    // add event in calendar
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "휴가", memo)
+                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
+
+                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
+                        "휴가", memo, memo)
                 }
+
                 startSchedule.text = ""
                 endSchedule.text = ""
                 actualDateUsed.text = ""
@@ -642,17 +708,19 @@ class CalendarFragment : Fragment() {
             if (nameInput.text.isEmpty()) memo = "휴가"
             else memo = nameInput.text.toString()
             if (startSchedule.text.isNotEmpty()) {
+                // add event in calendar
+                addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), "휴가", memo)
                 // Store the schedule.
-                writeDB(dbHelper, "휴가", startSchedule.text.toString(), startSchedule.text.toString(), memo)
-                // Retrieve the data for test purpose.
-                val endDates = readDB(dbHelper, startSchedule.text.toString())
-                for (endDate in endDates) {
-                    addEventinCalendar(
-                        string2Date(startSchedule.text.toString()),
-                        string2Date(endDate.first),
-                        "휴가",
-                        endDate.third
-                    )
+                // Store the schedule.
+                // Store the schedule.
+                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), dbHelper, "휴가")) {
+                    // add event in calendar
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), "휴가", memo)
+                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), startSchedule.text.toString(), memo)
+                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
+
+                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()),
+                        "휴가", memo, memo)
                 }
                 startSchedule.text = ""
                 nameInput.text = null
@@ -711,18 +779,17 @@ class CalendarFragment : Fragment() {
                     return@setOnClickListener
                 }
                 // Store the schedule.
-                writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
-                // Retrieve the data for test purpose.
-                val endDates = readDB(dbHelper, startSchedule.text.toString())
-                for (endDate in endDates) {
-                    addEventinCalendar(
-                        string2Date(startSchedule.text.toString()),
-                        string2Date(endDate.first),
-                        "휴가",
-                        endDate.third
-                    )
+                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "휴가")) {
+                    // add event in calendar
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "휴가", memo)
+                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
+
+                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
+                        "휴가", memo, memo)
                 }
                 startSchedule.text = ""
+                endSchedule.text = ""
                 nameInput.text = null
                 // Dismiss the popup window.
                 popup.dismiss()
@@ -780,16 +847,14 @@ class CalendarFragment : Fragment() {
                     return@setOnClickListener
                 }
                 // Store the schedule.
-                writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), memo)
-                // Retrieve the data for test purpose.
-                val endDates = readDB(dbHelper, startSchedule.text.toString())
-                for (endDate in endDates) {
-                    addEventinCalendar(
-                        string2Date(startSchedule.text.toString()),
-                        string2Date(endDate.first),
-                        "당직",
-                        endDate.third
-                    )
+                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "당직")) {
+                    // add event in calendar
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "당직", memo)
+                    writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+
+                    //각 날짜에 당직일정이 있다는 것을 기록해준다.
+                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
+                        "당직", memo, memo)
                 }
                 startSchedule.text = ""
                 endSchedule.text = ""
@@ -850,17 +915,16 @@ class CalendarFragment : Fragment() {
                     return@setOnClickListener
                 }
                 // Store the schedule.
-                writeDB(dbHelper, "훈련", startSchedule.text.toString(), endSchedule.text.toString(), memo)
-                // Retrieve the data for test purpose.
-                val endDates = readDB(dbHelper, startSchedule.text.toString())
-                for (endDate in endDates) {
-                    addEventinCalendar(
-                        string2Date(startSchedule.text.toString()),
-                        string2Date(endDate.first),
-                        "훈련",
-                        endDate.third
-                    )
+                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "훈련")) {
+                    // add event in calendar
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "훈련", memo)
+                    writeDB(dbHelper, "훈련", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
+
+                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
+                        "훈련", memo, memo)
                 }
+
                 startSchedule.text = ""
                 endSchedule.text = ""
                 nameInput.text = null
@@ -920,16 +984,14 @@ class CalendarFragment : Fragment() {
                     return@setOnClickListener
                 }
                 // Store the schedule.
-                writeDB(dbHelper, "개인", startSchedule.text.toString(), endSchedule.text.toString(), memo)
-                // Retrieve the data for test purpose.
-                val endDates = readDB(dbHelper, startSchedule.text.toString())
-                for (endDate in endDates) {
-                    addEventinCalendar(
-                        string2Date(startSchedule.text.toString()),
-                        string2Date(endDate.first),
-                        "개인",
-                        endDate.third
-                    )
+                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "개인")) {
+                    // add event in calendar
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "개인", memo)
+                    writeDB(dbHelper, "개인", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
+
+                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
+                        "개인", memo, memo)
                 }
                 startSchedule.text = ""
                 endSchedule.text = ""
@@ -963,5 +1025,48 @@ class CalendarFragment : Fragment() {
         startText.text = type + " 시작일"
         endText.text = type + " 종료일"
         registerBtn.text = type + " 등록"
+    }
+
+
+    //initialization for updateCalendar
+    private fun drawEventsinMonth(date: LocalDate, dbHelper: DBHelper) {
+        var date1 = date.withDayOfMonth(1)
+
+        for(i in 1..date.withDayOfMonth(1).plusMonths(1).minusDays(1).dayOfMonth) {
+            val startDates = readDB(dbHelper, date2String(date1.year, date1.monthValue, date1.dayOfMonth))
+            if(startDates.isNotEmpty()) {
+                for(startDate in startDates) {
+                    addEventinCalendar(date1, string2Date(startDate.first), startDate.second, startDate.third)
+                }
+            }
+
+            val endDates = readDBEndDate(dbHelper, date2String(date1.year, date1.monthValue, date1.dayOfMonth))
+            if(endDates.isNotEmpty()) {
+                for(endDate in endDates) {
+                    if(string2Date(endDate.first).monthValue != date1.monthValue) {
+                        addEventinCalendar(date1.withDayOfMonth(1), date1, endDate.second, endDate.third)
+                    }
+                }
+            }
+            date1 = date1.plusDays(1)
+        }
+    }
+
+    //시작일, 끝 일을 넣으면 그 사이에 특정 타입의 이벤트가 있는지 알려주는 함수.
+    private fun doesEventExist(startDate: LocalDate, endDate: LocalDate, dbHelper: DBHelper, type: String) : Boolean {
+        var date1 = startDate
+        for(i in 0..DateCalc.leaveDaysCalculator(startDate, endDate)-1) {
+            val dates = readDBEachDate(dbHelper, date2String(date1.year, date1.monthValue, date1.dayOfMonth))
+            if(dates.isNotEmpty()) {
+                for(date in dates) {
+                    if(date.second.equals(type)) {
+                        Toast.makeText(this.context, "이미 그 날짜에 그 일정이 있네요 ㅠㅠ", Toast.LENGTH_SHORT).show()
+                        return true
+                    }
+                }
+            }
+            date1 = date1.plusDays(1)
+        }
+        return false
     }
 }
