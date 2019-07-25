@@ -69,22 +69,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/titleText" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintBottom_toTopOf="@+id/titleGuide"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.0"
-                android:textSize="24sp" android:fontFamily="@font/lee_header_bold"/>
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/titleGuide"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="24sp" android:fontFamily="@font/lee_header_bold"
+                app:layout_constraintEnd_toStartOf="@+id/cancel" android:layout_marginEnd="8dp"
+                app:layout_constraintHorizontal_bias="0.0"/>
+
+        <TextView
+                android:text="이 름"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameText"
+                app:layout_constraintTop_toTopOf="@+id/titleGuide"
+                android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/nameEdit"
+                android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
+                android:layout_marginStart="0dp"/>
+        <EditText
+                android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/nameEdit" android:inputType = "text"
+                android:ems = "0"
+                app:layout_constraintBottom_toTopOf="@+id/startDateGuide" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp" android:layout_marginEnd="4dp" android:hint="캘린더에 띄울 일정의 이름을 정해주세요"
+                android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/nameText"
+                android:clickable="false"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:textSize="14sp"/>
+
         <TextView
                 android:text="휴가 시작일"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/startText"
-                app:layout_constraintTop_toTopOf="@+id/titleGuide"
-                android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/startSchedule"
+                app:layout_constraintTop_toBottomOf="@id/startDateGuide"
+                app:layout_constraintBottom_toTopOf="@id/startSchedule"
                 android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/titleText"
                 android:layout_marginStart="4dp"/>
         <Button
                 android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/startSchedule"
-                app:layout_constraintBottom_toTopOf="@+id/startDateGuide" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/endDateGuide" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
                 android:layout_marginBottom="4dp" android:layout_marginEnd="4dp" android:hint="시작일을 선택해주세요"
                 android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/startText"
@@ -97,13 +121,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/endText"
-                app:layout_constraintTop_toTopOf="@+id/startDateGuide"
+                app:layout_constraintTop_toTopOf="@+id/endDateGuide"
                 android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/endSchedule"
                 android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
                 android:layout_marginStart="0dp"/>
         <Button
                 android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/endSchedule"
-                app:layout_constraintBottom_toTopOf="@+id/endDateGuide" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/actualDayGuide" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
                 android:layout_marginBottom="4dp" android:layout_marginEnd="4dp" android:hint="종료일을 선택해주세요"
                 android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/endText"
@@ -116,41 +140,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/actualDayText"
-            app:layout_constraintTop_toTopOf="@+id/endDateGuide"
+            app:layout_constraintTop_toTopOf="@+id/actualDayGuide"
             android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/actualDayBtn"
             android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
             android:layout_marginStart="0dp"/>
         <Button
                 android:hint = "실제 사용하는 휴가 일수를 적어주세요"
                 android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/actualDayBtn"
-                app:layout_constraintBottom_toTopOf="@+id/actualDayGuide" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
                 android:layout_marginBottom="4dp" android:layout_marginEnd="4dp"
                 android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/actualDayText"
                 android:clickable="false"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintVertical_bias="0.0"/>
-
-        <TextView
-                android:text="메 모"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/memoText"
-                app:layout_constraintTop_toTopOf="@+id/actualDayGuide"
-                android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/memoEdit"
-                android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
-                android:layout_marginStart="0dp"/>
-        <EditText
-                android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/memoEdit" android:inputType = "text"
-                android:ems = "0"
-                app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="4dp"
-                android:layout_marginBottom="4dp" android:layout_marginEnd="4dp" android:hint="캘린더에 띄울 간략한 내용을 적어주세요"
-                android:gravity="center_vertical|start" app:layout_constraintTop_toBottomOf="@id/memoText"
-                android:clickable="false"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintVertical_bias="0.0"
-                android:textSize="14sp"/>
 
         <Button
                 android:text="초기화"
@@ -163,7 +166,7 @@
                 android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/bottomGuideLine"
                 android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/init"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/memoEdit"/>
+                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/nameEdit"/>
         <Button
                 android:text="등록 취소"
                 android:layout_width="0dp"
@@ -185,7 +188,19 @@
                 app:layout_constraintTop_toTopOf="@+id/leaveInitBtn"
                 app:layout_constraintBottom_toBottomOf="@+id/leaveInitBtn"
                 app:layout_constraintStart_toStartOf="@+id/cancel" android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/memoEdit" android:layout_marginEnd="8dp"/>
+                app:layout_constraintEnd_toEndOf="@+id/nameEdit" android:layout_marginEnd="8dp"/>
+        <Button
+                android:text="메모 등록하기"
+                android:maxLines="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/memoButton" app:layout_constraintStart_toStartOf="@+id/cancel"
+                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="@+id/nameEdit"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/titleText" app:layout_constraintTop_toTopOf="@id/titleText"
+                android:fontFamily="@font/lee_header_regular"
+                android:background="@drawable/register_button"
+        />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

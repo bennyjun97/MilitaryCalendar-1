@@ -550,16 +550,16 @@ class CalendarFragment : Fragment() {
         val buttonCancel = popupView.find<Button>(R.id.leaveCancelBtn)
         val actualDateUsed = popupView.find<Button>(R.id.actualDayBtn)
         val buttonInit = popupView.find<Button>(R.id.leaveInitBtn)
-        val leaveMemo = popupView.find<EditText>(R.id.memoEdit)
+        val nameInput = popupView.find<EditText>(R.id.nameEdit)
 
         var memo = ""
-        leaveMemo.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
+        nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
         startSchedule.setOnClickListener { setDate(popupView, "Start", "leave") }
 
         endSchedule.setOnClickListener { setDate(popupView, "End", "leave") }
 
-        leaveMemo.setOnClickListener { }
+        nameInput.setOnClickListener { }
 
         actualDateUsed.setOnClickListener {
             val popupMenu = PopupMenu(this.context, addLeave)
@@ -572,8 +572,8 @@ class CalendarFragment : Fragment() {
         }
 
         buttonAddEvent.setOnClickListener {
-            if(leaveMemo.text.isEmpty()) memo = "휴가"
-            else memo = leaveMemo.text.toString()
+            if(nameInput.text.isEmpty()) memo = "휴가"
+            else memo = nameInput.text.toString()
             if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
                 Toast.makeText(this.context, "복귀 안 할거에요?", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -598,13 +598,13 @@ class CalendarFragment : Fragment() {
                 startSchedule.text = ""
                 endSchedule.text = ""
                 actualDateUsed.text = ""
-                leaveMemo.text = null
+                nameInput.text = null
                 // Dismiss the popup window.
                 popup.dismiss()
             }
         }
         buttonInit.setOnClickListener {
-            startSchedule.text = ""; leaveMemo.text = null
+            startSchedule.text = ""; nameInput.text = null
             actualDateUsed.text = ""; endSchedule.text = ""
         }
         buttonCancel.setOnClickListener {
@@ -612,7 +612,7 @@ class CalendarFragment : Fragment() {
             startSchedule.text = ""
             actualDateUsed.text = ""
             endSchedule.text = ""
-            leaveMemo.text = null
+            nameInput.text = null
             popup.dismiss()
         }
     }
