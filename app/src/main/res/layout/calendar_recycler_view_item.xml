@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="100dp"
+                                                   android:layout_margin="@dimen/itemMargin"
+                                                   android:background="@drawable/schedule_recycler">
+
+    <TextView
+            android:text="@string/leaveSelect"
+            android:textStyle="bold"
+            android:textColor="@color/leave"
+            android:fontFamily="@font/lee_text_m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ScheduleType" android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@id/titleVerticalGuide"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:textSize="32sp"/>
+
+    <TextView
+            android:fontFamily="@font/lee_text_m"
+            android:textStyle="bold"
+            android:textColor="@color/recyclerItem"
+            android:text="시작일"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startTitle" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/startText"
+            app:layout_constraintTop_toTopOf="@id/startText" android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/startText"
+            android:layout_marginEnd="6dp"
+            android:gravity="center_vertical|end" android:layout_marginTop="8dp"/>
+    <TextView
+            android:fontFamily="@font/lee_text_m"
+            android:textStyle="bold"
+            android:textColor="@color/recyclerItem"
+            android:text="종료일"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endTitle" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/endText" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@id/endText" android:textSize="12sp"
+            android:layout_marginEnd="6dp" app:layout_constraintEnd_toStartOf="@+id/endText"
+            android:gravity="center_vertical|end"/>
+    <TextView
+            android:fontFamily="@font/lee_text_m"
+            android:textStyle="bold"
+            android:textColor="@color/leave"
+            android:text="2017-06-26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startText"
+            app:layout_constraintBottom_toTopOf="@id/endText" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" android:textSize="12sp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/scheduleSetting"
+            android:gravity="center_vertical|end" android:layout_marginBottom="4dp"/>
+    <TextView
+            android:fontFamily="@font/lee_text_m"
+            android:textStyle="bold"
+            android:textColor="@color/leave"
+            android:text="2019-03-12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endText" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/HalfHorizontalGuide"
+            app:layout_constraintTop_toBottomOf="@id/startText" android:textSize="12sp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/scheduleSetting"
+            android:gravity="center_vertical|end" android:layout_marginTop="4dp"/>
+    <ImageButton
+            app:srcCompat="@drawable/small_menu_button"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/scheduleSetting" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/titleVerticalGuide"
+            app:layout_constraintGuide_percent="0.30"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/HalfHorizontalGuide"
+            app:layout_constraintGuide_percent="0.50"/>
+    <TextView
+            android:text="신병 휴가"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameText" app:layout_constraintEnd_toStartOf="@id/scheduleSetting"
+            app:layout_constraintTop_toBottomOf="@id/HalfHorizontalGuide"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/titleVerticalGuide" android:textColor="@color/leave"
+            app:layout_constraintHorizontal_bias="0.7" android:textSize="18sp" android:maxLines="1"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

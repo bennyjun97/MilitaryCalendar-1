@@ -2,6 +2,7 @@ package com.kyminbb.militarycalendar.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteStatement
 import android.provider.BaseColumns
 import org.jetbrains.anko.db.*
 import java.util.*
@@ -26,6 +27,8 @@ object TableReaderForEachDays {
         const val COLUMN_CONTENT = "content2"
         const val COLUMN_NAME = "name2"
         const val COLUMN_MEMO = "memo2"
+        const val COLUMN_START = "start_date2"
+        const val COLUMN_END = "end_date2"
     }
 }
 
@@ -63,7 +66,9 @@ class DBHelper private constructor(context: Context) : ManagedSQLiteOpenHelper(c
             TableReaderForEachDays.TableEntry2.COLUMN_DATE to TEXT,
             TableReaderForEachDays.TableEntry2.COLUMN_CONTENT to TEXT,
             TableReaderForEachDays.TableEntry2.COLUMN_NAME to TEXT,
-            TableReaderForEachDays.TableEntry2.COLUMN_MEMO to TEXT
+            TableReaderForEachDays.TableEntry2.COLUMN_MEMO to TEXT,
+            TableReaderForEachDays.TableEntry2.COLUMN_START to TEXT,
+            TableReaderForEachDays.TableEntry2.COLUMN_END to TEXT
         )
     }
 

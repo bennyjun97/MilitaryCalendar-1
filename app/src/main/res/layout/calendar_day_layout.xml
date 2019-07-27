@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@android:color/transparent"
+                                                   android:id="@+id/calendarConstraint" >
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineLeft"
+                                                android:orientation="vertical"
+                                                app:layout_constraintGuide_percent="0.1"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineRight"
+                                                android:orientation="vertical"
+                                                app:layout_constraintGuide_percent="0.9"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineTop"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.1"/>
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/guidelineBottom"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.9"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop" app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            android:theme="@style/LeeText" android:background="@drawable/memo_background" android:id="@+id/dayLayout"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0">
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleGuide" app:layout_constraintGuide_percent="0.12"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottomGuide" app:layout_constraintGuide_percent="0.88"/>
+
+        <ImageButton
+                android:layout_width="16sp"
+                android:layout_height="16sp"
+                app:srcCompat="@drawable/left" android:id="@+id/LeftButton"
+                android:scaleType="fitCenter" android:background="@null"
+                app:layout_constraintBottom_toBottomOf="@id/titleText"
+                app:layout_constraintTop_toTopOf="@id/titleText" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/titleText"
+        />
+
+        <TextView
+                android:text="2019-07-27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleText" app:layout_constraintStart_toEndOf="@id/LeftButton"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/titleGuide"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="20sp"
+                android:textColor = "@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/RightButton" android:layout_marginEnd="8dp"
+                app:layout_constraintHorizontal_bias="0.0"/>
+
+        <ImageButton
+                android:layout_width="16sp"
+                android:layout_height="16sp"
+                app:srcCompat="@drawable/right" android:id="@+id/RightButton"
+                android:scaleType="fitCenter" android:background="@null"
+                app:layout_constraintBottom_toBottomOf="@id/titleText"
+                app:layout_constraintTop_toTopOf="@id/titleText" app:layout_constraintStart_toEndOf="@id/titleText"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp" android:id = "@+id/calendarDayRecycler"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottomGuide"
+                app:layout_constraintTop_toTopOf="@+id/titleGuide" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
