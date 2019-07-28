@@ -166,7 +166,31 @@ class DepositFragment : Fragment() {
                     popupDeposit.dismiss()
                 }
             }
-            bankInterestButton.setOnClickListener {}
+
+            // 이자율 입력!!
+            bankInterestButton.setOnClickListener {
+                val popupDepositView = layoutInflater.inflate(R.layout.add_interest, null)
+                val popupDeposit = PopupWindow(popupDepositView)
+                popupDeposit.animationStyle = animStyle
+                popupDeposit.isFocusable = true
+
+                popupDeposit.showAtLocation(view, Gravity.CENTER, 0, 0)
+                popupDeposit.update(
+                    view,
+                    resources.displayMetrics.widthPixels,
+                    resources.displayMetrics.heightPixels
+                )
+                // enable buttons, editTexts
+                val interestPopUpCancel = popupDepositView.find<Button>(R.id.interestPopUpCancel)
+                val interestPopUpSave = popupDepositView.find<Button>(R.id.interestPopUpSave)
+
+                // cancel input
+                interestPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
+                // save input
+                interestPopUpSave.setOnClickListener {
+                    popupDeposit.dismiss()
+                }
+            }
 
 
             /* make decision on init, cancel, registering bank information */
