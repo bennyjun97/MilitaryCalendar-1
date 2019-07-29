@@ -6,10 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.media.Image
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
@@ -42,12 +39,8 @@ class CalendarFragment : Fragment() {
     var startSlot = 0
     var eventTextViewNum = 0
     var leaveExist : MutableList<Boolean> = mutableListOf()
-
     var eventsinMonth : MutableList<TextView> = mutableListOf<TextView>()
-
-
     var daySelected = -1
-
     var memoTyped = ""
 
 
@@ -133,6 +126,24 @@ class CalendarFragment : Fragment() {
             updateCalendar(calendar, dbHelper)
         }
 
+        if(daySelected == -1) {
+            textDate.text = "${today.monthValue}월 ${today.dayOfMonth}일"
+            //read schedules on that day from db
+            val readDate = readDBEachDate(
+                dbHelper,
+                date2String(today.year, today.monthValue, today.dayOfMonth)
+            )
+            if (readDate.isEmpty()) {
+                dayTypeText.text = "일정 없음"
+                commentText.text = ""
+            } else {
+                for (date in readDate) {
+                    dayTypeText.text = date.third
+                    commentText.text = date.first
+                }
+            }
+        }
+
         for (button in slots) {
             button.setOnClickListener {
                 addTab.visibility = View.GONE
@@ -141,12 +152,17 @@ class CalendarFragment : Fragment() {
                     button.setBackgroundResource(R.drawable.calendar_stroke)
                     if (daySelected == -1) {
                         daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
-                    }
-                    else {
-                        if(daySelected == Integer.parseInt(button.text.toString()) + startSlot - 1) {
-                            dayLayoutPopUp(dbHelper, date2String(calendar.year, calendar.monthValue, Integer.parseInt(button.text.toString())))
-                        }
-                        else {
+                    } else {
+                        if (daySelected == Integer.parseInt(button.text.toString()) + startSlot - 1) {
+                            dayLayoutPopUp(
+                                dbHelper,
+                                date2String(
+                                    calendar.year,
+                                    calendar.monthValue,
+                                    Integer.parseInt(button.text.toString())
+                                )
+                            )
+                        } else {
                             slots[daySelected].setBackgroundResource(R.drawable.calendar_button)
                             daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
                         }
@@ -154,13 +170,15 @@ class CalendarFragment : Fragment() {
                     textDate.text = "${calendar.monthValue}월 ${button.text.toString()}일"
 
                     //read schedules on that day from db
-                    val readDate = readDBEachDate(dbHelper, date2String(calendar.year, calendar.monthValue, button.text.toString().toInt()))
-                    if(readDate.isEmpty()) {
+                    val readDate = readDBEachDate(
+                        dbHelper,
+                        date2String(calendar.year, calendar.monthValue, button.text.toString().toInt())
+                    )
+                    if (readDate.isEmpty()) {
                         dayTypeText.text = "일정 없음"
                         commentText.text = ""
-                    }
-                    else {
-                        for(date in readDate) {
+                    } else {
+                        for (date in readDate) {
                             dayTypeText.text = date.third
                             commentText.text = date.first
                         }
@@ -168,26 +186,38 @@ class CalendarFragment : Fragment() {
                 }
             }
         }
-        // 일정 추가 코드!!
-        // 밑에 코드 이해 못 해서 일단 이걸로 씀 ㅠㅠ
-
-        val popupView = layoutInflater.inflate(R.layout.add_event, null)
-        val popup = PopupWindow(popupView)
 
         addLeave.setOnClickListener {
             addLeaveMenu(dbHelper)
         }
 
         addDuty.setOnClickListener {
-            addDuty(dbHelper)
+            addDuty(dbHelper, false)
         }
 
         addExercise.setOnClickListener {
-            addExercise(dbHelper)
+            addExercise(dbHelper, false)
         }
 
         addPersonal.setOnClickListener {
-            addPersonal(dbHelper)
+            addPersonal(dbHelper, false)
+        }
+
+        buttonMenu.setOnClickListener {
+            val wrapper = ContextThemeWrapper(this.context!!, R.style.calendarPopUp)
+            val popupMenu = PopupMenu(wrapper, it)
+            popupMenu.menuInflater.inflate(R.menu.calendar_setting_menu, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener{
+                when(it.itemId) {
+                    R.id.searchItem -> Toast.makeText(this.context!!, "1", Toast.LENGTH_SHORT).show()
+                    else -> {
+                        it.setChecked(!it.isChecked)
+                    }
+                }
+                false
+            }
+            popupMenu.show()
         }
     }
 
@@ -363,26 +393,9 @@ class CalendarFragment : Fragment() {
 
     private fun deleteDB(dbHelper: DBHelper, content: String, startDate: String, endDate: String, name: String, memo: String) {
         dbHelper.use {
-           execSQL("delete from calendar where content='" + content + "' and start_date='" + startDate + "'")
+            execSQL("delete from calendar where content='" + content + "' and start_date='" + startDate + "'")
             execSQL("delete from calendar2 where content2='" + content + "' and start_date2='" + startDate + "' and name2='" + name + "'")
         }
-
-        /*val dates = readDBEachDate(dbHelper, startDate)
-        for(date in dates) {
-            if(date.third.equals(content)) {
-                if(startDatefromDate(dbHelper, startDate, date.third).equals(startDate)) {
-                    Toast.makeText(this.context!!, name + " 지우면 된다", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this.context!!, startDate + "에 있는 항목 " + dates.size + "개", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        val dates2 = readDB(dbHelper, startDate)
-        for(date in dates2) {
-            if(date.third.equals(content)) {
-                Toast.makeText(this.context!!, content + " " + startDate + "에 시작하고 " + date.first + "에 끝난다.", Toast.LENGTH_SHORT).show()
-            }
-        }*/
     }
 
 
@@ -629,16 +642,16 @@ class CalendarFragment : Fragment() {
 
         popupMenu.setOnMenuItemClickListener {
             when(addLeaveArray[addLeaveButtons.indexOf(it.itemId)]) {
-                "휴가" -> addLeave(dbHelper)
-                "외박" -> addPass(dbHelper)
-                else -> addOffPost(dbHelper)
+                "휴가" -> addLeave(dbHelper, false)
+                "외박" -> addPass(dbHelper, false)
+                else -> addOffPost(dbHelper, false)
             }
             true
         }
         popupMenu.show()
     }
 
-    private fun addLeave(dbHelper: DBHelper) {
+    private fun addLeave(dbHelper: DBHelper, editBoolean : Boolean) {
         val popupView = layoutInflater.inflate(R.layout.add_leave, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -652,12 +665,13 @@ class CalendarFragment : Fragment() {
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
         val endSchedule = popupView.find<Button>(R.id.endSchedule)
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.leaveCancelBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
         val actualDateUsed = popupView.find<Button>(R.id.actualDayBtn)
         val buttonInit = popupView.find<Button>(R.id.leaveInitBtn)
         val nameInput = popupView.find<EditText>(R.id.nameEdit)
         val memoBtn = popupView.find<Button>(R.id.memoButton)
 
+        if(!editBoolean) memoTyped = ""
         var name = ""
         nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
@@ -722,11 +736,11 @@ class CalendarFragment : Fragment() {
         }
 
         memoBtn.setOnClickListener {
-            memoPopUp()
+            memoPopUp(memoTyped)
         }
     }
 
-    private fun addOffPost(dbHelper: DBHelper) {
+    private fun addOffPost(dbHelper: DBHelper, editBoolean: Boolean) {
         val popupView = layoutInflater.inflate(R.layout.add_offpost, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -739,15 +753,16 @@ class CalendarFragment : Fragment() {
 
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.offPostCancelBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
         val buttonInit = popupView.find<Button>(R.id.offPostInitBtn)
         val nameInput = popupView.find<EditText>(R.id.nameEdit)
         val memoBtn = popupView.find<Button>(R.id.memoButton)
 
+        if(!editBoolean) memoTyped = ""
         var name = ""
         nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
-        memoBtn.setOnClickListener { memoPopUp() }
+        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
 
         startSchedule.setOnClickListener {
             val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -804,7 +819,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun addPass(dbHelper: DBHelper) {
+    private fun addPass(dbHelper: DBHelper, editBoolean: Boolean) {
         val popupView = layoutInflater.inflate(R.layout.add_pass, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -815,22 +830,26 @@ class CalendarFragment : Fragment() {
             resources.displayMetrics.heightPixels
         )
 
+        if(!editBoolean) memoTyped = ""
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
         val endSchedule = popupView.find<Button>(R.id.endSchedule)
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.passCancelBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
         val buttonInit = popupView.find<Button>(R.id.passInitBtn)
         val nameInput = popupView.find<EditText>(R.id.nameEdit)
+        val memoBtn = popupView.find<Button>(R.id.memoButton)
 
-        var memo = ""
+        var name : String
         nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
         startSchedule.setOnClickListener {setDate(popupView, "Start", "외박")}
         endSchedule.setOnClickListener { setDate(popupView, "End", "외박") }
 
+        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
+
         buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) memo = "휴가"
-            else memo = nameInput.text.toString()
+            if (nameInput.text.isEmpty()) name = "휴가"
+            else name = nameInput.text.toString()
             if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
                 Toast.makeText(this.context, "복귀 안 할거에요?", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -843,16 +862,17 @@ class CalendarFragment : Fragment() {
                 // Store the schedule.
                 if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "휴가")) {
                     // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "휴가", memo)
-                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "휴가", name)
+                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), name)
                     //각 날짜에 휴가일정이 있다는 것을 기록해준다.
 
                     writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "휴가", memo, memo)
+                        "휴가", name, memoTyped)
                 }
                 startSchedule.text = ""
                 endSchedule.text = ""
                 nameInput.text = null
+                memoTyped = ""
                 // Dismiss the popup window.
                 popup.dismiss()
             }
@@ -871,7 +891,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun addDuty(dbHelper: DBHelper) { //addPass랑 묶기
+    private fun addDuty(dbHelper: DBHelper, editBoolean: Boolean) { //addPass랑 묶기
         val popupView = layoutInflater.inflate(R.layout.add_pass, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -886,19 +906,23 @@ class CalendarFragment : Fragment() {
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
         val endSchedule = popupView.find<Button>(R.id.endSchedule)
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.passCancelBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
         val buttonInit = popupView.find<Button>(R.id.passInitBtn)
         val nameInput = popupView.find<EditText>(R.id.nameEdit)
+        val memoBtn = popupView.find<Button>(R.id.memoButton)
+        if(!editBoolean) memoTyped = ""
 
-        var memo = ""
+        var name = ""
         nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
         startSchedule.setOnClickListener {setDate(popupView, "Start", "당직")}
         endSchedule.setOnClickListener { setDate(popupView, "End", "당직") }
 
+        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
+
         buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) memo = "당직"
-            else memo = nameInput.text.toString()
+            if (nameInput.text.isEmpty()) name = "당직"
+            else name = nameInput.text.toString()
             if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
             Toast.makeText(this.context, "퇴근 안 할거에요?", Toast.LENGTH_SHORT).show()
             return@setOnClickListener
@@ -911,16 +935,17 @@ class CalendarFragment : Fragment() {
                 // Store the schedule.
                 if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "당직")) {
                     // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "당직", memo)
-                    writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "당직", name)
+                    writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), name)
 
                     //각 날짜에 당직일정이 있다는 것을 기록해준다.
                     writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "당직", memo, memo)
+                        "당직", name, memoTyped)
                 }
                 startSchedule.text = ""
                 endSchedule.text = ""
                 nameInput.text = null
+                memoTyped = ""
                 // Dismiss the popup window.
                 popup.dismiss()
             }
@@ -939,7 +964,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun addExercise(dbHelper: DBHelper) { //addPass랑 묶기
+    private fun addExercise(dbHelper: DBHelper, editBoolean: Boolean) { //addPass랑 묶기
         val popupView = layoutInflater.inflate(R.layout.add_pass, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -954,19 +979,22 @@ class CalendarFragment : Fragment() {
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
         val endSchedule = popupView.find<Button>(R.id.endSchedule)
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.passCancelBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
         val buttonInit = popupView.find<Button>(R.id.passInitBtn)
         val nameInput = popupView.find<EditText>(R.id.nameEdit)
+        val memoBtn = popupView.find<Button>(R.id.memoButton)
+        if(!editBoolean) memoTyped = ""
 
-        var memo = ""
+        var name = ""
         nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
         startSchedule.setOnClickListener {setDate(popupView, "Start", "훈련")}
         endSchedule.setOnClickListener { setDate(popupView, "End", "훈련") }
+        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
 
         buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) memo = "훈련"
-            else memo = nameInput.text.toString()
+            if (nameInput.text.isEmpty()) name = "훈련"
+            else name = nameInput.text.toString()
             if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
                 Toast.makeText(this.context, "부대 안 돌아오고 /n 훈련지에만 있게요?", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -979,17 +1007,18 @@ class CalendarFragment : Fragment() {
                 // Store the schedule.
                 if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "훈련")) {
                     // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "훈련", memo)
-                    writeDB(dbHelper, "훈련", startSchedule.text.toString(), endSchedule.text.toString(), memo)
+                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "훈련", name)
+                    writeDB(dbHelper, "훈련", startSchedule.text.toString(), endSchedule.text.toString(), name)
                     //각 날짜에 휴가일정이 있다는 것을 기록해준다.
 
                     writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "훈련", memo, memo)
+                        "훈련", name, memoTyped)
                 }
 
                 startSchedule.text = ""
                 endSchedule.text = ""
                 nameInput.text = null
+                memoTyped = ""
                 // Dismiss the popup window.
                 popup.dismiss()
             }
@@ -1008,7 +1037,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun addPersonal(dbHelper: DBHelper) { //addPass랑 묶기
+    private fun addPersonal(dbHelper: DBHelper, editBoolean: Boolean) { //addPass랑 묶기
         val popupView = layoutInflater.inflate(R.layout.add_pass, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -1023,15 +1052,18 @@ class CalendarFragment : Fragment() {
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
         val endSchedule = popupView.find<Button>(R.id.endSchedule)
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.passCancelBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
         val buttonInit = popupView.find<Button>(R.id.passInitBtn)
         val nameInput = popupView.find<EditText>(R.id.nameEdit)
+        val memoBtn = popupView.find<Button>(R.id.memoButton)
+        if(!editBoolean) memoTyped = ""
 
         var memo = ""
         nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
         startSchedule.setOnClickListener {setDate(popupView, "Start", "개인")}
         endSchedule.setOnClickListener { setDate(popupView, "End", "개인") }
+        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
 
         buttonAddEvent.setOnClickListener {
             if (nameInput.text.isEmpty()) memo = "개인"
@@ -1089,6 +1121,38 @@ class CalendarFragment : Fragment() {
         registerBtn.text = type + " 등록"
     }
 
+    private fun changeScheduleTextsForEdit(view: View, type: String, startDate: String, endDate: String, name: String, actualDate: String) {
+        val title = view.findViewById<TextView>(R.id.titleText)
+        val start = view.findViewById<Button>(R.id.startSchedule)
+        val nameText = view.findViewById<EditText>(R.id.nameEdit)
+        val memoBtn = view.findViewById<Button>(R.id.memoButton)
+        val cancel = view.findViewById<Button>(R.id.CancelBtn)
+        title.text = type + " 수정하기"
+        start.text = startDate
+        nameText.setText(name)
+        memoBtn.text = "메모 수정하기"
+        cancel.text = "수정 취소"
+
+        if(type.equals("외출")) return
+
+        val end = view.findViewById<Button>(R.id.endSchedule)
+        end.text = endDate
+
+        if(type.equals("휴가")) {
+            val actualDateBtn = view.findViewById<Button>(R.id.actualDayBtn)
+            actualDateBtn.text = actualDate + "일"
+        }
+    }
+
+    private fun changeMemoTextsForEdit(view: View, memo: String) {
+        val title = view.findViewById<TextView>(R.id.titleText)
+        val memoEdit = view.findViewById<EditText>(R.id.memoEdit)
+        val cancel = view.findViewById<Button>(R.id.memoCancel)
+
+        title.text = "메모 수정하기"
+        cancel.text = "수정 취소"
+        memoEdit.setText(memo)
+    }
 
     //initialization for updateCalendar
     private fun drawEventsinMonth(date: LocalDate, dbHelper: DBHelper) {
@@ -1132,7 +1196,7 @@ class CalendarFragment : Fragment() {
         return false
     }
 
-    private fun memoPopUp() {
+    private fun memoPopUp(memo: String) {
         val popupView = layoutInflater.inflate(R.layout.add_memo, null)
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -1146,13 +1210,14 @@ class CalendarFragment : Fragment() {
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
         val buttonCancel = popupView.find<Button>(R.id.memoCancel)
         val memoInput = popupView.find<EditText>(R.id.memoEdit)
+        memoInput.setText(memo)
+        var memoString = ""
 
-        var memo = ""
-
+        memoInput.setOnClickListener{}
         buttonAddEvent.setOnClickListener {
-            if (memoInput.text.isEmpty()) memo = ""
-            else memo = memoInput.text.toString()
-            memoTyped = memo
+            if (memoInput.text.isEmpty()) memoString = ""
+            else memoString = memoInput.text.toString()
+            memoTyped = memoString
 
             memoInput.text = null
             // Dismiss the popup window.
@@ -1162,6 +1227,7 @@ class CalendarFragment : Fragment() {
         buttonCancel.setOnClickListener {
             // Dismiss the popup window.
             memoInput.text = null
+            memoTyped = memo
             popup.dismiss()
         }
     }
@@ -1275,5 +1341,4 @@ class CalendarFragment : Fragment() {
         view.layoutManager = cm
         view.setHasFixedSize(true)
     }
-
 }

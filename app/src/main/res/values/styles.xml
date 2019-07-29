@@ -58,4 +58,20 @@
 
     <!--Transparent Screen-->
 
+
+    <style name="calendarPopUp" parent = "Widget.AppCompat.PopupMenu" >
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:itemBackground">@android:color/white</item>
+        <item name="android:checkable">true</item>
+        <item name="android:checkableBehavior">all</item>
+        <item name="android:checkboxStyle">@style/customCheckBox</item>
+    </style>
+
+    <style name="customCheckBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox" >
+        <item name ="android:button">@drawable/custom_checkbox_design</item>
+    </style>
+
+
+
+
 </resources>
