@@ -484,6 +484,8 @@ class CalendarFragment : Fragment() {
        return LocalDate.parse(date)
     }
 
+
+    // updating calendar whenever we click arrows or open the app
     private fun updateCalendar(calendar: LocalDate, dbHelper: DBHelper) {
         //clearing slots
         for (i in 0..41) {
@@ -512,7 +514,9 @@ class CalendarFragment : Fragment() {
 
         //putting numbers for month
         var month = cal.monthValue
+        var year = cal.year
         textMonth.text = "${month}월"
+        textYear.text = "${year}"
         cal = cal.withDayOfMonth(1)
         val init = cal.dayOfWeek.value % 7
         var position = init
@@ -539,7 +543,7 @@ class CalendarFragment : Fragment() {
 
         val today = LocalDate.now()
         if (cal2.year == today.year && cal2.monthValue == today.monthValue) {
-            val todayposition = today.dayOfMonth
+            val todayposition = today.dayOfMonth + init - 1
             slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
         }
 
