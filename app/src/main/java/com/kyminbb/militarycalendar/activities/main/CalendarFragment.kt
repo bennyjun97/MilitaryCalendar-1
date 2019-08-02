@@ -113,35 +113,35 @@ class CalendarFragment : Fragment() {
             }
         }
 
-        for (button in slots) {
-            button.setOnClickListener {
+        for (i in 0..41) {
+            slots[i].setOnClickListener {
                 addTab.visibility = View.GONE
                 adding = true
-                if (button.text.isNotEmpty()) {
-                    button.setBackgroundResource(R.drawable.calendar_stroke)
+                if (textSlots[i].text.isNotEmpty()) {
+                    slots[i].setBackgroundResource(R.drawable.calendar_stroke)
                     if (daySelected == -1) {
-                        daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
+                        daySelected = Integer.parseInt(textSlots[i].text.toString()) + startSlot - 1
                     } else {
-                        if (daySelected == Integer.parseInt(button.text.toString()) + startSlot - 1) {
+                        if (daySelected == Integer.parseInt(textSlots[i].text.toString()) + startSlot - 1) {
                             dayLayoutPopUp(
                                 dbHelper,
                                 date2String(
                                     calendar.year,
                                     calendar.monthValue,
-                                    Integer.parseInt(button.text.toString())
+                                    Integer.parseInt(textSlots[i].text.toString())
                                 )
                             )
                         } else {
                             slots[daySelected].setBackgroundResource(R.drawable.calendar_button)
-                            daySelected = Integer.parseInt(button.text.toString()) + startSlot - 1
+                            daySelected = Integer.parseInt(textSlots[i].text.toString()) + startSlot - 1
                         }
                     }
-                    textDate.text = "${calendar.monthValue}월 ${button.text.toString()}일"
+                    textDate.text = "${calendar.monthValue}월 ${textSlots[i].text.toString()}일"
 
                     //read schedules on that day from db
                     val readDate = readDBEachDate(
                         dbHelper,
-                        date2String(calendar.year, calendar.monthValue, button.text.toString().toInt())
+                        date2String(calendar.year, calendar.monthValue, textSlots[i].text.toString().toInt())
                     )
                     if (readDate.isEmpty()) {
                         dayTypeText.text = "일정 없음"
