@@ -36,6 +36,7 @@ class CalendarFragment : Fragment() {
     private val today = LocalDate.now()
 
     var slots: Array<Button> = arrayOf()
+    var textSlots: Array<TextView> = arrayOf()
     var startSlot = 0
     var eventTextViewNum = 0
     var leaveExist : MutableList<Boolean> = mutableListOf()
@@ -59,48 +60,16 @@ class CalendarFragment : Fragment() {
         val dbHelper: DBHelper = DBHelper.getInstance(context!!)
 
         slots = arrayOf(
-            day1,
-            day2,
-            day3,
-            day4,
-            day5,
-            day6,
-            day7,
-            day8,
-            day9,
-            day10,
-            day11,
-            day12,
-            day13,
-            day14,
-            day15,
-            day16,
-            day17,
-            day18,
-            day19,
-            day20,
-            day21,
-            day22,
-            day23,
-            day24,
-            day25,
-            day26,
-            day27,
-            day28,
-            day29,
-            day30,
-            day31,
-            day32,
-            day33,
-            day34,
-            day35,
-            day36,
-            day37,
-            day38,
-            day39,
-            day40,
-            day41,
-            day42
+            day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14,
+            day15, day16, day17, day18, day19, day20, day21, day22, day23, day24, day25, day26, day27, day28,
+            day29, day30, day31, day32, day33, day34, day35, day36, day37, day38, day39, day40, day41, day42
+        )
+        textSlots = arrayOf(
+            dayText1, dayText2, dayText3, dayText4, dayText5, dayText6, dayText7, dayText8, dayText9,
+            dayText10, dayText11, dayText12, dayText13, dayText14, dayText15, dayText16, dayText17,
+            dayText18, dayText19, dayText20, dayText21, dayText22, dayText23, dayText24, dayText25,
+            dayText26, dayText27, dayText28, dayText29, dayText30, dayText31, dayText32, dayText33,
+            dayText34, dayText35, dayText36, dayText37, dayText38, dayText39, dayText40, dayText41, dayText42
         )
 
         updateCalendar(today, dbHelper)
@@ -489,7 +458,8 @@ class CalendarFragment : Fragment() {
     private fun updateCalendar(calendar: LocalDate, dbHelper: DBHelper) {
         //clearing slots
         for (i in 0..41) {
-            slots[i].text = ""
+            textSlots[i].text = ""
+            textSlots[i].setBackgroundResource(0)
             slots[i].setBackgroundResource(0)
         }
 
@@ -533,7 +503,7 @@ class CalendarFragment : Fragment() {
         //putting numbers for days
         for (i in 0..j) {
             leaveExist.add(false)
-            slots[position].text = cal.dayOfMonth.toString()
+            textSlots[position].text = cal.dayOfMonth.toString()
             position += 1
             cal = cal.plusDays(1)
         }
@@ -544,7 +514,7 @@ class CalendarFragment : Fragment() {
         val today = LocalDate.now()
         if (cal2.year == today.year && cal2.monthValue == today.monthValue) {
             val todayposition = today.dayOfMonth + init - 1
-            slots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
+            textSlots[todayposition].setBackgroundResource(R.drawable.rounded_textview)
         }
 
        drawEventsinMonth(cal.minusDays(1), dbHelper)
