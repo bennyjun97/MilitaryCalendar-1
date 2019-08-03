@@ -653,333 +653,375 @@
                android:scaleType="fitCenter" android:layout_margin="16dp"/>
    </LinearLayout>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText1"
             app:layout_constraintTop_toTopOf="@+id/week1Guide" app:layout_constraintStart_toStartOf="@+id/leftGuide"
             app:layout_constraintEnd_toStartOf="@+id/monGuide"
-            android:gravity="center" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:gravity="center" android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText2"
             app:layout_constraintTop_toTopOf="@+id/week1Guide" app:layout_constraintStart_toStartOf="@+id/monGuide"
             app:layout_constraintEnd_toStartOf="@+id/tueGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            app:layout_constraintHorizontal_bias="0.52" android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText3"
             app:layout_constraintTop_toTopOf="@+id/week1Guide" app:layout_constraintStart_toStartOf="@+id/tueGuide"
             app:layout_constraintEnd_toStartOf="@+id/wenGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText4"
             app:layout_constraintTop_toTopOf="@+id/week1Guide" app:layout_constraintStart_toStartOf="@+id/day4"
             app:layout_constraintEnd_toStartOf="@+id/thurGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText5"
             app:layout_constraintTop_toTopOf="@+id/week1Guide" app:layout_constraintStart_toStartOf="@+id/thurGuide"
             app:layout_constraintEnd_toStartOf="@+id/friguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText6"
             app:layout_constraintTop_toTopOf="@+id/week1Guide" app:layout_constraintStart_toStartOf="@+id/friguide"
             app:layout_constraintEnd_toStartOf="@+id/satguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText7"
             app:layout_constraintTop_toTopOf="@+id/week1Guide" app:layout_constraintStart_toStartOf="@+id/satguide"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText8"
             app:layout_constraintTop_toTopOf="@+id/day8" app:layout_constraintStart_toStartOf="@+id/leftGuide"
             app:layout_constraintEnd_toStartOf="@+id/monGuide"
-            android:gravity="center" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:gravity="center" android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText9"
             app:layout_constraintTop_toTopOf="@+id/day9" app:layout_constraintStart_toStartOf="@+id/monGuide"
             app:layout_constraintEnd_toStartOf="@+id/tueGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText10"
             app:layout_constraintTop_toTopOf="@+id/day10" app:layout_constraintStart_toStartOf="@+id/tueGuide"
             app:layout_constraintEnd_toStartOf="@+id/wenGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText11"
             app:layout_constraintTop_toTopOf="@+id/day11" app:layout_constraintStart_toStartOf="@+id/day4"
             app:layout_constraintEnd_toStartOf="@+id/thurGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText12"
             app:layout_constraintTop_toTopOf="@+id/week2Guide" app:layout_constraintStart_toStartOf="@+id/thurGuide"
             app:layout_constraintEnd_toStartOf="@+id/friguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText13"
             app:layout_constraintTop_toTopOf="@+id/day13" app:layout_constraintStart_toStartOf="@+id/friguide"
             app:layout_constraintEnd_toStartOf="@+id/satguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText14"
             app:layout_constraintTop_toTopOf="@+id/day14" app:layout_constraintStart_toStartOf="@+id/satguide"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText15"
             app:layout_constraintTop_toTopOf="@+id/day15" app:layout_constraintStart_toStartOf="@+id/leftGuide"
             app:layout_constraintEnd_toStartOf="@+id/monGuide"
-            android:gravity="center" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:gravity="center" android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText16"
             app:layout_constraintTop_toTopOf="@+id/day16" app:layout_constraintStart_toStartOf="@+id/monGuide"
             app:layout_constraintEnd_toStartOf="@+id/tueGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText17"
             app:layout_constraintTop_toTopOf="@+id/day17" app:layout_constraintStart_toStartOf="@+id/tueGuide"
             app:layout_constraintEnd_toStartOf="@+id/wenGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText18"
             app:layout_constraintTop_toTopOf="@+id/day18" app:layout_constraintStart_toStartOf="@+id/day4"
             app:layout_constraintEnd_toStartOf="@+id/thurGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText19"
             app:layout_constraintTop_toTopOf="@+id/week3Guide" app:layout_constraintStart_toStartOf="@+id/thurGuide"
             app:layout_constraintEnd_toStartOf="@+id/friguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText20"
             app:layout_constraintTop_toTopOf="@+id/day20" app:layout_constraintStart_toStartOf="@+id/friguide"
             app:layout_constraintEnd_toStartOf="@+id/satguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText21"
             app:layout_constraintTop_toTopOf="@+id/week3Guide" app:layout_constraintStart_toStartOf="@+id/satguide"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText22"
             app:layout_constraintTop_toTopOf="@+id/day22" app:layout_constraintStart_toStartOf="@+id/leftGuide"
             app:layout_constraintEnd_toStartOf="@+id/monGuide"
-            android:gravity="center" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:gravity="center" android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText23"
             app:layout_constraintTop_toTopOf="@+id/day23" app:layout_constraintStart_toStartOf="@+id/monGuide"
             app:layout_constraintEnd_toStartOf="@+id/tueGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText24"
             app:layout_constraintTop_toTopOf="@+id/day24" app:layout_constraintStart_toStartOf="@+id/tueGuide"
             app:layout_constraintEnd_toStartOf="@+id/wenGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText25"
             app:layout_constraintTop_toTopOf="@+id/day25" app:layout_constraintStart_toStartOf="@+id/day4"
             app:layout_constraintEnd_toStartOf="@+id/thurGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText26"
             app:layout_constraintTop_toTopOf="@+id/day26" app:layout_constraintStart_toStartOf="@+id/thurGuide"
             app:layout_constraintEnd_toStartOf="@+id/friguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText27"
             app:layout_constraintTop_toTopOf="@+id/day27" app:layout_constraintStart_toStartOf="@+id/friguide"
             app:layout_constraintEnd_toStartOf="@+id/satguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText28"
             app:layout_constraintTop_toTopOf="@+id/day28" app:layout_constraintStart_toStartOf="@+id/satguide"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText29"
             app:layout_constraintTop_toTopOf="@+id/day29" app:layout_constraintStart_toStartOf="@+id/leftGuide"
             app:layout_constraintEnd_toStartOf="@+id/monGuide"
-            android:gravity="center" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:gravity="center" android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText30"
             app:layout_constraintTop_toTopOf="@+id/day30" app:layout_constraintStart_toStartOf="@+id/monGuide"
             app:layout_constraintEnd_toStartOf="@+id/tueGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText31"
             app:layout_constraintTop_toTopOf="@+id/day31" app:layout_constraintStart_toStartOf="@+id/tueGuide"
             app:layout_constraintEnd_toStartOf="@+id/wenGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText32"
             app:layout_constraintTop_toTopOf="@+id/day32" app:layout_constraintStart_toStartOf="@+id/day4"
             app:layout_constraintEnd_toStartOf="@+id/thurGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText33"
             app:layout_constraintTop_toTopOf="@+id/week5Guide" app:layout_constraintStart_toStartOf="@+id/thurGuide"
             app:layout_constraintEnd_toStartOf="@+id/friguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText34"
             app:layout_constraintTop_toTopOf="@+id/day34" app:layout_constraintStart_toStartOf="@+id/friguide"
             app:layout_constraintEnd_toStartOf="@+id/satguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText35"
             app:layout_constraintTop_toTopOf="@+id/day35" app:layout_constraintStart_toStartOf="@+id/satguide"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText36"
             app:layout_constraintTop_toTopOf="@+id/day36" app:layout_constraintStart_toStartOf="@+id/leftGuide"
             app:layout_constraintEnd_toStartOf="@+id/monGuide"
-            android:gravity="center" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:gravity="center" android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText37"
             app:layout_constraintTop_toTopOf="@+id/week6Guide" app:layout_constraintStart_toStartOf="@+id/monGuide"
             app:layout_constraintEnd_toStartOf="@+id/tueGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText38"
             app:layout_constraintTop_toTopOf="@+id/week6Guide" app:layout_constraintStart_toStartOf="@+id/tueGuide"
             app:layout_constraintEnd_toStartOf="@+id/wenGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText39"
             app:layout_constraintTop_toTopOf="@+id/day39" app:layout_constraintStart_toStartOf="@+id/day4"
             app:layout_constraintEnd_toStartOf="@+id/thurGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText40"
             app:layout_constraintTop_toTopOf="@+id/day40" app:layout_constraintStart_toStartOf="@+id/thurGuide"
             app:layout_constraintEnd_toStartOf="@+id/friguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText41"
             app:layout_constraintTop_toTopOf="@+id/day41" app:layout_constraintStart_toStartOf="@+id/friguide"
             app:layout_constraintEnd_toStartOf="@+id/satguide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
     <TextView
-            android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_width="26sp"
+            android:layout_height="26sp"
             android:id="@+id/dayText42"
             app:layout_constraintTop_toTopOf="@+id/day42" app:layout_constraintStart_toStartOf="@+id/satguide"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide"
             android:gravity="center" android:layout_weight="1"
-            app:layout_constraintHorizontal_bias="1.0" android:fontFamily="@font/jalnan" android:paddingTop="4dp"/>
+            android:fontFamily="@font/jalnan"
+            android:layout_marginTop="2dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
