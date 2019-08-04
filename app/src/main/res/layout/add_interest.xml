@@ -7,11 +7,11 @@
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guidelineTop"
                                                 android:orientation="horizontal"
-                                                app:layout_constraintGuide_percent="0.33"/>
+                                                app:layout_constraintGuide_percent="0.35"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guidelineBottom"
                                                 android:orientation="horizontal"
-                                                app:layout_constraintGuide_percent="0.67"/>
+                                                app:layout_constraintGuide_percent="0.65"/>
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guidelineStart"
                                                 android:orientation="vertical"
@@ -39,14 +39,14 @@
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                 android:textColorLink="@color/black"
                 android:textColorHighlight="@color/black" android:textColor="@color/black"
-                android:textColorHint="@color/black" app:layout_constraintTop_toBottomOf="@+id/textView5"
-        />
+                android:textColorHint="@color/black"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/guideline5"/>
         <TextView
-                android:text="@string/interest"
+                android:text="@string/interestPercent"
                 android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/guideline7"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                 android:textColor="@color/black" android:id="@+id/textView5"/>
         <Button
@@ -59,7 +59,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/interestPopUpSave" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="@+id/guideline5"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="8dp"/>
+        />
         <Button
                 android:text="@string/depositAmountPopupSave"
                 android:layout_width="wrap_content"
@@ -70,18 +70,21 @@
                 app:layout_constraintStart_toEndOf="@+id/interestPopUpCancel" app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline5" android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
+        />
         <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content" android:id="@+id/guideline5"
                                                     android:orientation="horizontal"
-                                                    app:layout_constraintGuide_percent="0.65"/>
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:id="@+id/interestHelp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/depositInterestEditText" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp" android:text="@string/interestHelp" android:textSize="10sp"/>
+                                                    app:layout_constraintGuide_percent="0.64"/>
+        <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content" android:id="@+id/guideline7"
+                                                    android:orientation="horizontal"
+                                                    app:layout_constraintGuide_percent="0.10"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:srcCompat="@drawable/adt_ic_warning"
+                android:id="@+id/interestPopUpInfo" android:background="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

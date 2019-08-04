@@ -171,10 +171,23 @@
     <string name="depositAmountPopupCancel">취소</string>
     <string name="depositAmountPopupSave">입력</string>
     <string name="interest">만기 이율</string>
+    <string name="interestPercent">만기 이율 (%)</string>
     <string name="interestHint">만기시 이율을 입력해주세요</string>
     <string name="interestHelp">만기 이율은 적금 통장의 첫번째 장에서 찾을 수 있습니다.\n신한은행 군적금의 기본 금리는 6개월 이상 12개월 미만 기준 4%입니다.\n신한은행 군적금의 우대 금리는 최대 0.7%p입니다.</string>
     <string name="bankCancel">등록 취소</string>
     <string name="bankInit">초기화</string>
     <string name="bankRegister">등록 완료</string>
+
+    <!-- deposit interest info -->
+    <string name="duration">기간</string>
+    <string name="baseRate">기본금리</string>
+    <string name="additionalRate">우대금리</string>
+    <string name="sixMonths">6개월 이상</string>
+    <string name="twelveMonths">12개월 이상</string>
+    <string name="eighteenMonths">18개월 이상, 24개월 이하</string>
+    <string name="additionalType">우대금리항목</string>
+    <string name="standard">기준</string>
+
+    <string name="shinhanTtle">신한: 신한 장병내일준비 적금</string>
 
 </resources>
