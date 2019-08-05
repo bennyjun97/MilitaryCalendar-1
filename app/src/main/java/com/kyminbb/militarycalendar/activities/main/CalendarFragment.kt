@@ -2,9 +2,6 @@ package com.kyminbb.militarycalendar.activities.main
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.graphics.Color
-import android.media.Image
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -161,15 +158,15 @@ class CalendarFragment : Fragment() {
         }
 
         addDuty.setOnClickListener {
-            addDuty(dbHelper, false)
+            addEvent(dbHelper, "당직", false)
         }
 
         addExercise.setOnClickListener {
-            addExercise(dbHelper, false)
+            addEvent(dbHelper, "훈련", false)
         }
 
         addPersonal.setOnClickListener {
-            addPersonal(dbHelper, false)
+            addEvent(dbHelper, "개인", false)
         }
 
         buttonMenu.setOnClickListener {
@@ -190,20 +187,20 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    // To be revised to display the selected date for the default.
-    private fun setDate(view: View, type: String) {
+    //popup layout of add_offpost.xml does not have button by the name of endSchedule.
+    //Thus, using setDate function below causes error, so I just made setDateOffPost function.
+    private fun setDateOffPost(view: View) {
         val startSchedule = view.find<Button>(R.id.startSchedule)
-        val endSchedule = view.find<Button>(R.id.endSchedule)
-        // Use SpinnerDatePicker to select date.
-        // https://github.com/drawers/SpinnerDatePicker
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            when (type) {
-                "Start" -> startSchedule.text = date2String(year, month + 1, day)
-                "End" -> endSchedule.text = date2String(year, month + 1, day)
+        var selected = false
+        val date : LocalDate = when {
+                startSchedule.text.isNotEmpty() -> string2Date(startSchedule.text.toString())
+                else -> LocalDate.now()
             }
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            startSchedule.text = date2String(year, month + 1, day)
         }
 
-        val dialog = SpinnerDatePickerDialogBuilder()
+        var dialog = SpinnerDatePickerDialogBuilder()
             .context(context)
             .callback(dateSetListener)
             .spinnerTheme(R.style.NumberPickerStyle)
@@ -211,11 +208,14 @@ class CalendarFragment : Fragment() {
             .showDaySpinner(true)
             .maxDate(today.year + 4, 11, 31)
             .minDate(today.year - 5, 0, 1)
-            .defaultDate(today.year, today.monthValue - 1, today.dayOfMonth)
+            .defaultDate(date.year, date.monthValue - 1, date.dayOfMonth)
+
+        if(selected)
+            dialog = dialog.defaultDate(date.year, date.monthValue-1, date.dayOfMonth)
         dialog.build().show()
     }
 
-    //휴가 일수 자동 계산, startSchedule 입력 했을 때 endSchedule 자동 계산
+    //휴가 일수 자동 계산, startSchedule 입력 했을 때 endSchedule 자동 계산. 여기서 해야 spinnerdatepicker에서 확인 누른 순간에 업데이트 된다.
     private fun setDate(view: View, type: String, leaveType: String?) {
         val startSchedule = view.find<Button>(R.id.startSchedule)
         val endSchedule = view.find<Button>(R.id.endSchedule)
@@ -224,7 +224,7 @@ class CalendarFragment : Fragment() {
             "Start" -> when {
                 endSchedule.text.isEmpty() -> LocalDate.now()
                 startSchedule.text.isNotEmpty() -> string2Date(startSchedule.text.toString())
-                else -> when(leaveType) {
+                else -> when (leaveType) {
                     "휴가", "당직", "훈련", "개인" -> string2Date(endSchedule.text.toString())
                     else -> string2Date(endSchedule.text.toString()).minusDays(1)
                 }
@@ -232,7 +232,7 @@ class CalendarFragment : Fragment() {
             else -> when {
                 startSchedule.text.isEmpty() -> LocalDate.now()
                 endSchedule.text.isNotEmpty() -> string2Date(endSchedule.text.toString())
-                else -> when(leaveType) {
+                else -> when (leaveType) {
                     "휴가", "당직", "훈련", "개인" -> string2Date(startSchedule.text.toString())
                     else -> string2Date(startSchedule.text.toString()).plusDays(1)
                 }
@@ -326,6 +326,7 @@ class CalendarFragment : Fragment() {
         dialog.build().show()
     }
 
+    //inserts information about an event into the first table of db.
     private fun writeDB(dbHelper: DBHelper, content: String, startDate: String, endDate: String, memo: String) {
         dbHelper.use {
             insert(
@@ -338,6 +339,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
+    //inserts information oabout an event of a date into the second table of db.
     private fun writeDBEachDay(dbHelper: DBHelper, content: String, date: String, name: String, memo: String, startDate: String, endDate: String) {
         dbHelper.use {
             insert(
@@ -352,6 +354,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
+    //insert information about every day within startdate and endDate to the db
     private fun writeDBEachDay(dbHelper: DBHelper, startDate: LocalDate, endDate: LocalDate, content: String, name: String, memo: String) {
         var date1 = startDate
         for(i in 0..DateCalc.leaveDaysCalculator(startDate, endDate) - 1) {
@@ -360,14 +363,17 @@ class CalendarFragment : Fragment() {
         }
     }
 
+    //delete from db.
     private fun deleteDB(dbHelper: DBHelper, content: String, startDate: String, endDate: String, name: String, memo: String) {
         dbHelper.use {
+            //delete from first table of db
             execSQL("delete from calendar where content='" + content + "' and start_date='" + startDate + "'")
+            //delete from second table of db
             execSQL("delete from calendar2 where content2='" + content + "' and start_date2='" + startDate + "' and name2='" + name + "'")
         }
     }
 
-
+    //returns List<endDate, content, memo> from startDate (first table of db)
     private fun readDB(dbHelper: DBHelper, startDate: String): List<Triple<String, String, String>> {
         return dbHelper.use {
             select(
@@ -385,7 +391,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    //to read db for each days
+    //to read db for each days. returns List<name, memo, content> from date
     private fun readDBEachDate(dbHelper: DBHelper, date: String) : List<Triple<String, String, String>> {
         return dbHelper.use {
             select(
@@ -403,7 +409,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    //returns triple of content, startDate, endDate (used for deleting)
+    //returns triple of content, startDate, endDate (used for deleting). able to find out content, startDate and endDate of all events of that date
     private fun readDBStartEndDates(dbHelper: DBHelper, date: String) : List<Triple<String, String, String>> {
         return dbHelper.use {
             select(
@@ -421,7 +427,8 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    //search according to end Date (월을 넘어가는 일정을 달력에 표시하기 위해서)
+    //search according to end Date (월을 넘어가는 일정을 달력에 표시하기 위해서). 예를 들어 8월 달력에 있는데 7월 28일~8월 2일의 일정이 있으면,
+    //그 일정을 달력에 표시하기 위해서는 시작일이 아니라 끝일을 기준으로 검색해야 한다.
     private fun readDBEndDate(dbHelper: DBHelper, endDate: String): List<Triple<String, String, String>> {
         return dbHelper.use {
             select(
@@ -439,7 +446,6 @@ class CalendarFragment : Fragment() {
         }
     }
 
-
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
         return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
     }
@@ -453,7 +459,6 @@ class CalendarFragment : Fragment() {
        return LocalDate.parse(date)
     }
 
-
     // updating calendar whenever we click arrows or open the app
     private fun updateCalendar(calendar: LocalDate, dbHelper: DBHelper) {
         //clearing slots
@@ -464,7 +469,6 @@ class CalendarFragment : Fragment() {
         }
 
         //clearing textViews
-
         if (eventTextViewNum != 0) {
             calendarLayout.removeView(eventsinMonth[0])
             if (eventTextViewNum >= 2)
@@ -616,17 +620,26 @@ class CalendarFragment : Fragment() {
 
         popupMenu.setOnMenuItemClickListener {
             when(addLeaveArray[addLeaveButtons.indexOf(it.itemId)]) {
-                "휴가" -> addLeave(dbHelper, false)
-                "외박" -> addPass(dbHelper, false)
-                else -> addOffPost(dbHelper, false)
+                "휴가" -> addEvent(dbHelper, "휴가", false)
+                "외박" -> addEvent(dbHelper, "외박", false)
+                else -> addEvent(dbHelper, "외출", false)
             }
             true
         }
         popupMenu.show()
     }
 
-    private fun addLeave(dbHelper: DBHelper, editBoolean : Boolean) {
-        val popupView = layoutInflater.inflate(R.layout.add_leave, null)
+    private fun addEvent(dbHelper: DBHelper, type: String, editBoolean: Boolean) {
+        val popupView : View;
+        if(type.equals("휴가")) {
+            popupView = layoutInflater.inflate(R.layout.add_leave, null)
+        }
+        else if(type.equals("외출")) {
+            popupView = layoutInflater.inflate(R.layout.add_offpost, null)
+        }
+        else {
+            popupView = layoutInflater.inflate(R.layout.add_pass, null)
+        }
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
         popup.showAtLocation(view, Gravity.CENTER, 0, 0)
@@ -636,471 +649,152 @@ class CalendarFragment : Fragment() {
             resources.displayMetrics.heightPixels
         )
 
+        if(type.equals("개인")) changeTextsForAdding(popupView, "개인일정")
+        else changeTextsForAdding(popupView, type)
+
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val endSchedule = popupView.find<Button>(R.id.endSchedule)
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
         val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
-        val actualDateUsed = popupView.find<Button>(R.id.actualDayBtn)
-        val buttonInit = popupView.find<Button>(R.id.leaveInitBtn)
+        val buttonInit = popupView.find<Button>(R.id.InitBtn)
         val nameInput = popupView.find<EditText>(R.id.nameEdit)
         val memoBtn = popupView.find<Button>(R.id.memoButton)
+
+        startSchedule.text = ""
+        nameInput.text = null
 
         if(!editBoolean) memoTyped = ""
         var name = ""
         nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
 
-        startSchedule.setOnClickListener { setDate(popupView, "Start", "휴가") }
-
-        endSchedule.setOnClickListener { setDate(popupView, "End", "휴가") }
-
         nameInput.setOnClickListener { }
 
-        actualDateUsed.setOnClickListener {
-            val popupMenu = PopupMenu(this.context, addLeave)
-            popupMenu.menuInflater.inflate(R.menu.actual_leave_menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener {
-                actualDateUsed.text = it.title
-                true
-            }
-            popupMenu.show()
-        }
-
-        buttonAddEvent.setOnClickListener {
-            if(nameInput.text.isEmpty()) name = "휴가"
-            else name = nameInput.text.toString()
-            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
-                Toast.makeText(this.context, "복귀 안 할거에요?", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
-                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
-                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "휴가")) {
-                    // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "휴가", name)
-                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), name)
-                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
-
-                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "휴가", name, memoTyped)
-                }
-
-                startSchedule.text = ""
-                endSchedule.text = ""
-                actualDateUsed.text = ""
-                nameInput.text = null
-                memoTyped = ""
-                // Dismiss the popup window.
-                popup.dismiss()
-            }
-        }
-        buttonInit.setOnClickListener {
-            startSchedule.text = ""; nameInput.text = null
-            actualDateUsed.text = ""; endSchedule.text = ""
-        }
         buttonCancel.setOnClickListener {
             // Dismiss the popup window.
-            startSchedule.text = ""
-            actualDateUsed.text = ""
-            endSchedule.text = ""
-            nameInput.text = null
             popup.dismiss()
         }
 
         memoBtn.setOnClickListener {
             memoPopUp(memoTyped)
         }
-    }
 
-    private fun addOffPost(dbHelper: DBHelper, editBoolean: Boolean) {
-        val popupView = layoutInflater.inflate(R.layout.add_offpost, null)
-        val popup = PopupWindow(popupView)
-        popup.isFocusable = true
-        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-        popup.update(
-            view,
-            resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
-        )
 
-        val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
-        val buttonInit = popupView.find<Button>(R.id.offPostInitBtn)
-        val nameInput = popupView.find<EditText>(R.id.nameEdit)
-        val memoBtn = popupView.find<Button>(R.id.memoButton)
-
-        if(!editBoolean) memoTyped = ""
-        var name = ""
-        nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
-
-        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
-
-        startSchedule.setOnClickListener {
-            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                startSchedule.text = date2String(year, month + 1, day)
+        if(type.equals("외출")) {
+            buttonInit.setOnClickListener {
+                startSchedule.text = ""; nameInput.text = null
             }
-            val dialog = SpinnerDatePickerDialogBuilder()
-                .context(context)
-                .callback(dateSetListener)
-                .spinnerTheme(R.style.NumberPickerStyle)
-                .showTitle(true)
-                .showDaySpinner(true)
-                .maxDate(today.year + 4, 11, 31)
-                .minDate(today.year - 5, 0, 1)
-                .defaultDate(today.year, today.monthValue - 1, today.dayOfMonth)
-            dialog.build().show()
-        }
 
-        buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) name = "휴가"
-            else name = nameInput.text.toString()
-            if (startSchedule.text.isNotEmpty()) {
-                // add event in calendar
-                addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), "휴가", name)
-                // Store the schedule.
-                // Store the schedule.
-                // Store the schedule.
-                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), dbHelper, "휴가")) {
+            startSchedule.setOnClickListener { setDateOffPost(popupView) }
+
+            buttonAddEvent.setOnClickListener {
+                if (nameInput.text.isEmpty()) name = "휴가"
+                else name = nameInput.text.toString()
+                if (startSchedule.text.isNotEmpty()) {
                     // add event in calendar
                     addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), "휴가", name)
-                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), startSchedule.text.toString(), name)
-                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
+                    if(doesEventExist(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), dbHelper, "휴가")) {
+                        return@setOnClickListener
+                    }
+                    // Store the schedule.
+                    else if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), dbHelper, "휴가")) {
+                        // add event in calendar
+                        addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), "휴가", name)
+                        writeDB(dbHelper, "휴가", startSchedule.text.toString(), startSchedule.text.toString(), name)
+                        //각 날짜에 휴가일정이 있다는 것을 기록해준다.
 
-                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()),
-                        "휴가", name, memoTyped)
+                        writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()),
+                            "휴가", name, memoTyped)
+                    }
+                    // Dismiss the popup window.
+                    popup.dismiss()
                 }
-                startSchedule.text = ""
-                nameInput.text = null
-                memoTyped = ""
-                // Dismiss the popup window.
-                popup.dismiss()
             }
         }
 
-        nameInput.setOnClickListener { }
+        else {
+            val endSchedule = popupView.find<Button>(R.id.endSchedule)
+            endSchedule.text = ""
+            startSchedule.setOnClickListener { setDate(popupView, "Start", type) }
+            endSchedule.setOnClickListener { setDate(popupView, "End", type) }
 
-        buttonInit.setOnClickListener {
-            startSchedule.text = ""; nameInput.text = null
-        }
-        buttonCancel.setOnClickListener {
-            // Dismiss the popup window.
-            startSchedule.text = ""
-            nameInput.text = null
-            popup.dismiss()
-        }
-    }
-
-    private fun addPass(dbHelper: DBHelper, editBoolean: Boolean) {
-        val popupView = layoutInflater.inflate(R.layout.add_pass, null)
-        val popup = PopupWindow(popupView)
-        popup.isFocusable = true
-        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-        popup.update(
-            view,
-            resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
-        )
-
-        if(!editBoolean) memoTyped = ""
-        val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val endSchedule = popupView.find<Button>(R.id.endSchedule)
-        val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
-        val buttonInit = popupView.find<Button>(R.id.passInitBtn)
-        val nameInput = popupView.find<EditText>(R.id.nameEdit)
-        val memoBtn = popupView.find<Button>(R.id.memoButton)
-
-        var name : String
-        nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
-
-        startSchedule.setOnClickListener {setDate(popupView, "Start", "외박")}
-        endSchedule.setOnClickListener { setDate(popupView, "End", "외박") }
-
-        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
-
-        buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) name = "휴가"
-            else name = nameInput.text.toString()
-            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
-                Toast.makeText(this.context, "복귀 안 할거에요?", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
-                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
-                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
+            buttonAddEvent.setOnClickListener {
+                if(nameInput.text.isEmpty()) name = type
+                else name = nameInput.text.toString()
+                if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
+                    Toast.makeText(this.context, "복귀 안 할거에요?", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                // Store the schedule.
-                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "휴가")) {
-                    // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "휴가", name)
-                    writeDB(dbHelper, "휴가", startSchedule.text.toString(), endSchedule.text.toString(), name)
-                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
+                    val eventType: String
+                    if(type.equals("외박")) eventType = "휴가"
+                    else eventType = type
+                    if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
+                        Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                    if(doesEventExist(string2Date(startSchedule.text.toString()), string2Date(startSchedule.text.toString()), dbHelper, eventType)) {
+                        return@setOnClickListener
+                    }
+                    else if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, eventType)) {
+                        // add event in calendar
+                        addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), eventType, name)
+                        writeDB(dbHelper, eventType, startSchedule.text.toString(), endSchedule.text.toString(), name)
+                        //각 날짜에 휴가일정이 있다는 것을 기록해준다.
 
-                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "휴가", name, memoTyped)
+                        writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
+                            eventType, name, memoTyped)
+                    }
+                    // Dismiss the popup window.
+                    popup.dismiss()
                 }
-                startSchedule.text = ""
-                endSchedule.text = ""
-                nameInput.text = null
-                memoTyped = ""
-                // Dismiss the popup window.
-                popup.dismiss()
             }
-        }
 
-        nameInput.setOnClickListener { }
-
-        buttonInit.setOnClickListener {
-            startSchedule.text = ""; nameInput.text = null; endSchedule.text = ""
-        }
-        buttonCancel.setOnClickListener {
-            // Dismiss the popup window.
-            startSchedule.text = ""
-            nameInput.text = null; endSchedule.text = ""
-            popup.dismiss()
+            if(type.equals("휴가")) {
+                val actualDateUsed = popupView.find<Button>(R.id.actualDayBtn)
+                actualDateUsed.text = ""
+                buttonInit.setOnClickListener {
+                    startSchedule.text = ""; nameInput.text = null
+                    actualDateUsed.text = ""; endSchedule.text = ""
+                }
+                actualDateUsed.setOnClickListener {
+                    val popupMenu = PopupMenu(this.context, addLeave)
+                    popupMenu.menuInflater.inflate(R.menu.actual_leave_menu, popupMenu.menu)
+                    popupMenu.setOnMenuItemClickListener {
+                        actualDateUsed.text = it.title
+                        true
+                    }
+                    popupMenu.show()
+                }
+            }
+            else {
+                buttonInit.setOnClickListener {
+                    startSchedule.text = ""; nameInput.text = null
+                    endSchedule.text = ""
+                }
+            }
         }
     }
-
-    private fun addDuty(dbHelper: DBHelper, editBoolean: Boolean) { //addPass랑 묶기
-        val popupView = layoutInflater.inflate(R.layout.add_pass, null)
-        val popup = PopupWindow(popupView)
-        popup.isFocusable = true
-        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-        popup.update(
-            view,
-            resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
-        )
-
-        changeTexts(popupView, "당직")
-        val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val endSchedule = popupView.find<Button>(R.id.endSchedule)
-        val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
-        val buttonInit = popupView.find<Button>(R.id.passInitBtn)
-        val nameInput = popupView.find<EditText>(R.id.nameEdit)
-        val memoBtn = popupView.find<Button>(R.id.memoButton)
-        if(!editBoolean) memoTyped = ""
-
-        var name = ""
-        nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
-
-        startSchedule.setOnClickListener {setDate(popupView, "Start", "당직")}
-        endSchedule.setOnClickListener { setDate(popupView, "End", "당직") }
-
-        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
-
-        buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) name = "당직"
-            else name = nameInput.text.toString()
-            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
-            Toast.makeText(this.context, "퇴근 안 할거에요?", Toast.LENGTH_SHORT).show()
-            return@setOnClickListener
-        }
-            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
-                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
-                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                // Store the schedule.
-                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "당직")) {
-                    // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "당직", name)
-                    writeDB(dbHelper, "당직", startSchedule.text.toString(), endSchedule.text.toString(), name)
-
-                    //각 날짜에 당직일정이 있다는 것을 기록해준다.
-                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "당직", name, memoTyped)
-                }
-                startSchedule.text = ""
-                endSchedule.text = ""
-                nameInput.text = null
-                memoTyped = ""
-                // Dismiss the popup window.
-                popup.dismiss()
-            }
-        }
-
-        nameInput.setOnClickListener { }
-
-        buttonInit.setOnClickListener {
-            startSchedule.text = ""; nameInput.text = null; endSchedule.text = ""
-        }
-        buttonCancel.setOnClickListener {
-            // Dismiss the popup window.
-            startSchedule.text = ""
-            nameInput.text = null; endSchedule.text = ""
-            popup.dismiss()
-        }
-    }
-
-    private fun addExercise(dbHelper: DBHelper, editBoolean: Boolean) { //addPass랑 묶기
-        val popupView = layoutInflater.inflate(R.layout.add_pass, null)
-        val popup = PopupWindow(popupView)
-        popup.isFocusable = true
-        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-        popup.update(
-            view,
-            resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
-        )
-
-        changeTexts(popupView, "훈련")
-        val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val endSchedule = popupView.find<Button>(R.id.endSchedule)
-        val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
-        val buttonInit = popupView.find<Button>(R.id.passInitBtn)
-        val nameInput = popupView.find<EditText>(R.id.nameEdit)
-        val memoBtn = popupView.find<Button>(R.id.memoButton)
-        if(!editBoolean) memoTyped = ""
-
-        var name = ""
-        nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
-
-        startSchedule.setOnClickListener {setDate(popupView, "Start", "훈련")}
-        endSchedule.setOnClickListener { setDate(popupView, "End", "훈련") }
-        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
-
-        buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) name = "훈련"
-            else name = nameInput.text.toString()
-            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
-                Toast.makeText(this.context, "부대 안 돌아오고 /n 훈련지에만 있게요?", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
-                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
-                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                // Store the schedule.
-                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "훈련")) {
-                    // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "훈련", name)
-                    writeDB(dbHelper, "훈련", startSchedule.text.toString(), endSchedule.text.toString(), name)
-                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
-
-                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "훈련", name, memoTyped)
-                }
-
-                startSchedule.text = ""
-                endSchedule.text = ""
-                nameInput.text = null
-                memoTyped = ""
-                // Dismiss the popup window.
-                popup.dismiss()
-            }
-        }
-
-        nameInput.setOnClickListener { }
-
-        buttonInit.setOnClickListener {
-            startSchedule.text = ""; nameInput.text = null; endSchedule.text = ""
-        }
-        buttonCancel.setOnClickListener {
-            // Dismiss the popup window.
-            startSchedule.text = ""
-            nameInput.text = null; endSchedule.text = ""
-            popup.dismiss()
-        }
-    }
-
-    private fun addPersonal(dbHelper: DBHelper, editBoolean: Boolean) { //addPass랑 묶기
-        val popupView = layoutInflater.inflate(R.layout.add_pass, null)
-        val popup = PopupWindow(popupView)
-        popup.isFocusable = true
-        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-        popup.update(
-            view,
-            resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
-        )
-
-        changeTexts(popupView, "개인일정")
-        val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val endSchedule = popupView.find<Button>(R.id.endSchedule)
-        val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
-        val buttonInit = popupView.find<Button>(R.id.passInitBtn)
-        val nameInput = popupView.find<EditText>(R.id.nameEdit)
-        val memoBtn = popupView.find<Button>(R.id.memoButton)
-        if(!editBoolean) memoTyped = ""
-
-        var memo = ""
-        nameInput.setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
-
-        startSchedule.setOnClickListener {setDate(popupView, "Start", "개인")}
-        endSchedule.setOnClickListener { setDate(popupView, "End", "개인") }
-        memoBtn.setOnClickListener { memoPopUp(memoTyped) }
-
-        buttonAddEvent.setOnClickListener {
-            if (nameInput.text.isEmpty()) memo = "개인"
-            else memo = nameInput.text.toString()
-            if(startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
-                Toast.makeText(this.context, "시작이 있으면... 끝이 있어야죠", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty()) {
-                if(string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))) {
-                    Toast.makeText(this.context, "복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-                // Store the schedule.
-                if(!doesEventExist(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), dbHelper, "개인")) {
-                    // add event in calendar
-                    addEventinCalendar(string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()), "개인", memo)
-                    writeDB(dbHelper, "개인", startSchedule.text.toString(), endSchedule.text.toString(), memo)
-                    //각 날짜에 휴가일정이 있다는 것을 기록해준다.
-
-                    writeDBEachDay(dbHelper, string2Date(startSchedule.text.toString()), string2Date(endSchedule.text.toString()),
-                        "개인", memo, memo)
-                }
-                startSchedule.text = ""
-                endSchedule.text = ""
-                nameInput.text = null
-                // Dismiss the popup window.
-                popup.dismiss()
-            }
-        }
-
-        nameInput.setOnClickListener { }
-
-        buttonInit.setOnClickListener {
-            startSchedule.text = ""; nameInput.text = null; endSchedule.text = ""
-        }
-        buttonCancel.setOnClickListener {
-            // Dismiss the popup window.
-            startSchedule.text = ""
-            nameInput.text = null; endSchedule.text = ""
-            popup.dismiss()
-        }
-    }
-
-
-    private fun changeTexts(view: View, type: String) {
-        val title = view.findViewById<TextView>(R.id.titleText)
-        val startText = view.findViewById<TextView>(R.id.startText)
-        val endText = view.findViewById<TextView>(R.id.endText)
-        val registerBtn = view.findViewById<Button>(R.id.RegisterBtn)
+    private fun changeTextsForAdding(view: View, type: String) {
+        val title = view.find<TextView>(R.id.titleText)
+        val startText = view.find<TextView>(R.id.startText)
+        val registerBtn = view.find<Button>(R.id.RegisterBtn)
 
         title.text = type + " 등록하기"
         startText.text = type + " 시작일"
-        endText.text = type + " 종료일"
         registerBtn.text = type + " 등록"
+
+        if(type.equals("외출")) return
+
+        val endText = view.find<TextView>(R.id.endText)
+        endText.text = type + " 종료일"
     }
 
+
     private fun changeScheduleTextsForEdit(view: View, type: String, startDate: String, endDate: String, name: String, actualDate: String) {
-        val title = view.findViewById<TextView>(R.id.titleText)
-        val start = view.findViewById<Button>(R.id.startSchedule)
-        val nameText = view.findViewById<EditText>(R.id.nameEdit)
-        val memoBtn = view.findViewById<Button>(R.id.memoButton)
-        val cancel = view.findViewById<Button>(R.id.CancelBtn)
+        val title = view.find<TextView>(R.id.titleText)
+        val start = view.find<Button>(R.id.startSchedule)
+        val nameText = view.find<EditText>(R.id.nameEdit)
+        val memoBtn = view.find<Button>(R.id.memoButton)
+        val cancel = view.find<Button>(R.id.CancelBtn)
         title.text = type + " 수정하기"
         start.text = startDate
         nameText.setText(name)
@@ -1109,19 +803,19 @@ class CalendarFragment : Fragment() {
 
         if(type.equals("외출")) return
 
-        val end = view.findViewById<Button>(R.id.endSchedule)
+        val end = view.find<Button>(R.id.endSchedule)
         end.text = endDate
 
         if(type.equals("휴가")) {
-            val actualDateBtn = view.findViewById<Button>(R.id.actualDayBtn)
+            val actualDateBtn = view.find<Button>(R.id.actualDayBtn)
             actualDateBtn.text = actualDate + "일"
         }
     }
 
     private fun changeMemoTextsForEdit(view: View, memo: String) {
-        val title = view.findViewById<TextView>(R.id.titleText)
-        val memoEdit = view.findViewById<EditText>(R.id.memoEdit)
-        val cancel = view.findViewById<Button>(R.id.memoCancel)
+        val title = view.find<TextView>(R.id.titleText)
+        val memoEdit = view.find<EditText>(R.id.memoEdit)
+        val cancel = view.find<Button>(R.id.memoCancel)
 
         title.text = "메모 수정하기"
         cancel.text = "수정 취소"
@@ -1180,7 +874,6 @@ class CalendarFragment : Fragment() {
             resources.displayMetrics.widthPixels,
             resources.displayMetrics.heightPixels
         )
-
         val buttonAddEvent = popupView.find<Button>(R.id.RegisterBtn)
         val buttonCancel = popupView.find<Button>(R.id.memoCancel)
         val memoInput = popupView.find<EditText>(R.id.memoEdit)
@@ -1250,6 +943,7 @@ class CalendarFragment : Fragment() {
         return ""
     }
 
+    //date, content -> returns endDate
     private fun endDatefromDate(dbHelper: DBHelper, date: String, content: String) : String {
         val dates = readDBStartEndDates(dbHelper, date)
         if(date.isEmpty()) return ""
@@ -1261,11 +955,11 @@ class CalendarFragment : Fragment() {
         return ""
     }
 
+    //load all event data of that date and returns an arraylist of Event
     fun loadEventData(dbHelper: DBHelper, date: String): ArrayList<Event> {
         val arrayList = ArrayList<Event>()
 
         val events = readDBEachDate(dbHelper, date)
-
         for(event in events) {
             var eventInput = Event("", "", "", "", "")
             eventInput.eventContent = event.third
@@ -1276,14 +970,15 @@ class CalendarFragment : Fragment() {
 
             arrayList.add(eventInput)
         }
-
         return arrayList
     }
 
+    //delete that event from calendar by calling deletedB function
     fun deleteEventData(dbHelper: DBHelper, event: Event) {
         deleteDB(dbHelper, event.eventContent, event.eventStartDate, event.eventEndDate, event.eventName, event.eventMemo)
     }
 
+    //updates recyclerView that shows all the events of that date
     fun updateRecyclerView(dbHelper: DBHelper, context:Context, view: RecyclerView, date: String) {
         // add recylcerView
         val arrayEventList = loadEventData(dbHelper, date)
@@ -1306,8 +1001,6 @@ class CalendarFragment : Fragment() {
                     true
                 }
                 popupEditMenu.show()
-                /*deleteBankData(context, arrayBankList.get(position))
-                updateRecyclerView(context, view)*/
             }
         })
 
