@@ -188,6 +188,28 @@
     <string name="additionalType">우대금리항목</string>
     <string name="standard">기준</string>
 
-    <string name="shinhanTtle">신한: 신한 장병내일준비 적금</string>
+    <string name="shinhanTitle">신한: 신한 장병내일준비 적금</string>
+    <string-array name="infoArray1">
+        <item>수협: Sh장병내일준비적금</item>
+        <item>3%</item>
+        <item>4%</item>
+        <item>5%</item>
+        <item>최대 0.3%p</item>
+        <item>마케팅 동의</item>
+        <item>연 0.1%p</item>
+        <item>마케팅 활용 동의한 경우</item>
+        <item>예적금 등 거래고객</item>
+        <item>연 0.2%p</item>
+        <item>당행 정기예금, 적금, 펀드, 공제, 신탁 중 1종 이상 보유 고객</item>
+        <item>친구추천우대</item>
+        <item>연 0.1%p</item>
+        <item>신규일부터 만기전일까지 \'당행 스마트폰뱅킹의 상품 알리기\'를 통해 당 적금 추천 시</item>
+        <item>자동입금이체 실적</item>
+        <item>연 0.1%p</item>
+        <item>신규월부터 만기전월까지의 기간동안 적금 계약기간의 1/2에 해당하는 월수만큼 매월 당행 입출금통장에 자동입금이체실적이 있는 경우</item>
+        <item>카드거래실적</item>
+        <item>최대 연 0.2%p</item>
+        <item>신규일부터 만기전일까지 수협신용(체크)카드 연평균 결제실적 30만원당 연 0.1%p 제공</item>
+    </string-array>
 
 </resources>
