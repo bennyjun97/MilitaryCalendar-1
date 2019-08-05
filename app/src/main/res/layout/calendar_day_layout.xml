@@ -24,7 +24,8 @@
                                                 app:layout_constraintGuide_percent="0.9"/>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="0dp" app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@id/guidelineTop" app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
             app:layout_constraintEnd_toStartOf="@id/guidelineRight"
             android:theme="@style/LeeText" android:background="@drawable/memo_background" android:id="@+id/dayLayout"

@@ -5,6 +5,12 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.temporal.ChronoUnit
 
 object DateCalc {
+
+
+    fun localDateToString(date: LocalDate): String {
+        return "${date.year}-${"%02d".format(date.monthValue)}-${"%02d".format(date.dayOfMonth)}"
+    }
+
     //입대날짜, 보직에 따라 전역날짜 계산해준다.
     fun calcETS(date: LocalDate, affiliation: String?): LocalDate {
         when (affiliation) {
