@@ -223,7 +223,52 @@ class DepositFragment : Fragment() {
                 popupDeposit.dismiss()
             }
         }
-        bankInterestButton.setOnClickListener {}
+
+        // 이자율 입력!!
+        bankInterestButton.setOnClickListener {
+            val popupDepositView = layoutInflater.inflate(R.layout.add_interest, null)
+            val popupDeposit = PopupWindow(popupDepositView)
+            popupDeposit.animationStyle = animStyle
+            popupDeposit.isFocusable = true
+
+            popupDeposit.showAtLocation(view, Gravity.CENTER, 0, 0)
+            popupDeposit.update(
+                view,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels
+            )
+            // enable buttons, editTexts
+            val interestPopUpInfo = popupDepositView.find<ImageButton>(R.id.interestPopUpInfo)
+            val interestPopUpCancel = popupDepositView.find<Button>(R.id.interestPopUpCancel)
+            val interestPopUpSave = popupDepositView.find<Button>(R.id.interestPopUpSave)
+
+            // show info (은행 이자율 정보)
+            interestPopUpInfo.setOnClickListener{
+                val popupInterestInfo = layoutInflater.inflate(R.layout. interest_info, null)
+                val popupInfo = PopupWindow(popupInterestInfo)
+                popupInfo.animationStyle = animStyle
+                popupInfo.isFocusable = true
+
+                popupInfo.showAtLocation(view, Gravity.CENTER, 0, 0)
+                popupInfo.update(
+                    view,
+                    resources.displayMetrics.widthPixels,
+                    resources.displayMetrics.heightPixels
+                )
+
+                val infoExit = popupInterestInfo.find<ImageButton>(R.id.infoExitButton)
+
+                infoExit.setOnClickListener{
+                    popupInfo.dismiss()
+                }
+            }
+            // cancel input
+            interestPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
+            // save input
+            interestPopUpSave.setOnClickListener {
+                popupDeposit.dismiss()
+            }
+        }
 
 
         /* make decision on init, cancel, registering bank information */
