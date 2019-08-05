@@ -93,15 +93,16 @@
                                 android:text="@string/sixMonths"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="4"
-                                android:textColor="@color/black" android:textSize="10sp"/>
+                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="2"
-                                android:textColor="@color/black" android:textSize="10sp" android:id="@+id/item2"/>
+                                android:textColor="@color/black" android:textSize="10sp" android:id="@+id/item2"
+                                android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3"
-                                android:textColor="@color/black" android:textSize="10sp"/>
+                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
                     </TableRow>
                     <TableRow
                             android:layout_width="match_parent"
@@ -110,17 +111,18 @@
                                 android:text="@string/twelveMonths"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="4" android:textColor="@color/black" android:textSize="10sp"/>
+                                android:layout_weight="4" android:textColor="@color/black" android:textSize="10sp"
+                                android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2" android:textColor="@color/black" android:textSize="10sp"
-                                android:id="@+id/item3"/>
+                                android:id="@+id/item3" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3" android:textColor="@color/black"
-                                android:textSize="10sp" android:id="@+id/item5"/>
+                                android:textSize="10sp" android:id="@+id/item5" android:paddingBottom="2dp"/>
                     </TableRow>
                     <TableRow
                             android:layout_width="match_parent"
@@ -129,22 +131,23 @@
                                 android:text="@string/eighteenMonths"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="4"
-                                android:textColor="@color/black" android:textSize="10sp"/>
+                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="2"
-                                android:textColor="@color/black" android:textSize="10sp" android:id="@+id/item4"/>
+                                android:textColor="@color/black" android:textSize="10sp" android:id="@+id/item4"
+                                android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3"
-                                android:textColor="@color/black" android:textSize="10sp"/>
+                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
                     </TableRow>
                     <TableRow
                             android:layout_width="match_parent"
                             android:id="@+id/row5">
                         <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="10dp" android:id="@+id/textView26"/>
+                                android:layout_height="8dp" android:id="@+id/textView26"/>
                     </TableRow>
                     <TableRow
                             android:layout_width="match_parent"
@@ -175,15 +178,15 @@
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item6"/>
+                                android:textColor="@color/black" android:id="@+id/item6" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item7"/>
+                                android:textColor="@color/black" android:id="@+id/item7" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item8"/>
+                                android:textColor="@color/black" android:id="@+id/item8" android:paddingBottom="2dp"/>
                     </TableRow>
 
                     <TableRow
@@ -192,15 +195,15 @@
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item9"/>
+                                android:textColor="@color/black" android:id="@+id/item9" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item10"/>
+                                android:textColor="@color/black" android:id="@+id/item10" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item11"/>
+                                android:textColor="@color/black" android:id="@+id/item11" android:paddingBottom="2dp"/>
                     </TableRow>
 
                     <TableRow
@@ -209,15 +212,15 @@
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item12"/>
+                                android:textColor="@color/black" android:id="@+id/item12" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item13"/>
+                                android:textColor="@color/black" android:id="@+id/item13" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item14"/>
+                                android:textColor="@color/black" android:id="@+id/item14" android:paddingBottom="2dp"/>
                     </TableRow>
 
                     <TableRow
@@ -226,15 +229,15 @@
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item15"/>
+                                android:textColor="@color/black" android:id="@+id/item15" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item16"/>
+                                android:textColor="@color/black" android:id="@+id/item16" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item17"/>
+                                android:textColor="@color/black" android:id="@+id/item17" android:paddingBottom="2dp"/>
                     </TableRow>
 
                     <TableRow
@@ -243,15 +246,15 @@
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item18"/>
+                                android:textColor="@color/black" android:id="@+id/item18" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item19"/>
+                                android:textColor="@color/black" android:id="@+id/item19" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item20"/>
+                                android:textColor="@color/black" android:id="@+id/item20" android:paddingBottom="2dp"/>
                     </TableRow>
 
                 </TableLayout>

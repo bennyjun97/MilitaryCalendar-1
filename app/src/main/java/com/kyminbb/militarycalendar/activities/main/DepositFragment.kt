@@ -161,7 +161,6 @@ class DepositFragment : Fragment() {
             R.id.bankJeonbook, R.id.bankJeju, R.id.bankPostOffice
         )
 
-
         // input information
         // bank name button is only activated when addButton is clicked
         if (position == ADD_BUTTON_INFO){
@@ -261,29 +260,48 @@ class DepositFragment : Fragment() {
                 val infoExit = popupInterestInfo.find<ImageButton>(R.id.infoExitButton)
 
                 // 바보식 테이블 채우기 ㅠㅠ 에바면 말해주삼 - 형빈
-                var item1 = popupInterestInfo.find<TextView>(R.id.item1)
-                var item2 = popupInterestInfo.find<TextView>(R.id.item2)
-                var item3 = popupInterestInfo.find<TextView>(R.id.item3)
-                var item4 = popupInterestInfo.find<TextView>(R.id.item4)
-                var item5 = popupInterestInfo.find<TextView>(R.id.item5)
-                var item6 = popupInterestInfo.find<TextView>(R.id.item6)
-                var item7 = popupInterestInfo.find<TextView>(R.id.item7)
-                var item8 = popupInterestInfo.find<TextView>(R.id.item8)
-                var item9 = popupInterestInfo.find<TextView>(R.id.item9)
-                var item10 = popupInterestInfo.find<TextView>(R.id.item10)
-                var item11 = popupInterestInfo.find<TextView>(R.id.item11)
-                var item12 = popupInterestInfo.find<TextView>(R.id.item12)
-                var item13 = popupInterestInfo.find<TextView>(R.id.item13)
-                var item14 = popupInterestInfo.find<TextView>(R.id.item14)
-                var item15 = popupInterestInfo.find<TextView>(R.id.item15)
-                var item16 = popupInterestInfo.find<TextView>(R.id.item16)
-                var item17 = popupInterestInfo.find<TextView>(R.id.item17)
-                var item18 = popupInterestInfo.find<TextView>(R.id.item18)
-                var item19 = popupInterestInfo.find<TextView>(R.id.item19)
-                var item20 = popupInterestInfo.find<TextView>(R.id.item20)
+                val item1 = popupInterestInfo.find<TextView>(R.id.item1)
+                val item2 = popupInterestInfo.find<TextView>(R.id.item2)
+                val item3 = popupInterestInfo.find<TextView>(R.id.item3)
+                val item4 = popupInterestInfo.find<TextView>(R.id.item4)
+                val item5 = popupInterestInfo.find<TextView>(R.id.item5)
+                val item6 = popupInterestInfo.find<TextView>(R.id.item6)
+                val item7 = popupInterestInfo.find<TextView>(R.id.item7)
+                val item8 = popupInterestInfo.find<TextView>(R.id.item8)
+                val item9 = popupInterestInfo.find<TextView>(R.id.item9)
+                val item10 = popupInterestInfo.find<TextView>(R.id.item10)
+                val item11 = popupInterestInfo.find<TextView>(R.id.item11)
+                val item12 = popupInterestInfo.find<TextView>(R.id.item12)
+                val item13 = popupInterestInfo.find<TextView>(R.id.item13)
+                val item14 = popupInterestInfo.find<TextView>(R.id.item14)
+                val item15 = popupInterestInfo.find<TextView>(R.id.item15)
+                val item16 = popupInterestInfo.find<TextView>(R.id.item16)
+                val item17 = popupInterestInfo.find<TextView>(R.id.item17)
+                val item18 = popupInterestInfo.find<TextView>(R.id.item18)
+                val item19 = popupInterestInfo.find<TextView>(R.id.item19)
+                val item20 = popupInterestInfo.find<TextView>(R.id.item20)
+
                 var itemArray: Array<TextView> = arrayOf(item1, item2, item3, item4, item5, item6, item7, item8,
                     item9, item10, item11, item12, item13, item14, item15, item16, item17, item18, item19, item20)
-                val textArray = resources.getStringArray(R.array.infoArray1)
+
+                // array의 array를 만들 수가 없어서 이렇게 했음 ㅠㅠ - 형빈
+                var textArray : Array<String> = arrayOf()
+                when(bankIndex) {
+                    0 -> {textArray = resources.getStringArray(R.array.infoArray1)}
+                    1 -> {textArray = resources.getStringArray(R.array.infoArray2)}
+                    2 -> {textArray = resources.getStringArray(R.array.infoArray3)}
+                    3 -> {textArray = resources.getStringArray(R.array.infoArray4)}
+                    4 -> {textArray = resources.getStringArray(R.array.infoArray5)}
+                    5 -> {textArray = resources.getStringArray(R.array.infoArray6)}
+                    6 -> {textArray = resources.getStringArray(R.array.infoArray7)}
+                    7 -> {textArray = resources.getStringArray(R.array.infoArray8)}
+                    8 -> {textArray = resources.getStringArray(R.array.infoArray9)}
+                    9 -> {textArray = resources.getStringArray(R.array.infoArray10)}
+                    10 -> {textArray = resources.getStringArray(R.array.infoArray11)}
+                    11 -> {textArray = resources.getStringArray(R.array.infoArray12)}
+                    12 -> {textArray = resources.getStringArray(R.array.infoArray13)}
+                    13 -> {textArray = resources.getStringArray(R.array.infoArray14)}
+                }
                 for(i in 0..(textArray.size - 1)){
                     itemArray[i].text = textArray[i]
                 }

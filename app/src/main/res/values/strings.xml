@@ -212,4 +212,171 @@
         <item>신규일부터 만기전일까지 수협신용(체크)카드 연평균 결제실적 30만원당 연 0.1%p 제공</item>
     </string-array>
 
+    <string-array name="infoArray2">
+        <item>신한: 신한 장병내일준비 적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.0%</item>
+        <item>최대 0.7%p</item>
+        <item>주택청약</item>
+        <item>연 0.3%p</item>
+        <item>신한은행 주택종합청약 저축을 만기전일까지 유지한 경우</item>
+        <item>신한카드</item>
+        <item>연 0.2%p</item>
+        <item>당행 계좌를 통해 신한카드(신용/체크)결제 실적이 있는 경우</item>
+        <item>자동이체</item>
+        <item>연 0.2%p</item>
+        <item>당행 통장을 통해 자동이체 실적이 5개월 이상 있는 경우</item>
+    </string-array>
+
+    <string-array name="infoArray3">
+        <item>우리: 우리은행 장병내일준비적금</item>
+        <item>3.5%</item>
+        <item>4.0%</item>
+        <item>5.0%</item>
+        <item>최대 0.5%p</item>
+        <item>주택청약</item>
+        <item>연 0.1%p</item>
+        <item>이 적금의 신규 시점에 우리은행에서 가입한 주택청약종합저축 상품을 보유하고 있는 경우</item>
+        <item>우리카드</item>
+        <item>연 0.1%p</item>
+        <item>실적인정기간 동안 우리카드(체크/신용) 결제계좌를 우리은행 입출식 계좌로 지정한 후, 매월 카드 결제실적 보유</item>
+        <item>자동이체</item>
+        <item>연 0.3%p</item>
+        <item>우리은행 입출식 계좌에서 매월 자동이체를 통해 실적인정기간의 1/2 기간 이상 이 적금으로 적립한 경우</item>
+    </string-array>
+
+    <string-array name="infoArray4">
+        <item>하나: KEB하나 장병내일준비 적금</item>
+        <item>3.5%</item>
+        <item>4.0%</item>
+        <item>5.0%</item>
+        <item>최대 0.5%p</item>
+        <item>주택청약</item>
+        <item>연 0.3%p</item>
+        <item>이 적금의 신규 시점에 KEB하나은행에서 가입한 주택청약종합저축 상품을 보유하고 있는 경우</item>
+        <item>하나카드 군 급여 입금</item>
+        <item>연 0.2%p</item>
+        <item>이 예금 가입후 만기 전전월의 말일까지 본인명의 KEB하나은행 입출금통장을 통해 3회이상 군급여 입금실적을 보유하거나, 하나카드사의 카드(신용/체크)결제 실적이 3회 이상 있을 경우 연 0.2%우대\n※ 군급여이체 및 카드결제 실적은 월 1회만 인정하며, 군급여이체 실적은 국군재정관리단을 통한 이체에 한정</item>
+    </string-array>
+
+    <string-array name="infoArray5">
+        <item>국민: KB장병내일준비적금</item>
+        <item>3.5%</item>
+        <item>4.0%</item>
+        <item>5.0%</item>
+        <item>최대 0.5%p</item>
+        <item>주택청약</item>
+        <item>연 0.2%p</item>
+        <item>적금 만기일 기준 전전월 말일을 기준으로, 고객이 KB국민은행 주택청약종합 저축(청년 우대형 주택청약종합저축 포함) 계좌를 보유한 경우</item>
+        <item>군 급여 입금</item>
+        <item>연 0.3%p</item>
+        <item>적금 신규월 초일부터 만기일 기준 전전월 말일까지 고객이 가입한 적금 계약기간(월 환산)의 2/3에 해당하는 기간 동안 고객의 KB국민은행 입출금통장으로 급여이체 실적이 매월 10만원 이상인 경우</item>
+    </string-array>
+
+    <string-array name="infoArray6">
+        <item>농협: NH장병내일준비적금</item>
+        <item>3.0%</item>
+        <item>4.0%</item>
+        <item>5.0%</item>
+        <item>최대 0.5%p</item>
+        <item>카드이용</item>
+        <item>연 0.2%p</item>
+        <item>(적금 가입월~만기 전전월말)은행에서 발급한 NH농협 개인신용·체크카드(채움) 월평균 10만원이상 이용실적이 있는 경우</item>
+        <item>수신입금</item>
+        <item>연 0.3%p</item>
+        <item>(적금 가입월~만기 전전월말)농협은행 주택청약종합저축 (청년우대형 포함)가입 및 5회이상 납입하고 보유 시</item>
+    </string-array>
+
+    <string-array name="infoArray7">
+        <item>기업: IBK장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.0%</item>
+        <item>최대 0.5%p</item>
+        <item>주택청약</item>
+        <item>연 0.2%p</item>
+        <item>당행 주택청약저축(청년우대형 포함)을 신규한 경우</item>
+        <item>군 급여 입금</item>
+        <item>연 0.2%p</item>
+        <item>당행 입출금 계좌로 급여이체(10만원 이상)실적 6회 이상 또는 당행 신용(체크)카드 이용실적 100만원 이상 있는 경우</item>
+        <item>스마트뱅킹</item>
+        <item>연 0.1%p</item>
+        <item>당행 스마트뱅킹 이체 실적 1회 이상 있는 경우</item>
+    </string-array>
+
+    <string-array name="infoArray8">
+        <item>대구: DGB장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.0%</item>
+        <item>없음</item>
+        <item>해당사항 없음</item>
+    </string-array>
+
+    <string-array name="infoArray9">
+        <item>부산: 부산은행 장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.0%</item>
+        <item>최대 0.1%p</item>
+        <item>주택청약</item>
+        <item>연 0.1%p</item>
+        <item>부산은행 주택종합청약 저축을 만기일까지 유지한 경우</item>
+    </string-array>
+
+    <string-array name="infoArray10">
+        <item>경남: 경남은행 장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.0%</item>
+        <item>최대 0.1%p</item>
+        <item>주택청약</item>
+        <item>연 0.1%p</item>
+        <item>가입시 경남은행 주택종합청약 저축을 보유한 경우</item>
+    </string-array>
+
+    <string-array name="infoArray11">
+        <item>광주: 광주은행 장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.8%</item>
+        <item>5.0%</item>
+        <item>없음</item>
+        <item>해당사항 없음</item>
+    </string-array>
+
+    <string-array name="infoArray12">
+        <item>전북: 전북은행 장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.2%</item>
+        <item>없음</item>
+        <item>해당사항 없음</item>
+    </string-array>
+
+    <string-array name="infoArray13">
+        <item>제주: 제주은행 장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.0%</item>
+        <item>없음</item>
+        <item>해당사항 없음</item>
+    </string-array>
+
+    <string-array name="infoArray14">
+        <item>우체국: 우체국 장병내일준비적금</item>
+        <item>4.0%</item>
+        <item>4.5%</item>
+        <item>5.0%</item>
+        <item>최대 0.5%p</item>
+        <item>첫 거래</item>
+        <item>연 0.1%p</item>
+        <item>신규 가입일 현재 우체국예금 첫 거래 고객</item>
+        <item>우체국카드(신용/체크)</item>
+        <item>연 0.2%p</item>
+        <item>신규 가입일이 속한 월의 1일부터 3개월이 경과한 월의 말일까지 체크카드 월평균 5만원(총 20만원) 이상 이용</item>
+        <item>자동이체</item>
+        <item>연 0.2%p</item>
+        <item>우체국 수시입출식 예금에서 이 적금으로 월 1만원 이상 자동이체 약정을 하고 만기까지 납입 횟수가 50% 이상</item>
+    </string-array>
 </resources>
