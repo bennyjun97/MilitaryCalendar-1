@@ -45,6 +45,7 @@ class DepositFragment : Fragment() {
     private val today = LocalDate.now()
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
+    private var bankIndex = 0
     //private var arrayBankList = loadBankData(this.context!!)
 
     override fun onCreateView(
@@ -168,7 +169,8 @@ class DepositFragment : Fragment() {
                 val popupMenu = PopupMenu(activity, bankNameButton)
                 popupMenu.menuInflater.inflate(R.menu.bank_name_menu, popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener {
-                    bankNameButton.text = bankArr[bankArrButtons.indexOf(it.itemId)]
+                    bankIndex = bankArrButtons.indexOf(it.itemId)
+                    bankNameButton.text = bankArr[bankIndex]
                     true
                 }
                 popupMenu.show()
@@ -258,9 +260,39 @@ class DepositFragment : Fragment() {
 
                 val infoExit = popupInterestInfo.find<ImageButton>(R.id.infoExitButton)
 
+                // 바보식 테이블 채우기 ㅠㅠ 에바면 말해주삼 - 형빈
+                var item1 = popupInterestInfo.find<TextView>(R.id.item1)
+                var item2 = popupInterestInfo.find<TextView>(R.id.item2)
+                var item3 = popupInterestInfo.find<TextView>(R.id.item3)
+                var item4 = popupInterestInfo.find<TextView>(R.id.item4)
+                var item5 = popupInterestInfo.find<TextView>(R.id.item5)
+                var item6 = popupInterestInfo.find<TextView>(R.id.item6)
+                var item7 = popupInterestInfo.find<TextView>(R.id.item7)
+                var item8 = popupInterestInfo.find<TextView>(R.id.item8)
+                var item9 = popupInterestInfo.find<TextView>(R.id.item9)
+                var item10 = popupInterestInfo.find<TextView>(R.id.item10)
+                var item11 = popupInterestInfo.find<TextView>(R.id.item11)
+                var item12 = popupInterestInfo.find<TextView>(R.id.item12)
+                var item13 = popupInterestInfo.find<TextView>(R.id.item13)
+                var item14 = popupInterestInfo.find<TextView>(R.id.item14)
+                var item15 = popupInterestInfo.find<TextView>(R.id.item15)
+                var item16 = popupInterestInfo.find<TextView>(R.id.item16)
+                var item17 = popupInterestInfo.find<TextView>(R.id.item17)
+                var item18 = popupInterestInfo.find<TextView>(R.id.item18)
+                var item19 = popupInterestInfo.find<TextView>(R.id.item19)
+                var item20 = popupInterestInfo.find<TextView>(R.id.item20)
+                var itemArray: Array<TextView> = arrayOf(item1, item2, item3, item4, item5, item6, item7, item8,
+                    item9, item10, item11, item12, item13, item14, item15, item16, item17, item18, item19, item20)
+                val textArray = resources.getStringArray(R.array.infoArray1)
+                for(i in 0..(textArray.size - 1)){
+                    itemArray[i].text = textArray[i]
+                }
+
                 infoExit.setOnClickListener{
                     popupInfo.dismiss()
                 }
+
+
             }
             // cancel input
             interestPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
