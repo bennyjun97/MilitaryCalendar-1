@@ -106,7 +106,7 @@
                 android:text="초기화"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:id="@+id/offPostInitBtn"
+                android:id="@+id/InitBtn"
                 android:fontFamily="@font/lee_header_regular"
                 android:background="@drawable/register_button"
 
@@ -123,8 +123,8 @@
                 android:id="@+id/CancelBtn"
                 app:layout_constraintEnd_toStartOf="@+id/cancel" android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="@+id/init" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@+id/offPostInitBtn"
-                app:layout_constraintBottom_toBottomOf="@+id/offPostInitBtn"/>
+                app:layout_constraintTop_toTopOf="@+id/InitBtn"
+                app:layout_constraintBottom_toBottomOf="@+id/InitBtn"/>
         <Button
                 android:text="외출 등록"
                 android:layout_width="0dp"
@@ -132,8 +132,8 @@
                 android:fontFamily="@font/lee_header_regular"
                 android:background="@drawable/register_button"
                 android:id="@+id/RegisterBtn"
-                app:layout_constraintTop_toTopOf="@+id/offPostInitBtn"
-                app:layout_constraintBottom_toBottomOf="@+id/offPostInitBtn"
+                app:layout_constraintTop_toTopOf="@+id/InitBtn"
+                app:layout_constraintBottom_toBottomOf="@+id/InitBtn"
                 app:layout_constraintStart_toStartOf="@+id/cancel" android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/nameEdit" android:layout_marginEnd="8dp"/>
 
