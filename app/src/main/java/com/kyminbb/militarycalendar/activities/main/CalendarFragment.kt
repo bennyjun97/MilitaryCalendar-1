@@ -36,7 +36,6 @@ class CalendarFragment : Fragment() {
     var textSlots: Array<TextView> = arrayOf()
     var startSlot = 0
     var eventTextViewNum = 0
-    var leaveExist : MutableList<Boolean> = mutableListOf()
     var eventsinMonth : MutableList<TextView> = mutableListOf<TextView>()
     var daySelected = -1
     var memoTyped = ""
@@ -468,7 +467,7 @@ class CalendarFragment : Fragment() {
             slots[i].setBackgroundResource(0)
         }
 
-        //clearing textViews
+        //clearing eventTextViews
         if (eventTextViewNum != 0) {
             calendarLayout.removeView(eventsinMonth[0])
             if (eventTextViewNum >= 2)
@@ -479,9 +478,6 @@ class CalendarFragment : Fragment() {
             eventsinMonth.clear()
         }
         eventTextViewNum = 0
-
-        //clearing booleans
-        leaveExist.clear()
 
         //cloning just in case
         var cal = calendar
@@ -506,7 +502,6 @@ class CalendarFragment : Fragment() {
 
         //putting numbers for days
         for (i in 0..j) {
-            leaveExist.add(false)
             textSlots[position].text = cal.dayOfMonth.toString()
             position += 1
             cal = cal.plusDays(1)
@@ -514,7 +509,6 @@ class CalendarFragment : Fragment() {
 
         // circle on today
         // https://stackoverflow.com/questions/25203501/android-creating-a-circular-textview
-
         val today = LocalDate.now()
         if (cal2.year == today.year && cal2.monthValue == today.monthValue) {
             val todayposition = today.dayOfMonth + init - 1
@@ -528,12 +522,8 @@ class CalendarFragment : Fragment() {
         var startPosition = startDate.dayOfMonth + startSlot - 1
         var endPosition = endDate.dayOfMonth + startSlot - 1
         if(calendar.year != startDate.year || calendar.monthValue != startDate.monthValue) {
-            if(calendar.year != endDate.year || calendar.monthValue != endDate.monthValue) {
-                return
-            }
-            else {
-                startPosition = startSlot
-            }
+            if(calendar.year != endDate.year || calendar.monthValue != endDate.monthValue) { return }
+            else { startPosition = startSlot }
         }
         else {
             if (endDate.monthValue != startDate.monthValue) {
@@ -578,19 +568,19 @@ class CalendarFragment : Fragment() {
         constraintSet.connect(
             eventsinMonth[eventTextViewNum].id,
             ConstraintSet.TOP,
-            slots[endPos].id,
-            ConstraintSet.TOP
+            textSlots[endPos].id,
+            ConstraintSet.BOTTOM
         )
         constraintSet.constrainWidth(eventsinMonth[eventTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
         constraintSet.constrainHeight(eventsinMonth[eventTextViewNum].id, ConstraintSet.WRAP_CONTENT)
         constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.START, 4)
         constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.END, 4)
         when(type) {
-            "휴가" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.35f)
+            "휴가" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.05f)
                 eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.leave_textview_both_rounded) }
-            "당직" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.50f)
+            "당직" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.30f)
                 eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.duty_textview_both_rounded)}
-            "훈련" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.65f)
+            "훈련" -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.55f)
                 eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.exercise_textview_both_rounded)}
             else -> {constraintSet.setVerticalBias(eventsinMonth[eventTextViewNum].id, 0.80f)
                 eventsinMonth[eventTextViewNum].setBackgroundResource(R.drawable.personal_textview_both_rounded)}
@@ -600,12 +590,6 @@ class CalendarFragment : Fragment() {
         calendarLayout.addView(eventsinMonth[eventTextViewNum])
         constraintSet.applyTo(calendarLayout)
         eventTextViewNum++
-
-        if(type.equals("휴가")) {
-            for (index in startPos-startSlot..endPos-startSlot) {
-                leaveExist[index] = true
-            }
-        }
     }
 
     private fun addLeaveMenu(dbHelper: DBHelper) {
