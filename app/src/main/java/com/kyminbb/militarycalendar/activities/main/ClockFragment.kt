@@ -47,6 +47,9 @@ class ClockFragment: Fragment() {
         // set Text in the Top View
         nameText.text = userInfo.name
 
+        val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].atStartOfDay()
+        remainText.text = "전역까지 ${DateCalc.countDDay(etsDateTime)}"
+
         buttonEdit.setOnClickListener {
             startActivity<SettingActivity>()
         }
@@ -123,8 +126,8 @@ class ClockFragment: Fragment() {
                 val sec = (percentTotal * 864.0) % 60
                 textView.text = formatTime(hour.toInt(), min.toInt(), sec.toInt())
                 view.onTimeChanged(hour.toLong(), min.toLong())
-                remainText.text = "전역까지 ${DateCalc.countDDay(etsDateTime)}"
-                delay(100000)
+                //remainText.text = "전역까지 ${DateCalc.countDDay(etsDateTime)}"
+                delay(1000)
             }
         }
         if(!HomeActivity.isFirstPage){ job.cancel() }
@@ -139,7 +142,7 @@ class ClockFragment: Fragment() {
                 progressRankText.text = rankString
                 progressMonthRankText.text = rankString
                 progressMonthText.text = "${DateCalc.calcMonth(userInfo)}호봉"
-                delay(100000)
+                delay(1000)
             }
         }
         if (!HomeActivity.isFirstPage) {job.cancel()}
