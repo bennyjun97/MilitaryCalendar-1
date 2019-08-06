@@ -43,7 +43,7 @@
                 app:layout_constraintVertical_bias="1.0">
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/item1"
+                    android:layout_height="wrap_content" android:id="@+id/item01"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp" android:textColor="@color/black" android:textSize="18sp"
                     android:layout_marginTop="16dp" android:text="@string/shinhanTitle"/>
@@ -53,7 +53,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/item1" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/item01" android:layout_marginTop="8dp"
                     app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="1.0"
                     android:layout_marginBottom="16dp"
                     android:background="@color/GrayLight" app:layout_constraintBottom_toBottomOf="parent">
@@ -71,19 +71,19 @@
                                 android:text="@string/duration"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="4"
-                                android:textColor="@color/black" android:textSize="10sp"
+                                android:textColor="@color/black" android:textSize="12sp"
                                 android:background="@android:color/darker_gray" android:layout_marginBottom="4dp"/>
                         <TextView
                                 android:text="@string/baseRate"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="2"
-                                android:textColor="@color/black" android:textSize="10sp"
+                                android:textColor="@color/black" android:textSize="12sp"
                                 android:background="@android:color/darker_gray" android:layout_marginBottom="4dp"/>
                         <TextView
                                 android:text="@string/additionalRate"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3"
-                                android:textColor="@color/black" android:textSize="10sp"
+                                android:textColor="@color/black" android:textSize="12sp"
                                 android:background="@android:color/darker_gray" android:layout_marginBottom="4dp"/>
                     </TableRow>
                     <TableRow
@@ -93,16 +93,16 @@
                                 android:text="@string/sixMonths"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="4"
-                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
+                                android:textColor="@color/black" android:textSize="12sp" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="2"
-                                android:textColor="@color/black" android:textSize="10sp" android:id="@+id/item2"
+                                android:textColor="@color/black" android:textSize="12sp" android:id="@+id/item02"
                                 android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3"
-                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
+                                android:textColor="@color/black" android:textSize="12sp" android:paddingBottom="2dp"/>
                     </TableRow>
                     <TableRow
                             android:layout_width="match_parent"
@@ -111,18 +111,18 @@
                                 android:text="@string/twelveMonths"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="4" android:textColor="@color/black" android:textSize="10sp"
+                                android:layout_weight="4" android:textColor="@color/black" android:textSize="12sp"
                                 android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2" android:textColor="@color/black" android:textSize="10sp"
-                                android:id="@+id/item3" android:paddingBottom="2dp"/>
+                                android:layout_weight="2" android:textColor="@color/black" android:textSize="12sp"
+                                android:id="@+id/item03" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3" android:textColor="@color/black"
-                                android:textSize="10sp" android:id="@+id/item5" android:paddingBottom="2dp"/>
+                                android:textSize="12sp" android:id="@+id/item05" android:paddingBottom="2dp"/>
                     </TableRow>
                     <TableRow
                             android:layout_width="match_parent"
@@ -131,16 +131,16 @@
                                 android:text="@string/eighteenMonths"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="4"
-                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
+                                android:textColor="@color/black" android:textSize="12sp" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="2"
-                                android:textColor="@color/black" android:textSize="10sp" android:id="@+id/item4"
+                                android:textColor="@color/black" android:textSize="12sp" android:id="@+id/item04"
                                 android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" android:layout_weight="3"
-                                android:textColor="@color/black" android:textSize="10sp" android:paddingBottom="2dp"/>
+                                android:textColor="@color/black" android:textSize="12sp" android:paddingBottom="2dp"/>
                     </TableRow>
                     <TableRow
                             android:layout_width="match_parent"
@@ -155,19 +155,19 @@
                         <TextView
                                 android:text="@string/additionalType"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:background="@android:color/darker_gray"
                                 android:layout_marginBottom="4dp"/>
                         <TextView
                                 android:text="@string/additionalRate"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:background="@android:color/darker_gray"
                                 android:layout_marginBottom="4dp"/>
                         <TextView
                                 android:text="@string/standard"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="12sp"
                                 android:textColor="@color/black" android:background="@android:color/darker_gray"
                                 android:layout_marginBottom="4dp"/>
                     </TableRow>
@@ -177,16 +177,16 @@
                             android:layout_height="match_parent" android:id="@+id/row7">
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item6" android:paddingBottom="2dp"/>
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
+                                android:textColor="@color/black" android:id="@+id/item06" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item7" android:paddingBottom="2dp"/>
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
+                                android:textColor="@color/black" android:id="@+id/item07" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item8" android:paddingBottom="2dp"/>
+                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="12sp"
+                                android:textColor="@color/black" android:id="@+id/item08" android:paddingBottom="2dp"/>
                     </TableRow>
 
                     <TableRow
@@ -194,15 +194,15 @@
                             android:layout_height="match_parent" android:id="@+id/row8">
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
-                                android:textColor="@color/black" android:id="@+id/item9" android:paddingBottom="2dp"/>
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
+                                android:textColor="@color/black" android:id="@+id/item09" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item10" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item11" android:paddingBottom="2dp"/>
                     </TableRow>
 
@@ -211,15 +211,15 @@
                             android:layout_height="match_parent" android:id="@+id/row9">
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item12" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item13" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item14" android:paddingBottom="2dp"/>
                     </TableRow>
 
@@ -228,15 +228,15 @@
                             android:layout_height="match_parent" android:id="@+id/row10">
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item15" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item16" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item17" android:paddingBottom="2dp"/>
                     </TableRow>
 
@@ -245,15 +245,15 @@
                             android:layout_height="match_parent" android:id="@+id/row11">
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item18" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item19" android:paddingBottom="2dp"/>
                         <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="10sp"
+                                android:layout_height="wrap_content" android:layout_weight="3" android:textSize="12sp"
                                 android:textColor="@color/black" android:id="@+id/item20" android:paddingBottom="2dp"/>
                     </TableRow>
 
@@ -263,8 +263,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp" app:srcCompat="@drawable/adt_ic_warning"
                     android:id="@+id/infoExitButton"
-                    app:layout_constraintTop_toTopOf="@+id/item1"
-                    app:layout_constraintBottom_toBottomOf="@+id/item1" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/item01"
+                    app:layout_constraintBottom_toBottomOf="@+id/item01" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="16dp" android:background="@null" android:scaleType="fitCenter"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

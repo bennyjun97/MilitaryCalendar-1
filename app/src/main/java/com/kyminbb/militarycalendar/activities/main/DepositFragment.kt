@@ -6,6 +6,7 @@ import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
+import android.text.TextUtils.isEmpty
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -24,11 +25,13 @@ import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.add_deposit.*
+import kotlinx.android.synthetic.main.add_interest.view.*
 import kotlinx.android.synthetic.main.fragment_deposit.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.matchParent
 import org.threeten.bp.LocalDate
+import org.w3c.dom.Text
 import java.lang.Double.parseDouble
 import java.text.DecimalFormat
 
@@ -148,6 +151,7 @@ class DepositFragment : Fragment() {
             bankStartDateButton.text = DateCalc.localDateToString(bankInfo.startDate)
             bankEndDateButton.text = DateCalc.localDateToString(bankInfo.endDate)
             bankDepositAmountButton.text = bankInfo.monthDeposit
+            bankInterestButton.text = "${bankInfo.interest}%"
         }
 
         /* Add functionality to buttons */
@@ -168,12 +172,15 @@ class DepositFragment : Fragment() {
                 val popupMenu = PopupMenu(activity, bankNameButton)
                 popupMenu.menuInflater.inflate(R.menu.bank_name_menu, popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener {
+                    // initialize bankIndex -> to be used for interest information popup
                     bankIndex = bankArrButtons.indexOf(it.itemId)
                     bankNameButton.text = bankArr[bankIndex]
                     true
                 }
                 popupMenu.show()
             }
+        } else {
+            bankIndex = bankArr.indexOf(bankNameButton.text)
         }
         // input the date from spinnerDatePicker, default: today
         bankStartDateButton.setOnClickListener { setDate(bankStartDateButton) }
@@ -220,7 +227,9 @@ class DepositFragment : Fragment() {
             depositPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
             // save input
             depositPopUpSave.setOnClickListener {
-                bankDepositAmountButton.text = "${depositAmountEditText.text}원"
+                if(!isEmpty(depositAmountEditText.text)) {
+                    bankDepositAmountButton.text = "${depositAmountEditText.text}원"
+                }
                 popupDeposit.dismiss()
             }
         }
@@ -242,6 +251,7 @@ class DepositFragment : Fragment() {
             val interestPopUpInfo = popupDepositView.find<ImageButton>(R.id.interestPopUpInfo)
             val interestPopUpCancel = popupDepositView.find<Button>(R.id.interestPopUpCancel)
             val interestPopUpSave = popupDepositView.find<Button>(R.id.interestPopUpSave)
+            val depositInterestEditText = popupDepositView.find<EditText>(R.id.depositInterestEditText)
 
             // show info (은행 이자율 정보)
             interestPopUpInfo.setOnClickListener{
@@ -259,52 +269,12 @@ class DepositFragment : Fragment() {
 
                 val infoExit = popupInterestInfo.find<ImageButton>(R.id.infoExitButton)
 
-                // 바보식 테이블 채우기 ㅠㅠ 에바면 말해주삼 - 형빈
-                val item1 = popupInterestInfo.find<TextView>(R.id.item1)
-                val item2 = popupInterestInfo.find<TextView>(R.id.item2)
-                val item3 = popupInterestInfo.find<TextView>(R.id.item3)
-                val item4 = popupInterestInfo.find<TextView>(R.id.item4)
-                val item5 = popupInterestInfo.find<TextView>(R.id.item5)
-                val item6 = popupInterestInfo.find<TextView>(R.id.item6)
-                val item7 = popupInterestInfo.find<TextView>(R.id.item7)
-                val item8 = popupInterestInfo.find<TextView>(R.id.item8)
-                val item9 = popupInterestInfo.find<TextView>(R.id.item9)
-                val item10 = popupInterestInfo.find<TextView>(R.id.item10)
-                val item11 = popupInterestInfo.find<TextView>(R.id.item11)
-                val item12 = popupInterestInfo.find<TextView>(R.id.item12)
-                val item13 = popupInterestInfo.find<TextView>(R.id.item13)
-                val item14 = popupInterestInfo.find<TextView>(R.id.item14)
-                val item15 = popupInterestInfo.find<TextView>(R.id.item15)
-                val item16 = popupInterestInfo.find<TextView>(R.id.item16)
-                val item17 = popupInterestInfo.find<TextView>(R.id.item17)
-                val item18 = popupInterestInfo.find<TextView>(R.id.item18)
-                val item19 = popupInterestInfo.find<TextView>(R.id.item19)
-                val item20 = popupInterestInfo.find<TextView>(R.id.item20)
-
-                var itemArray: Array<TextView> = arrayOf(item1, item2, item3, item4, item5, item6, item7, item8,
-                    item9, item10, item11, item12, item13, item14, item15, item16, item17, item18, item19, item20)
-
-                // array의 array를 만들 수가 없어서 이렇게 했음 ㅠㅠ - 형빈
-                var textArray : Array<String> = arrayOf()
-                when(bankIndex) {
-                    0 -> {textArray = resources.getStringArray(R.array.infoArray1)}
-                    1 -> {textArray = resources.getStringArray(R.array.infoArray2)}
-                    2 -> {textArray = resources.getStringArray(R.array.infoArray3)}
-                    3 -> {textArray = resources.getStringArray(R.array.infoArray4)}
-                    4 -> {textArray = resources.getStringArray(R.array.infoArray5)}
-                    5 -> {textArray = resources.getStringArray(R.array.infoArray6)}
-                    6 -> {textArray = resources.getStringArray(R.array.infoArray7)}
-                    7 -> {textArray = resources.getStringArray(R.array.infoArray8)}
-                    8 -> {textArray = resources.getStringArray(R.array.infoArray9)}
-                    9 -> {textArray = resources.getStringArray(R.array.infoArray10)}
-                    10 -> {textArray = resources.getStringArray(R.array.infoArray11)}
-                    11 -> {textArray = resources.getStringArray(R.array.infoArray12)}
-                    12 -> {textArray = resources.getStringArray(R.array.infoArray13)}
-                    13 -> {textArray = resources.getStringArray(R.array.infoArray14)}
-                }
-                for(i in 0..(textArray.size - 1)){
-                    itemArray[i].text = textArray[i]
-                }
+                // initialize items(1~20) as popupView for infoPopUp
+                val itemArrayList : ArrayList<TextView> = arrayListOf()
+                for (item in 0 until 19) { itemArrayList.add(popupInterestInfo.find(R.id.item01 + item)) }
+                // get text array that matches bankIndex, save text
+                val textArray : Array<String> = resources.getStringArray(R.array.infoArray01 + bankIndex)
+                for(i in 0 until (textArray.size - 1)){ itemArrayList[i].text = textArray[i] }
 
                 infoExit.setOnClickListener{
                     popupInfo.dismiss()
@@ -316,6 +286,9 @@ class DepositFragment : Fragment() {
             interestPopUpCancel.setOnClickListener { popupDeposit.dismiss() }
             // save input
             interestPopUpSave.setOnClickListener {
+                if (!isEmpty(depositInterestEditText.text)) {
+                    bankInterestButton.text = "${depositInterestEditText.text}%"
+                }
                 popupDeposit.dismiss()
             }
         }
@@ -325,8 +298,7 @@ class DepositFragment : Fragment() {
         // create an arrayList of info-buttons for convenience
         val buttonArr = arrayOf(
             bankNameButton, bankStartDateButton, bankEndDateButton,
-            bankDepositAmountButton
-            //bankInterestButton
+            bankDepositAmountButton, bankInterestButton
         )
         // init
         bankInitButton.setOnClickListener {
@@ -351,22 +323,25 @@ class DepositFragment : Fragment() {
         // register
         bankRegisterButton.setOnClickListener {
             var complete = true
-            for (infoButton in buttonArr) { complete = complete && infoButton.text != "" }
+            for (infoButton in buttonArr) { complete = complete && (!isEmpty(infoButton.text))}
             if (!complete) {
                 DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
             }
+            // when input deposit amount is 0
+            else if (buttonArr[3].text == ("0원")){
+                DynamicToast.makeError(activity!!.applicationContext, "입금하시는 금액은 0원일 수 없습니다!").show()
+            }
             else {
+                // get texts in each buttons in popup and make a Bank object
                 val bankToBeSaved = Bank(
-                    bankNameButton.text.toString(), //LocalDate.now(), LocalDate.now(),
+                    bankNameButton.text.toString(),
                     LocalDate.parse(bankStartDateButton.text),
                     LocalDate.parse(bankEndDateButton.text),
                     bankDepositAmountButton.text.toString(),
-                    0.0
-                    //parseDouble(bankInterestButton.text.toString())
+                    parseDouble(bankInterestButton.text.toString().removeSuffix("%"))
                 )
 
                 saveBankData(activity!!.applicationContext, bankToBeSaved, this.view!!, bankRecyclerView)
-                //loadBankData(activity!!.applicationContext)
                 updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
                 for (infoButton in buttonArr)
                     infoButton.text = ""
@@ -410,7 +385,6 @@ class DepositFragment : Fragment() {
             prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
             prefsEditor.apply()
         }
-
     }
 
     private fun loadBankData(context: Context): ArrayList<Bank> {

@@ -30,9 +30,10 @@
             app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="1.0">
 
         <EditText
+                android:hint="@string/interestHint"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned"
+                android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/depositInterestEditText"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"

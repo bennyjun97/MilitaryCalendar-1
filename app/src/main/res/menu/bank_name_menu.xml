@@ -24,7 +24,7 @@
           android:title="@string/bankGwangjuText" />
     <item android:id="@+id/bankJeonbook"
           android:title="@string/bankJeonbookText" />
-    <item android:id="@+id/bankJejuText"
+    <item android:id="@+id/bankJeju"
           android:title="@string/bankJejuText" />
     <item android:id="@+id/bankPostOffice"
           android:title="@string/bankPostOfficeText" />
