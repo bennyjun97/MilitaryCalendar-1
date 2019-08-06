@@ -128,12 +128,16 @@
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:gravity="bottom|start">
+
                         <TextView
-                                android:text="@string/bankStatusScore"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:id="@+id/depositScore"
-                                android:layout_weight="20" android:textSize="48sp"
-                                android:textColor="@color/horizontalProgressbarRed"/>
+                            android:id="@+id/depositScore"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20"
+                            android:gravity="center_horizontal"
+                            android:text="@string/bankStatusScore"
+                            android:textColor="@color/horizontalProgressbarRed"
+                            android:textSize="48sp" />
                         <TextView
                                 android:text="@string/bankStatusScoreText"
                                 android:layout_width="0dp"

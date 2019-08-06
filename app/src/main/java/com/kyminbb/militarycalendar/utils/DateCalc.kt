@@ -59,7 +59,10 @@ object DateCalc {
         ).toInt() + 1
     }
 
-
+    fun calcDepositMonth(startDate: LocalDate, endDate: LocalDate) : Int {
+        //return (1 + 12 *(endDate.year - startDate.year) + endDate.monthValue - startDate.monthValue)
+        return 1 + ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1).atStartOfDay(), endDate.atStartOfDay()).toInt()
+    }
     fun rankIncome(userInfo: User) = when(userInfo.rank) {
         0 -> 306100
         1 -> 331300
