@@ -185,7 +185,7 @@
     <string name="additionalRate">우대금리</string>
     <string name="sixMonths">6개월 이상</string>
     <string name="twelveMonths">12개월 이상</string>
-    <string name="eighteenMonths">18개월 이상, 24개월 이하</string>
+    <string name="eighteenMonths">18개월 이상,\n24개월 이하</string>
     <string name="additionalType">우대금리항목</string>
     <string name="standard">기준</string>
 
@@ -245,7 +245,7 @@
         <item>실적인정기간 동안 우리카드(체크/신용) 결제계좌를 우리은행 입출식 계좌로 지정한 후, 매월 카드 결제실적 보유</item>
         <item>자동이체</item>
         <item>연 0.3%p</item>
-        <item>우리은행 입출식 계좌에서 매월 자동이체를 통해 실적인정기간의 1/2 기간 이상 이 적금으로 적립한 경우</item>
+        <item>우리은행 입출식 계좌에서 매월 자동이체를 통해 실적인정기간의 ½ 기간 이상 이 적금으로 적립한 경우</item>
     </string-array>
 
     <string-array name="infoArray04">
