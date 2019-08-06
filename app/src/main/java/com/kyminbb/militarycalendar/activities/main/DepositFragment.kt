@@ -3,6 +3,7 @@ package com.kyminbb.militarycalendar.activities.main
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -27,9 +28,7 @@ import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.add_deposit.*
 import kotlinx.android.synthetic.main.add_interest.view.*
 import kotlinx.android.synthetic.main.fragment_deposit.*
-import org.jetbrains.anko.find
-import org.jetbrains.anko.layoutInflater
-import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.*
 import org.threeten.bp.LocalDate
 import org.w3c.dom.Text
 import java.lang.Double.parseDouble
@@ -338,14 +337,13 @@ class DepositFragment : Fragment() {
             else {
                 // get texts in each buttons in popup and make a Bank object
                 val bankToBeSaved = Bank(
-                    bankNameButton.text.toString(),
-                    LocalDate.parse(bankStartDateButton.text),
-                    LocalDate.parse(bankEndDateButton.text),
-                    bankDepositAmountButton.text.toString()
-                        .removeSuffix("원")
-                        //.removePrefix("월 ")
-                        .replace(",","", false).toInt(),
-                    parseDouble(bankInterestButton.text.toString().removeSuffix("%"))
+                        bankNameButton.text.toString(),
+                        LocalDate.parse(bankStartDateButton.text),
+                        LocalDate.parse(bankEndDateButton.text),
+                        bankDepositAmountButton.text.toString()
+                                .removeSuffix("원")
+                                .replace(",","", false).toInt(),
+                        parseDouble(bankInterestButton.text.toString().removeSuffix("%"))
                 )
 
                 saveBankData(activity!!.applicationContext, bankToBeSaved, this.view!!, bankRecyclerView)
@@ -427,7 +425,7 @@ class DepositFragment : Fragment() {
 
         monthlySum = 0
         for (i in 0 until arrayBankList.size){ monthlySum += arrayBankList[i].monthDeposit }
-        totalMonthlyDeposit.text = "월 총 ${decimalFormat.format(monthlySum)}원"
+        totalMonthlyDeposit.text = "월별 총 ${decimalFormat.format(monthlySum)}원"
 
         // when edit/delete button is onClicked
         adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
@@ -455,18 +453,21 @@ class DepositFragment : Fragment() {
         val rankIncome = DateCalc.rankIncome(userInfo)
         val depositPercent = 100.0f * monthlySum/rankIncome
         val score = when (depositPercent.toInt()) {
-            in 0 .. 30 -> "C"
+            0 -> "?"
+            in 1 .. 30 -> "C"
             in 30 .. 50 -> "B"
             in 50 .. 70 -> "A"
             else -> "S"
         }
         val scoreColor = when (score) {
+            "?" -> R.color.buttonColor3
             "C" -> R.color.dateButtons
             "B" -> R.color.horizontalProgressbarGreen
             "A" -> R.color.horizontalProgressbarBlue
             else -> R.color.horizontalProgressbarRed
         }
         val scoreText = when (score) {
+            "?" -> "적금을 안드셨군요!"
             "C" -> "적당하군요!"
             "B" -> "좋아요!"
             "A" -> "훌륭해요!"
@@ -477,12 +478,24 @@ class DepositFragment : Fragment() {
         val depositPercentFormatted = "%.2f".format(depositPercent)
 
         depositScore.text = score
-        depositScore.setTextColor(scoreColor)
+        depositScore.textColorResource = when (score) {
+            "?" -> R.color.buttonColor3
+            "C" -> R.color.CoolBrownDark
+            "B" -> R.color.horizontalProgressbarGreen
+            "A" -> R.color.horizontalProgressbarBlue
+            else -> R.color.horizontalProgressbarRed
+        }
+        /*depositScore.textColor = when (score) {
+            "C" ->
+            "B" -> R.color.horizontalProgressbarGreen
+            "A" -> Color.RED
+            else -> R.color.horizontalProgressbarRed
+        }*/
         depositScoreText.text = scoreText
         depositScoreDetailPercent.text =
             "월급의 ${depositPercentFormatted}%를 저금 중입니다!"
         depositScoreDetailAmount.text =
-            "(${rankString} 월급 ${rankIncomeFormatted} 중 적금 ${monthlySum}원)"
+            "(${rankString} 월급 ${rankIncomeFormatted} 중 적금 ${decimalFormat.format(monthlySum)}원)"
     }
 }
 
