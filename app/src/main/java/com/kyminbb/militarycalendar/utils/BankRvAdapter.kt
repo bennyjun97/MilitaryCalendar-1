@@ -73,7 +73,7 @@ class BankRvAdapter(val context: Context, val bankList: ArrayList<Bank>) :
                     bank.monthDeposit * DateCalc.calcDepositMonth(bank.startDate, LocalDate.now())
             /* Textview 와 String data를 연결한다 */
             bankItemName?.text = bank.bankName
-            bankItemTotalDeposit?.text = "총 ${decimalFormat.format(bankTotalDeposit)}원"
+            bankItemTotalDeposit?.text = "총 ${decimalFormat.format(bank.bankTotalDeposit)}원"
             bankItemMonthDeposit?.text = "월 ${decimalFormat.format(bank.monthDeposit)}원"
         }
     }

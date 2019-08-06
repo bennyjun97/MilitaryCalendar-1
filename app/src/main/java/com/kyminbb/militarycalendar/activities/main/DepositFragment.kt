@@ -51,6 +51,7 @@ class DepositFragment : Fragment() {
     private var temp = ""
     private var bankIndex = 0
     private var monthlySum = 0
+    private var bankTotalSum = 0
     //private var arrayBankList = loadBankData(this.context!!)
 
     override fun onCreateView(
@@ -343,7 +344,11 @@ class DepositFragment : Fragment() {
                         bankDepositAmountButton.text.toString()
                                 .removeSuffix("원")
                                 .replace(",","", false).toInt(),
-                        parseDouble(bankInterestButton.text.toString().removeSuffix("%"))
+                        parseDouble(bankInterestButton.text.toString().removeSuffix("%")),
+                        bankDepositAmountButton.text.toString()
+                                .removeSuffix("원")
+                                .replace(",","", false).toInt()
+                                * DateCalc.calcDepositMonth(LocalDate.parse(bankStartDateButton.text), LocalDate.now())
                 )
 
                 saveBankData(activity!!.applicationContext, bankToBeSaved, this.view!!, bankRecyclerView)
@@ -421,11 +426,19 @@ class DepositFragment : Fragment() {
         view.layoutManager = lm
         view.setHasFixedSize(true)
 
-        // sum all monthly deposit
-
-        monthlySum = 0
-        for (i in 0 until arrayBankList.size){ monthlySum += arrayBankList[i].monthDeposit }
+        // update deposit information
+        monthlySum = 0; bankTotalSum = 0
+        for (i in 0 until arrayBankList.size){
+            // update bankTotalDeposit
+            arrayBankList[i].bankTotalDeposit =
+                    arrayBankList[i].monthDeposit * DateCalc.calcDepositMonth(arrayBankList[i].startDate, LocalDate.now())
+            // sum all monthly deposit
+            monthlySum += arrayBankList[i].monthDeposit
+            // sum all bankTotalDeposit
+            bankTotalSum += arrayBankList[i].bankTotalDeposit
+        }
         totalMonthlyDeposit.text = "월별 총 ${decimalFormat.format(monthlySum)}원"
+        totalDeposit.text = "총 ${decimalFormat.format(bankTotalSum)}원"
 
         // when edit/delete button is onClicked
         adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
@@ -459,21 +472,6 @@ class DepositFragment : Fragment() {
             in 50 .. 70 -> "A"
             else -> "S"
         }
-        val scoreColor = when (score) {
-            "?" -> R.color.buttonColor3
-            "C" -> R.color.dateButtons
-            "B" -> R.color.horizontalProgressbarGreen
-            "A" -> R.color.horizontalProgressbarBlue
-            else -> R.color.horizontalProgressbarRed
-        }
-        val scoreText = when (score) {
-            "?" -> "적금을 안드셨군요!"
-            "C" -> "적당하군요!"
-            "B" -> "좋아요!"
-            "A" -> "훌륭해요!"
-            else -> "정말 대단해요!"
-        }
-
         val rankIncomeFormatted = decimalFormat.format(rankIncome) + "원"
         val depositPercentFormatted = "%.2f".format(depositPercent)
 
@@ -485,13 +483,13 @@ class DepositFragment : Fragment() {
             "A" -> R.color.horizontalProgressbarBlue
             else -> R.color.horizontalProgressbarRed
         }
-        /*depositScore.textColor = when (score) {
-            "C" ->
-            "B" -> R.color.horizontalProgressbarGreen
-            "A" -> Color.RED
-            else -> R.color.horizontalProgressbarRed
-        }*/
-        depositScoreText.text = scoreText
+        depositScoreText.text = when (score) {
+            "?" -> "적금을 안드셨군요!"
+            "C" -> "적당하군요!"
+            "B" -> "좋아요!"
+            "A" -> "훌륭해요!"
+            else -> "정말 대단해요!"
+        }
         depositScoreDetailPercent.text =
             "월급의 ${depositPercentFormatted}%를 저금 중입니다!"
         depositScoreDetailAmount.text =

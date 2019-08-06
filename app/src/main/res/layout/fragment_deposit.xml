@@ -87,7 +87,7 @@
                         <TextView
                                 android:text="@string/bankTotalDeposit"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" android:id="@+id/textView21"
+                                android:layout_height="wrap_content" android:id="@+id/totalDeposit"
                                 android:layout_weight="1" android:textSize="24sp"
                                 android:gravity="center_vertical|end"/>
                     </LinearLayout>
