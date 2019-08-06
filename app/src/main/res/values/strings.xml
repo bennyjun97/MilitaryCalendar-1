@@ -146,6 +146,7 @@
     <string name="bankPostOfficeText">우체국은행</string>
     <string name="bankMyDepositText">내 적금</string>
     <string name="bankTotalDeposit">총 3,200,000원</string>
+    <string name="bankTotalMonthlyDeposit">월 300,000원</string>
     <string name="bankByBankDeposit">1,000,000원</string>
     <string name="bankMonthDeposit">월 150,000원</string>
     <string name="bankStatusHeaderText">이번 달 나의 적금 점수</string>

@@ -144,7 +144,7 @@ class DepositFragment : Fragment() {
 
         /* if mode is unique, then just show the end date as 전역일
         *  if mode is edit, then show the data stored */
-        if (position in 0 until 13) {
+        if (position in 0 until 14) {
             popupTitle.text = "은행 정보 수정하기"
             val bankInfo = loadBankData(this.context!!)[position]
             bankNameButton.text = bankInfo.bankName
@@ -209,7 +209,7 @@ class DepositFragment : Fragment() {
             val watcher = object : TextWatcher {
                 override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    if (!TextUtils.isEmpty(charSequence.toString()) && charSequence.toString() != temp) {
+                    if (!isEmpty(charSequence.toString()) && charSequence.toString() != temp) {
                         temp = decimalFormat.format(
                             parseDouble(
                                 charSequence.toString().replace(",".toRegex(), "")
@@ -271,10 +271,10 @@ class DepositFragment : Fragment() {
 
                 // initialize items(1~20) as popupView for infoPopUp
                 val itemArrayList : ArrayList<TextView> = arrayListOf()
-                for (item in 0 until 19) { itemArrayList.add(popupInterestInfo.find(R.id.item01 + item)) }
+                for (item in 0 until 20) { itemArrayList.add(popupInterestInfo.find(R.id.item01 + item)) }
                 // get text array that matches bankIndex, save text
                 val textArray : Array<String> = resources.getStringArray(R.array.infoArray01 + bankIndex)
-                for(i in 0 until (textArray.size - 1)){ itemArrayList[i].text = textArray[i] }
+                for(i in 0 until textArray.size ){ itemArrayList[i].text = textArray[i] }
 
                 infoExit.setOnClickListener{
                     popupInfo.dismiss()
@@ -338,6 +338,7 @@ class DepositFragment : Fragment() {
                     LocalDate.parse(bankStartDateButton.text),
                     LocalDate.parse(bankEndDateButton.text),
                     bankDepositAmountButton.text.toString(),
+                        //.removeSuffix("원").replace(",","", ignoreCase = false).toInt(),
                     parseDouble(bankInterestButton.text.toString().removeSuffix("%"))
                 )
 
@@ -417,6 +418,18 @@ class DepositFragment : Fragment() {
         view.layoutManager = lm
         view.setHasFixedSize(true)
 
+        // sum all monthly deposit
+        var temp = ""
+        var sum = 0
+        for (i in 0 until arrayBankList.size){
+            sum += arrayBankList[i].monthDeposit
+                .removeSuffix("원")
+                .replace(",","", false).toInt()
+        }
+        temp = decimalFormat.format(sum)
+        totalMonthlyDeposit.text = "월 총 ${temp}원"
+
+        // when edit/delete button is onClicked
         adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
                 val popupEditMenu = PopupMenu(context, v)

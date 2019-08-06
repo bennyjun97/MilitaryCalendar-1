@@ -91,6 +91,11 @@
                                 android:layout_weight="1" android:textSize="24sp"
                                 android:gravity="center_vertical|end"/>
                     </LinearLayout>
+                    <TextView
+                            android:text="@string/bankTotalMonthlyDeposit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/totalMonthlyDeposit"
+                            android:gravity="center_vertical|end" app:autoSizeTextType="uniform"/>
                     <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/bankRecyclerView"
@@ -126,25 +131,25 @@
                         <TextView
                                 android:text="@string/bankStatusScore"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:id="@+id/textView16"
+                                android:layout_height="wrap_content" android:id="@+id/depositScore"
                                 android:layout_weight="20" android:textSize="48sp"
                                 android:textColor="@color/horizontalProgressbarRed"/>
                         <TextView
                                 android:text="@string/bankStatusScoreText"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" android:id="@+id/textView15"
+                                android:layout_height="wrap_content" android:id="@+id/depositScoreText"
                                 android:layout_weight="80" android:textSize="30sp"/>
                     </LinearLayout>
                     <TextView
                             android:layout_marginTop="@dimen/large_vertical"
                             android:text="@string/bankStatusMonthlyRatio"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" android:id="@+id/textView17"/>
+                            android:layout_height="wrap_content" android:id="@+id/depositScoreDetailPercent"/>
                     <TextView
                             android:layout_marginTop="@dimen/large_vertical"
                             android:text="@string/bankStatusMontlyRatioDescription"
                             android:layout_width="match_parent"
-                            android:layout_height="68dp" android:id="@+id/textView18"/>
+                            android:layout_height="68dp" android:id="@+id/depositScoreDetailAmount"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
