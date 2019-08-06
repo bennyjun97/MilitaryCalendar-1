@@ -34,6 +34,8 @@ import org.threeten.bp.LocalDate
 import org.w3c.dom.Text
 import java.lang.Double.parseDouble
 import java.text.DecimalFormat
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 class DepositFragment : Fragment() {
 
@@ -49,6 +51,7 @@ class DepositFragment : Fragment() {
     private val decimalFormat = DecimalFormat("#,###")
     private var temp = ""
     private var bankIndex = 0
+    private var monthlySum = 0
     //private var arrayBankList = loadBankData(this.context!!)
 
     override fun onCreateView(
@@ -62,7 +65,7 @@ class DepositFragment : Fragment() {
     /**
      * onViewCreated is divided into 4 parts of code -> to be restructured later.
      * 1. Implementing Monthly Deposit(적금) information
-     * 2. Implementing Monthly Graph
+     * 2. Implementing Predicted Earnings
      * 3. Implementing current well-being(적금이 잘 이루어지는지에 대한 평가)
      * 4. Implementing addButton on the top-right corner
      */
@@ -74,8 +77,9 @@ class DepositFragment : Fragment() {
         loadBankData(activity!!.applicationContext)
         updateRecyclerView(activity!!.applicationContext, bankRecyclerView)
 
-        /** Implement Monthly Graph **/
+        /** Implement Predicted Earnings **/
         /** Implement Current Well-Being **/
+        updateScoreView()
 
         /** Implement addButton on the top-right corner */
         // Add new deposit information
@@ -150,7 +154,7 @@ class DepositFragment : Fragment() {
             bankNameButton.text = bankInfo.bankName
             bankStartDateButton.text = DateCalc.localDateToString(bankInfo.startDate)
             bankEndDateButton.text = DateCalc.localDateToString(bankInfo.endDate)
-            bankDepositAmountButton.text = bankInfo.monthDeposit
+            bankDepositAmountButton.text = "${decimalFormat.format(bankInfo.monthDeposit)}원"
             bankInterestButton.text = "${bankInfo.interest}%"
         }
 
@@ -337,8 +341,10 @@ class DepositFragment : Fragment() {
                     bankNameButton.text.toString(),
                     LocalDate.parse(bankStartDateButton.text),
                     LocalDate.parse(bankEndDateButton.text),
-                    bankDepositAmountButton.text.toString(),
-                        //.removeSuffix("원").replace(",","", ignoreCase = false).toInt(),
+                    bankDepositAmountButton.text.toString()
+                        .removeSuffix("원")
+                        //.removePrefix("월 ")
+                        .replace(",","", false).toInt(),
                     parseDouble(bankInterestButton.text.toString().removeSuffix("%"))
                 )
 
@@ -377,7 +383,6 @@ class DepositFragment : Fragment() {
             popupHasBankRegister.setOnClickListener {
                 prefsEditor.putString(BANK_PREF_PREFIX_KEY + inputBank.bankName.hashCode(), jsonString)
                 prefsEditor.apply()
-                //loadBankData(context)
                 updateRecyclerView(context, recyclerView)
                 popupHasBank.dismiss()
             }
@@ -419,15 +424,10 @@ class DepositFragment : Fragment() {
         view.setHasFixedSize(true)
 
         // sum all monthly deposit
-        var temp = ""
-        var sum = 0
-        for (i in 0 until arrayBankList.size){
-            sum += arrayBankList[i].monthDeposit
-                .removeSuffix("원")
-                .replace(",","", false).toInt()
-        }
-        temp = decimalFormat.format(sum)
-        totalMonthlyDeposit.text = "월 총 ${temp}원"
+
+        monthlySum = 0
+        for (i in 0 until arrayBankList.size){ monthlySum += arrayBankList[i].monthDeposit }
+        totalMonthlyDeposit.text = "월 총 ${decimalFormat.format(monthlySum)}원"
 
         // when edit/delete button is onClicked
         adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
@@ -447,6 +447,42 @@ class DepositFragment : Fragment() {
                 popupEditMenu.show()
             }
         })
+        updateScoreView()
+    }
+
+    private fun updateScoreView() {
+        val rankString = DateCalc.rankString(userInfo.rank, userInfo.affiliation)
+        val rankIncome = DateCalc.rankIncome(userInfo)
+        val depositPercent = 100.0f * monthlySum/rankIncome
+        val score = when (depositPercent.toInt()) {
+            in 0 .. 30 -> "C"
+            in 30 .. 50 -> "B"
+            in 50 .. 70 -> "A"
+            else -> "S"
+        }
+        val scoreColor = when (score) {
+            "C" -> R.color.dateButtons
+            "B" -> R.color.horizontalProgressbarGreen
+            "A" -> R.color.horizontalProgressbarBlue
+            else -> R.color.horizontalProgressbarRed
+        }
+        val scoreText = when (score) {
+            "C" -> "적당하군요!"
+            "B" -> "좋아요!"
+            "A" -> "훌륭해요!"
+            else -> "정말 대단해요!"
+        }
+
+        val rankIncomeFormatted = decimalFormat.format(rankIncome) + "원"
+        val depositPercentFormatted = "%.2f".format(depositPercent)
+
+        depositScore.text = score
+        depositScore.setTextColor(scoreColor)
+        depositScoreText.text = scoreText
+        depositScoreDetailPercent.text =
+            "월급의 ${depositPercentFormatted}%를 저금 중입니다!"
+        depositScoreDetailAmount.text =
+            "(${rankString} 월급 ${rankIncomeFormatted} 중 적금 ${monthlySum}원)"
     }
 }
 

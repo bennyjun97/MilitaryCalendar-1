@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kyminbb.militarycalendar.R
 import kotlinx.android.synthetic.main.recycler_view_item.*
 import org.jetbrains.anko.imageResource
+import java.text.DecimalFormat
 
 
 class BankRvAdapter(val context: Context, val bankList: ArrayList<Bank>) :
     RecyclerView.Adapter<BankRvAdapter.Holder>() {
+
+    private val decimalFormat = DecimalFormat("#,###")
 
     interface OnItemClickListener {
         fun onItemClick(v: View, position: Int)
@@ -67,8 +70,8 @@ class BankRvAdapter(val context: Context, val bankList: ArrayList<Bank>) :
             bankItemSetting?.imageResource = R.drawable.small_menu_button
             /* Textview 와 String data를 연결한다 */
             bankItemName?.text = bank.bankName
-            bankItemTotalDeposit?.text = "총 ${bank.monthDeposit}"
-            bankItemMonthDeposit?.text = "월 ${bank.monthDeposit}"
+            bankItemTotalDeposit?.text = "총 ${decimalFormat.format(bank.monthDeposit)}원"
+            bankItemMonthDeposit?.text = "월 ${decimalFormat.format(bank.monthDeposit)}원"
         }
     }
 

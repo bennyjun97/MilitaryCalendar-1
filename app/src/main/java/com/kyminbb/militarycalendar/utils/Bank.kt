@@ -8,6 +8,6 @@ data class Bank(
     var bankName: String = "",
     var startDate: LocalDate = Calendar.getInstance().toLocalDate(),
     var endDate: LocalDate = Calendar.getInstance().toLocalDate(),
-    var monthDeposit: String = "",
+    var monthDeposit: Int = 0,
     var interest: Double = 0.0
 )

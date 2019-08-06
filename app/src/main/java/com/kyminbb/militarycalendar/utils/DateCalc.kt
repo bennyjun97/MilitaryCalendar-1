@@ -59,6 +59,14 @@ object DateCalc {
         ).toInt() + 1
     }
 
+
+    fun rankIncome(userInfo: User) = when(userInfo.rank) {
+        0 -> 306100
+        1 -> 331300
+        2 -> 366200
+        else -> 405700
+    }
+
     fun entirePercent(enlistDateTime: LocalDateTime, etsDateTime: LocalDateTime): Double {
         val now = LocalDateTime.now()
         if (now.isAfter(etsDateTime)) {
