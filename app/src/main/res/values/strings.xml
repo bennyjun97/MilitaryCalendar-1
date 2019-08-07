@@ -81,6 +81,7 @@
 
     <!-- profile setting -->
     <string name="profileHeader">출사표</string>
+    <string name="profileHeaderEdit">출사표 수정</string>
     <string name="profileNameHint">이름/별명</string>
     <string name="profilePromotion">군별</string>
     <string name="profileEnlistDate">입대일</string>

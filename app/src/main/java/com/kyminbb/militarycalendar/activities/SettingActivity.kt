@@ -54,6 +54,13 @@ class SettingActivity : AppCompatActivity() {
         AndroidThreeTen.init(this)
         setContentView(R.layout.activity_setting)
 
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        val firstStart = prefs.getBoolean("firstStart", true)
+
+        if (!firstStart) {
+            titleSetting?.setText(resources.getString(R.string.profileHeaderEdit))
+        }
+
         val dateInputs = arrayOf(inputEnlist, privateDate, corporalDate, sergeantDate, inputEnd)
 
         loadData(dateInputs)
