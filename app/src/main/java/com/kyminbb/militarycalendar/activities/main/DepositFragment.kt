@@ -332,6 +332,13 @@ class DepositFragment : Fragment() {
                 DynamicToast.makeError(activity!!.applicationContext, "정보입력이 완료되지 않았습니다!").show()
             }
             // when input deposit amount is 0
+            else if (
+                DateCalc.calcDepositMonth(
+                    LocalDate.parse(bankStartDateButton.text),
+                    LocalDate.parse(bankEndDateButton.text)
+                ) < 6) {
+                DynamicToast.makeError(activity!!.applicationContext, "적금 가능 기간은\n만기일로부터 최소 6개월입니다!").show()
+            }
             else if (buttonArr[3].text == ("0원")){
                 DynamicToast.makeError(activity!!.applicationContext, "입금하시는 금액은 0원일 수 없습니다!").show()
             }
