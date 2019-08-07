@@ -52,6 +52,7 @@ class DepositFragment : Fragment() {
     private var bankIndex = 0
     private var monthlySum = 0
     private var bankTotalSum = 0
+    private var totalInterest = 0
     //private var arrayBankList = loadBankData(this.context!!)
 
     override fun onCreateView(
@@ -434,18 +435,25 @@ class DepositFragment : Fragment() {
         view.setHasFixedSize(true)
 
         // update deposit information
-        monthlySum = 0; bankTotalSum = 0
+        monthlySum = 0; bankTotalSum = 0; totalInterest = 0;
         for (i in 0 until arrayBankList.size){
             // update bankTotalDeposit
             arrayBankList[i].bankTotalDeposit =
-                    arrayBankList[i].monthDeposit * DateCalc.calcDepositMonth(arrayBankList[i].startDate, LocalDate.now())
+                arrayBankList[i].monthDeposit *
+                        DateCalc.calcDepositMonth(arrayBankList[i].startDate, LocalDate.now())
             // sum all monthly deposit
             monthlySum += arrayBankList[i].monthDeposit
             // sum all bankTotalDeposit
             bankTotalSum += arrayBankList[i].bankTotalDeposit
+            // calculate predicted interest
+            totalInterest += (arrayBankList[i].monthDeposit
+                    * DateCalc.calcDepositMonth(arrayBankList[i].startDate, arrayBankList[i].endDate)
+                    * arrayBankList[i].interest/100)
+                .toInt()
         }
         totalMonthlyDeposit.text = "월별 총 ${decimalFormat.format(monthlySum)}원"
         totalDeposit.text = "총 ${decimalFormat.format(bankTotalSum)}원"
+        expectedInterest.text = "예상되는 총 수확 ${decimalFormat.format(totalInterest)}원"
 
         // when edit/delete button is onClicked
         adapter.setOnItemClickListener(object :BankRvAdapter.OnItemClickListener {
@@ -498,7 +506,7 @@ class DepositFragment : Fragment() {
             else -> "정말 대단해요!"
         }
         depositScoreDetailPercent.text =
-            "월급의 ${depositPercentFormatted}%를 저금 중입니다!"
+            "월급의 $depositPercentFormatted%를 저금 중입니다!"
         depositScoreDetailAmount.text =
             "(${rankString} 월급 ${rankIncomeFormatted} 중 적금 ${decimalFormat.format(monthlySum)}원)"
     }
