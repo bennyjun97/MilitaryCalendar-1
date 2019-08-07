@@ -25,8 +25,7 @@ import org.threeten.bp.LocalDate
 import java.text.SimpleDateFormat
 import java.util.*
 import android.view.View.OnLongClickListener
-
-
+import org.jetbrains.anko.textColorResource
 
 
 class CalendarFragment : Fragment() {
@@ -166,7 +165,6 @@ class CalendarFragment : Fragment() {
 
             // when the day is longClicked
             slots[i].setOnLongClickListener{ view ->
-                Toast.makeText(context, "long-pressed", Toast.LENGTH_SHORT).show()
                 dayLayoutPopUp(
                     dbHelper,
                     date2String(
@@ -530,6 +528,8 @@ class CalendarFragment : Fragment() {
         //putting numbers for days
         for (i in 0..j) {
             textSlots[position].text = cal.dayOfMonth.toString()
+            if(position % 7 == 0) textSlots[position].textColorResource = R.color.horizontalProgressbarRed
+            if(position % 7 == 6) textSlots[position].textColorResource = R.color.horizontalProgressbarBlue
             position += 1
             cal = cal.plusDays(1)
         }
@@ -688,7 +688,6 @@ class CalendarFragment : Fragment() {
             memoPopUp(memoTyped)
         }
 
-
         if(type.equals("외출")) {
             buttonInit.setOnClickListener {
                 startSchedule.text = ""; nameInput.text = null
@@ -784,6 +783,7 @@ class CalendarFragment : Fragment() {
             }
         }
     }
+
     private fun changeTextsForAdding(view: View, type: String) {
         val title = view.find<TextView>(R.id.titleText)
         val startText = view.find<TextView>(R.id.startText)
@@ -800,7 +800,7 @@ class CalendarFragment : Fragment() {
     }
 
 
-    private fun changeScheduleTextsForEdit(view: View, type: String, startDate: String, endDate: String, name: String, actualDate: String) {
+    private fun changeTextsForEdit(view: View, type: String, startDate: String, endDate: String, name: String, actualDate: String) {
         val title = view.find<TextView>(R.id.titleText)
         val start = view.find<Button>(R.id.startSchedule)
         val nameText = view.find<EditText>(R.id.nameEdit)

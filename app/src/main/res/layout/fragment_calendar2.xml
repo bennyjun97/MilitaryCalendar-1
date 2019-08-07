@@ -18,27 +18,27 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/week3Guide"
-            app:layout_constraintGuide_percent="0.38"/>
+            app:layout_constraintGuide_percent="0.39"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/week4Guide"
-            app:layout_constraintGuide_percent="0.5"/>
+            app:layout_constraintGuide_percent="0.52"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/week5Guide"
-            app:layout_constraintGuide_percent="0.62"/>
+            app:layout_constraintGuide_percent="0.65"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/week6Guide"
-            app:layout_constraintGuide_percent="0.74"/>
+            app:layout_constraintGuide_percent="0.78"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/bottomGuide"
-            app:layout_constraintGuide_percent="0.86"/>
+            app:layout_constraintGuide_percent="0.9"/>
 
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
@@ -617,7 +617,7 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/dividerGuide" app:layout_constraintGuide_percent="0.93"/>
+            android:id="@+id/dividerGuide" app:layout_constraintGuide_percent="0.95"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -635,22 +635,22 @@
                android:layout_width="0dp"
                android:layout_height="wrap_content" app:srcCompat="@drawable/leave_add"
                android:id="@+id/addLeave" android:layout_weight="1" android:background="@null"
-               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+               android:scaleType="fitCenter" android:layout_margin="6dp"/>
        <ImageButton
                android:layout_width="0dp"
                android:layout_height="wrap_content" app:srcCompat="@drawable/duty_add"
                android:id="@+id/addDuty" android:layout_weight="1" android:background="@null"
-               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+               android:scaleType="fitCenter" android:layout_margin="6dp"/>
        <ImageButton
                android:layout_width="0dp"
                android:layout_height="wrap_content" app:srcCompat="@drawable/exercise_add"
                android:id="@+id/addExercise" android:layout_weight="1" android:background="@null"
-               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+               android:scaleType="fitCenter" android:layout_margin="6dp"/>
        <ImageButton
                android:layout_width="0dp"
                android:layout_height="wrap_content" app:srcCompat="@drawable/personal_add"
                android:id="@+id/addPersonal" android:layout_weight="1" android:background="@null"
-               android:scaleType="fitCenter" android:layout_margin="16dp"/>
+               android:scaleType="fitCenter" android:layout_margin="6dp"/>
    </LinearLayout>
     <TextView
             android:layout_width="26sp"
