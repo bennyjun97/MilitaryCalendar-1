@@ -69,8 +69,6 @@ class BankRvAdapter(val context: Context, val bankList: ArrayList<Bank>) :
 
         fun bind (bank: Bank, context: Context){
             bankItemSetting?.imageResource = R.drawable.small_menu_button
-            val bankTotalDeposit =
-                    bank.monthDeposit * DateCalc.calcDepositMonth(bank.startDate, LocalDate.now())
             /* Textview 와 String data를 연결한다 */
             bankItemName?.text = bank.bankName
             bankItemTotalDeposit?.text = "총 ${decimalFormat.format(bank.bankTotalDeposit)}원"

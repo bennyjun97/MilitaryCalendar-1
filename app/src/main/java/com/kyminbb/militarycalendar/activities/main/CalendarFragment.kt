@@ -24,6 +24,9 @@ import org.jetbrains.anko.find
 import org.threeten.bp.LocalDate
 import java.text.SimpleDateFormat
 import java.util.*
+import android.view.View.OnLongClickListener
+
+
 
 
 class CalendarFragment : Fragment() {
@@ -109,6 +112,7 @@ class CalendarFragment : Fragment() {
             }
         }
 
+        // when calendar day button is clicked perform events
         for (i in 0..41) {
             slots[i].setOnClickListener {
                 addTab.visibility = View.GONE
@@ -149,6 +153,29 @@ class CalendarFragment : Fragment() {
                         }
                     }
                 }
+            }
+            /*
+            slots[i].setOnTouchListener{view, motionEvent ->
+                if(motionEvent!!.action == MotionEvent.ACTION_BUTTON_PRESS) {
+                    if (textSlots[i].text.isNotEmpty())
+                        slots[i].setBackgroundResource(R.drawable.calendar_stroke)
+                    view.performClick()
+                }
+                true
+            }*/
+
+            // when the day is longClicked
+            slots[i].setOnLongClickListener{ view ->
+                Toast.makeText(context, "long-pressed", Toast.LENGTH_SHORT).show()
+                dayLayoutPopUp(
+                    dbHelper,
+                    date2String(
+                        calendar.year,
+                        calendar.monthValue,
+                        Integer.parseInt(textSlots[i].text.toString())
+                    )
+                )
+                true
             }
         }
 
