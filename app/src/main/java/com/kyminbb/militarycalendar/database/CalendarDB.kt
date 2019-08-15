@@ -11,7 +11,7 @@ data class Schedule(val startDate: String, val endDate: String, val content: Str
 class CalendarDB(context: Context) {
     private val dbHelper = DBHelper.getInstance(context)
 
-    // Store a schedule on the designated date into the table.
+    // Store a schedule during the designated period into the table.
     fun writeDB(startDate: String, endDate: String, content: String, memo: String) {
         dbHelper.use {
             insert(
@@ -24,6 +24,7 @@ class CalendarDB(context: Context) {
         }
     }
 
+    // Extract a list of schedules that meet the given condition.
     fun readDB(filter: String, filterType: String): List<Schedule> {
         return dbHelper.use {
             val total = select(
@@ -34,10 +35,12 @@ class CalendarDB(context: Context) {
                 TableReaderContract.TableEntry.COLUMN_MEMO
             )
             when (filterType) {
+                // Query schedules on the given date and order based on their end dates.
                 "Date" -> total.whereSimple(
                     "${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?",
                     filter
                 ).orderBy(TableReaderContract.TableEntry.COLUMN_END_DATE)
+                // Query all schedules in the given month and order chronologically.
                 "Month" -> total.whereSimple(
                     "${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?",
                     "$filter%"
