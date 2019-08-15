@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.activities.main.HomeActivity
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 R.anim.fade_out
             )
         } else {
-            startActivity<SettingActivity>()
+            startActivity<HomeActivity>()
             overridePendingTransition(
                 R.anim.fade_in,
                 R.anim.fade_out

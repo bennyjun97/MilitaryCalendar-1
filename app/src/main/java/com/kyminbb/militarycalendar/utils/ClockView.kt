@@ -7,8 +7,6 @@ import android.graphics.Paint
 import android.graphics.Paint.ANTI_ALIAS_FLAG
 import android.util.AttributeSet
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
 
 class ClockView @JvmOverloads constructor(
     context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0
