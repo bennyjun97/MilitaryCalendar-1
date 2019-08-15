@@ -6,6 +6,8 @@ import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
 
+data class Schedule(val startDate: String, val endDate: String, val content: String, val memo: String)
+
 class CalendarDB(context: Context) {
     private val dbHelper = DBHelper.getInstance(context)
 
@@ -22,16 +24,28 @@ class CalendarDB(context: Context) {
         }
     }
 
-    fun readDB(startDate: String): List<Triple<String, String, String>> {
+    fun readDB(filter: String, filterType: String): List<Schedule> {
         return dbHelper.use {
-            select(
+            val total = select(
                 TableReaderContract.TableEntry.TABLE_NAME,
+                TableReaderContract.TableEntry.COLUMN_START_DATE,
                 TableReaderContract.TableEntry.COLUMN_END_DATE,
                 TableReaderContract.TableEntry.COLUMN_CONTENT,
                 TableReaderContract.TableEntry.COLUMN_MEMO
-            ).whereSimple("${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?", startDate).exec {
-                val parser = rowParser { endDate: String, content: String, memo: String ->
-                    Triple(endDate, content, memo)
+            )
+            when (filterType) {
+                "Date" -> total.whereSimple(
+                    "${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?",
+                    filter
+                ).orderBy(TableReaderContract.TableEntry.COLUMN_END_DATE)
+                "Month" -> total.whereSimple(
+                    "${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?",
+                    "$filter%"
+                ).orderBy(TableReaderContract.TableEntry.COLUMN_START_DATE)
+            }
+            total.exec {
+                val parser = rowParser { startDate: String, endDate: String, content: String, memo: String ->
+                    Schedule(startDate, endDate, content, memo)
                 }
                 parseList(parser)
             }

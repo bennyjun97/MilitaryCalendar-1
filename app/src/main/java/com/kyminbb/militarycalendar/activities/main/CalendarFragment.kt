@@ -43,7 +43,6 @@ class CalendarFragment : Fragment() {
     var eventsinMonth: MutableList<TextView> = mutableListOf<TextView>()
     var memoTyped = ""
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -499,21 +498,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
-        return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
-    }
-
-    private fun date2String(date: LocalDate): String {
-        return "${date.year}-${"%02d".format(date.monthValue)}-${"%02d".format(date.dayOfMonth)}"
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    private fun string2Date(date: String): LocalDate {
-        return LocalDate.parse(date)
-    }
-
-    // updating calendar whenever we click arrows or open the app
-    private fun updateCalendar(calendar: LocalDate, dbHelper: DBHelper) {
+    private fun initMonthCalendar() {
         //clearing slots
         for (i in 0..41) {
             textSlots[i].text = ""
@@ -532,6 +517,13 @@ class CalendarFragment : Fragment() {
             eventsinMonth.clear()
         }
         eventTextViewNum = 0
+    }
+
+    // updating calendar whenever we click arrows or open the app
+    @SuppressLint("SetTextI18n")
+    private fun updateCalendar(calendar: LocalDate, dbHelper: DBHelper) {
+        // Clear up the calendar.
+        initMonthCalendar()
 
         //cloning just in case
         var cal = calendar
@@ -540,7 +532,7 @@ class CalendarFragment : Fragment() {
         val month = cal.monthValue
         val year = cal.year
         textMonth.text = "${month}월"
-        textYear.text = "${year}"
+        textYear.text = "$year"
         cal = cal.withDayOfMonth(1)
         val init = cal.dayOfWeek.value % 7
         var position = init
@@ -595,7 +587,6 @@ class CalendarFragment : Fragment() {
     }
 
     private fun drawEventTextView(startPos: Int, endPos: Int, type: String, text: String) {
-
         val constraintSet = ConstraintSet()
         eventsinMonth.add(TextView(this.context))
         eventsinMonth[eventTextViewNum].id = View.generateViewId()
@@ -1111,5 +1102,18 @@ class CalendarFragment : Fragment() {
         val cm = LinearLayoutManager(context)
         view.layoutManager = cm
         view.setHasFixedSize(true)
+    }
+
+    private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
+        return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
+    }
+
+    private fun date2String(date: LocalDate): String {
+        return "${date.year}-${"%02d".format(date.monthValue)}-${"%02d".format(date.dayOfMonth)}"
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun string2Date(date: String): LocalDate {
+        return LocalDate.parse(date)
     }
 }
