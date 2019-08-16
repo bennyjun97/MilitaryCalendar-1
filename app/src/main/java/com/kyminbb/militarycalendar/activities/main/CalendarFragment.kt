@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kyminbb.militarycalendar.R
+import com.kyminbb.militarycalendar.database.CalendarDB
 import com.kyminbb.militarycalendar.database.DBHelper
 import com.kyminbb.militarycalendar.database.TableReaderContract
 import com.kyminbb.militarycalendar.utils.CalendarRvAdapter
@@ -23,6 +24,7 @@ import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.find
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.textColorResource
 import org.threeten.bp.LocalDate
 import java.util.*
@@ -56,6 +58,7 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val dbHelper: DBHelper = DBHelper.getInstance(context!!)
+        val db = CalendarDB(context!!)
 
         slots = arrayOf(
             day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14,
@@ -355,7 +358,7 @@ class CalendarFragment : Fragment() {
                 TableReaderContract.TableEntry.TABLE_NAME,
                 TableReaderContract.TableEntry.COLUMN_START_DATE to startDate,
                 TableReaderContract.TableEntry.COLUMN_END_DATE to endDate,
-                TableReaderContract.TableEntry.COLUMN_CONTENT to content,
+                TableReaderContract.TableEntry.COLUMN_TYPE to content,
                 TableReaderContract.TableEntry.COLUMN_MEMO to memo
             )
         }
@@ -431,7 +434,7 @@ class CalendarFragment : Fragment() {
             select(
                 TableReaderContract.TableEntry.TABLE_NAME,
                 TableReaderContract.TableEntry.COLUMN_END_DATE,
-                TableReaderContract.TableEntry.COLUMN_CONTENT,
+                TableReaderContract.TableEntry.COLUMN_TYPE,
                 TableReaderContract.TableEntry.COLUMN_MEMO
             )
                 .whereSimple("${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?", startDate).exec {
@@ -486,7 +489,7 @@ class CalendarFragment : Fragment() {
             select(
                 TableReaderContract.TableEntry.TABLE_NAME,
                 TableReaderContract.TableEntry.COLUMN_START_DATE,
-                TableReaderContract.TableEntry.COLUMN_CONTENT,
+                TableReaderContract.TableEntry.COLUMN_TYPE,
                 TableReaderContract.TableEntry.COLUMN_MEMO
             )
                 .whereSimple("${TableReaderContract.TableEntry.COLUMN_END_DATE} = ?", endDate).exec {
@@ -655,24 +658,18 @@ class CalendarFragment : Fragment() {
         popupMenu.menuInflater.inflate(R.menu.pass_leave_menu, popupMenu.menu)
 
         popupMenu.setOnMenuItemClickListener {
-            when (addLeaveArray[addLeaveButtons.indexOf(it.itemId)]) {
-                "휴가" -> addEvent(dbHelper, "휴가", false)
-                "외박" -> addEvent(dbHelper, "외박", false)
-                else -> addEvent(dbHelper, "외출", false)
-            }
+            addEvent(dbHelper, addLeaveArray[addLeaveButtons.indexOf(it.itemId)], false)
             true
         }
         popupMenu.show()
     }
 
-    private fun addEvent(dbHelper: DBHelper, type: String, editBoolean: Boolean) {
-        val popupView: View
-        if (type.equals("휴가")) {
-            popupView = layoutInflater.inflate(R.layout.add_leave, null)
-        } else if (type.equals("외출")) {
-            popupView = layoutInflater.inflate(R.layout.add_offpost, null)
-        } else {
-            popupView = layoutInflater.inflate(R.layout.add_pass, null)
+    @SuppressLint("InflateParams")
+    private fun addEvent(db: CalendarDB, type: String) {
+        val popupView = when (type) {
+            "휴가" -> layoutInflater.inflate(R.layout.add_leave, null)
+            "외출" -> layoutInflater.inflate(R.layout.add_offpost, null)
+            else -> layoutInflater.inflate(R.layout.add_pass, null)
         }
         val popup = PopupWindow(popupView)
         popup.isFocusable = true
@@ -683,7 +680,61 @@ class CalendarFragment : Fragment() {
             resources.displayMetrics.heightPixels
         )
 
-        if (type.equals("개인")) changeTextsForAdding(popupView, "개인일정")
+        val startSchedule = popupView.find<Button>(R.id.startSchedule)
+        val endSchedule = popupView.find<Button>(R.id.endSchedule)
+        val titleInput = popupView.find<EditText>(R.id.nameEdit)
+        val buttonRegister = popupView.find<Button>(R.id.RegisterBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
+        val buttonInit = popupView.find<Button>(R.id.InitBtn)
+        val buttonMemo = popupView.find<Button>(R.id.memoButton)
+
+        startSchedule.setOnClickListener { setDate(popupView, "Start", type) }
+        endSchedule.setOnClickListener { setDate(popupView, "End", type) }
+
+        buttonRegister.setOnClickListener {
+            if (type == "휴가" || type == "외박") {
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
+                    toast("복귀 안 할거에요?")
+                    return@setOnClickListener
+                }
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty() &&
+                    string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))
+                ) {
+                    toast("복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!")
+                    return@setOnClickListener
+                }
+            }
+            db.writeDB(startSchedule.text.toString(), endSchedule.text.toString(), type, titleInput.text.toString(), "")
+        }
+
+        buttonCancel.setOnClickListener {
+            popup.dismiss()
+        }
+
+        buttonInit.setOnClickListener {
+            startSchedule.text = ""
+            endSchedule.text = ""
+            titleInput.setText("")
+        }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun addEvent(dbHelper: DBHelper, type: String, editBoolean: Boolean) {
+        val popupView = when (type) {
+            "휴가" -> layoutInflater.inflate(R.layout.add_leave, null)
+            "외출" -> layoutInflater.inflate(R.layout.add_offpost, null)
+            else -> layoutInflater.inflate(R.layout.add_pass, null)
+        }
+        val popup = PopupWindow(popupView)
+        popup.isFocusable = true
+        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+        popup.update(
+            view,
+            resources.displayMetrics.widthPixels,
+            resources.displayMetrics.heightPixels
+        )
+
+        if (type == "개인") changeTextsForAdding(popupView, "개인일정")
         else changeTextsForAdding(popupView, type)
 
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
@@ -703,7 +754,6 @@ class CalendarFragment : Fragment() {
         nameInput.setOnClickListener { }
 
         buttonCancel.setOnClickListener {
-            // Dismiss the popup window.
             popup.dismiss()
         }
 
@@ -859,9 +909,9 @@ class CalendarFragment : Fragment() {
         val startText = view.find<TextView>(R.id.startText)
         val registerBtn = view.find<Button>(R.id.RegisterBtn)
 
-        title.text = type + " 등록하기"
-        startText.text = type + " 시작일"
-        registerBtn.text = type + " 등록"
+        title.text = "$type" + title.text
+        startText.text = "$type" + startText.text
+        registerBtn.text = "$type" + registerBtn.text
 
         if (type.equals("외출")) return
 

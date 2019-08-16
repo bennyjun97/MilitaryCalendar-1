@@ -6,19 +6,20 @@ import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
 
-data class Schedule(val startDate: String, val endDate: String, val content: String, val memo: String)
+data class Schedule(val startDate: String, val endDate: String, val type: String, val title: String, val memo: String)
 
 class CalendarDB(context: Context) {
     private val dbHelper = DBHelper.getInstance(context)
 
     // Store a schedule during the designated period into the table.
-    fun writeDB(startDate: String, endDate: String, content: String, memo: String) {
+    fun writeDB(startDate: String, endDate: String, type: String, title: String, memo: String) {
         dbHelper.use {
             insert(
                 TableReaderContract.TableEntry.TABLE_NAME,
                 TableReaderContract.TableEntry.COLUMN_START_DATE to startDate,
                 TableReaderContract.TableEntry.COLUMN_END_DATE to endDate,
-                TableReaderContract.TableEntry.COLUMN_CONTENT to content,
+                TableReaderContract.TableEntry.COLUMN_TYPE to type,
+                TableReaderContract.TableEntry.COLUMN_TITLE to title,
                 TableReaderContract.TableEntry.COLUMN_MEMO to memo
             )
         }
@@ -31,7 +32,8 @@ class CalendarDB(context: Context) {
                 TableReaderContract.TableEntry.TABLE_NAME,
                 TableReaderContract.TableEntry.COLUMN_START_DATE,
                 TableReaderContract.TableEntry.COLUMN_END_DATE,
-                TableReaderContract.TableEntry.COLUMN_CONTENT,
+                TableReaderContract.TableEntry.COLUMN_TYPE,
+                TableReaderContract.TableEntry.COLUMN_TITLE,
                 TableReaderContract.TableEntry.COLUMN_MEMO
             )
             when (filterType) {
@@ -47,9 +49,10 @@ class CalendarDB(context: Context) {
                 ).orderBy(TableReaderContract.TableEntry.COLUMN_START_DATE)
             }
             total.exec {
-                val parser = rowParser { startDate: String, endDate: String, content: String, memo: String ->
-                    Schedule(startDate, endDate, content, memo)
-                }
+                val parser =
+                    rowParser { startDate: String, endDate: String, type: String, title: String, memo: String ->
+                        Schedule(startDate, endDate, type, title, memo)
+                    }
                 parseList(parser)
             }
         }

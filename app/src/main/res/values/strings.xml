@@ -175,7 +175,9 @@
     <string name="interest">만기 이율</string>
     <string name="interestPercent">만기 이율 (%)</string>
     <string name="interestHint">만기시 이율을 입력해주세요</string>
-    <string name="interestHelp">만기 이율은 적금 통장의 첫번째 장에서 찾을 수 있습니다.\n신한은행 군적금의 기본 금리는 6개월 이상 12개월 미만 기준 4%입니다.\n신한은행 군적금의 우대 금리는 최대 0.7%p입니다.</string>
+    <string name="interestHelp">만기 이율은 적금 통장의 첫번째 장에서 찾을 수 있습니다.\n신한은행 군적금의 기본 금리는 6개월 이상 12개월 미만 기준 4%입니다.\n신한은행 군적금의
+        우대 금리는 최대 0.7%p입니다.
+    </string>
     <string name="bankCancel">등록 취소</string>
     <string name="bankInit">초기화</string>
     <string name="bankRegister">등록 완료</string>
@@ -260,7 +262,9 @@
         <item>이 적금의 신규 시점에 KEB하나은행에서 가입한 주택청약종합저축 상품을 보유하고 있는 경우</item>
         <item>하나카드 군 급여 입금</item>
         <item>연 0.2%p</item>
-        <item>이 예금 가입후 만기 전전월의 말일까지 본인명의 KEB하나은행 입출금통장을 통해 3회이상 군급여 입금실적을 보유하거나, 하나카드사의 카드(신용/체크)결제 실적이 3회 이상 있을 경우 연 0.2%우대\n※ 군급여이체 및 카드결제 실적은 월 1회만 인정하며, 군급여이체 실적은 국군재정관리단을 통한 이체에 한정</item>
+        <item>이 예금 가입후 만기 전전월의 말일까지 본인명의 KEB하나은행 입출금통장을 통해 3회이상 군급여 입금실적을 보유하거나, 하나카드사의 카드(신용/체크)결제 실적이 3회 이상 있을 경우 연
+            0.2%우대\n※ 군급여이체 및 카드결제 실적은 월 1회만 인정하며, 군급여이체 실적은 국군재정관리단을 통한 이체에 한정
+        </item>
     </string-array>
 
     <string-array name="infoArray05">
@@ -274,7 +278,9 @@
         <item>적금 만기일 기준 전전월 말일을 기준으로, 고객이 KB국민은행 주택청약종합 저축(청년 우대형 주택청약종합저축 포함) 계좌를 보유한 경우</item>
         <item>군 급여 입금</item>
         <item>연 0.3%p</item>
-        <item>적금 신규월 초일부터 만기일 기준 전전월 말일까지 고객이 가입한 적금 계약기간(월 환산)의 2/3에 해당하는 기간 동안 고객의 KB국민은행 입출금통장으로 급여이체 실적이 매월 10만원 이상인 경우</item>
+        <item>적금 신규월 초일부터 만기일 기준 전전월 말일까지 고객이 가입한 적금 계약기간(월 환산)의 2/3에 해당하는 기간 동안 고객의 KB국민은행 입출금통장으로 급여이체 실적이 매월 10만원 이상인
+            경우
+        </item>
     </string-array>
 
     <string-array name="infoArray06">
@@ -382,4 +388,7 @@
         <item>연 0.2%p</item>
         <item>우체국 수시입출식 예금에서 이 적금으로 월 1만원 이상 자동이체 약정을 하고 만기까지 납입 횟수가 50% 이상</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

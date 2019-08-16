@@ -12,7 +12,8 @@ object TableReaderContract {
         const val TABLE_NAME = "calendar"
         const val COLUMN_START_DATE = "start_date"
         const val COLUMN_END_DATE = "end_date"
-        const val COLUMN_CONTENT = "content"
+        const val COLUMN_TYPE = "type"
+        const val COLUMN_TITLE = "title"
         const val COLUMN_MEMO = "memo"
     }
 
@@ -50,7 +51,8 @@ class DBHelper private constructor(context: Context) : ManagedSQLiteOpenHelper(c
             "id" to INTEGER + PRIMARY_KEY + UNIQUE,
             TableReaderContract.TableEntry.COLUMN_START_DATE to TEXT,
             TableReaderContract.TableEntry.COLUMN_END_DATE to TEXT,
-            TableReaderContract.TableEntry.COLUMN_CONTENT to TEXT,
+            TableReaderContract.TableEntry.COLUMN_TYPE to TEXT,
+            TableReaderContract.TableEntry.COLUMN_TITLE to TEXT,
             TableReaderContract.TableEntry.COLUMN_MEMO to TEXT
         )
 

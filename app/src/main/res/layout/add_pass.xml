@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:background="@android:color/transparent"
@@ -60,7 +59,7 @@
                 android:layout_width="wrap_content" app:layout_constraintGuide_percent="0.60"
                 android:layout_height="wrap_content" android:id="@+id/cancel"/>
         <TextView
-                android:text="외박 등록하기"
+                android:text=" 등록하기"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/titleText" app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +90,7 @@
                 android:textSize="14sp"/>
 
         <TextView
-                android:text="외박 시작일"
+                android:text=" 시작일"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/startText"
@@ -110,14 +109,14 @@
                 app:layout_constraintVertical_bias="0.0"/>
 
         <TextView
-                android:text="외박 종료일"
+                android:text=" 종료일"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/endText"
                 app:layout_constraintTop_toTopOf="@+id/endDateGuide"
                 android:layout_marginTop="4dp" app:layout_constraintBottom_toTopOf="@id/endSchedule"
                 android:textSize="18sp" app:layout_constraintStart_toStartOf="@+id/startText"
-                android:layout_marginStart="0dp"/>
+        />
         <Button
                 android:layout_width="0dp" android:layout_height="0dp" android:id="@+id/endSchedule"
                 app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine" app:layout_constraintEnd_toEndOf="parent"
