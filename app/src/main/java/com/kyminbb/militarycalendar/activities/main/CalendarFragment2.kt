@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.CalendarDB
-import com.kyminbb.militarycalendar.database.DBHelper
 import kotlinx.android.synthetic.main.fragment_calendar2.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.toast
@@ -64,11 +63,8 @@ class CalendarFragment2 : Fragment() {
         }
 
         addLeave.setOnClickListener { addLeaveMenu(db) }
-
         addDuty.setOnClickListener { addEvent(db, "당직") }
-
         addExercise.setOnClickListener { addEvent(db, "훈련") }
-
         addPersonal.setOnClickListener { addEvent(db, "개인") }
 
         buttonMenu.setOnClickListener {
@@ -90,14 +86,92 @@ class CalendarFragment2 : Fragment() {
     }
 
     // Change to the previous or to the next month.
-    private fun changeMonth(dbHelper: DBHelper) {
+    private fun changeMonth(db: CalendarDB) {
         val prevNext = arrayOf(buttonLeft, Button(context), buttonRight)
         for (i in 0 until prevNext.size step 2) {
             prevNext[i].setOnClickListener {
                 calendar = calendar.plusMonths(i.toLong() - 1).withDayOfMonth(1)
-                // updateCalendar(calendar, dbHelper)
+                // updateCalendar(db)
             }
         }
+    }
+
+    private fun addLeaveMenu(db: CalendarDB) {
+        val addLeaveArray = resources.getStringArray(R.array.addLeave_string)
+        val addLeaveButtons = arrayOf(
+            R.id.LeaveSelect,
+            R.id.PassSelect,
+            R.id.offPostSelect
+        )
+        val popupMenu = PopupMenu(this.context, addLeave)
+        popupMenu.menuInflater.inflate(R.menu.pass_leave_menu, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener {
+            addEvent(db, addLeaveArray[addLeaveButtons.indexOf(it.itemId)])
+            true
+        }
+        popupMenu.show()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun addEvent(db: CalendarDB, type: String) {
+        val popupView = when (type) {
+            "휴가" -> layoutInflater.inflate(R.layout.add_leave, null)
+            "외출" -> layoutInflater.inflate(R.layout.add_offpost, null)
+            else -> layoutInflater.inflate(R.layout.add_pass, null)
+        }
+        val popup = PopupWindow(popupView)
+        popup.isFocusable = true
+        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
+        popup.update(
+            view,
+            resources.displayMetrics.widthPixels,
+            resources.displayMetrics.heightPixels
+        )
+
+        val startSchedule = popupView.find<Button>(R.id.startSchedule)
+        val endSchedule = popupView.find<Button>(R.id.endSchedule)
+        val titleInput = popupView.find<EditText>(R.id.nameEdit)
+        val buttonRegister = popupView.find<Button>(R.id.RegisterBtn)
+        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
+        val buttonInit = popupView.find<Button>(R.id.InitBtn)
+        val buttonMemo = popupView.find<Button>(R.id.memoButton)
+
+        startSchedule.setOnClickListener { }
+        endSchedule.setOnClickListener { }
+
+        buttonRegister.setOnClickListener {
+            if (type == "휴가" || type == "외박") {
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
+                    toast("복귀 안 할거에요?")
+                    return@setOnClickListener
+                }
+                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty() &&
+                    string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))
+                ) {
+                    toast("복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!")
+                    return@setOnClickListener
+                }
+            }
+            db.writeDB(startSchedule.text.toString(), endSchedule.text.toString(), type, titleInput.text.toString(), "")
+        }
+
+        buttonCancel.setOnClickListener {
+            popup.dismiss()
+        }
+
+        buttonInit.setOnClickListener {
+            startSchedule.text = ""
+            endSchedule.text = ""
+            titleInput.setText("")
+        }
+    }
+
+    /************************************************************************
+    Visuals
+     ************************************************************************/
+
+    private fun updateCalendar(db: CalendarDB) {
     }
 
     private fun initMonthCalendar() {
@@ -206,76 +280,9 @@ class CalendarFragment2 : Fragment() {
         eventTextViewNum++
     }
 
-    private fun addLeaveMenu(db: CalendarDB) {
-        val addLeaveArray = resources.getStringArray(R.array.addLeave_string)
-        val addLeaveButtons = arrayOf(
-            R.id.LeaveSelect,
-            R.id.PassSelect,
-            R.id.offPostSelect
-        )
-        val popupMenu = PopupMenu(this.context, addLeave)
-        popupMenu.menuInflater.inflate(R.menu.pass_leave_menu, popupMenu.menu)
-
-        popupMenu.setOnMenuItemClickListener {
-            addEvent(db, addLeaveArray[addLeaveButtons.indexOf(it.itemId)])
-            true
-        }
-        popupMenu.show()
-    }
-
-    @SuppressLint("InflateParams")
-    private fun addEvent(db: CalendarDB, type: String) {
-        val popupView = when (type) {
-            "휴가" -> layoutInflater.inflate(R.layout.add_leave, null)
-            "외출" -> layoutInflater.inflate(R.layout.add_offpost, null)
-            else -> layoutInflater.inflate(R.layout.add_pass, null)
-        }
-        val popup = PopupWindow(popupView)
-        popup.isFocusable = true
-        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-        popup.update(
-            view,
-            resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
-        )
-
-        val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val endSchedule = popupView.find<Button>(R.id.endSchedule)
-        val titleInput = popupView.find<EditText>(R.id.nameEdit)
-        val buttonRegister = popupView.find<Button>(R.id.RegisterBtn)
-        val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
-        val buttonInit = popupView.find<Button>(R.id.InitBtn)
-        val buttonMemo = popupView.find<Button>(R.id.memoButton)
-
-        startSchedule.setOnClickListener { }
-        endSchedule.setOnClickListener { }
-
-        buttonRegister.setOnClickListener {
-            if (type == "휴가" || type == "외박") {
-                if (startSchedule.text.isNotEmpty() && endSchedule.text.isEmpty()) {
-                    toast("복귀 안 할거에요?")
-                    return@setOnClickListener
-                }
-                if (startSchedule.text.isNotEmpty() && endSchedule.text.isNotEmpty() &&
-                    string2Date(startSchedule.text.toString()).isAfter(string2Date(endSchedule.text.toString()))
-                ) {
-                    toast("복귀일이 시작일보다 앞이려면 \n 시간여행을 해야해요!")
-                    return@setOnClickListener
-                }
-            }
-            db.writeDB(startSchedule.text.toString(), endSchedule.text.toString(), type, titleInput.text.toString(), "")
-        }
-
-        buttonCancel.setOnClickListener {
-            popup.dismiss()
-        }
-
-        buttonInit.setOnClickListener {
-            startSchedule.text = ""
-            endSchedule.text = ""
-            titleInput.setText("")
-        }
-    }
+    /************************************************************************
+    Utils
+     ************************************************************************/
 
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
         return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
