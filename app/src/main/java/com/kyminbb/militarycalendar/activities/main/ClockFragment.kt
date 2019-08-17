@@ -49,8 +49,6 @@ class ClockFragment: Fragment() {
 
         val etsDateTime = userInfo.promotionDates[Dates.END.ordinal].atStartOfDay()
         untilEndText.text = "전역까지 ${DateCalc.countDDay(etsDateTime)}"
-        untilNextLeaveText.text = "다음 휴가까지 ${context?.getText(R.string.dday_text).toString()}"
-        remainLeaveText.text = "남은 휴가 ${context?.getText(R.string.numVacationDay_text).toString()}"
 
         buttonEdit.setOnClickListener {
             startActivity<SettingActivity>()
