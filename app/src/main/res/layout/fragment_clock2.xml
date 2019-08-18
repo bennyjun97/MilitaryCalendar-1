@@ -27,16 +27,14 @@
                 android:fontFamily="@font/lee_header_regular"
                 android:layout_height="wrap_content" android:layout_width="0dp"
                 android:id="@+id/untilEndText" android:layout_weight="0.4"
-                android:gravity="center|start" android:textSize="20sp"
-                android:layout_marginEnd="8dp"
+                android:gravity="center|start" android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="@+id/guideline28"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline30" android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline24"/>
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+        />
         <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="30dp" android:id="@+id/buttonEdit"
-                android:layout_weight="2" android:scaleType="fitCenter" android:background="@null"
+                android:layout_weight="2" android:scaleType="fitEnd" android:background="@null"
                 app:srcCompat="@drawable/setting_widget_white" android:layout_gravity="center"
                 app:layout_constraintStart_toStartOf="@+id/guideline32"
                 app:layout_constraintTop_toTopOf="@+id/nameText"
@@ -47,21 +45,19 @@
                 android:fontFamily="@font/lee_header_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/rankText"
-                android:gravity="center_vertical|start" android:textSize="28sp" android:textStyle="bold"
+                android:gravity="center_vertical|start" android:textSize="32sp" android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline28"
-                app:layout_constraintBottom_toTopOf="@+id/untilEndText"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginBottom="8dp" android:layout_marginTop="8dp"
-                app:layout_constraintVertical_bias="0.16000003"/>
+                app:layout_constraintTop_toTopOf="@+id/profileImage"
+        />
         <TextView
                 android:text="@string/clockName"
                 android:fontFamily="@font/lee_header_regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/nameText"
-                android:gravity="center" android:textSize="28sp" android:textStyle="normal"
-                app:layout_constraintEnd_toStartOf="@+id/guideline32" app:layout_constraintTop_toTopOf="@+id/rankText"
+                android:gravity="center" android:textSize="32sp" android:textStyle="normal"
+                app:layout_constraintTop_toTopOf="@+id/rankText"
                 app:layout_constraintStart_toEndOf="@+id/rankText"
-                app:layout_constraintBottom_toBottomOf="@+id/rankText"/>
+                app:layout_constraintBottom_toBottomOf="@+id/rankText" android:layout_marginStart="8dp"/>
         <androidx.constraintlayout.widget.Guideline
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -257,81 +253,81 @@
 
         </LinearLayout>
         <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp" app:srcCompat="@drawable/up_white"
-                android:id="@+id/imageView" android:layout_marginBottom="8dp"
+                android:layout_width="100dp"
+                android:layout_height="0dp" app:srcCompat="@drawable/rank1"
+                android:id="@+id/imageView"
                 app:layout_constraintBottom_toTopOf="@+id/guideline1" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"/>
         <TextView
                 android:text="@string/clockTotalProgress"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/progressMonthPercentText"
                 android:textColor="@color/horizontalProgressbarGreen"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="@+id/entirePercentText"
                 app:layout_constraintBottom_toBottomOf="@+id/progressCurrentMonthText"
                 app:layout_constraintTop_toTopOf="@+id/progressCurrentMonthText"/>
         <TextView
                 android:text="@string/clockHobong"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:id="@+id/progressMonthText"
-                android:textColor="@color/horizontalProgressbarGreen" android:textSize="20sp"
+                android:textColor="@color/horizontalProgressbarGreen" android:textSize="28sp"
                 app:layout_constraintTop_toTopOf="@+id/progressCurrentMonthText"
                 app:layout_constraintBottom_toBottomOf="@+id/progressCurrentMonthText"
                 app:layout_constraintStart_toEndOf="@+id/progressMonthRankText" android:layout_marginStart="8dp"/>
         <TextView
                 android:text="@string/clockPromotion"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:id="@+id/progressMonthRankText"
-                android:textColor="@color/horizontalProgressbarGreen" android:textSize="20sp"
+                android:textColor="@color/horizontalProgressbarGreen" android:textSize="28sp"
                 app:layout_constraintStart_toEndOf="@+id/progressCurrentMonthText" android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/progressCurrentMonthText"
                 app:layout_constraintTop_toTopOf="@+id/progressCurrentMonthText"/>
         <TextView
                 android:text="@string/clockCurrentHobongText"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:id="@+id/progressCurrentMonthText"
-                android:textColor="@color/horizontalProgressbarGreen" android:textSize="20sp"
+                android:textColor="@color/horizontalProgressbarGreen" android:textSize="28sp"
                 app:layout_constraintBottom_toTopOf="@+id/progressBarHobong" android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="@+id/clockTotalProgresText"/>
         <TextView
                 android:text="@string/clockTotalProgress"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rankPercentText"
                 android:textColor="@color/horizontalProgressbarBlue"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="@+id/entirePercentText"
                 app:layout_constraintBottom_toBottomOf="@+id/progressCurrentRankText"
                 app:layout_constraintTop_toTopOf="@+id/progressCurrentRankText"/>
         <TextView
                 android:text="@string/clockPromotion"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/progressRankText"
                 android:layout_marginStart="8dp"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 android:textColor="@color/horizontalProgressbarBlue"
                 app:layout_constraintStart_toEndOf="@+id/progressCurrentRankText"
                 app:layout_constraintTop_toTopOf="@+id/progressCurrentRankText"
                 app:layout_constraintBottom_toBottomOf="@+id/progressCurrentRankText"/>
         <TextView
                 android:text="@string/clockCurrentRankText"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/progressCurrentRankText"
                 app:layout_constraintStart_toStartOf="@+id/clockTotalProgresText"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 android:textColor="@color/horizontalProgressbarBlue"
                 app:layout_constraintBottom_toTopOf="@+id/progressBarRank" android:layout_marginBottom="8dp"/>
         <ProgressBar android:layout_width="0dp" android:layout_height="20dp"
@@ -365,11 +361,11 @@
                      app:layout_constraintBottom_toTopOf="@+id/guideline2"/>
         <TextView
                 android:text="@string/clockTotalProgress"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/entirePercentText"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 android:textColor="@color/horizontalProgressbarRed"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp"
@@ -378,10 +374,10 @@
         <TextView
                 android:text="@string/clockTotalProgressText"
                 android:id="@+id/clockTotalProgresText"
-                android:fontFamily="@font/lee_header_bold"
+                android:fontFamily="sans-serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 android:textColor="@color/horizontalProgressbarRed"
                 android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
@@ -390,21 +386,21 @@
                                                     android:layout_height="wrap_content"
                                                     android:id="@+id/guideline1"
                                                     android:orientation="horizontal"
-                                                    app:layout_constraintGuide_percent="0.10"/>
+                                                    app:layout_constraintGuide_percent="0.08"/>
         <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:id="@+id/guideline2"
                                                     android:orientation="horizontal"
-                                                    app:layout_constraintGuide_percent="0.27"/>
+                                                    app:layout_constraintGuide_percent="0.25"/>
         <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:id="@+id/guideline3"
                                                     android:orientation="horizontal"
-                                                    app:layout_constraintGuide_percent="0.44"/>
+                                                    app:layout_constraintGuide_percent="0.42"/>
         <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:id="@+id/guideline4"
                                                     android:orientation="horizontal"
-                                                    app:layout_constraintGuide_percent="0.61"/>
+                                                    app:layout_constraintGuide_percent="0.59"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
