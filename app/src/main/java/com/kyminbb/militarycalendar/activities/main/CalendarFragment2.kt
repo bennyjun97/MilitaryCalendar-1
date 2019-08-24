@@ -2,31 +2,36 @@ package com.kyminbb.militarycalendar.activities.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.TextUtils.isEmpty
 import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.CalendarDB
+import com.kyminbb.militarycalendar.database.Schedule
+import com.tsongkha.spinnerdatepicker.DatePickerDialog
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_calendar2.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.textColorResource
 import org.threeten.bp.LocalDate
 
 
 class CalendarFragment2 : Fragment() {
 
     private var adding = true
-    private var calendar = LocalDate.now()
+    private var cal = LocalDate.now()
     private val today = LocalDate.now()
 
     private var daySelected = -1
 
     private var slots: Array<Button> = arrayOf()
     private var textSlots: Array<TextView> = arrayOf()
-    var startSlot = 0
-    var eventTextViewNum = 0
-    var eventsinMonth: MutableList<TextView> = mutableListOf<TextView>()
+    private var startSlot = 0
+    private var eventTextViewNum = 0
+    private var eventsinMonth: MutableList<TextView> = mutableListOf<TextView>()
     var memoTyped = ""
 
     override fun onCreateView(
@@ -45,16 +50,22 @@ class CalendarFragment2 : Fragment() {
 
         slots = arrayOf(
             day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14,
-            day15, day16, day17, day18, day19, day20, day21, day22, day23, day24, day25, day26, day27, day28,
-            day29, day30, day31, day32, day33, day34, day35, day36, day37, day38, day39, day40, day41, day42
+            day15, day16, day17, day18, day19, day20, day21, day22, day23, day24, day25, day26,
+            day27, day28, day29, day30, day31, day32, day33, day34, day35, day36, day37, day38,
+            day39, day40, day41, day42
         )
         textSlots = arrayOf(
             dayText1, dayText2, dayText3, dayText4, dayText5, dayText6, dayText7, dayText8, dayText9,
             dayText10, dayText11, dayText12, dayText13, dayText14, dayText15, dayText16, dayText17,
             dayText18, dayText19, dayText20, dayText21, dayText22, dayText23, dayText24, dayText25,
             dayText26, dayText27, dayText28, dayText29, dayText30, dayText31, dayText32, dayText33,
-            dayText34, dayText35, dayText36, dayText37, dayText38, dayText39, dayText40, dayText41, dayText42
+            dayText34, dayText35, dayText36, dayText37, dayText38, dayText39, dayText40, dayText41,
+            dayText42
         )
+
+        updateCalendar(db)
+
+        changeMonth(db)
 
         // Show the menu for adding a schedule.
         buttonAdd.setOnClickListener {
@@ -63,9 +74,9 @@ class CalendarFragment2 : Fragment() {
         }
 
         addLeave.setOnClickListener { addLeaveMenu(db) }
-        addDuty.setOnClickListener { addEvent(db, "당직") }
-        addExercise.setOnClickListener { addEvent(db, "훈련") }
-        addPersonal.setOnClickListener { addEvent(db, "개인") }
+        addDuty.setOnClickListener { addSchedule(db, "당직") }
+        addExercise.setOnClickListener { addSchedule(db, "훈련") }
+        addPersonal.setOnClickListener { addSchedule(db, "개인") }
 
         buttonMenu.setOnClickListener {
             val wrapper = ContextThemeWrapper(this.context!!, R.style.calendarPopUp)
@@ -74,7 +85,11 @@ class CalendarFragment2 : Fragment() {
 
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.searchItem -> Toast.makeText(this.context!!, "1", Toast.LENGTH_SHORT).show()
+                    R.id.searchItem -> Toast.makeText(
+                        this.context!!,
+                        "1",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     else -> {
                         it.isChecked = !it.isChecked
                     }
@@ -85,16 +100,24 @@ class CalendarFragment2 : Fragment() {
         }
     }
 
+    /************************************************************************
+    Manage calendar
+     ************************************************************************/
+
     // Change to the previous or to the next month.
     private fun changeMonth(db: CalendarDB) {
         val prevNext = arrayOf(buttonLeft, Button(context), buttonRight)
         for (i in 0 until prevNext.size step 2) {
             prevNext[i].setOnClickListener {
-                calendar = calendar.plusMonths(i.toLong() - 1).withDayOfMonth(1)
-                // updateCalendar(db)
+                cal = cal.plusMonths(i.toLong() - 1).withDayOfMonth(1)
+                updateCalendar(db)
             }
         }
     }
+
+    /************************************************************************
+    Manage schedules
+     ************************************************************************/
 
     private fun addLeaveMenu(db: CalendarDB) {
         val addLeaveArray = resources.getStringArray(R.array.addLeave_string)
@@ -107,14 +130,14 @@ class CalendarFragment2 : Fragment() {
         popupMenu.menuInflater.inflate(R.menu.pass_leave_menu, popupMenu.menu)
 
         popupMenu.setOnMenuItemClickListener {
-            addEvent(db, addLeaveArray[addLeaveButtons.indexOf(it.itemId)])
+            addSchedule(db, addLeaveArray[addLeaveButtons.indexOf(it.itemId)])
             true
         }
         popupMenu.show()
     }
 
     @SuppressLint("InflateParams")
-    private fun addEvent(db: CalendarDB, type: String) {
+    private fun addSchedule(db: CalendarDB, type: String) {
         val popupView = when (type) {
             "휴가" -> layoutInflater.inflate(R.layout.add_leave, null)
             "외출" -> layoutInflater.inflate(R.layout.add_offpost, null)
@@ -129,6 +152,7 @@ class CalendarFragment2 : Fragment() {
             resources.displayMetrics.heightPixels
         )
 
+        // Initialize buttons of the popupView.
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
         val endSchedule = popupView.find<Button>(R.id.endSchedule)
         val titleInput = popupView.find<EditText>(R.id.nameEdit)
@@ -137,8 +161,8 @@ class CalendarFragment2 : Fragment() {
         val buttonInit = popupView.find<Button>(R.id.InitBtn)
         val buttonMemo = popupView.find<Button>(R.id.memoButton)
 
-        startSchedule.setOnClickListener { }
-        endSchedule.setOnClickListener { }
+        startSchedule.setOnClickListener { setDate(startSchedule) }
+        endSchedule.setOnClickListener { setDate(endSchedule) }
 
         buttonRegister.setOnClickListener {
             if (type == "휴가" || type == "외박") {
@@ -153,12 +177,18 @@ class CalendarFragment2 : Fragment() {
                     return@setOnClickListener
                 }
             }
-            db.writeDB(startSchedule.text.toString(), endSchedule.text.toString(), type, titleInput.text.toString(), "")
-        }
-
-        buttonCancel.setOnClickListener {
+            db.writeDB(
+                startSchedule.text.toString(),
+                endSchedule.text.toString(),
+                type,
+                titleInput.text.toString(),
+                ""
+            )
+            updateCalendar(db)
             popup.dismiss()
         }
+
+        buttonCancel.setOnClickListener { popup.dismiss() }
 
         buttonInit.setOnClickListener {
             startSchedule.text = ""
@@ -171,43 +201,73 @@ class CalendarFragment2 : Fragment() {
     Visuals
      ************************************************************************/
 
-    private fun updateCalendar(db: CalendarDB) {
-    }
-
-    private fun initMonthCalendar() {
-        //clearing slots
+    private fun initCalendar() {
         for (i in 0..41) {
             textSlots[i].text = ""
             textSlots[i].setBackgroundResource(0)
-            slots[i].setBackgroundResource(0)
+            textSlots[i].setBackgroundResource(0)
         }
-
-        //clearing eventTextViews
-        if (eventTextViewNum != 0) {
-            calendarLayout.removeView(eventsinMonth[0])
-            if (eventTextViewNum >= 2) {
-                calendarLayout.removeView(eventsinMonth[1])
-            }
-            for (event in eventsinMonth) {
-                calendarLayout.removeView(event)
-            }
-            eventsinMonth.clear()
-        }
-        eventTextViewNum = 0
     }
 
-    private fun addEventinCalendar(startDate: LocalDate, endDate: LocalDate, type: String, text: String) {
+    @SuppressLint("SetTextI18n")
+    private fun updateCalendar(db: CalendarDB) {
+        // Clear up the calendar.
+        initCalendar()
+
+        // Load schedules of the current month.
+        val monthSchedules = db.readDB(date2String(cal), "Month")
+        var scheduleIdx = 0
+
+        textYear.text = "${cal.year}"
+        textMonth.text = "${cal.monthValue}월"
+
+        // Display dates and schedules of the current month.
+        var position = cal.withDayOfMonth(1).dayOfWeek.value % 7
+        for (i in 1 until cal.lengthOfMonth() + 1) {
+            textSlots[position].text = i.toString()
+            // Set colors for weekends.
+            if (position % 7 == 0) textSlots[position].textColorResource =
+                R.color.horizontalProgressbarRed
+            if (position % 7 == 6) textSlots[position].textColorResource =
+                R.color.horizontalProgressbarBlue
+            // Circle on today.
+            // https://stackoverflow.com/questions/25203501/android-creating-a-circular-textview
+            if (cal.year == today.year && cal.monthValue == today.monthValue && i == today.dayOfMonth) {
+                textSlots[position].setBackgroundResource(R.drawable.rounded_textview)
+            }
+
+            // Display schedules starting from the current date.
+            while (scheduleIdx < monthSchedules.size &&
+                monthSchedules[scheduleIdx].startDate.endsWith("%02d".format(i))) {
+                displaySchedule(monthSchedules[scheduleIdx])
+                scheduleIdx += 1
+            }
+            position += 1
+        }
+    }
+
+    private fun displaySchedule(schedule: Schedule) {
+
+    }
+
+    private fun addEventinCalendar(
+        startDate: LocalDate,
+        endDate: LocalDate,
+        type: String,
+        text: String
+    ) {
         var startPosition = startDate.dayOfMonth + startSlot - 1
         var endPosition = endDate.dayOfMonth + startSlot - 1
-        if (calendar.year != startDate.year || calendar.monthValue != startDate.monthValue) {
-            if (calendar.year != endDate.year || calendar.monthValue != endDate.monthValue) {
+        if (cal.year != startDate.year || cal.monthValue != startDate.monthValue) {
+            if (cal.year != endDate.year || cal.monthValue != endDate.monthValue) {
                 return
             } else {
                 startPosition = startSlot
             }
         } else {
             if (endDate.monthValue != startDate.monthValue) {
-                endPosition = startDate.withDayOfMonth(1).plusMonths(1).minusDays(1).dayOfMonth + startSlot - 1
+                endPosition =
+                    startDate.withDayOfMonth(1).plusMonths(1).minusDays(1).dayOfMonth + startSlot - 1
             }
         }
 
@@ -251,8 +311,14 @@ class CalendarFragment2 : Fragment() {
             textSlots[endPos].id,
             ConstraintSet.BOTTOM
         )
-        constraintSet.constrainWidth(eventsinMonth[eventTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT)
-        constraintSet.constrainHeight(eventsinMonth[eventTextViewNum].id, ConstraintSet.WRAP_CONTENT)
+        constraintSet.constrainWidth(
+            eventsinMonth[eventTextViewNum].id,
+            ConstraintSet.MATCH_CONSTRAINT
+        )
+        constraintSet.constrainHeight(
+            eventsinMonth[eventTextViewNum].id,
+            ConstraintSet.WRAP_CONTENT
+        )
         constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.START, 4)
         constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.END, 4)
         when (type) {
@@ -284,11 +350,38 @@ class CalendarFragment2 : Fragment() {
     Utils
      ************************************************************************/
 
+    private fun setDate(button: Button) {
+        // Use SpinnerDatePicker to select date.
+        // https://github.com/drawers/SpinnerDatePicker
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            button.text = date2String(year, month + 1, day)
+        }
+        val dialog = SpinnerDatePickerDialogBuilder()
+            .context(context)
+            .callback(dateSetListener)
+            .spinnerTheme(R.style.NumberPickerStyle)
+            .showTitle(true)
+            .showDaySpinner(true)
+            .maxDate(today.year + 4, 11, 31)
+            .minDate(today.year - 5, 0, 1)
+        if (isEmpty(button.text)) {
+            dialog.defaultDate(today.year, today.monthValue - 1, today.dayOfMonth)
+        } else {
+            val curDate = string2Date(button.text.toString())
+            dialog.defaultDate(curDate.year, curDate.monthValue - 1, curDate.dayOfMonth)
+        }
+        dialog.build().show()
+    }
+
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
         return "$year-${"%02d".format(month)}-${"%02d".format(dayOfMonth)}"
     }
 
     private fun date2String(date: LocalDate): String {
+        return "${date.year}-${"%02d".format(date.monthValue)}"
+    }
+
+    private fun month2String(date: LocalDate): String {
         return "${date.year}-${"%02d".format(date.monthValue)}-${"%02d".format(date.dayOfMonth)}"
     }
 

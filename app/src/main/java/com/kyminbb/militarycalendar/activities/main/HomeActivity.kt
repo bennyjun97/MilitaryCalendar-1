@@ -19,7 +19,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun createTabs() {
         adapter.addFragment(ClockFragment(), "짬중현황")
-        adapter.addFragment(CalendarFragment(), "짬중일지")
+        adapter.addFragment(CalendarFragment2(), "짬중일지")
         adapter.addFragment(DepositFragment(), "짬중화폐")
 
         // Link fragments and the activity.

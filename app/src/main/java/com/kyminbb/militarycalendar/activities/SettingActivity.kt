@@ -216,7 +216,7 @@ class SettingActivity : AppCompatActivity() {
         // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            userInfo.promotionDates[dateIndex] =    LocalDate.of(year, month + 1, day)
+            userInfo.promotionDates[dateIndex] = LocalDate.of(year, month + 1, day)
             if (dateIndex == Dates.ENLIST.ordinal) {
                 calcPromotionDates()
             }

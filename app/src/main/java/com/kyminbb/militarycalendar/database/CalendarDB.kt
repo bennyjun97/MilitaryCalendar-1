@@ -6,7 +6,13 @@ import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.rowParser
 import org.jetbrains.anko.db.select
 
-data class Schedule(val startDate: String, val endDate: String, val type: String, val title: String, val memo: String)
+data class Schedule(
+    val startDate: String,
+    val endDate: String,
+    val type: String,
+    val title: String,
+    val memo: String
+)
 
 class CalendarDB(context: Context) {
     private val dbHelper = DBHelper.getInstance(context)
@@ -43,10 +49,12 @@ class CalendarDB(context: Context) {
                     filter
                 ).orderBy(TableReaderContract.TableEntry.COLUMN_END_DATE)
                 // Query all schedules in the given month and order chronologically.
-                "Month" -> total.whereSimple(
-                    "${TableReaderContract.TableEntry.COLUMN_START_DATE} = ?",
-                    "$filter%"
-                ).orderBy(TableReaderContract.TableEntry.COLUMN_START_DATE)
+                "Month" -> total.whereArgs(
+                    "${TableReaderContract.TableEntry.COLUMN_START_DATE} LIKE {startDate}",
+                    "startDate" to "${filter}%"
+                ).orderBy(
+                    TableReaderContract.TableEntry.COLUMN_START_DATE
+                )
             }
             total.exec {
                 val parser =
