@@ -190,6 +190,7 @@ class CalendarFragment2 : Fragment() {
                     return@setOnClickListener
                 }
             }
+
             db.writeDB(
                 startSchedule.text.toString(), endSchedule.text.toString(), type,
                 titleInput.text.toString(), memoString
