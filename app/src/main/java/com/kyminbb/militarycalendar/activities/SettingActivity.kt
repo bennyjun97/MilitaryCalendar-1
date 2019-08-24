@@ -58,7 +58,7 @@ class SettingActivity : AppCompatActivity() {
         val firstStart = prefs.getBoolean("firstStart", true)
 
         if (!firstStart) {
-            titleSetting?.setText(resources.getString(R.string.profileHeaderEdit))
+            titleSetting?.text = resources.getString(R.string.profileHeaderEdit)
         }
 
         val dateInputs = arrayOf(inputEnlist, privateDate, corporalDate, sergeantDate, inputEnd)

@@ -18,21 +18,23 @@ import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.textColorResource
 import org.threeten.bp.LocalDate
 
-
+@Suppress("NAME_SHADOWING")
 class CalendarFragment2 : Fragment() {
 
     private var adding = true
-    private var cal = LocalDate.now()
+
     private val today = LocalDate.now()
+    private var cal = LocalDate.now()
+    private var monthSchedules = listOf<Schedule>()
 
     private var daySelected = -1
 
     private var slots: Array<Button> = arrayOf()
     private var textSlots: Array<TextView> = arrayOf()
-    private var startSlot = 0
+    private var posPadding = 0
+
     private var eventTextViewNum = 0
     private var eventsinMonth: MutableList<TextView> = mutableListOf<TextView>()
-    var memoTyped = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,19 +85,7 @@ class CalendarFragment2 : Fragment() {
             val popupMenu = PopupMenu(wrapper, it)
             popupMenu.menuInflater.inflate(R.menu.calendar_setting_menu, popupMenu.menu)
 
-            popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.searchItem -> Toast.makeText(
-                        this.context!!,
-                        "1",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    else -> {
-                        it.isChecked = !it.isChecked
-                    }
-                }
-                false
-            }
+            popupMenu.setOnMenuItemClickListener { false }
             popupMenu.show()
         }
     }
@@ -107,7 +97,7 @@ class CalendarFragment2 : Fragment() {
     // Change to the previous or to the next month.
     private fun changeMonth(db: CalendarDB) {
         val prevNext = arrayOf(buttonLeft, Button(context), buttonRight)
-        for (i in 0 until prevNext.size step 2) {
+        for (i in prevNext.indices step 2) {
             prevNext[i].setOnClickListener {
                 cal = cal.plusMonths(i.toLong() - 1).withDayOfMonth(1)
                 updateCalendar(db)
@@ -136,33 +126,56 @@ class CalendarFragment2 : Fragment() {
         popupMenu.show()
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "SetTextI18n")
     private fun addSchedule(db: CalendarDB, type: String) {
         val popupView = when (type) {
             "휴가" -> layoutInflater.inflate(R.layout.add_leave, null)
             "외출" -> layoutInflater.inflate(R.layout.add_offpost, null)
             else -> layoutInflater.inflate(R.layout.add_pass, null)
         }
-        val popup = PopupWindow(popupView)
-        popup.isFocusable = true
-        popup.showAtLocation(view, Gravity.CENTER, 0, 0)
-        popup.update(
-            view,
-            resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
-        )
+        val popup = popup(popupView)
 
         // Initialize buttons of the popupView.
         val startSchedule = popupView.find<Button>(R.id.startSchedule)
-        val endSchedule = popupView.find<Button>(R.id.endSchedule)
+        // "외출" is an one-day schedule.
+        val endSchedule = if (type == "외출") {
+            popupView.find<Button>(R.id.startSchedule)
+        } else popupView.find(R.id.endSchedule)
         val titleInput = popupView.find<EditText>(R.id.nameEdit)
         val buttonRegister = popupView.find<Button>(R.id.RegisterBtn)
         val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
         val buttonInit = popupView.find<Button>(R.id.InitBtn)
         val buttonMemo = popupView.find<Button>(R.id.memoButton)
 
+        // Modify the title of the popupView based on the type of a schedule to add.
+        if (type != "휴가" && type != "외출") {
+            val typeText = popupView.find<TextView>(R.id.titleText)
+            typeText.text = "$type ${typeText.text}"
+        }
+
         startSchedule.setOnClickListener { setDate(startSchedule) }
         endSchedule.setOnClickListener { setDate(endSchedule) }
+
+        var memoString = ""
+        buttonMemo.setOnClickListener {
+            fun memoPopup() {
+                val popupView = layoutInflater.inflate(R.layout.add_memo, null)
+                val popup = popup(popupView)
+
+                val buttonRegister = popupView.find<Button>(R.id.RegisterBtn)
+                val buttonCancel = popupView.find<Button>(R.id.memoCancel)
+                val memoInput = popupView.find<EditText>(R.id.memoEdit)
+                memoInput.setText(memoString)
+
+                buttonRegister.setOnClickListener {
+                    memoString = memoInput.text.toString()
+                    popup.dismiss()
+                }
+
+                buttonCancel.setOnClickListener { popup.dismiss() }
+            }
+            memoPopup()
+        }
 
         buttonRegister.setOnClickListener {
             if (type == "휴가" || type == "외박") {
@@ -178,11 +191,8 @@ class CalendarFragment2 : Fragment() {
                 }
             }
             db.writeDB(
-                startSchedule.text.toString(),
-                endSchedule.text.toString(),
-                type,
-                titleInput.text.toString(),
-                ""
+                startSchedule.text.toString(), endSchedule.text.toString(), type,
+                titleInput.text.toString(), memoString
             )
             updateCalendar(db)
             popup.dismiss()
@@ -207,6 +217,14 @@ class CalendarFragment2 : Fragment() {
             textSlots[i].setBackgroundResource(0)
             textSlots[i].setBackgroundResource(0)
         }
+        // Clear up schedules of the current month.
+        if (eventTextViewNum != 0) {
+            calendarLayout.removeView(eventsinMonth[0])
+            if (eventTextViewNum >= 2) calendarLayout.removeView(eventsinMonth[1])
+            for (event in eventsinMonth) calendarLayout.removeView(event)
+        }
+        eventsinMonth.clear()
+        eventTextViewNum = 0
     }
 
     @SuppressLint("SetTextI18n")
@@ -215,14 +233,15 @@ class CalendarFragment2 : Fragment() {
         initCalendar()
 
         // Load schedules of the current month.
-        val monthSchedules = db.readDB(date2String(cal), "Month")
+        monthSchedules = db.readDB(date2String(cal), "Month")
         var scheduleIdx = 0
 
         textYear.text = "${cal.year}"
         textMonth.text = "${cal.monthValue}월"
 
         // Display dates and schedules of the current month.
-        var position = cal.withDayOfMonth(1).dayOfWeek.value % 7
+        posPadding = cal.withDayOfMonth(1).dayOfWeek.value % 7
+        var position = posPadding
         for (i in 1 until cal.lengthOfMonth() + 1) {
             textSlots[position].text = i.toString()
             // Set colors for weekends.
@@ -238,7 +257,8 @@ class CalendarFragment2 : Fragment() {
 
             // Display schedules starting from the current date.
             while (scheduleIdx < monthSchedules.size &&
-                monthSchedules[scheduleIdx].startDate.endsWith("%02d".format(i))) {
+                monthSchedules[scheduleIdx].startDate.endsWith("%02d".format(i))
+            ) {
                 displaySchedule(monthSchedules[scheduleIdx])
                 scheduleIdx += 1
             }
@@ -247,38 +267,28 @@ class CalendarFragment2 : Fragment() {
     }
 
     private fun displaySchedule(schedule: Schedule) {
+        val startDate = string2Date(schedule.startDate)
+        val endDate = string2Date(schedule.endDate)
+        var startPos = posPadding + startDate.dayOfMonth - 1
+        var endPos = posPadding + endDate.dayOfMonth - 1
 
-    }
-
-    private fun addEventinCalendar(
-        startDate: LocalDate,
-        endDate: LocalDate,
-        type: String,
-        text: String
-    ) {
-        var startPosition = startDate.dayOfMonth + startSlot - 1
-        var endPosition = endDate.dayOfMonth + startSlot - 1
         if (cal.year != startDate.year || cal.monthValue != startDate.monthValue) {
-            if (cal.year != endDate.year || cal.monthValue != endDate.monthValue) {
-                return
-            } else {
-                startPosition = startSlot
-            }
-        } else {
-            if (endDate.monthValue != startDate.monthValue) {
-                endPosition =
-                    startDate.withDayOfMonth(1).plusMonths(1).minusDays(1).dayOfMonth + startSlot - 1
-            }
-        }
+            if (cal.year != endDate.year || cal.monthValue != endDate.monthValue) return
+            else startPos = posPadding
+        } else if (startDate.monthValue != endDate.monthValue) endPos =
+            startDate.lengthOfMonth() - 1
 
-        if ((startPosition) / 7 == (endPosition) / 7) {
-            drawEventTextView(startPosition, endPosition, type, text)
-        } else {
-            drawEventTextView(startPosition, (startPosition / 7) * 7 + 6, type, text)
-            for (i in (startPosition / 7) + 1..(endPosition / 7) - 1) {
-                drawEventTextView(i * 7, i * 7 + 6, type, text)
-            }
-            drawEventTextView((endPosition / 7) * 7, endPosition, type, text)
+        if (startPos / 7 == endPos / 7) drawEventTextView(
+            startPos,
+            endPos,
+            schedule.type,
+            schedule.title
+        )
+        else {
+            drawEventTextView(startPos, (startPos / 7) * 7 + 6, schedule.type, schedule.title)
+            for (i in startPos / 7 + 1 until endPos / 7 - 1)
+                drawEventTextView(7 * i, 7 * i + 6, schedule.type, schedule.title)
+            drawEventTextView((endPos / 7) * 7, endPos, schedule.type, schedule.title)
         }
     }
 
@@ -350,6 +360,20 @@ class CalendarFragment2 : Fragment() {
     Utils
      ************************************************************************/
 
+    private fun popup(popupView: View): PopupWindow {
+        val popup = PopupWindow(popupView)
+        popup.apply {
+            isFocusable = true
+            showAtLocation(view, Gravity.CENTER, 0, 0)
+            update(
+                view,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels
+            )
+        }
+        return popup
+    }
+
     private fun setDate(button: Button) {
         // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
@@ -379,10 +403,6 @@ class CalendarFragment2 : Fragment() {
 
     private fun date2String(date: LocalDate): String {
         return "${date.year}-${"%02d".format(date.monthValue)}"
-    }
-
-    private fun month2String(date: LocalDate): String {
-        return "${date.year}-${"%02d".format(date.monthValue)}-${"%02d".format(date.dayOfMonth)}"
     }
 
     @SuppressLint("SimpleDateFormat")
