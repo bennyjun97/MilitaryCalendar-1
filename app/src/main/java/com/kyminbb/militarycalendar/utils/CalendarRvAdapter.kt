@@ -13,7 +13,7 @@ import com.kyminbb.militarycalendar.R
 import org.jetbrains.anko.imageResource
 
 
-class CalendarRvAdapter(val context: Context, val eventList: ArrayList<Event>)
+class CalendarRvAdapter(val context: Context, private val eventList: List<Event>)
     :  RecyclerView.Adapter<CalendarRvAdapter.Holder>() {
 
 

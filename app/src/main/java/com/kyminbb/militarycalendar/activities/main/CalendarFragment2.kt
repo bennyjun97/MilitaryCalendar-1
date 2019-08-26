@@ -1,12 +1,14 @@
 package com.kyminbb.militarycalendar.activities.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
 import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.kyminbb.militarycalendar.R
 import com.kyminbb.militarycalendar.database.CalendarDB
 import com.kyminbb.militarycalendar.database.Schedule
@@ -21,20 +23,18 @@ import org.threeten.bp.LocalDate
 @Suppress("NAME_SHADOWING")
 class CalendarFragment2 : Fragment() {
 
-    private var adding = true
+    private var adding = false
 
     private val today = LocalDate.now()
     private var cal = LocalDate.now()
     private var monthSchedules = listOf<Schedule>()
-
-    private var daySelected = -1
 
     private var slots: Array<Button> = arrayOf()
     private var textSlots: Array<TextView> = arrayOf()
     private var posPadding = 0
 
     private var eventTextViewNum = 0
-    private var eventsinMonth: MutableList<TextView> = mutableListOf<TextView>()
+    private var eventsinMonth = mutableListOf<TextView>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,22 +57,57 @@ class CalendarFragment2 : Fragment() {
             day39, day40, day41, day42
         )
         textSlots = arrayOf(
-            dayText1, dayText2, dayText3, dayText4, dayText5, dayText6, dayText7, dayText8, dayText9,
-            dayText10, dayText11, dayText12, dayText13, dayText14, dayText15, dayText16, dayText17,
-            dayText18, dayText19, dayText20, dayText21, dayText22, dayText23, dayText24, dayText25,
-            dayText26, dayText27, dayText28, dayText29, dayText30, dayText31, dayText32, dayText33,
-            dayText34, dayText35, dayText36, dayText37, dayText38, dayText39, dayText40, dayText41,
+            dayText1,
+            dayText2,
+            dayText3,
+            dayText4,
+            dayText5,
+            dayText6,
+            dayText7,
+            dayText8,
+            dayText9,
+            dayText10,
+            dayText11,
+            dayText12,
+            dayText13,
+            dayText14,
+            dayText15,
+            dayText16,
+            dayText17,
+            dayText18,
+            dayText19,
+            dayText20,
+            dayText21,
+            dayText22,
+            dayText23,
+            dayText24,
+            dayText25,
+            dayText26,
+            dayText27,
+            dayText28,
+            dayText29,
+            dayText30,
+            dayText31,
+            dayText32,
+            dayText33,
+            dayText34,
+            dayText35,
+            dayText36,
+            dayText37,
+            dayText38,
+            dayText39,
+            dayText40,
+            dayText41,
             dayText42
         )
 
         updateCalendar(db)
-
         changeMonth(db)
 
         // Show the menu for adding a schedule.
         buttonAdd.setOnClickListener {
-            addTab.visibility = if (adding) View.VISIBLE else View.GONE
             adding = !adding
+            addTab.visibility = if (adding) View.VISIBLE else View.GONE
         }
 
         addLeave.setOnClickListener { addLeaveMenu(db) }
@@ -103,6 +138,94 @@ class CalendarFragment2 : Fragment() {
                 updateCalendar(db)
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun viewDate(idx: Int) {
+        addTab.visibility = View.GONE
+        adding = false
+
+        textDate.text = "${cal.monthValue}월 ${textSlots[idx].text}일"
+
+        val dateSchedules = getDateSchedules(textSlots[idx].text.toString())
+        if (dateSchedules.isEmpty()) {
+            dayTypeText.text = "일정 없음"
+            commentText.text = ""
+        } else {
+            for (schedule in dateSchedules) {
+                dayTypeText.text = schedule.type
+                commentText.text = schedule.title
+            }
+        }
+    }
+
+    private fun getDateSchedules(date: String): List<Schedule> {
+        val curDate = string2Date(date2String(cal.year, cal.monthValue, Integer.parseInt(date)))
+        val schedules = mutableListOf<Schedule>()
+        for (schedule in monthSchedules) {
+            val startDate = string2Date(schedule.startDate)
+            val endDate = string2Date(schedule.endDate)
+            // Add if the current date is within the period of a schedule.
+            if (curDate.isEqual(startDate) ||
+                (curDate.isAfter(startDate) && curDate.isBefore(endDate)) || curDate.isEqual(endDate)
+            ) schedules.add(schedule)
+        }
+        return schedules
+    }
+
+    @SuppressLint("InflateParams")
+    private fun dayLayoutPopup(idx: Int) {
+        val popupView = layoutInflater.inflate(R.layout.calendar_day_layout, null)
+        val popup = popup(popupView)
+
+        val dateText = popupView.find<TextView>(R.id.titleText)
+        val buttonLeft = popupView.find<ImageButton>(R.id.buttonLeft)
+        val buttonRight = popupView.find<ImageButton>(R.id.buttonRight)
+        val buttonClose = popupView.find<Button>(R.id.buttonClose)
+        val recycler = popupView.find<RecyclerView>(R.id.calendarDayRecycler)
+
+        val curDate = string2Date(
+            date2String(
+                cal.year,
+                cal.monthValue,
+                Integer.parseInt(textSlots[idx].text.toString())
+            )
+        )
+        dateText.text = date2String(curDate)
+        updateRecyclerView(recycler, this.context!!, dateText.text.toString())
+
+        buttonLeft.setOnClickListener {
+            dateText.text = date2String(curDate.minusDays(1))
+            updateRecyclerView(recycler, this.context!!, dateText.text.toString())
+        }
+        buttonRight.setOnClickListener {
+            dateText.text = date2String(curDate.plusDays(1))
+            updateRecyclerView(recycler, this.context!!, dateText.text.toString())
+        }
+        buttonClose.setOnClickListener { popup.dismiss() }
+    }
+
+    private fun updateRecyclerView(recycler: RecyclerView, context: Context, date: String) {
+        // Add a recyclerView.
+        val schedules = getDateSchedules(date)
+        /*val adapter = CalendarRvAdapter(activity!!.applicationContext, schedules)
+        recycler.adapter = adapter
+
+        adapter.setOnItemClickListener(object: CalendarRvAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, position: Int) {
+                val popupEditMenu = PopupMenu(context, v)
+                popupEditMenu.menuInflater.inflate(R.menu.bank_recycler_edit_menu, popupEditMenu.menu)
+                popupEditMenu.setOnMenuItemClickListener {
+                    when ((it.itemId)) {
+                        R.id.bankRecyclerEdit -> toast("1")
+                        else -> {
+                        }
+                    }
+                    true
+                }
+                popupEditMenu.show()
+            }
+        })*/
     }
 
     /************************************************************************
@@ -234,7 +357,7 @@ class CalendarFragment2 : Fragment() {
         initCalendar()
 
         // Load schedules of the current month.
-        monthSchedules = db.readDB(date2String(cal), "Month")
+        monthSchedules = db.readDB(month2String(cal), "Month")
         var scheduleIdx = 0
 
         textYear.text = "${cal.year}"
@@ -265,6 +388,17 @@ class CalendarFragment2 : Fragment() {
             }
             position += 1
         }
+
+        // Update clickable dates.
+        for (i in posPadding until posPadding + cal.lengthOfMonth()) {
+            slots[i].setOnClickListener { viewDate(i) }
+            slots[i].setOnLongClickListener {
+                dayLayoutPopup(i)
+                true
+            }
+        }
+        // View contents of cal: LocalDate if no date is selected.
+        viewDate(posPadding + cal.dayOfMonth - 1)
     }
 
     private fun displaySchedule(schedule: Schedule) {
@@ -299,36 +433,26 @@ class CalendarFragment2 : Fragment() {
         eventsinMonth[eventTextViewNum].id = View.generateViewId()
         constraintSet.clone(calendarLayout)
         constraintSet.connect(
-            eventsinMonth[eventTextViewNum].id,
-            ConstraintSet.START,
-            slots[startPos].id,
-            ConstraintSet.START
+            eventsinMonth[eventTextViewNum].id, ConstraintSet.START,
+            slots[startPos].id, ConstraintSet.START
         )
         constraintSet.connect(
-            eventsinMonth[eventTextViewNum].id,
-            ConstraintSet.END,
-            slots[endPos].id,
-            ConstraintSet.END
+            eventsinMonth[eventTextViewNum].id, ConstraintSet.END,
+            slots[endPos].id, ConstraintSet.END
         )
         constraintSet.connect(
-            eventsinMonth[eventTextViewNum].id,
-            ConstraintSet.BOTTOM,
-            slots[startPos].id,
-            ConstraintSet.BOTTOM
+            eventsinMonth[eventTextViewNum].id, ConstraintSet.BOTTOM,
+            slots[startPos].id, ConstraintSet.BOTTOM
         )
         constraintSet.connect(
-            eventsinMonth[eventTextViewNum].id,
-            ConstraintSet.TOP,
-            textSlots[endPos].id,
-            ConstraintSet.BOTTOM
+            eventsinMonth[eventTextViewNum].id, ConstraintSet.TOP,
+            textSlots[endPos].id, ConstraintSet.BOTTOM
         )
         constraintSet.constrainWidth(
-            eventsinMonth[eventTextViewNum].id,
-            ConstraintSet.MATCH_CONSTRAINT
+            eventsinMonth[eventTextViewNum].id, ConstraintSet.MATCH_CONSTRAINT
         )
         constraintSet.constrainHeight(
-            eventsinMonth[eventTextViewNum].id,
-            ConstraintSet.WRAP_CONTENT
+            eventsinMonth[eventTextViewNum].id, ConstraintSet.WRAP_CONTENT
         )
         constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.START, 4)
         constraintSet.setMargin(eventsinMonth[eventTextViewNum].id, ConstraintSet.END, 4)
@@ -403,6 +527,10 @@ class CalendarFragment2 : Fragment() {
     }
 
     private fun date2String(date: LocalDate): String {
+        return "${date.year}-${"%02d".format(date.monthValue)}-${"%02d".format(date.dayOfMonth)}"
+    }
+
+    private fun month2String(date: LocalDate): String {
         return "${date.year}-${"%02d".format(date.monthValue)}"
     }
 

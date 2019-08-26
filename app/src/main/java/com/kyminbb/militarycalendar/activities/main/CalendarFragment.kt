@@ -376,13 +376,8 @@ class CalendarFragment : Fragment() {
     ) {
         dbHelper.use {
             insert(
-                TableReaderContract.TableEntry2.TABLE_NAME,
-                TableReaderContract.TableEntry2.COLUMN_DATE to date,
-                TableReaderContract.TableEntry2.COLUMN_NAME to name,
-                TableReaderContract.TableEntry2.COLUMN_CONTENT to content,
-                TableReaderContract.TableEntry2.COLUMN_MEMO to memo,
-                TableReaderContract.TableEntry2.COLUMN_START to startDate,
-                TableReaderContract.TableEntry2.COLUMN_END to endDate
+                TableReaderContract.TableEntry.TABLE_NAME,
+                TableReaderContract.TableEntry.COLUMN_MEMO to memo
             )
         }
     }
@@ -450,12 +445,10 @@ class CalendarFragment : Fragment() {
     private fun readDBEachDate(dbHelper: DBHelper, date: String): List<Triple<String, String, String>> {
         return dbHelper.use {
             select(
-                TableReaderContract.TableEntry2.TABLE_NAME,
-                TableReaderContract.TableEntry2.COLUMN_NAME,
-                TableReaderContract.TableEntry2.COLUMN_MEMO,
-                TableReaderContract.TableEntry2.COLUMN_CONTENT
+                TableReaderContract.TableEntry.TABLE_NAME,
+                TableReaderContract.TableEntry.COLUMN_MEMO
             )
-                .whereSimple("${TableReaderContract.TableEntry2.COLUMN_DATE} = ?", date).exec {
+                .whereSimple("${TableReaderContract.TableEntry} = ?", date).exec {
                     val parser = rowParser { name: String, memo: String, content: String ->
                         Triple(name, memo, content)
                     }
@@ -468,12 +461,9 @@ class CalendarFragment : Fragment() {
     private fun readDBStartEndDates(dbHelper: DBHelper, date: String): List<Triple<String, String, String>> {
         return dbHelper.use {
             select(
-                TableReaderContract.TableEntry2.TABLE_NAME,
-                TableReaderContract.TableEntry2.COLUMN_CONTENT,
-                TableReaderContract.TableEntry2.COLUMN_START,
-                TableReaderContract.TableEntry2.COLUMN_END
+                TableReaderContract.TableEntry.TABLE_NAME
             )
-                .whereSimple("${TableReaderContract.TableEntry2.COLUMN_DATE} = ?", date).exec {
+                .whereSimple("${TableReaderContract.TableEntry} = ?", date).exec {
                     val parser = rowParser { content: String, startDate: String, endDate: String ->
                         Triple(content, startDate, endDate)
                     }
@@ -1049,8 +1039,8 @@ class CalendarFragment : Fragment() {
             resources.displayMetrics.heightPixels
         )
 
-        val buttonLeft = popupView.find<ImageButton>(R.id.LeftButton)
-        val buttonRight = popupView.find<ImageButton>(R.id.RightButton)
+        val buttonLeft = popupView.find<ImageButton>(R.id.buttonLeft)
+        val buttonRight = popupView.find<ImageButton>(R.id.buttonRight)
         val dateText = popupView.find<TextView>(R.id.titleText)
         val recycler = popupView.find<RecyclerView>(R.id.calendarDayRecycler)
 
