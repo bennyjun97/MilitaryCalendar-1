@@ -1024,4 +1024,15 @@
             android:gravity="center" android:layout_weight="1"
             android:fontFamily="@font/jalnan"
             android:layout_marginTop="2dp"/>
+
+    <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:scaleType="fitEnd"
+            app:layout_constraintBottom_toTopOf="@+id/bottomGuide"
+            app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+            app:layout_constraintTop_toTopOf="@+id/week6Guide"
+            app:srcCompat="@drawable/types_of_plans" />
 </androidx.constraintlayout.widget.ConstraintLayout>
