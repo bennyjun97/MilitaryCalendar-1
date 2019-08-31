@@ -340,6 +340,8 @@ class CalendarFragment2 : Fragment() {
             textSlots[i].text = ""
             textSlots[i].setBackgroundResource(0)
             textSlots[i].setBackgroundResource(0)
+            textSlots[i].textColorResource = R.color.dateButtons
+
         }
         // Clear up schedules of the current month.
         if (eventTextViewNum != 0) {
@@ -377,6 +379,7 @@ class CalendarFragment2 : Fragment() {
             // https://stackoverflow.com/questions/25203501/android-creating-a-circular-textview
             if (cal.year == today.year && cal.monthValue == today.monthValue && i == today.dayOfMonth) {
                 textSlots[position].setBackgroundResource(R.drawable.rounded_textview)
+                textSlots[position].textColorResource = R.color.dateButtons
             }
 
             // Display schedules starting from the current date.
@@ -502,6 +505,9 @@ class CalendarFragment2 : Fragment() {
     private fun setDate(button: Button) {
         // Use SpinnerDatePicker to select date.
         // https://github.com/drawers/SpinnerDatePicker
+
+        /*
+
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             button.text = date2String(year, month + 1, day)
         }
@@ -520,6 +526,8 @@ class CalendarFragment2 : Fragment() {
             dialog.defaultDate(curDate.year, curDate.monthValue - 1, curDate.dayOfMonth)
         }
         dialog.build().show()
+
+         */
     }
 
     private fun date2String(year: Int, month: Int, dayOfMonth: Int): String {
