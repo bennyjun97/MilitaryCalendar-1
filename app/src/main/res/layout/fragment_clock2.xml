@@ -252,14 +252,18 @@
             </RelativeLayout>
 
         </LinearLayout>
+
         <ImageView
-                android:layout_width="100dp"
-                android:layout_height="0dp" app:srcCompat="@drawable/rank1"
                 android:id="@+id/imageView"
-                app:layout_constraintBottom_toTopOf="@+id/guideline1" app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="55dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toTopOf="@+id/guideline1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="16dp"/>
+                app:srcCompat="@drawable/slide_button" />
         <TextView
                 android:text="@string/clockTotalProgress"
                 android:fontFamily="sans-serif"
