@@ -151,7 +151,7 @@
                 app:layout_constraintTop_toTopOf="@+id/InitBtn"
                 app:layout_constraintBottom_toBottomOf="@+id/InitBtn"/>
         <Button
-                android:text="외박 등록"
+                android:text="등록"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/lee_header_regular"

@@ -17,6 +17,7 @@ import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import kotlinx.android.synthetic.main.fragment_calendar2.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.textColor
 import org.jetbrains.anko.textColorResource
 import org.threeten.bp.LocalDate
 
@@ -35,6 +36,7 @@ class CalendarFragment2 : Fragment() {
 
     private var eventTextViewNum = 0
     private var eventsinMonth = mutableListOf<TextView>()
+    private var extraEventsOfDay = mutableListOf<TextView>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -147,7 +149,7 @@ class CalendarFragment2 : Fragment() {
 
         textDate.text = "${cal.monthValue}월 ${textSlots[idx].text}일"
 
-        val dateSchedules = getDateSchedules(textSlots[idx].text.toString())
+        val dateSchedules = getDateSchedules(date2String(cal.year, cal.monthValue, Integer.parseInt(textSlots[idx].text.toString())))
         if (dateSchedules.isEmpty()) {
             dayTypeText.text = "일정 없음"
             commentText.text = ""
@@ -160,7 +162,8 @@ class CalendarFragment2 : Fragment() {
     }
 
     private fun getDateSchedules(date: String): List<Schedule> {
-        val curDate = string2Date(date2String(cal.year, cal.monthValue, Integer.parseInt(date)))
+        //val curDate = string2Date(date2String(cal.year, cal.monthValue, Integer.parseInt(date)))
+        val curDate = string2Date(date2String(cal.year, cal.monthValue, string2Date(date).dayOfMonth))
         val schedules = mutableListOf<Schedule>()
         for (schedule in monthSchedules) {
             val startDate = string2Date(schedule.startDate)
@@ -263,7 +266,7 @@ class CalendarFragment2 : Fragment() {
         // "외출" is an one-day schedule.
         val endSchedule = if (type == "외출") {
             popupView.find<Button>(R.id.startSchedule)
-        } else popupView.find(R.id.endSchedule)
+        } else { popupView.find(R.id.endSchedule) }
         val titleInput = popupView.find<EditText>(R.id.nameEdit)
         val buttonRegister = popupView.find<Button>(R.id.RegisterBtn)
         val buttonCancel = popupView.find<Button>(R.id.CancelBtn)
@@ -274,6 +277,7 @@ class CalendarFragment2 : Fragment() {
         if (type != "휴가" && type != "외출") {
             val typeText = popupView.find<TextView>(R.id.titleText)
             typeText.text = "$type ${typeText.text}"
+            buttonRegister.text = "$type ${buttonRegister.text}"
         }
 
         startSchedule.setOnClickListener { setDate(startSchedule) }
@@ -349,8 +353,10 @@ class CalendarFragment2 : Fragment() {
             if (eventTextViewNum >= 2) calendarLayout.removeView(eventsinMonth[1])
             for (event in eventsinMonth) calendarLayout.removeView(event)
         }
-        eventsinMonth.clear()
-        eventTextViewNum = 0
+        for(extraEvents in extraEventsOfDay) {
+            calendarLayout.removeView(extraEvents)
+        }
+        extraEventsOfDay.clear()
     }
 
     @SuppressLint("SetTextI18n")
@@ -370,6 +376,11 @@ class CalendarFragment2 : Fragment() {
         var position = posPadding
         for (i in 1 until cal.lengthOfMonth() + 1) {
             textSlots[position].text = i.toString()
+            // Display the number of extra events when there are more than 4 events that day
+            val numOfEvents = getDateSchedules(date2String(cal.withDayOfMonth(i))).size
+            if(numOfEvents > 4) {
+                drawExtraEventsOfDay(position, numOfEvents - 4)
+            }
             // Set colors for weekends.
             if (position % 7 == 0) textSlots[position].textColorResource =
                 R.color.horizontalProgressbarRed
@@ -545,5 +556,36 @@ class CalendarFragment2 : Fragment() {
     @SuppressLint("SimpleDateFormat")
     private fun string2Date(date: String): LocalDate {
         return LocalDate.parse(date)
+    }
+
+    //draw a textView that indicates how may more events there are on that day
+    private fun drawExtraEventsOfDay(pos: Int, extraEvents : Int) {
+        val constraintSet = ConstraintSet()
+        extraEventsOfDay.add(TextView(this.context))
+        extraEventsOfDay[extraEventsOfDay.size - 1].id = View.generateViewId()
+        constraintSet.clone(calendarLayout)
+        constraintSet.connect(
+            extraEventsOfDay[extraEventsOfDay.size - 1].id, ConstraintSet.END,
+            slots[pos].id, ConstraintSet.END
+        )
+        constraintSet.connect(
+            extraEventsOfDay[extraEventsOfDay.size - 1].id, ConstraintSet.BOTTOM,
+            textSlots[pos].id, ConstraintSet.BOTTOM
+        )
+        constraintSet.connect(
+            extraEventsOfDay[extraEventsOfDay.size - 1].id, ConstraintSet.TOP,
+            textSlots[pos].id, ConstraintSet.TOP
+        )
+        constraintSet.constrainWidth(
+            extraEventsOfDay[extraEventsOfDay.size - 1].id, ConstraintSet.WRAP_CONTENT
+        )
+        constraintSet.constrainHeight(
+            extraEventsOfDay[extraEventsOfDay.size - 1].id, ConstraintSet.WRAP_CONTENT
+        )
+        extraEventsOfDay[extraEventsOfDay.size - 1].text = "+" + extraEvents
+        extraEventsOfDay[extraEventsOfDay.size - 1].textSize = 9.0f
+        extraEventsOfDay[extraEventsOfDay.size - 1].textColor = R.color.horizontalProgressbarBlue
+        calendarLayout.addView(extraEventsOfDay[extraEventsOfDay.size - 1])
+        constraintSet.applyTo(calendarLayout)
     }
 }
