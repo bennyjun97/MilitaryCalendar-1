@@ -23,14 +23,16 @@
                 android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
 
         <TextView
+                android:id="@+id/untilEndText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:fontFamily="sans-serif"
+                android:gravity="center|start"
                 android:text="@string/clockUnitlEnd"
-                android:fontFamily="@font/lee_header_regular"
-                android:layout_height="wrap_content" android:layout_width="0dp"
-                android:id="@+id/untilEndText" android:layout_weight="0.4"
-                android:gravity="center|start" android:textSize="26sp"
-                app:layout_constraintStart_toStartOf="@+id/guideline28"
+                android:textSize="26sp"
                 app:layout_constraintBottom_toBottomOf="@+id/profileImage"
-        />
+                app:layout_constraintStart_toStartOf="@+id/guideline28" />
         <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="30dp" android:id="@+id/buttonEdit"
@@ -40,24 +42,32 @@
                 app:layout_constraintTop_toTopOf="@+id/nameText"
                 app:layout_constraintBottom_toBottomOf="@+id/nameText"
                 app:layout_constraintEnd_toStartOf="@+id/guideline30"/>
+
         <TextView
-                android:text="@string/clockPromotion"
-                android:fontFamily="@font/lee_header_regular"
+                android:id="@+id/rankText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/rankText"
-                android:gravity="center_vertical|start" android:textSize="32sp" android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical|start"
+                android:text="@string/clockPromotion"
+                android:textSize="32sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline28"
-                app:layout_constraintTop_toTopOf="@+id/profileImage"
-        />
+                app:layout_constraintTop_toTopOf="@+id/profileImage" />
+
         <TextView
-                android:text="@string/clockName"
-                android:fontFamily="@font/lee_header_regular"
+                android:id="@+id/nameText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" android:id="@+id/nameText"
-                android:gravity="center" android:textSize="32sp" android:textStyle="normal"
-                app:layout_constraintTop_toTopOf="@+id/rankText"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/clockName"
+                android:textSize="32sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/rankText"
                 app:layout_constraintStart_toEndOf="@+id/rankText"
-                app:layout_constraintBottom_toBottomOf="@+id/rankText" android:layout_marginStart="8dp"/>
+                app:layout_constraintTop_toTopOf="@+id/rankText" />
         <androidx.constraintlayout.widget.Guideline
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -69,16 +79,21 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/guideline25" app:layout_constraintGuide_percent="0.80"
                 app:layout_constraintTop_toBottomOf="parent" app:layout_constraintBottom_toTopOf="@+id/textView1"/>
+
         <TextView
-                android:text="@string/clockCurrentTimeMessage"
-                android:fontFamily="@font/lee_header_regular"
+                android:id="@+id/textView1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_weight="0.3"
-                android:gravity="center" android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/guideline29" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline30" app:layout_constraintHorizontal_bias="0.5"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/clockCurrentTimeMessage"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/clockText"
-                app:layout_constraintTop_toBottomOf="@+id/guideline25"/>
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toBottomOf="@+id/guideline25" />
         <TextView
                 android:text="@string/clockCurrentTime"
                 android:fontFamily="@font/lee_text_m"
