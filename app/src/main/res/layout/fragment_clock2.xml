@@ -288,8 +288,7 @@
                 android:textColor="@color/horizontalProgressbarGreen"
                 android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="@+id/entirePercentText"
-                app:layout_constraintBottom_toBottomOf="@+id/progressCurrentMonthText"
-                app:layout_constraintTop_toTopOf="@+id/progressCurrentMonthText"/>
+                app:layout_constraintBottom_toTopOf="@+id/progressBarHobong"/>
         <TextView
                 android:text="@string/clockHobong"
                 android:fontFamily="sans-serif"
@@ -297,25 +296,17 @@
                 android:id="@+id/progressMonthText"
                 android:textColor="@color/horizontalProgressbarGreen" android:textSize="28sp"
                 app:layout_constraintTop_toTopOf="@+id/progressCurrentMonthText"
-                app:layout_constraintBottom_toBottomOf="@+id/progressCurrentMonthText"
-                app:layout_constraintStart_toEndOf="@+id/progressMonthRankText" android:layout_marginStart="8dp"/>
+                app:layout_constraintStart_toEndOf="@+id/progressMonthRankText"
+                app:layout_constraintBottom_toTopOf="@+id/progressBarHobong" android:layout_marginStart="8dp"/>
         <TextView
                 android:text="@string/clockPromotion"
                 android:fontFamily="sans-serif"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:id="@+id/progressMonthRankText"
                 android:textColor="@color/horizontalProgressbarGreen" android:textSize="28sp"
-                app:layout_constraintStart_toEndOf="@+id/progressCurrentMonthText" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="@+id/clockTotalProgresText"
                 app:layout_constraintBottom_toBottomOf="@+id/progressCurrentMonthText"
-                app:layout_constraintTop_toTopOf="@+id/progressCurrentMonthText"/>
-        <TextView
-                android:text="@string/clockCurrentHobongText"
-                android:fontFamily="sans-serif"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:id="@+id/progressCurrentMonthText"
-                android:textColor="@color/horizontalProgressbarGreen" android:textSize="28sp"
-                app:layout_constraintBottom_toTopOf="@+id/progressBarHobong" android:layout_marginBottom="8dp"
-                app:layout_constraintStart_toStartOf="@+id/clockTotalProgresText"/>
+                app:layout_constraintBottom_toTopOf="@+id/progressBarHobong"/>
         <TextView
                 android:text="@string/clockTotalProgress"
                 android:fontFamily="sans-serif"
@@ -325,7 +316,7 @@
                 android:textColor="@color/horizontalProgressbarBlue"
                 android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="@+id/entirePercentText"
-                app:layout_constraintBottom_toBottomOf="@+id/progressCurrentRankText"
+                app:layout_constraintBottom_toTopOf="@+id/progressBarRank"
                 app:layout_constraintTop_toTopOf="@+id/progressCurrentRankText"/>
         <TextView
                 android:text="@string/clockPromotion"
@@ -333,22 +324,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/progressRankText"
-                android:layout_marginStart="8dp"
                 android:textSize="28sp"
                 android:textColor="@color/horizontalProgressbarBlue"
-                app:layout_constraintStart_toEndOf="@+id/progressCurrentRankText"
-                app:layout_constraintTop_toTopOf="@+id/progressCurrentRankText"
-                app:layout_constraintBottom_toBottomOf="@+id/progressCurrentRankText"/>
-        <TextView
-                android:text="@string/clockCurrentRankText"
-                android:fontFamily="sans-serif"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/progressCurrentRankText"
                 app:layout_constraintStart_toStartOf="@+id/clockTotalProgresText"
-                android:textSize="28sp"
-                android:textColor="@color/horizontalProgressbarBlue"
-                app:layout_constraintBottom_toTopOf="@+id/progressBarRank" android:layout_marginBottom="8dp"/>
+                app:layout_constraintTop_toTopOf="@+id/progressCurrentRankText"
+                app:layout_constraintBottom_toTopOf="@+id/progressBarRank"/>
+
         <ProgressBar android:layout_width="0dp" android:layout_height="20dp"
                      style="@android:style/Widget.ProgressBar.Horizontal"
                      android:max="100"
@@ -399,7 +380,7 @@
                 android:textSize="28sp"
                 android:textColor="@color/horizontalProgressbarRed"
                 android:layout_marginStart="16dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/progressBarTotal"/>
         <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
