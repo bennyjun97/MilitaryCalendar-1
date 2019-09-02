@@ -33,6 +33,7 @@ class CalendarFragment2 : Fragment() {
     private var slots: Array<Button> = arrayOf()
     private var textSlots: Array<TextView> = arrayOf()
     private var posPadding = 0
+    private var daySelected = -1
 
     private var eventTextViewNum = 0
     private var eventsinMonth = mutableListOf<TextView>()
@@ -340,6 +341,7 @@ class CalendarFragment2 : Fragment() {
      ************************************************************************/
 
     private fun initCalendar() {
+        daySelected = -1
         for (i in 0..41) {
             textSlots[i].text = ""
             textSlots[i].setBackgroundResource(0)
@@ -405,7 +407,14 @@ class CalendarFragment2 : Fragment() {
 
         // Update clickable dates.
         for (i in posPadding until posPadding + cal.lengthOfMonth()) {
-            slots[i].setOnClickListener { viewDate(i) }
+            slots[i].setOnClickListener {
+                viewDate(i)
+                if(daySelected != -1) {
+                    slots[daySelected].setBackgroundResource(R.drawable.calendar_button)
+                }
+                daySelected = Integer.parseInt(textSlots[i].text.toString()) + posPadding -1
+                slots[daySelected].setBackgroundResource(R.drawable.calendar_stroke)
+            }
             slots[i].setOnLongClickListener {
                 dayLayoutPopup(i)
                 true
